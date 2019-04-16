@@ -1,9 +1,10 @@
 <div class='app-calendar'>
-    <full-calendar #calendar defaultView="dayGridMonth" [header]="{
+    <full-calendar #calendar defaultView="dayGridMonth" selectable="true" [header]="{
                           left: 'prev,next today',
                           center: 'title',
                           right: 'dayGridMonth,timeGridWeek'
-                        }" [plugins]="calendarPlugins" [events]="calendarEvents" (dateClick)="handleDateClick($event)">
+                        }" [plugins]="calendarPlugins" [events]="calendarEvents" (dateClick)="handleDateClick($event)"
+        (select)="select($event)">
     </full-calendar>
 </div>
 <div class="selection">
@@ -16,6 +17,8 @@
                         (click)="getIndex(leave)">
                         {{leave.leaveTypeName}}</mat-option>
                 </mat-select>
+                <mat-error *ngIf="!applyLeaveForm.leaveTypes" style="padding: 5px;padding-left: 0;">
+                    Please select one leave type</mat-error>
             </mat-form-field>
             &nbsp;&nbsp;
             <mat-form-field style="width: 24%" appearance="outline">
@@ -66,7 +69,7 @@
                         (selectionChange)="dayTypesChanged($event)">
                         <mat-option value="0"> Full Day</mat-option>
                         <mat-option value="1"> Half Day</mat-option>
-                        <mat-option value="2"> Quarter Day</mat-option>
+                        <mat-option value="2" *ngIf="daysCount === 1"> Quarter Day</mat-option>
                     </mat-select>
                 </mat-form-field>
                 &nbsp;&nbsp;
@@ -103,12 +106,13 @@
         </mat-form-field>
 
         <div style="text-align: center;">
-            <ion-button shape="round" fill="outline" (click)="applyLeaveForm.reset(); daysAvailable='';daysCount='0'"
+            <ion-button shape="round" fill="outline"
+                (click)="applyLeaveForm.reset(); daysAvailable='';daysCount='0';minDate='';maxDate=''"
                 style="height: 27px; font-size: 12px;text-transform: none">Clear
             </ion-button>
             <ion-button shape="round" style="height: 27px;font-size: 12px;width: 115px;text-transform: none"
                 [disabled]="!applyLeaveForm.valid"
-                (click)="postData(); applyLeaveForm.reset(); daysAvailable='';daysCount='0'">
+                (click)="postData(); applyLeaveForm.reset(); daysAvailable='';daysCount='0';minDate='';maxDate=''">
                 Apply for {{daysCount}} days
             </ion-button>
         </div>

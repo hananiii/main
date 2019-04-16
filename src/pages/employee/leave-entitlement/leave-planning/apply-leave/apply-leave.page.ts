@@ -6,7 +6,7 @@ export enum DayType {
 
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { APIService } from 'src/services/shared-service/api.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { EventInput } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -25,6 +25,7 @@ const moment = _moment;
 export class ApplyLeavePage implements OnInit {
 
     private _userList: any;
+    private _leaveTypeName: string;
     public entitlement: any;
     public dateArray: any;
     public leaveTypeId: string;
@@ -38,7 +39,7 @@ export class ApplyLeavePage implements OnInit {
     public halfDaydates: string;
     public calendarPlugins = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
     public calendarEvents: EventInput[] = [
-        { title: 'Event today', start: new Date(), allDay: true }
+        { title: 'Wesak Day', start: new Date('05-12-2019'), end: new Date('05-16-2019'), allDay: true }
     ];
     public minDate: string;
     public maxDate: string;
@@ -60,7 +61,7 @@ export class ApplyLeavePage implements OnInit {
         inputReason: new FormControl('', Validators.required),
     });
 
-    constructor(private apiService: APIService, private router: Router,
+    constructor(private apiService: APIService,
         private route: ActivatedRoute) {
     }
 
@@ -81,12 +82,28 @@ export class ApplyLeavePage implements OnInit {
                 this._userList = data;
                 this.entitlement = this._userList.entitlementDetail;
                 console.log('entitlement', this.entitlement);
+            },
+            error => {
+                if (error) {
+                    window.location.href = '/login';
+                }
             }
         );
         setTimeout(() => {
             let calendarApi = this.calendarComponent.getApi();
             calendarApi.render();
         }, 100);
+    }
+
+    select(event) {
+        this.applyLeaveForm.patchValue({
+            firstPicker: event.start,
+            secondPicker: new Date((event.end).setDate((event.end).getDate() - 1))
+        });
+        this.reformatDateFrom = moment(this.applyLeaveForm.value.firstPicker).format('YYYY-MM-DD HH:mm:ss');
+        this.reformatDateTo = moment(this.applyLeaveForm.value.secondPicker).format('YYYY-MM-DD HH:mm:ss');
+        this.dateArray = this.getDateArray(this.reformatDateFrom, this.reformatDateTo);
+        this.daysCount = this.dateArray.length;
     }
 
     postData() {
@@ -107,6 +124,8 @@ export class ApplyLeavePage implements OnInit {
             response => {
                 console.log("PATCH call in error", response);
             });
+        this.setEvent(this._leaveTypeName, this.applyLeaveForm.value.firstPicker, new Date((this.applyLeaveForm.value.secondPicker).setDate((this.applyLeaveForm.value.secondPicker).getDate() + 1)));
+
     }
 
     onDateChange(): void {
@@ -118,8 +137,20 @@ export class ApplyLeavePage implements OnInit {
             this.daysCount = this.dateArray.length;
         }
     }
+
+    // get event from server that postData()
+    setEvent(name: string, sdt, edt) {
+        if (name && sdt && edt) {
+            this.calendarEvents = this.calendarEvents.concat({
+                title: name,
+                start: sdt,
+                end: edt,
+                allDay: true
+            })
+        }
+    }
     getValueFrom(event: MatDatepickerInputEvent<string>): string {
-        return this.minDate = moment(event.value).add(1, 'days').format('YYYY-MM-DD');
+        return this.minDate = moment(event.value).format('YYYY-MM-DD');
     }
     getValueTo(event: MatDatepickerInputEvent<string>): string {
         const toDate: string = moment(event.value).subtract(1, 'days').format('YYYY-MM-DD');
@@ -165,7 +196,6 @@ export class ApplyLeavePage implements OnInit {
 
     addFormField() {
         if (this.dayTypes.controls.length < Object.keys(DayType).length / 2) {
-            // this.dayTypes.push('0');
             this.dayTypes.push(new FormControl());
             console.log(this.dayTypes);
         } else {
@@ -175,18 +205,19 @@ export class ApplyLeavePage implements OnInit {
     }
 
     handleDateClick(arg) {
-        if (confirm('Would you like to add an event to ' + arg.dateStr + ' ?')) {
-            this.calendarEvents = this.calendarEvents.concat({ // add new event data. must create new array
-                title: 'New Event',
-                start: arg.date,
-                allDay: arg.allDay
-            })
-        }
+        // if (confirm('Would you like to add an event to ' + arg.dateStr + ' ?')) {
+        // this.calendarEvents = this.calendarEvents.concat({ // add new event data. must create new array
+        //     title: 'New Event',
+        //     start: arg.date,
+        //     allDay: arg.allDay
+        // })
+        // }
     }
 
     getIndex(leave) {
         this.daysAvailable = leave.balanceDays;
         this.leaveTypeId = leave.leaveTypeId;
+        this._leaveTypeName = leave.leaveTypeName;
     }
 
 
