@@ -31,26 +31,26 @@ export class PublicPersonalDetailsPage implements OnInit {
         this.apiService.get_personal_details().subscribe(
             (data: any[]) => {
                 this.list = data;
-                console.log(this.list);
                 // this.removeList = this.list.personalDetail.emergencyContactNumber.contacts;
             },
             error => {
                 if (error) {
                     window.location.href = '/login';
                 }
+            },
+            () => {
+                const userId = this.list.id;
+                this.apiService.get_employment_details(userId).subscribe(
+                    data => {
+                        this.employmentlist = data;
+                    }
+                )
             }
         );
-        setTimeout(() => {
-            const userId = this.list.id;
-            this.apiService.get_employment_details(userId).subscribe(
-                data => {
-                    this.employmentlist = data;
-                    console.log('employ:', this.employmentlist);
-                }
-            )
-        }, 1000);
+
 
     }
+
 
     clickAsFavourite() {
         if (this.numOfArray) {
