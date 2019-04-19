@@ -3,9 +3,6 @@ import { AuthGuard } from 'src/services/shared-service/guards/auth-guard.service
 import { SideMenuNavigationComponent } from './side-menu-navigation.component';
 import { EmployeeSetupPage } from 'src/pages/employee/employee-setup.page';
 import { PageNotFoundComponent } from '../page-not-found.component';
-import { EmployeeProfilePage } from 'src/pages/admin/admin-setup/employee-profile-hr/employee-profile.page';
-import { InviteMorePage } from 'src/pages/admin/admin-setup/invites/inivite-more/invite-more.page';
-import { AdminInvitesPage } from 'src/pages/admin/admin-setup/invites/admin-invites.page';
 import { PublicPersonalDetailsPage } from 'src/pages/employee/public-personal-details/public-personal-details.page';
 import { ConnectionsPage } from 'src/pages/employee/connections/connections.page';
 import { PersonalDetailsPage } from 'src/pages/employee/personal-details/personal-details.page';
@@ -21,8 +18,8 @@ export const sideMenuNavigationRoutes: Routes = [
         canActivate: [AuthGuard],
         children: [
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-            { path: 'dashboard', component: AdminInvitesPage },
-            { path: 'inbox', component: EmployeeProfilePage },
+            { path: 'dashboard', component: PublicPersonalDetailsPage },
+            { path: 'inbox', component: PublicPersonalDetailsPage },
             { path: 'plan-my-leave', component: LeavePlanningPage },
             { path: 'employee-directory', component: ConnectionsPage },
             {
