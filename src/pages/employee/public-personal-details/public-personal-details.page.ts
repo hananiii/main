@@ -12,6 +12,7 @@ export class PublicPersonalDetailsPage implements OnInit {
     public employmentlist: any;
     public setAsFavourite = [];
     public numOfArray: boolean = false;
+    public showSpinner: boolean = true;
 
     // public removeList: any;
     // public showHeader: boolean = true;
@@ -26,6 +27,7 @@ export class PublicPersonalDetailsPage implements OnInit {
 
     constructor(private apiService: APIService) {
     }
+
 
     ngOnInit() {
         this.apiService.get_personal_details().subscribe(
@@ -42,9 +44,11 @@ export class PublicPersonalDetailsPage implements OnInit {
                 const userId = this.list.id;
                 this.apiService.get_employment_details(userId).subscribe(
                     data => {
+                        this.showSpinner = false;
                         this.employmentlist = data;
                     }
                 )
+
             }
         );
 

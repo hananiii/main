@@ -16,6 +16,7 @@ export class LeaveEntitlementPage implements OnInit {
     public entitlement: any;
     public leaveType: string;
     public leaveBalance: string;
+    public showSpinner: boolean = true;
 
     public get sortDirectionArrowDown(): boolean {
         return this.arrowDown;
@@ -32,6 +33,7 @@ export class LeaveEntitlementPage implements OnInit {
             (data: any[]) => {
                 this.personalDataList = data;
                 this.entitlement = this.personalDataList.entitlementDetail;
+                this.showSpinner = false;
             },
             error => {
                 if (error) {

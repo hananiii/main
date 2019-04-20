@@ -27,6 +27,7 @@ export class ConnectionsPage implements OnInit {
     public viewMoreFilter: boolean = false;
     public connectionRoute: boolean;
     public showHeader: boolean = true;
+    public showSpinner: boolean = true;
 
     foods = [
         { value: 'steak-0', viewValue: 'Steak' },
@@ -62,6 +63,7 @@ export class ConnectionsPage implements OnInit {
                 this.employeeList = data;
                 this.pageIndex = 1;
                 this.loopItemsPerPage(this.pageIndex, this.employeeList, this.itemsPerPage, this.startEndNumber);
+                this.showSpinner = false;
             },
             error => {
                 if (error) {
