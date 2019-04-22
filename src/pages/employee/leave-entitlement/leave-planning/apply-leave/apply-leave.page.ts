@@ -48,9 +48,6 @@ export class ApplyLeavePage implements OnInit {
     private _secondFormIndex = [];
     private _thirdFormIndex = [];
     private _arrayList = [];
-    private selectedList1 = [];
-    private selectedList2 = [];
-    private selectedList3 = [];
     @ViewChild('calendar') calendarComponent: FullCalendarComponent;
 
     get dayTypes(): FormArray {
@@ -225,6 +222,10 @@ export class ApplyLeavePage implements OnInit {
         const selected = (this.dayTypes.controls[index].value.status).splice(0, 1, this._arrayList);
         this.dayTypes.controls[index].patchValue([{ status: selected }]);
         if (index == 0) {
+            for (let j = 0; j < this._firstFormIndex.length; j++) {
+                const selected = (this.dayTypes.controls[0].value.status[0]).splice(this._firstFormIndex[j], 1, false);
+                this.dayTypes.controls[0].patchValue([{ status: selected }]);
+            }
             for (let j = 0; j < this._secondFormIndex.length; j++) {
                 const selected = (this.dayTypes.controls[0].value.status[0]).splice(this._secondFormIndex[j], 1, true);
                 this.dayTypes.controls[0].patchValue([{ status: selected }]);
@@ -236,6 +237,10 @@ export class ApplyLeavePage implements OnInit {
         } if (index == 1) {
             for (let j = 0; j < this._firstFormIndex.length; j++) {
                 const selected = (this.dayTypes.controls[1].value.status[0]).splice(this._firstFormIndex[j], 1, true);
+                this.dayTypes.controls[1].patchValue([{ status: selected }]);
+            }
+            for (let j = 0; j < this._secondFormIndex.length; j++) {
+                const selected = (this.dayTypes.controls[1].value.status[0]).splice(this._secondFormIndex[j], 1, false);
                 this.dayTypes.controls[1].patchValue([{ status: selected }]);
             }
             for (let j = 0; j < this._thirdFormIndex.length; j++) {
@@ -251,54 +256,71 @@ export class ApplyLeavePage implements OnInit {
                 const selected1 = (this.dayTypes.controls[2].value.status[0]).splice(this._secondFormIndex[j], 1, true);
                 this.dayTypes.controls[2].patchValue([{ status: selected1 }]);
             }
+            for (let j = 0; j < this._thirdFormIndex.length; j++) {
+                const selected = (this.dayTypes.controls[2].value.status[0]).splice(this._thirdFormIndex[j], 1, false);
+                this.dayTypes.controls[2].patchValue([{ status: selected }]);
+            }
         }
     }
 
     halfDaySelectionChanged(selectedDate, index) {
         if (index == 0) {
             let missing = null;
-            for (let i = 0; i < this.selectedList1.length; i++) {
-                if (selectedDate.indexOf(this.selectedList1[i]) == -1) {
-                    missing = this.selectedList1[i];
+            for (let i = 0; i < this._firstForm.length; i++) {
+                if (selectedDate.indexOf(this._firstForm[i]) == -1) {
+                    missing = this._firstForm[i];
                     this.daysCount = this.daysCount + 0.5;
                 }
             }
             if (!missing) { this.daysCount = this.daysCount - 0.5; }
-            this.selectedList1 = selectedDate;
+            this._firstForm = selectedDate;
         }
         if (index == 1) {
             let missing = null;
-            for (let i = 0; i < this.selectedList2.length; i++) {
-                if (selectedDate.indexOf(this.selectedList2[i]) == -1) {
-                    missing = this.selectedList2[i];
+            for (let i = 0; i < this._secondForm.length; i++) {
+                if (selectedDate.indexOf(this._secondForm[i]) == -1) {
+                    missing = this._secondForm[i];
                     this.daysCount = this.daysCount + 0.5;
                 }
             }
             if (!missing) { this.daysCount = this.daysCount - 0.5; }
-            this.selectedList2 = selectedDate;
+            this._secondForm = selectedDate;
         }
         if (index == 2) {
             let missing = null;
-            for (let i = 0; i < this.selectedList3.length; i++) {
-                if (selectedDate.indexOf(this.selectedList3[i]) == -1) {
-                    missing = this.selectedList3[i];
+            for (let i = 0; i < this._thirdForm.length; i++) {
+                if (selectedDate.indexOf(this._thirdForm[i]) == -1) {
+                    missing = this._thirdForm[i];
                     this.daysCount = this.daysCount + 0.5;
                 }
             }
             if (!missing) { this.daysCount = this.daysCount - 0.5; }
-            this.selectedList3 = selectedDate;
+            this._thirdForm = selectedDate;
         }
     }
 
     valueSelected(selectArrayList, selectArray, i, indexj) {
         if (i == 0) {
-            this._firstForm.push(selectArray);
-            this._firstFormIndex.push(indexj);
+            const index = this._firstFormIndex.findIndex(item => item === indexj);
+            if (index > -1) {
+                this._firstFormIndex.splice(index, 1);
+            } else {
+                this._firstFormIndex.push(indexj);
+            }
         } if (i == 1) {
-            this._secondForm.push(selectArray);
-            this._secondFormIndex.push(indexj);
+            const index = this._secondFormIndex.findIndex(item => item === indexj);
+            if (index > -1) {
+                this._secondFormIndex.splice(index, 1);
+            } else {
+                this._secondFormIndex.push(indexj);
+            }
         } if (i == 2) {
-            this._thirdForm.push(selectArray);
+            const index = this._thirdFormIndex.findIndex(item => item === indexj);
+            if (index > -1) {
+                this._thirdFormIndex.splice(index, 1);
+            } else {
+                this._thirdFormIndex.push(indexj);
+            }
             this._thirdFormIndex.push(indexj);
         }
     }
