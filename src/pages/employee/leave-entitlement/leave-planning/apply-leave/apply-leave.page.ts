@@ -48,6 +48,9 @@ export class ApplyLeavePage implements OnInit {
     private _secondFormIndex = [];
     private _thirdFormIndex = [];
     private _arrayList = [];
+    private selectedList1 = [];
+    private selectedList2 = [];
+    private selectedList3 = [];
     @ViewChild('calendar') calendarComponent: FullCalendarComponent;
 
     get dayTypes(): FormArray {
@@ -252,16 +255,38 @@ export class ApplyLeavePage implements OnInit {
     }
 
     halfDaySelectionChanged(selectedDate, index) {
-        if (index) {
-            const list = this._dateArray;
-            const value = this.daysCount - (selectedDate.value.length * 0.5);
-            console.log('half Day selected1', selectedDate.value);
-            console.log('index1:', index);
-        } else {
-            const list2 = this._dateArray;
-            const value = this.daysCount - (selectedDate.value.length * 0.5);
-            console.log('half Day selected2', selectedDate.value);
-            console.log('index2:', index);
+        if (index == 0) {
+            let missing = null;
+            for (let i = 0; i < this.selectedList1.length; i++) {
+                if (selectedDate.indexOf(this.selectedList1[i]) == -1) {
+                    missing = this.selectedList1[i];
+                    this.daysCount = this.daysCount + 0.5;
+                }
+            }
+            if (!missing) { this.daysCount = this.daysCount - 0.5; }
+            this.selectedList1 = selectedDate;
+        }
+        if (index == 1) {
+            let missing = null;
+            for (let i = 0; i < this.selectedList2.length; i++) {
+                if (selectedDate.indexOf(this.selectedList2[i]) == -1) {
+                    missing = this.selectedList2[i];
+                    this.daysCount = this.daysCount + 0.5;
+                }
+            }
+            if (!missing) { this.daysCount = this.daysCount - 0.5; }
+            this.selectedList2 = selectedDate;
+        }
+        if (index == 2) {
+            let missing = null;
+            for (let i = 0; i < this.selectedList3.length; i++) {
+                if (selectedDate.indexOf(this.selectedList3[i]) == -1) {
+                    missing = this.selectedList3[i];
+                    this.daysCount = this.daysCount + 0.5;
+                }
+            }
+            if (!missing) { this.daysCount = this.daysCount - 0.5; }
+            this.selectedList3 = selectedDate;
         }
     }
 
