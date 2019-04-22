@@ -157,9 +157,9 @@ export class ConnectionsPage implements OnInit {
     sortAscName() {
         this.arrowDownName = true;
         this.employeeList = this.employeeList.slice(0);
-        this.employeeList.sort(function (a, b) {
-            var x = a.employeeName.toLowerCase();
-            var y = b.employeeName.toLowerCase();
+        this.employeeList.sort(function (a: any, b: any) {
+            const x = a.employeeName.toLowerCase();
+            const y = b.employeeName.toLowerCase();
             return x < y ? -1 : x > y ? 1 : 0;
         });
         this.loopItemsPerPage(1, this.employeeList, this.itemsPerPage, this.startEndNumber);
@@ -170,9 +170,9 @@ export class ConnectionsPage implements OnInit {
     sortDesName() {
         this.arrowDownName = false;
         this.employeeList = this.employeeList.slice(0);
-        this.employeeList.sort(function (a, b) {
-            var x = a.employeeName.toLowerCase();
-            var y = b.employeeName.toLowerCase();
+        this.employeeList.sort(function (a: any, b: any) {
+            const x = a.employeeName.toLowerCase();
+            const y = b.employeeName.toLowerCase();
             return x < y ? 1 : x > y ? -1 : 0;
         });
         this.loopItemsPerPage(1, this.employeeList, this.itemsPerPage, this.startEndNumber);

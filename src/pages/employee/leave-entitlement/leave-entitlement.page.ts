@@ -57,9 +57,9 @@ export class LeaveEntitlementPage implements OnInit {
         this.arrowDown = true;
         this.entitlement = this.entitlement.slice(0);
         this.entitlement.sort(function (a, b) {
-            var x = a.leaveTypeName.toLowerCase();
-            var y = b.leaveTypeName.toLowerCase();
-            return x < y ? -1 : x > y ? 1 : 0;
+            const nameX = a.leaveTypeName.toLowerCase();
+            const nameY = b.leaveTypeName.toLowerCase();
+            return nameX < nameY ? -1 : nameX > nameY ? 1 : 0;
         });
     }
 
@@ -67,9 +67,9 @@ export class LeaveEntitlementPage implements OnInit {
         this.arrowDown = false;
         this.entitlement = this.entitlement.slice(0);
         this.entitlement.sort(function (a, b) {
-            var x = a.leaveTypeName.toLowerCase();
-            var y = b.leaveTypeName.toLowerCase();
-            return x < y ? 1 : x > y ? -1 : 0;
+            const nameX = a.leaveTypeName.toLowerCase();
+            const nameY = b.leaveTypeName.toLowerCase();
+            return nameX < nameY ? 1 : nameX > nameY ? -1 : 0;
         });
     }
 }

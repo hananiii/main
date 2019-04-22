@@ -66,10 +66,14 @@ export class APIService {
         }
     }
 
+    getApi(address) {
+        return this.http.get(this.baseUrl + address, { headers: this.headers })
+            .pipe(map((res: Response) => res.json()))
+    }
+
     get_personal_details(): Observable<any> {
         this.headerAuthorization();
-        return this.http.get(this.baseUrl + '/api/userprofile/personal-detail', { headers: this.headers })
-            .pipe(map((res: Response) => res.json()))
+        return this.getApi('/api/userprofile/personal-detail');
     }
 
     patch_personal_details(updateData): Observable<any[]> {
@@ -93,26 +97,23 @@ export class APIService {
 
     get_user_profile(): Observable<any> {
         this.headerAuthorization();
-        return this.http.get(this.baseUrl + '/api/userprofile', { headers: this.headers })
+        return this.getApi('/api/userprofile');
+    }
+
+    get_user_profile_list(): Observable<any> {
+        this.headerAuthorization();
+        return this.getApi('/api/users');
+    }
+
+    post_user_apply_leave(leaveData: any): Observable<any> {
+        this.headerAuthorization();
+        return this.http.post(this.baseUrl + '/api/leave/apply', leaveData, { headers: this.headers })
             .pipe(map((res: Response) => res.json()));
     }
 
-    get_user_profile_list() {
+    get_department(): Observable<any> {
         this.headerAuthorization();
-        return this.http.get(this.baseUrl + '/api/users', { headers: this.headers })
-            .pipe(map((res: Response) => res.json()));;
-    }
-
-    post_user_apply_leave(leaveData: any) {
-        this.headerAuthorization();
-        return this.http.post(this.baseUrl + '/api/leave/apply', leaveData, { headers: this.headers })
-            .pipe(map((res: Response) => res.json()));;
-    }
-
-    get_department() {
-        this.headerAuthorization();
-        return this.http.get(this.baseUrl + '/api/department', { headers: this.headers })
-            .pipe(map((res: Response) => res.json()));;
+        return this.getApi('/api/department');
     }
 
 

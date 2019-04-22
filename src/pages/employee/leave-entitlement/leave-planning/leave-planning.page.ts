@@ -23,7 +23,6 @@ export class LeavePlanningPage implements OnInit {
             (data: any[]) => {
                 this.list = data;
                 this.showSpinner = false;
-                console.log(this.list);
             },
             error => {
                 if (error) {

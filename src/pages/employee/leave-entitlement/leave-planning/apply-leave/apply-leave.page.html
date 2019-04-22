@@ -73,7 +73,7 @@
                         (openedChange)="open(i)" multiple>
                         <mat-option *ngFor="let selectArray of dayTypes.controls[i].value.selectArray[0]; let j=index"
                             [value]="selectArray" [disabled]="dayTypes.controls[i].value.status[0][j]"
-                            (click)="valueSelected(dayTypes.controls[i].value.selectArray[0], selectArray,i, j)">
+                            (click)="valueSelected(i, j)">
                             {{selectArray | date:'M/d/y'}}</mat-option>
                     </mat-select>
                 </mat-form-field>
