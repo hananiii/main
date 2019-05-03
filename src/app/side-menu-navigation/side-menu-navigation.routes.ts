@@ -18,8 +18,8 @@ export const sideMenuNavigationRoutes: Routes = [
         canActivate: [AuthGuard],
         children: [
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-            { path: 'dashboard', component: PublicPersonalDetailsPage },
-            { path: 'inbox', component: PublicPersonalDetailsPage },
+            { path: 'dashboard', component: ConnectionsPage },
+            { path: 'inbox', component: ConnectionsPage },
             { path: 'plan-my-leave', component: LeavePlanningPage },
             { path: 'employee-directory', component: ConnectionsPage },
             { path: 'user-public-profile', component: PublicPersonalDetailsPage },
