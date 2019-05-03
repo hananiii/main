@@ -22,6 +22,7 @@ export const sideMenuNavigationRoutes: Routes = [
             { path: 'inbox', component: PublicPersonalDetailsPage },
             { path: 'plan-my-leave', component: LeavePlanningPage },
             { path: 'employee-directory', component: ConnectionsPage },
+            { path: 'user-public-profile', component: PublicPersonalDetailsPage },
             {
                 path: 'employee-setup', component: EmployeeSetupPage,
                 children: [
