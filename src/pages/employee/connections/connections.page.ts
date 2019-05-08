@@ -10,15 +10,15 @@ import { Subscription } from 'rxjs';
 })
 export class ConnectionsPage implements OnInit {
 
-    public employeeList: any;
+    public items: any;
     public departmentList: any;
     public arrowDownName: boolean = true;
     public arrowDownId: boolean = true;
     public totalItem: number;
-    public itemsPerPage: number = 6;
-    public startEndNumber: number = 5;
-    public pageIndex: number;
-    public totalPageIndex: number;
+    public pageItems: number = 6;
+    public range: number = 5;
+    public pageNum: number;
+    public totalPageNum: number;
     public currentPageItems: any;
     public disableNextButton: boolean;
     public disablePrevButton: boolean = true;
@@ -39,20 +39,8 @@ export class ConnectionsPage implements OnInit {
     public get personalList() {
         return this.currentPageItems;
     }
-    public get sortDirectionArrowDownName(): boolean {
-        return this.arrowDownName;
-    }
-    public get sortDirectionArrowDownId(): boolean {
-        return this.arrowDownId;
-    }
-    public get disabledNextButton() {
-        return this.disableNextButton;
-    }
-    public get disabledPreviousButton() {
-        return this.disablePrevButton;
-    }
     constructor(private apiService: APIService, private route: ActivatedRoute,
-        private elRef: ElementRef, private renderer: Renderer, private router: Router) { }
+        private elRef: ElementRef, private renderer: Renderer, public router: Router) { }
 
     ngOnInit() {
         if (this.route.routeConfig.path.includes('connection')) {
@@ -62,9 +50,9 @@ export class ConnectionsPage implements OnInit {
         }
         this.subscription = this.apiService.get_user_profile_list().subscribe(
             (data: any[]) => {
-                this.employeeList = data;
-                this.pageIndex = 1;
-                this.loopItemsPerPage(this.pageIndex, this.employeeList, this.itemsPerPage, this.startEndNumber);
+                this.items = data;
+                this.pageNum = 1;
+                this.renderItems(this.pageNum, this.items, this.pageItems, this.range);
                 this.showSpinner = false;
             },
             error => {
@@ -81,7 +69,7 @@ export class ConnectionsPage implements OnInit {
 
     }
 
-    ngOnDestroy(){
+    ngOnDestroy() {
         this.subscription.unsubscribe();
     }
 
@@ -90,9 +78,9 @@ export class ConnectionsPage implements OnInit {
         this.gridView = false;
         this.disableNextButton = false;
         this.disablePrevButton = true;
-        this.itemsPerPage = 6;
-        this.startEndNumber = 5;
-        this.loopItemsPerPage(1, this.employeeList, this.itemsPerPage, this.startEndNumber);
+        this.pageItems = 6;
+        this.range = 5;
+        this.renderItems(1, this.items, this.pageItems, this.range);
     }
 
     viewOnGrid() {
@@ -100,137 +88,111 @@ export class ConnectionsPage implements OnInit {
         this.gridView = true;
         this.disableNextButton = false;
         this.disablePrevButton = true;
-        this.itemsPerPage = 8;
-        this.startEndNumber = 7;
-        this.loopItemsPerPage(1, this.employeeList, this.itemsPerPage, this.startEndNumber);
+        this.pageItems = 8;
+        this.range = 7;
+        this.renderItems(1, this.items, this.pageItems, this.range);
     }
 
-    loopItemsPerPage(index: number, data: any, itemEachPage: number, startEndNumber) {
-        this.pageIndex = index;
-        this.totalItem = this.employeeList.length;
-        this.totalPageIndex = this.totalItem / itemEachPage;
-        this.totalPageIndex = Math.ceil(this.totalPageIndex);
-        const startNum = (this.pageIndex * itemEachPage) - startEndNumber;
-        const endNum = this.pageIndex * itemEachPage;
-        const currentPageItems = [];
-        for (let j = startNum - 1; j < endNum; j++) {
-            const itemNum = data[j];
-            if (itemNum !== undefined) {
-                currentPageItems.push(itemNum);
+    renderItems(i: number, data: any, pageIndex: number, rangeNumber: number) {
+        this.pageNum = i;
+        this.totalItem = this.items.length;
+        this.totalPageNum = this.totalItem / pageIndex;
+        this.totalPageNum = Math.ceil(this.totalPageNum);
+        const firstNum = (this.pageNum * pageIndex) - rangeNumber;
+        const lastNum = this.pageNum * pageIndex;
+        const currentPageList = [];
+        for (let j = firstNum - 1; j < lastNum; j++) {
+            const itemValue = data[j];
+            if (itemValue !== undefined) {
+                currentPageList.push(itemValue);
             }
         }
-        this.currentPageItems = currentPageItems;
+        this.currentPageItems = currentPageList;
     }
 
-    enableDisableNextButton() {
-        if (this.pageIndex === this.totalPageIndex) {
-            this.disableNextButton = true;
-        }
-        if (this.pageIndex > 0 && this.pageIndex < this.totalPageIndex) {
+    disableEnableNextButton() {
+        if (this.pageNum > 0 && this.pageNum < this.totalPageNum) {
             this.disableNextButton = false;
         }
-        if (this.pageIndex > 1) {
+        if (this.pageNum === this.totalPageNum) {
+            this.disableNextButton = true;
+        }
+        if (this.pageNum > 1) {
             this.disablePrevButton = false;
         }
     }
 
-    enableDisablePrevButton() {
-        if (this.pageIndex < 2) {
-            this.disablePrevButton = true;
-        }
-        if (this.pageIndex > 1 && this.pageIndex === this.totalPageIndex) {
+    disableEnablePreviousButton() {
+        if (this.pageNum > 1 && this.pageNum === this.totalPageNum) {
             this.disablePrevButton = false;
         }
-        if (this.pageIndex < this.totalPageIndex) {
+        if (this.pageNum < 2) {
+            this.disablePrevButton = true;
+        }
+        if (this.pageNum < this.totalPageNum) {
             this.disableNextButton = false;
         }
     }
 
     clickToNextPage(index: number) {
-        if (!(index > this.totalPageIndex)) {
-            this.loopItemsPerPage(index, this.employeeList, this.itemsPerPage, this.startEndNumber);
+        if (!(index > this.totalPageNum)) {
+            this.renderItems(index, this.items, this.pageItems, this.range);
         }
-        this.enableDisableNextButton();
+        this.disableEnableNextButton();
     }
 
     clickToPrevPage(index: number) {
         if (!(index < 1)) {
-            this.loopItemsPerPage(index, this.employeeList, this.itemsPerPage, this.startEndNumber);
+            this.renderItems(index, this.items, this.pageItems, this.range);
         }
-        this.enableDisablePrevButton();
+        this.disableEnablePreviousButton();
     }
 
-    sortAscName() {
-        this.arrowDownName = true;
-        this.employeeList = this.employeeList.slice(0);
-        this.employeeList.sort(function (a: any, b: any) {
-            const x = a.employeeName.toLowerCase();
-            const y = b.employeeName.toLowerCase();
-            return x < y ? -1 : x > y ? 1 : 0;
+    nameSorting(value: boolean, checkAsc: number, checkDes: number) {
+        this.arrowDownName = value;
+        this.items = this.items.slice(0);
+        this.items.sort(function (a: any, b: any) {
+            const x = a.employeeName.toUpperCase();
+            const y = b.employeeName.toUpperCase();
+            return x < y ? checkAsc : x > y ? checkDes : 0;
         });
-        this.loopItemsPerPage(1, this.employeeList, this.itemsPerPage, this.startEndNumber);
+        this.renderItems(1, this.items, this.pageItems, this.range);
         this.disableNextButton = false;
         this.disablePrevButton = true;
     }
 
-    sortDesName() {
-        this.arrowDownName = false;
-        this.employeeList = this.employeeList.slice(0);
-        this.employeeList.sort(function (a: any, b: any) {
-            const x = a.employeeName.toLowerCase();
-            const y = b.employeeName.toLowerCase();
-            return x < y ? 1 : x > y ? -1 : 0;
+    IDSorting(value: boolean, ascValue: number, desValue: number) {
+        this.arrowDownId = value;
+        this.items = this.items.slice(0);
+        this.items.sort(function (x, y) {
+            const a = x.staffNumber;
+            const b = y.staffNumber;
+            return a < b ? ascValue : a > b ? desValue : 0;
         });
-        this.loopItemsPerPage(1, this.employeeList, this.itemsPerPage, this.startEndNumber);
+        this.renderItems(1, this.items, this.pageItems, this.range);
         this.disableNextButton = false;
         this.disablePrevButton = true;
     }
 
-    sortAscId() {
-        this.arrowDownId = true;
-        this.employeeList = this.employeeList.slice(0);
-        this.employeeList.sort(function (a, b) {
-            var x = a.staffNumber;
-            var y = b.staffNumber;
-            return x < y ? -1 : x > y ? 1 : 0;
-        });
-        this.loopItemsPerPage(1, this.employeeList, this.itemsPerPage, this.startEndNumber);
-        this.disableNextButton = false;
-        this.disablePrevButton = true;
-    }
-
-    sortDesId() {
-        this.arrowDownId = false;
-        this.employeeList = this.employeeList.slice(0);
-        this.employeeList.sort(function (a, b) {
-            var x = a.staffNumber;
-            var y = b.staffNumber;
-            return x < y ? 1 : x > y ? -1 : 0;
-        });
-        this.loopItemsPerPage(1, this.employeeList, this.itemsPerPage, this.startEndNumber);
-        this.disableNextButton = false;
-        this.disablePrevButton = true;
-    }
-
-    filterDetails(text: any) {
-        if (text && text.trim() != '') {
-            this.employeeList = this.employeeList.filter((item: any) => {
-                return (item.employeeName.toLowerCase().indexOf(text.toLowerCase()) > -1);
+    filterDetails(char: any) {
+        if (char && char.trim() != '') {
+            this.items = this.items.filter((data: any) => {
+                return (data.employeeName.toUpperCase().indexOf(char.toUpperCase()) > -1);
             })
 
-            this.pageIndex = 1;
-            this.loopItemsPerPage(this.pageIndex, this.employeeList, this.itemsPerPage, this.startEndNumber);
-            this.enableDisableNextButton();
-            this.enableDisablePrevButton();
+            this.pageNum = 1;
+            this.renderItems(this.pageNum, this.items, this.pageItems, this.range);
+            this.disableEnableNextButton();
+            this.disableEnablePreviousButton();
         }
     }
 
     clearDetails() {
         this.subscription = this.apiService.get_user_profile_list().subscribe(
             (data: any[]) => {
-                this.employeeList = data;
-                this.pageIndex = 1;
-                this.loopItemsPerPage(this.pageIndex, this.employeeList, this.itemsPerPage, this.startEndNumber);
+                this.items = data;
+                this.pageNum = 1;
+                this.renderItems(this.pageNum, this.items, this.pageItems, this.range);
             }
         );
         this.disableNextButton = false;
@@ -239,15 +201,7 @@ export class ConnectionsPage implements OnInit {
 
     changeDetails(text: any) {
         if (text.srcElement.value === '') {
-            this.subscription = this.apiService.get_user_profile_list().subscribe(
-                (data: any[]) => {
-                    this.employeeList = data;
-                    this.pageIndex = 1;
-                    this.loopItemsPerPage(this.pageIndex, this.employeeList, this.itemsPerPage, this.startEndNumber);
-                }
-            );
-            this.disableNextButton = false;
-            this.disablePrevButton = true;
+            this.clearDetails();
         } else {
             this.filterDetails(text.srcElement.value);
         }
@@ -259,22 +213,19 @@ export class ConnectionsPage implements OnInit {
         });
     }
 
-
     clickAsFavourite(index: number, item: any) {
-        const objects = { index: index, itemId: item.id };
-        const a = objects;
-        if (this.setAsFavourite.length < 1) {
-            this.setAsFavourite.push(a);
-        } else {
-            if (this.userIDExists(item.id)) {
-                for (let i = 0; i < this.setAsFavourite.length; i++) {
-                    if (this.setAsFavourite[i].index == index && this.setAsFavourite[i].itemId == item.id) {
-                        this.setAsFavourite.splice(i, 1);
-                    }
+        const obj = { index: index, itemId: item.id };
+        const data = obj;
+        if (!this.userIDExists(item.id) && this.setAsFavourite.length > 0) {
+            this.setAsFavourite.push(data);
+        } else if (this.userIDExists(item.id) && this.setAsFavourite.length > 0) {
+            for (let i = 0; i < this.setAsFavourite.length; i++) {
+                if (this.setAsFavourite[i].itemId == item.id && this.setAsFavourite[i].index == index) {
+                    this.setAsFavourite.splice(i, 1);
                 }
-            } else {
-                this.setAsFavourite.push(a);
             }
+        } else {
+            this.setAsFavourite.push(data);
         }
     };
 
@@ -284,10 +235,6 @@ export class ConnectionsPage implements OnInit {
         } else {
             this.viewMoreFilter = true;
         }
-    }
-
-    routeToPublicProfile(id, name) {
-        this.router.navigate(['/main/user-public-profile'], { queryParams: { GUID: id, name: name } });
     }
 
 
