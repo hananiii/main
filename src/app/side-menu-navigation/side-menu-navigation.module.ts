@@ -12,6 +12,7 @@ import { EmployeeSetupPageModule } from 'src/pages/employee/employee-setup.modul
 import { HttpClientModule } from '@angular/common/http';
 import { MatMenuModule } from '@angular/material/menu';
 import { PublicPersonalDetailsModule } from 'src/pages/employee/public-personal-details/public-personal-details.module';
+import { UpdatePasswordModule } from 'src/pages/employee/update-password/update-password.module';
 
 @NgModule({
     imports: [
@@ -23,6 +24,7 @@ import { PublicPersonalDetailsModule } from 'src/pages/employee/public-personal-
         EmployeeSetupPageModule,
         PublicPersonalDetailsModule,
         MatMenuModule,
+        UpdatePasswordModule,
         RouterModule.forChild(sideMenuNavigationRoutes)
     ],
     providers: [AuthGuard],
