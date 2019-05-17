@@ -1,5 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, FormGroupDirective, NgForm } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+    isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+        const invalidCtrl = !!(control && control.invalid && control.parent.dirty);
+        const invalidParent = !!(control && control.parent && control.parent.invalid && control.parent.dirty);
+
+        return (invalidCtrl || invalidParent);
+    }
+}
 
 @Component({
     selector: 'app-update-password',
@@ -11,12 +22,14 @@ export class UpdatePasswordPage implements OnInit {
     public showNewPassword: boolean = false;
     public showConfirmPassword: boolean = false;
 
-    public formPassValidation = new FormGroup({
-        newPass: new FormControl(null, [Validators.required]),
-        confirmPass: new FormControl(null, [Validators.required]),
-    });
+    public formPassValidation: FormGroup;
+    matcher = new MyErrorStateMatcher();
 
-    constructor() {
+    constructor(private fb: FormBuilder) {
+        this.formPassValidation = this.fb.group({
+            newPass: ['', [Validators.required]],
+            confirmPass: ['']
+        }, { validator: this.checkPasswords })
     }
 
 
@@ -27,8 +40,12 @@ export class UpdatePasswordPage implements OnInit {
         // this._subscription.unsubscribe();
     }
 
-    getErrorMessage() {
-        return this.formPassValidation.controls['confirmPass'].hasError('required') ? 'Please enter your password' : '';
+    checkPasswords(group: FormGroup) {
+        let pass = group.controls.newPass.value;
+        let confirmPass = group.controls.confirmPass.value;
+        return pass === confirmPass ? null : { notSame: true }
     }
+
+
 
 }
