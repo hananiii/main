@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatMenuModule } from '@angular/material/menu';
 import { PublicPersonalDetailsModule } from 'src/pages/employee/public-personal-details/public-personal-details.module';
 import { UpdatePasswordModule } from 'src/pages/employee/update-password/update-password.module';
+import { EmailInvitationModule } from 'src/pages/employee/email-invitation/email-invitation.module';
 
 @NgModule({
     imports: [
@@ -25,6 +26,7 @@ import { UpdatePasswordModule } from 'src/pages/employee/update-password/update-
         PublicPersonalDetailsModule,
         MatMenuModule,
         UpdatePasswordModule,
+        EmailInvitationModule,
         RouterModule.forChild(sideMenuNavigationRoutes)
     ],
     providers: [AuthGuard],
