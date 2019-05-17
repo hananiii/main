@@ -19,7 +19,7 @@ export class EmailInvitationPage implements OnInit {
     }
 
     routeToUpdatePassword() {
-        this.router.navigate(['/main/update-password']);
+        this.router.navigate(['/update-password']);
     }
 
 
