@@ -33,8 +33,8 @@ export class APIService {
             .pipe(map((res: Response) => res.json()))
     }
 
-    patchApi(data: any, address: string) {
-        return this.http.patch(this.baseUrl + address, data, { headers: this.headers })
+    patchApi(patchData: any, url: string) {
+        return this.http.patch(this.baseUrl + url, patchData, { headers: this.headers })
             .pipe(map((res: Response) => res.json()))
     }
 
