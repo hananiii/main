@@ -10,6 +10,7 @@ import { EmploymentDetailsPage } from 'src/pages/employee/employment-details/emp
 import { LeaveEntitlementPage } from 'src/pages/employee/leave-entitlement/leave-entitlement.page';
 import { AccountSettingPage } from 'src/pages/employee/account-setting/account-setting.page';
 import { LeavePlanningPage } from 'src/pages/employee/leave-entitlement/leave-planning/leave-planning.page';
+import { DashboardPage } from 'src/pages/dashboard/dashboard.page';
 
 export const sideMenuNavigationRoutes: Routes = [
     {
@@ -18,7 +19,7 @@ export const sideMenuNavigationRoutes: Routes = [
         canActivate: [AuthGuard],
         children: [
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-            { path: 'dashboard', component: ConnectionsPage },
+            { path: 'dashboard', component: DashboardPage },
             { path: 'inbox', component: PublicPersonalDetailsPage },
             { path: 'plan-my-leave', component: LeavePlanningPage },
             { path: 'employee-directory', component: ConnectionsPage },

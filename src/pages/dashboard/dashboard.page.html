@@ -1,0 +1,114 @@
+<h4 style="padding-left: 20px;">Activity Feeds</h4>
+<mat-card class="leftCard" #matCard>
+    <ion-button class="button1" shape="round" [style.color]="buttonOneFill === 'outline' ? '#057dcd' : '#7a8589'"
+        [fill]="buttonOneFill" (click)="buttonClick(1)">
+        <span style="padding-left: 5px">All updates</span>
+    </ion-button>
+    <ion-button class="button2" shape="round" [style.color]="buttonTwoFill === 'outline' ? '#057dcd' : '#7a8589'"
+        [fill]="buttonTwoFill" (click)="buttonClick(2)">
+        <span style="padding-left: 5px">My recent</span>
+    </ion-button>
+    <ion-button class="button3" shape="round" [style.color]="buttonThreeFill === 'outline' ? '#057dcd' : '#7a8589'"
+        [fill]="buttonThreeFill" (click)="buttonClick(3)">
+        <span style="padding-left: 5px">Announcements
+            <i class="fas fa-circle" style="color:#f63c41;font-size: 5px;position: absolute;
+            padding-left: 2px;" *ngIf="showDot"></i>
+        </span>
+    </ion-button>
+    <!----------------- All updates -------------------------->
+    <mat-list role="list" *ngIf="showAllUpdates" #matList [style.overflow]="clickOnViewMore == true ? 'auto' : 'hidden'"
+        [style.max-height.px]="clickOnViewMore == true ? '' : '160'">
+        <mat-list-item role="listitem">
+            <mat-icon mat-list-icon style="font-size: 19px;color: #7a8589;">
+                <i class="material-icons" style="font-size: 16px;">perm_contact_calendar</i>
+            </mat-icon>
+            <p mat-line> Ahmad joined a few seconds ago. </p>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+            <mat-icon mat-list-icon style="font-size: 19px;color: #7a8589;">
+                <i class="material-icons" style="font-size: 16px;">cake</i>
+            </mat-icon>
+            <p mat-line> Birthday reminder. Happy birthday to Ang Ruo Li! </p>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+            <mat-icon mat-list-icon style="font-size: 19px;color: #7a8589;">
+                <ion-icon name="business" style="font-size: 16px;"></ion-icon>
+            </mat-icon>
+            <p mat-line> Ali updated company profile 5 minutes ago. </p>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+            <mat-icon mat-list-icon style="font-size: 19px;color: #7a8589;">
+                <i class="fas fa-comment-dots" style="font-size: 16px;"></i>
+            </mat-icon>
+            <p mat-line> Jessie added a new announcement 6 minutes ago.
+                <span style="font-size: 12px;color:#057dcd; text-decoration:underline; cursor: pointer;"
+                    (click)="buttonClick(3)">View</span></p>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+            <mat-icon mat-list-icon style="font-size: 19px;color: #7a8589;">
+                <ion-icon name="business" style="font-size: 16px;"></ion-icon>
+            </mat-icon>
+            <p mat-line> Ali updated company profile 5 minutes ago. </p>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+            <mat-icon mat-list-icon style="font-size: 19px;color: #7a8589;">
+                <i class="fas fa-comment-dots" style="font-size: 16px;"></i>
+            </mat-icon>
+            <p mat-line> Jessie added a new announcement 6 minutes ago.
+                <span style="font-size: 12px;color:#057dcd; text-decoration:underline; cursor: pointer;"
+                    (click)="buttonClick(3)">View</span></p>
+        </mat-list-item>
+    </mat-list>
+
+    <!----------------- My recent -------------------------->
+    <mat-list role="list" *ngIf="showMyRecent"  #matList [style.overflow]="clickOnViewMore == true ? 'auto' : 'hidden'"
+    [style.max-height.px]="clickOnViewMore == true ? '' : '160'">
+        <mat-list-item role="listitem">
+            <mat-icon mat-list-icon style="font-size: 19px;color: #7a8589;">
+                <i class="material-icons" style="font-size: 16px;">perm_contact_calendar</i>
+            </mat-icon>
+            <p mat-line> You joined a few seconds ago. </p>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+            <mat-icon mat-list-icon style="font-size: 19px;color: #7a8589;">
+                <i class="material-icons" style="font-size: 16px;">cake</i>
+            </mat-icon>
+            <p mat-line> Birthday reminder. Happy birthday to you! </p>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+            <mat-icon mat-list-icon style="font-size: 19px;color: #7a8589;">
+                <ion-icon name="business" style="font-size: 16px;"></ion-icon>
+            </mat-icon>
+            <p mat-line> You updated company profile 5 minutes ago. </p>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+            <mat-icon mat-list-icon style="font-size: 19px;color: #7a8589;">
+                <i class="fas fa-comment-dots" style="font-size: 16px;"></i>
+            </mat-icon>
+            <p mat-line> You added a new announcement 6 minutes ago.
+                <span style="font-size: 12px;color:#057dcd; text-decoration:underline; cursor: pointer;"
+                    (click)="toAnnouncement()">View</span></p>
+        </mat-list-item>
+    </mat-list>
+
+    <!----------------- Announcement -------------------------->
+    <mat-list role="list" *ngIf="showAnnouncement"  #matList [style.overflow]="clickOnViewMore == true ? 'auto' : 'hidden'"
+    [style.max-height.px]="clickOnViewMore == true ? '' : '160'">
+        <mat-list-item role="listitem">
+            <mat-icon mat-list-icon style="font-size: 19px;color: #7a8589;">
+                <i class="fas fa-comment-dots" style="font-size: 16px;"></i>
+            </mat-icon>
+            <p mat-line> Jessie added a new announcement 6 minutes ago.</p>
+        </mat-list-item>
+    </mat-list>
+    <!-- *ngIf="checkOverflow()" -->
+    <mat-card-actions style="text-align: center" *ngIf="showViewMore">
+        <button mat-button style="background: transparent;">
+            <span style="color: #057dcd; cursor: pointer;">See more</span>
+            <mat-icon style="position: absolute;margin-top: -7px;padding-left: 10px;">
+                <i class="material-icons" style="color: #057dcd; cursor: pointer;"
+                    (click)="clickOnViewMore = true;showViewMore= false">expand_more</i>
+            </mat-icon>
+        </button>
+    </mat-card-actions>
+</mat-card>

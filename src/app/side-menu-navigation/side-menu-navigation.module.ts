@@ -14,6 +14,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { PublicPersonalDetailsModule } from 'src/pages/employee/public-personal-details/public-personal-details.module';
 import { UpdatePasswordModule } from 'src/pages/employee/update-password/update-password.module';
 import { EmailInvitationModule } from 'src/pages/employee/email-invitation/email-invitation.module';
+import { DashboardModule } from 'src/pages/dashboard/dashboard.module';
 
 @NgModule({
     imports: [
@@ -27,6 +28,7 @@ import { EmailInvitationModule } from 'src/pages/employee/email-invitation/email
         MatMenuModule,
         UpdatePasswordModule,
         EmailInvitationModule,
+        DashboardModule,
         RouterModule.forChild(sideMenuNavigationRoutes)
     ],
     providers: [AuthGuard],

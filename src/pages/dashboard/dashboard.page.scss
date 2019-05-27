@@ -1,0 +1,48 @@
+:host {
+  top: 48px;
+
+  .leftCard {
+    width: 70%;
+    position: absolute;
+    left: 20px;
+    top: 68px;
+    // height: 57%;
+    min-width: 400px;
+  }
+  .button1,
+  .button2 {
+    color: #057dcd;
+    width: 100px;
+    height: 25px;
+    font-size: 12px;
+    text-transform: none;
+    cursor: pointer;
+  }
+  .button2 {
+    margin-top: 0;
+  }
+  .button3 {
+    margin-top: 0;
+    width: 130px;
+    height: 25px;
+    color: #057dcd;
+    font-size: 12px;
+    text-transform: none;
+    cursor: pointer;
+  }
+  .button-outline {
+    --border-width: 1px;
+  }
+  .mat-list-item {
+    font-size: 12px;
+    height: 30px !important;
+  }
+  ::ng-deep .mat-list-text {
+    padding-left: 0px !important;
+    color: #7a8589;
+  }
+  .mat-list {
+    overflow: hidden;
+    max-height: 160px;
+  }
+}
