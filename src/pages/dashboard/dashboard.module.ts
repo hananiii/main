@@ -8,6 +8,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { DashboardPage } from './dashboard.page';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { GoogleChartModule } from 'src/library/google-chart/google-chart.module';
 
 
 const routes: Routes = [
@@ -25,6 +27,8 @@ const routes: Routes = [
         MatIconModule,
         MatCardModule,
         MatListModule,
+        MatGridListModule,
+        GoogleChartModule,
         RouterModule.forChild(routes)
     ],
     declarations: [DashboardPage]

@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { MatList } from '@angular/material/list';
 
 @Component({
     selector: 'app-dashboard',
@@ -29,8 +28,6 @@ export class DashboardPage implements OnInit {
     ngAfterViewInit() {
         const listHeight = this.matList.nativeElement.offsetHeight;
         const cardHeight = this.matCard.nativeElement.offsetHeight;
-        console.log(listHeight);
-        console.log(cardHeight);
         if (listHeight == 160) {
             this.showViewMore = true;
         }

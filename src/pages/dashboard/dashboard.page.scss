@@ -1,13 +1,13 @@
 :host {
   top: 48px;
+  background: #f9fafc;
+  overflow: auto;
 
   .leftCard {
-    width: 70%;
-    position: absolute;
+    width: 100%;
     left: 20px;
-    top: 68px;
-    // height: 57%;
-    min-width: 400px;
+    margin-right: 22px;
+    height: 98%;
   }
   .button1,
   .button2 {
@@ -44,5 +44,28 @@
   .mat-list {
     overflow: hidden;
     max-height: 160px;
+  }
+
+  .rightCard {
+    width: 90%;
+    position: absolute;
+    height: 98%;
+  }
+  .divider {
+    --min-height: none;
+    padding-top: 5%;
+    padding-bottom: 1%;
+    width: 100%;
+  }
+  .rightCardBottom {
+    width: 90%;
+    position: absolute;
+    height: 98%;
+  }
+  .googleCart {
+    width: 100%;
+    left: 20px;
+    margin-right: 22px;
+    height: 98%;
   }
 }
