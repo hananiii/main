@@ -28,8 +28,8 @@ export class GoogleChartComponent implements OnInit {
         isStacked: true,
         colors: ['#e95c4b', '#1e9965', '#edce51'],
     };
-    width = 550;
-    height = 250;
+    width = 700;
+    height = 500;
 
     ngOnInit() {
 

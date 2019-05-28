@@ -95,7 +95,7 @@
                     </mat-icon>
                     <p mat-line> You added a new announcement 6 minutes ago.
                         <span style="font-size: 12px;color:#057dcd; text-decoration:underline; cursor: pointer;"
-                            (click)="toAnnouncement()">View</span></p>
+                            (click)="buttonClick(3)">View</span></p>
                 </mat-list-item>
             </mat-list>
 
@@ -110,13 +110,23 @@
                     <p mat-line> Jessie added a new announcement 6 minutes ago.</p>
                 </mat-list-item>
             </mat-list>
-            <!-- *ngIf="checkOverflow()" -->
             <mat-card-actions style="text-align: center" *ngIf="showViewMore">
                 <button mat-button style="background: transparent;">
-                    <span style="color: #057dcd; cursor: pointer;">See more</span>
-                    <mat-icon style="position: absolute;margin-top: -7px;padding-left: 10px;">
-                        <i class="material-icons" style="color: #057dcd; cursor: pointer;"
-                            (click)="clickOnViewMore = true;showViewMore= false">expand_more</i>
+                    <span style="color: #057dcd; cursor: pointer;"
+                        (click)="clickOnViewMore = true;showViewMore= false; showViewLess= true">See more</span>
+                    <mat-icon style="position: absolute;margin-top: -7px;padding-left: 3px;">
+                        <i class="material-icons" style="color: #057dcd; cursor: pointer;font-size: 20px;"
+                            (click)="clickOnViewMore = true;showViewMore= false; showViewLess= true">expand_more</i>
+                    </mat-icon>
+                </button>
+            </mat-card-actions>
+            <mat-card-actions style="text-align: center" *ngIf="showViewLess">
+                <button mat-button style="background: transparent;">
+                    <span style="color: #057dcd; cursor: pointer;"
+                        (click)="clickOnViewMore = false;showViewMore= true; showViewLess= false">See less</span>
+                    <mat-icon style="position: absolute;margin-top: -7px;padding-left: 3px;">
+                        <i class="material-icons" style="color: #057dcd; cursor: pointer;font-size: 20px;"
+                            (click)="clickOnViewMore = false;showViewMore= true; showViewLess= false">expand_less</i>
                     </mat-icon>
                 </button>
             </mat-card-actions>
@@ -128,6 +138,8 @@
             <mat-card-subtitle style="color: #7a8589; font-size: 12px">Pending tasks
                 <ion-badge mode="ios" style="background-color: #45cc77;position: absolute;
                         margin-left: 10px;font-size: 10px;">3</ion-badge>
+                <i class="material-icons" style="cursor:pointer; font-size: 20px;float: right">keyboard_arrow_right</i>
+                <i class="material-icons" style="font-size: 20px;cursor: pointer;float: right">keyboard_arrow_left</i>
             </mat-card-subtitle>
             <ion-item lines="full" style="--min-height: none;padding-bottom: 1%;width: 100%;"></ion-item>
             <ion-grid>
@@ -145,10 +157,25 @@
                     <ion-item class="divider" lines="full"></ion-item>
                 </ion-row>
             </ion-grid>
+            <ion-grid>
+                <ion-row class="detailsRow">
+                    <ion-col>
+                        <ion-label style="color: #7a8589; font-size: 12px">Gary Chong leave requiring your approval.
+                        </ion-label>
+                    </ion-col>
+                </ion-row>
+                <ion-row style="padding-top: 5px;">
+                    <span style="color:#057dcd; font-size: 10px;padding-right: 10px;
+                                padding-left: 5px;cursor: pointer;">View</span>
+                    <div style="border-left: 0.6px solid #dfe3e6;height: 10px;padding-right: 10px;"></div>
+                    <span style="color:#057dcd; font-size: 10px;cursor: pointer;">Approve</span>
+                    <ion-item class="divider" lines="full"></ion-item>
+                </ion-row>
+            </ion-grid>
         </mat-card>
     </mat-grid-tile>
 
-    <mat-grid-tile colspan="3" rowspan="1">
+    <mat-grid-tile colspan="3" rowspan="2">
         <mat-card class="googleCart">
             <app-google-chart></app-google-chart>
         </mat-card>
@@ -187,6 +214,89 @@
                     <p mat-line> 30 leave approved
                 </mat-list-item>
             </mat-list>
+        </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="1" rowspan="1">
+        <mat-card class="rightCardLast">
+            <mat-card-subtitle style="color: #7a8589; font-size: 12px">Who's on leave
+                <span style="color: #7a8589; font-size: 10px; float: right;padding-right: 10px;">Today</span>
+            </mat-card-subtitle>
+            <ion-list class="list" [style.overflow]="clickOnSeeAll == true ? 'auto' : 'hidden'"
+                [style.max-height.px]="clickOnSeeAll == true ? '' : '160'">
+                <ion-item lines="none">
+                    <ion-avatar slot="start" class="avatar">
+                        <img src="assets/icon/picture.png">
+                    </ion-avatar>
+                    <ion-label text-wrap class="labelText">
+                        <p style="color: #7a8589; font-size: 11px;white-space: nowrap;margin: 0">Nadrah Abdullah</p>
+                        <p style="color: #bebebe; font-size: 8px;white-space: nowrap;margin: 0">Customer Service
+                            Executive</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item lines="none">
+                    <ion-avatar slot="start" class="avatar">
+                        <img src="assets/icon/picture.png">
+                    </ion-avatar>
+                    <ion-label text-wrap class="labelText">
+                        <p style="color: #7a8589; font-size: 11px;white-space: nowrap;margin: 0">Muhammad Zafran</p>
+                        <p style="color: #bebebe; font-size: 8px;white-space: nowrap;margin: 0">Senior Solutions
+                            Architect
+                        </p>
+                    </ion-label>
+                </ion-item>
+                <ion-item lines="none">
+                    <ion-avatar slot="start" class="avatar">
+                        <img src="assets/icon/picture.png">
+                    </ion-avatar>
+                    <ion-label text-wrap class="labelText">
+                        <p style="color: #7a8589; font-size: 11px;white-space: nowrap;margin: 0">Muhammad Zafran</p>
+                        <p style="color: #bebebe; font-size: 8px;white-space: nowrap;margin: 0">Senior Solutions
+                            Architect
+                        </p>
+                    </ion-label>
+                </ion-item>
+                <ion-item lines="none">
+                    <ion-avatar slot="start" class="avatar">
+                        <img src="assets/icon/picture.png">
+                    </ion-avatar>
+                    <ion-label text-wrap class="labelText">
+                        <p style="color: #7a8589; font-size: 11px;white-space: nowrap;margin: 0">Muhammad Zafran</p>
+                        <p style="color: #bebebe; font-size: 8px;white-space: nowrap;margin: 0">Senior Solutions
+                            Architect
+                        </p>
+                    </ion-label>
+                </ion-item>
+                <ion-item lines="none">
+                    <ion-avatar slot="start" class="avatar">
+                        <img src="assets/icon/picture.png">
+                    </ion-avatar>
+                    <ion-label text-wrap class="labelText">
+                        <p style="color: #7a8589; font-size: 11px;white-space: nowrap;margin: 0">Muhammad Zafran</p>
+                        <p style="color: #bebebe; font-size: 8px;white-space: nowrap;margin: 0">Senior Solutions
+                            Architect
+                        </p>
+                    </ion-label>
+                </ion-item>
+            </ion-list>
+            <mat-card-actions style="text-align: center" *ngIf="seeAll">
+                <button mat-button style="background: transparent;">
+                    <span style="color: #057dcd; cursor: pointer;" (click)="clickOnSeeAll=true;seeAll=false;seeLess=true">See all</span>
+                    <mat-icon style="position: absolute;margin-top: -7px;padding-left: 3px;">
+                        <i class="material-icons" style="color: #057dcd; cursor: pointer;font-size: 20px;"
+                            (click)="clickOnSeeAll=true;seeAll=false;seeLess=true">expand_more</i>
+                    </mat-icon>
+                </button>
+            </mat-card-actions>
+            <mat-card-actions style="text-align: center" *ngIf="seeLess">
+                <button mat-button style="background: transparent;">
+                    <span style="color: #057dcd; cursor: pointer;" (click)="clickOnSeeAll=false;seeAll=true;seeLess=false">See less</span>
+                    <mat-icon style="position: absolute;margin-top: -7px;padding-left: 3px;">
+                        <i class="material-icons" style="color: #057dcd; cursor: pointer;font-size: 20px;"
+                            (click)="clickOnSeeAll=false;seeAll=true;seeLess=false">expand_less</i>
+                    </mat-icon>
+                </button>
+            </mat-card-actions>
         </mat-card>
     </mat-grid-tile>
 

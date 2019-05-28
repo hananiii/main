@@ -14,23 +14,16 @@ export class DashboardPage implements OnInit {
     public showMyRecent: boolean = false;
     public showAnnouncement: boolean = false;
     public showDot: boolean = true;
-    public showViewMore: boolean;
+    public showViewMore: boolean = true;
+    public showViewLess: boolean = false;
+    public seeAll:boolean = true;
+    public seeLess: boolean = false;
     public clickOnViewMore: boolean;
-    @ViewChild('matList', { read: ElementRef }) private matList: ElementRef;
-    @ViewChild('matCard', { read: ElementRef }) private matCard: ElementRef;
-
+    public clickOnSeeAll: boolean;
 
     constructor() { }
 
     ngOnInit() {
-    }
-
-    ngAfterViewInit() {
-        const listHeight = this.matList.nativeElement.offsetHeight;
-        const cardHeight = this.matCard.nativeElement.offsetHeight;
-        if (listHeight == 160) {
-            this.showViewMore = true;
-        }
     }
 
     buttonClick(value: number) {
