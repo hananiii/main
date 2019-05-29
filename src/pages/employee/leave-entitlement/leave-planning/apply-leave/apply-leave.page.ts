@@ -33,6 +33,7 @@ export class ApplyLeavePage implements OnInit {
     public minDate: string;
     public maxDate: string;
     public applyLeaveForm: FormGroup;
+    public selectedQuarterHour: string;
     private _userList: any;
     private _leaveTypeName: string;
     private _dateArray: any;
@@ -47,6 +48,10 @@ export class ApplyLeavePage implements OnInit {
     private _secondFormIndex = [];
     private _thirdFormIndex = [];
     private _arrayList = [];
+    private _objSlot1 = [];
+    private _objSlot2 = [];
+    private _objSlot3 = [];
+    private _arrayDateSlot = [];
     private subscription: Subscription = new Subscription();
     @ViewChild('calendar') calendarComponent: FullCalendarComponent;
 
@@ -116,7 +121,8 @@ export class ApplyLeavePage implements OnInit {
             "startDate": this.reformatDateFrom,
             "endDate": this.reformatDateTo,
             "dayType": Number(this.dayTypes.value[this._index].name),
-            "halfDay": this.dayTypes.value[this._index].selectArray[1],
+            "halfDay": this._arrayDateSlot, // this.dayTypes.value[this._index].selectArray[1],
+            "quarterDay": this.selectedQuarterHour,
             "reason": this.applyLeaveForm.value.inputReason
         }
         console.log(applyLeaveData);
@@ -130,7 +136,7 @@ export class ApplyLeavePage implements OnInit {
             response => {
                 console.log("PATCH call in error", response);
                 this.openSnackBar('fail');
-                if(response.status === 401){
+                if (response.status === 401) {
                     window.location.href = '/login';
                 }
             });
@@ -146,6 +152,11 @@ export class ApplyLeavePage implements OnInit {
         this._firstFormIndex = [];
         this._secondFormIndex = [];
         this._thirdFormIndex = [];
+        this._objSlot1 = [];
+        this._objSlot2 = [];
+        this._objSlot3 = [];
+        this._arrayDateSlot = [];
+        this.selectedQuarterHour = '';
     }
 
     onDateChange(): void {
@@ -222,7 +233,7 @@ export class ApplyLeavePage implements OnInit {
         const selected = (this.dayTypes.controls[index].value.status).splice(0, 1, this._arrayList);
         this.dayTypes.controls[index].patchValue([{ status: selected }]);
         if (index == 0) {
-            this.patchValueFunction(index, this._firstFormIndex, false)
+            this.patchValueFunction(index, this._firstFormIndex, false);
             this.patchValueFunction(index, this._secondFormIndex, true);
             this.patchValueFunction(index, this._thirdFormIndex, true);
         } if (index == 1) {
@@ -291,13 +302,32 @@ export class ApplyLeavePage implements OnInit {
         this._index = i;
         const selected = (this.dayTypes.controls[this._index].value.selectArray).splice(1, 1, event.value);
         this.dayTypes.controls[i].patchValue([{ selectArray: selected }]);
+        if (i === 0) {
+            for (let j = 0; j < this._firstForm.length; j++) {
+                const obj = { date: moment(this._firstForm[j]).format('YYYY-MM-DD HH:mm:ss'), slot: event.value };
+                this._objSlot1.push(obj);
+            }
+        }
+        if (i === 1) {
+            for (let j = 0; j < this._secondForm.length; j++) {
+                const obj = { date: moment(this._secondForm[j]).format('YYYY-MM-DD HH:mm:ss'), slot: event.value };
+                this._objSlot2.push(obj);
+            }
+        }
+        if (i === 2) {
+            for (let j = 0; j < this._thirdForm.length; j++) {
+                const obj = { date: moment(this._thirdForm[j]).format('YYYY-MM-DD HH:mm:ss'), slot: event.value };
+                this._objSlot3.push(obj);
+            }
+        }
+        this._arrayDateSlot = this._objSlot1.concat(this._objSlot2).concat(this._objSlot3);
     }
 
     addFormField() {
         if (this.dayTypes.controls.length < Object.keys(DayType).length / 2) {
             this.dayTypes.push(new FormGroup({
                 name: new FormControl('0'),
-                selectArray: new FormArray([new FormControl(this._dateArray), new FormControl('AM')]),
+                selectArray: new FormArray([new FormControl(this._dateArray), new FormControl('')]),
                 status: new FormControl([false])
             }));
         } else {
