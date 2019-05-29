@@ -79,7 +79,7 @@
                             {{selectArray | date:'M/d/y'}}</mat-option>
                     </mat-select>
                 </mat-form-field>
-                &nbsp;&nbsp;
+                <span *ngIf="dayTypes.value[i].name !== '2' ">&nbsp;&nbsp;</span>
                 <mat-radio-group class="example-radio-group" (change)="timeSlotChanged($event,i)" style="width: 24%"
                     *ngIf="dayTypes.value[i].name == '1' " [value]="dayTypes.controls[i].value.selectArray[1]">
                     <mat-radio-button value="AM">AM
@@ -87,7 +87,17 @@
                     <mat-radio-button style="padding-left: 10px;" value="PM">PM
                     </mat-radio-button>
                 </mat-radio-group>
+                <mat-form-field appearance="outline" style="width: 32%;" *ngIf="dayTypes.value[i].name == '2' ">
+                    <mat-label>Quarter hours</mat-label>
+                    <mat-select [(value)]="selectedQuarterHour">
+                        <mat-option value="Q1">Q1 Hours</mat-option>
+                        <mat-option value="Q2">Q2 Hours</mat-option>
+                        <mat-option value="Q3">Q3 Hours</mat-option>
+                        <mat-option value="Q4">Q4 Hours</mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
+
             <ion-icon class="addIcon" name="add" *ngIf="showAddIcon" (click)="addFormField()">
             </ion-icon>
             <mat-hint style="font-size: 75%;display: block;padding: 5px;padding-top: 0;">
