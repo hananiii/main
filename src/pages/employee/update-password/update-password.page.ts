@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { APIService } from 'src/services/shared-service/api.service';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -21,11 +24,26 @@ export class UpdatePasswordPage implements OnInit {
 
     public showNewPassword: boolean = false;
     public showConfirmPassword: boolean = false;
-
     public formPassValidation: FormGroup;
-    matcher = new MyErrorStateMatcher();
+    public matcher = new MyErrorStateMatcher();
+    public email: string;
+    private _subscription: Subscription = new Subscription();
+    private _invitationId: string;
+    private _activeUrl: string;
 
-    constructor(private fb: FormBuilder) {
+
+    constructor(private fb: FormBuilder, private apiService: APIService,
+        private route: ActivatedRoute) {
+        route.queryParams
+            .subscribe((params) => {
+                this._invitationId = params.token;
+                this._subscription = this._subscription = this.apiService.get_invitation(this._invitationId).subscribe(
+                    (data: any) => {
+                        this.email = data.email;
+                    }
+                );
+            });
+
         this.formPassValidation = this.fb.group({
             newPass: ['', [Validators.required]],
             confirmPass: ['']
@@ -37,7 +55,7 @@ export class UpdatePasswordPage implements OnInit {
     }
 
     ngOnDestroy() {
-        // this._subscription.unsubscribe();
+        this._subscription.unsubscribe();
     }
 
     checkPasswords(group: FormGroup) {
@@ -46,6 +64,20 @@ export class UpdatePasswordPage implements OnInit {
         return pass === confirmPass ? null : { notSame: true }
     }
 
+    sendPassword(value) {
+        const body = {
+            id: this._invitationId,
+            password: value.confirmPass
+        };
+
+        this._subscription = this.apiService.patch_invitation(body).subscribe((data: any[]) => {
+        },
+            error => {
+                if (error.status === 401) {
+                    window.location.href = '/login';
+                }
+            });
+    }
 
 
 }

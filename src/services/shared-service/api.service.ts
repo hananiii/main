@@ -94,4 +94,14 @@ export class APIService {
         return this.getApi('/department');
     }
 
+    patch_invitation(password): Observable<any> {
+        this.headerAuthorization();
+        return this.patchApi(password, '/invitation');
+    }
+
+    get_invitation(token): Observable<any> {
+        this.headerAuthorization();
+        return this.getApiWithId('/invitation/', token);
+    }
+
 }
