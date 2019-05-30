@@ -10,7 +10,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
         const invalidCtrl = !!(control && control.invalid && control.parent.dirty);
         const invalidParent = !!(control && control.parent && control.parent.invalid && control.parent.dirty);
-
         return (invalidCtrl || invalidParent);
     }
 }
@@ -26,11 +25,10 @@ export class UpdatePasswordPage implements OnInit {
     public showConfirmPassword: boolean = false;
     public formPassValidation: FormGroup;
     public matcher = new MyErrorStateMatcher();
+    public name: string;
     public email: string;
     private _subscription: Subscription = new Subscription();
     private _invitationId: string;
-    private _activeUrl: string;
-
 
     constructor(private fb: FormBuilder, private apiService: APIService,
         private route: ActivatedRoute) {
@@ -39,6 +37,7 @@ export class UpdatePasswordPage implements OnInit {
                 this._invitationId = params.token;
                 this._subscription = this._subscription = this.apiService.get_invitation(this._invitationId).subscribe(
                     (data: any) => {
+                        this.name = data.name;
                         this.email = data.email;
                     }
                 );
