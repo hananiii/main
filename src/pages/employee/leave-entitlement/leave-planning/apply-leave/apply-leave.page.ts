@@ -28,12 +28,16 @@ export class ApplyLeavePage implements OnInit {
     public showAddIcon: boolean = true;
     public calendarPlugins = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
     public calendarEvents: EventInput[] = [
-        { title: 'Wesak Day', start: new Date('05-12-2019'), end: new Date('05-16-2019'), allDay: true }
-    ];
+        // Get from server and display in calendar after login
+        {
+            title: 'Wesak Day', start: '2019-05-16T08:00:00', end: '2019-05-18'
+            // allDay: true, description: '', color: 'yellow', textColor: 'white', backgroundColor: '#057dcd'
+        }
+    ]
     public minDate: string;
     public maxDate: string;
     public applyLeaveForm: FormGroup;
-    public selectedQuarterHour: string;
+    public selectedQuarterHour: string = '';
     private _userList: any;
     private _leaveTypeName: string;
     private _dateArray: any;
@@ -48,6 +52,7 @@ export class ApplyLeavePage implements OnInit {
     private _secondFormIndex = [];
     private _thirdFormIndex = [];
     private _arrayList = [];
+    private _slot1: string; private _slot2: string; private _slot3: string;
     private _objSlot1 = [];
     private _objSlot2 = [];
     private _objSlot3 = [];
@@ -114,18 +119,58 @@ export class ApplyLeavePage implements OnInit {
         });
     }
 
+    dayRender(ev) {
+        ev.el.addEventListener('dblclick', () => {
+            alert('double click!');
+        });
+    }
+
     postData() {
-        ///////////////// Changed POST data according server body /////////////////////
+        let newArray = [];
+        newArray = this._dateArray;
+        newArray = newArray.filter(val => !this._firstForm.includes(val));
+        newArray = newArray.filter(val => !this._secondForm.includes(val));
+        newArray = newArray.filter(val => !this._thirdForm.includes(val));
+        if (this.dayTypes.value[0].name !== '2') {
+            for (let i = 0; i < newArray.length; i++) {
+                if ((i + 1) <= newArray.length) {
+                    // const diff = Math.abs(newArray[i + 1].getTime() - newArray[i].getTime());
+                    // const diffDays = Math.ceil(diff / (1000 * 3600 * 24));
+                    const remainingFullDay = {
+                        "startDate": moment(newArray[i]).format('YYYY-MM-DD HH:mm:ss'),
+                        "endDate": moment(newArray[i]).format('YYYY-MM-DD HH:mm:ss'),
+                        "dayType": '0',
+                        "slot": "",
+                        "quarterDay": this.selectedQuarterHour
+                    }
+                    this._arrayDateSlot.push(remainingFullDay);
+                }
+            }
+        }
+        if (this.dayTypes.value[0].name == '2') {
+            for (let i = 0; i < newArray.length; i++) {
+                if ((i + 1) <= newArray.length) {
+                    const quarterDay = {
+                        "startDate": moment(newArray[i]).format('YYYY-MM-DD HH:mm:ss'),
+                        "endDate": moment(newArray[i]).format('YYYY-MM-DD HH:mm:ss'),
+                        "dayType": '2',
+                        "slot": "",
+                        "quarterDay": this.selectedQuarterHour
+                    }
+                    this._arrayDateSlot.push(quarterDay);
+                }
+            }
+        }
+
+        console.log('remove duplicates', this._arrayDateSlot);
+
         const applyLeaveData = {
             "leaveTypeID": this._leaveTypeId,
-            "startDate": this.reformatDateFrom,
-            "endDate": this.reformatDateTo,
-            "dayType": Number(this.dayTypes.value[this._index].name),
-            "halfDay": this._arrayDateSlot, // this.dayTypes.value[this._index].selectArray[1],
-            "quarterDay": this.selectedQuarterHour,
-            "reason": this.applyLeaveForm.value.inputReason
+            "reason": this.applyLeaveForm.value.inputReason,
+            "data": this._arrayDateSlot
         }
         console.log(applyLeaveData);
+
 
         this.subscription = this.apiService.post_user_apply_leave(applyLeaveData).subscribe(
             (val) => {
@@ -135,6 +180,7 @@ export class ApplyLeavePage implements OnInit {
             },
             response => {
                 console.log("PATCH call in error", response);
+                this.clearArrayList();
                 this.openSnackBar('fail');
                 if (response.status === 401) {
                     window.location.href = '/login';
@@ -170,7 +216,7 @@ export class ApplyLeavePage implements OnInit {
     }
 
     // function to calculate weekdays
-    getWeekDays(first, last) {
+    getWeekDays(first: Date, last: Date) {
         if (first > last) return -1;
         var start = new Date(first.getTime());
         var end = new Date(last.getTime());
@@ -187,7 +233,7 @@ export class ApplyLeavePage implements OnInit {
     }
 
     // get event from server that postData()
-    setEvent(name: string, sdt, edt) {
+    setEvent(name: string, sdt: Date, edt: Date) {
         if (name && sdt && edt) {
             this.calendarEvents = this.calendarEvents.concat({
                 title: name,
@@ -209,7 +255,7 @@ export class ApplyLeavePage implements OnInit {
         }
     }
 
-    dayTypesChanged(event, index) {
+    dayTypesChanged(event: any, index: any) {
         this._index = index;
         this.showAddIcon = true;
         if (event.value == '1') {
@@ -224,7 +270,7 @@ export class ApplyLeavePage implements OnInit {
         }
     }
 
-    open(index) {
+    open(index: number) {
         if (this._arrayList.length === 0) {
             for (let j = 0; j < this.dayTypes.controls[index].value.selectArray[0].length; j++) {
                 this._arrayList.push(false);
@@ -247,7 +293,7 @@ export class ApplyLeavePage implements OnInit {
         }
     }
 
-    calculate(date, form) {
+    calculate(date: any, form: any) {
         let missing = null;
         for (let i = 0; i < form.length; i++) {
             if (date.indexOf(form[i]) == -1) {
@@ -258,22 +304,56 @@ export class ApplyLeavePage implements OnInit {
         if (!missing) { this.daysCount = this.daysCount - 0.5; }
     }
 
-    halfDaySelectionChanged(selectedDate, index) {
+    containsObject(obj: any, list: any) {
+        for (let i = 0; i < list.length; i++) {
+            if (list[i].startDate === obj.startDate) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    postValueReformat(form: any, array: any, slot: string) {
+        for (let j = 0; j < form.length; j++) {
+            const obj = {
+                "startDate": moment(form[j]).format('YYYY-MM-DD HH:mm:ss'),
+                "endDate": moment(form[j]).format('YYYY-MM-DD HH:mm:ss'),
+                "dayType": this.dayTypes.controls[this._index].value.name,
+                "slot": slot,
+                "quarterDay": this.selectedQuarterHour,
+            }
+            if (this.containsObject(obj, array) === false) {
+                array.push(obj);
+                // console.log('before', array);
+            }
+            if (obj.slot !== array[j].slot) {
+                array.splice(j, 1, obj);
+                // console.log('after', array);
+            }
+        }
+    }
+
+    halfDaySelectionChanged(selectedDate: any, index: number) {
         if (index == 0) {
             this.calculate(selectedDate, this._firstForm);
             this._firstForm = selectedDate;
+            this.postValueReformat(this._firstForm, this._objSlot1, this._slot1);
         }
         if (index == 1) {
             this.calculate(selectedDate, this._secondForm);
             this._secondForm = selectedDate;
+            this.postValueReformat(this._secondForm, this._objSlot2, this._slot2);
         }
         if (index == 2) {
             this.calculate(selectedDate, this._thirdForm);
             this._thirdForm = selectedDate;
+            this.postValueReformat(this._thirdForm, this._objSlot3, this._slot3);
         }
+        this._arrayDateSlot = this._objSlot1.concat(this._objSlot2).concat(this._objSlot3);
+        // console.log('dateSelect', this._arrayDateSlot);
     }
 
-    valueSelected(i, indexj) {
+    valueSelected(i: number, indexj: number) {
         if (i == 0) {
             const index = this._firstFormIndex.findIndex(item => item === indexj);
             if (index > -1) {
@@ -298,29 +378,24 @@ export class ApplyLeavePage implements OnInit {
         }
     }
 
-    timeSlotChanged(event, i) {
+    timeSlotChanged(event: any, i: any) {
         this._index = i;
         const selected = (this.dayTypes.controls[this._index].value.selectArray).splice(1, 1, event.value);
         this.dayTypes.controls[i].patchValue([{ selectArray: selected }]);
         if (i === 0) {
-            for (let j = 0; j < this._firstForm.length; j++) {
-                const obj = { date: moment(this._firstForm[j]).format('YYYY-MM-DD HH:mm:ss'), slot: event.value };
-                this._objSlot1.push(obj);
-            }
+            this._slot1 = event.value;
+            this.postValueReformat(this._firstForm, this._objSlot1, this._slot1);
         }
         if (i === 1) {
-            for (let j = 0; j < this._secondForm.length; j++) {
-                const obj = { date: moment(this._secondForm[j]).format('YYYY-MM-DD HH:mm:ss'), slot: event.value };
-                this._objSlot2.push(obj);
-            }
+            this._slot2 = event.value;
+            this.postValueReformat(this._secondForm, this._objSlot2, this._slot2);
         }
         if (i === 2) {
-            for (let j = 0; j < this._thirdForm.length; j++) {
-                const obj = { date: moment(this._thirdForm[j]).format('YYYY-MM-DD HH:mm:ss'), slot: event.value };
-                this._objSlot3.push(obj);
-            }
+            this._slot3 = event.value;
+            this.postValueReformat(this._thirdForm, this._objSlot3, this._slot3);
         }
         this._arrayDateSlot = this._objSlot1.concat(this._objSlot2).concat(this._objSlot3);
+        // console.log('timeSelect', this._arrayDateSlot);
     }
 
     addFormField() {
@@ -336,7 +411,7 @@ export class ApplyLeavePage implements OnInit {
         }
     }
 
-    getIndex(leave) {
+    getIndex(leave: any) {
         this.daysAvailable = leave.balanceDays;
         this._leaveTypeId = leave.leaveTypeId;
         this._leaveTypeName = leave.leaveTypeName;

@@ -25,7 +25,6 @@ export const sideMenuNavigationRoutes: Routes = [
             { path: 'plan-my-leave', component: LeavePlanningPage },
             { path: 'employee-directory', component: ConnectionsPage },
             { path: 'user-public-profile', component: PublicPersonalDetailsPage },
-            { path: 'invitation', component: UpdatePasswordPage},
             {
                 path: 'employee-setup', component: EmployeeSetupPage,
                 children: [
