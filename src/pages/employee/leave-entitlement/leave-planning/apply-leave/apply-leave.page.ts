@@ -125,20 +125,38 @@ export class ApplyLeavePage implements OnInit {
         });
     }
 
+    createConsecutiveDate(arrayValue) {
+        let arr = arrayValue,
+            i = 0,
+            result = arr.reduce(function (stack, b) {
+                var cur = stack[i],
+                    a = cur ? cur[cur.length - 1] : 0;
+                if (b - a > 86400000) {
+                    i++;
+                }
+                if (!stack[i])
+                    stack[i] = [];
+                stack[i].push(b);
+                return stack;
+            }, []);
+        return result;
+    }
+
     postData() {
         let newArray = [];
         newArray = this._dateArray;
         newArray = newArray.filter(val => !this._firstForm.includes(val));
         newArray = newArray.filter(val => !this._secondForm.includes(val));
         newArray = newArray.filter(val => !this._thirdForm.includes(val));
+
         if (this.dayTypes.value[0].name !== '2') {
-            for (let i = 0; i < newArray.length; i++) {
-                if ((i + 1) <= newArray.length) {
-                    // const diff = Math.abs(newArray[i + 1].getTime() - newArray[i].getTime());
-                    // const diffDays = Math.ceil(diff / (1000 * 3600 * 24));
+            let result = this.createConsecutiveDate(newArray);
+            for (let i = 0; i < result.length; i++) {
+                if (result[i] !== undefined) {
+                    const minMax = this.getMinMaxDate(result[i]);
                     const remainingFullDay = {
-                        "startDate": moment(newArray[i]).format('YYYY-MM-DD HH:mm:ss'),
-                        "endDate": moment(newArray[i]).format('YYYY-MM-DD HH:mm:ss'),
+                        "startDate": moment(minMax[0]).format('YYYY-MM-DD HH:mm:ss'),
+                        "endDate": moment(minMax[1]).format('YYYY-MM-DD HH:mm:ss'),
                         "dayType": '0',
                         "slot": "",
                         "quarterDay": this.selectedQuarterHour
@@ -148,21 +166,21 @@ export class ApplyLeavePage implements OnInit {
             }
         }
         if (this.dayTypes.value[0].name == '2') {
-            for (let i = 0; i < newArray.length; i++) {
-                if ((i + 1) <= newArray.length) {
-                    const quarterDay = {
-                        "startDate": moment(newArray[i]).format('YYYY-MM-DD HH:mm:ss'),
-                        "endDate": moment(newArray[i]).format('YYYY-MM-DD HH:mm:ss'),
+            let result = this.createConsecutiveDate(newArray);
+            for (let i = 0; i < result.length; i++) {
+                if (result[i] !== undefined) {
+                    const minMaxValue = this.getMinMaxDate(result[i]);
+                    const remainingFullDay = {
+                        "startDate": moment(minMaxValue[0]).format('YYYY-MM-DD HH:mm:ss'),
+                        "endDate": moment(minMaxValue[1]).format('YYYY-MM-DD HH:mm:ss'),
                         "dayType": '2',
                         "slot": "",
                         "quarterDay": this.selectedQuarterHour
                     }
-                    this._arrayDateSlot.push(quarterDay);
+                    this._arrayDateSlot.push(remainingFullDay);
                 }
             }
         }
-
-        console.log('remove duplicates', this._arrayDateSlot);
 
         const applyLeaveData = {
             "leaveTypeID": this._leaveTypeId,
@@ -170,7 +188,6 @@ export class ApplyLeavePage implements OnInit {
             "data": this._arrayDateSlot
         }
         console.log(applyLeaveData);
-
 
         this.subscription = this.apiService.post_user_apply_leave(applyLeaveData).subscribe(
             (val) => {
@@ -230,6 +247,24 @@ export class ApplyLeavePage implements OnInit {
             start.setDate(start.getDate() + 1);
         }
         return [this.daysCount, this._dateArray];
+    }
+
+    getMinMaxDate(all_dates) {
+        let max_dt = all_dates[0],
+            max_dtObj = new Date(all_dates[0]);
+        let min_dt = all_dates[0],
+            min_dtObj = new Date(all_dates[0]);
+        all_dates.forEach(function (dt, index) {
+            if (new Date(dt) > max_dtObj) {
+                max_dt = dt;
+                max_dtObj = new Date(dt);
+            }
+            if (new Date(dt) < min_dtObj) {
+                min_dt = dt;
+                min_dtObj = new Date(dt);
+            }
+        });
+        return [min_dt, max_dt];
     }
 
     // get event from server that postData()
@@ -324,11 +359,9 @@ export class ApplyLeavePage implements OnInit {
             }
             if (this.containsObject(obj, array) === false) {
                 array.push(obj);
-                // console.log('before', array);
             }
             if (obj.slot !== array[j].slot) {
                 array.splice(j, 1, obj);
-                // console.log('after', array);
             }
         }
     }
@@ -350,7 +383,6 @@ export class ApplyLeavePage implements OnInit {
             this.postValueReformat(this._thirdForm, this._objSlot3, this._slot3);
         }
         this._arrayDateSlot = this._objSlot1.concat(this._objSlot2).concat(this._objSlot3);
-        // console.log('dateSelect', this._arrayDateSlot);
     }
 
     valueSelected(i: number, indexj: number) {
@@ -395,7 +427,6 @@ export class ApplyLeavePage implements OnInit {
             this.postValueReformat(this._thirdForm, this._objSlot3, this._slot3);
         }
         this._arrayDateSlot = this._objSlot1.concat(this._objSlot2).concat(this._objSlot3);
-        // console.log('timeSelect', this._arrayDateSlot);
     }
 
     addFormField() {
