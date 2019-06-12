@@ -10,48 +10,17 @@ import { AuthService } from 'src/services/shared-service/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  /**
-   *
-   *
-   * @type {boolean}
-   * @memberof LoginComponent
-   */
   public showPassword: boolean = false;
-  /**
-   *
-   *
-   * @type {boolean}
-   * @memberof LoginComponent
-   */
   public valueOfCheck: boolean;
-  /**
-   *
-   *
-   * @type {string}
-   * @memberof LoginComponent
-   */
   public emailValue: string;
-  /**
-   *
-   *
-   * @type {string}
-   * @memberof LoginComponent
-   */
   public passValue: string;
-
-  /**
-   *
-   *
-   * @memberof LoginComponent
-   */
   public formGroupValidation = new FormGroup({
     email: new FormControl(null, [Validators.required, Validators.email]),
     pass: new FormControl(null, [Validators.required]),
   });
 
   /**
-   *
-   *
+   * This method is used to show error message when the form control of email is invalid
    * @returns
    * @memberof LoginComponent
    */
@@ -61,8 +30,7 @@ export class LoginComponent implements OnInit {
   }
 
   /**
-   *
-   *
+   * This method is used to show error message when the form control of password is invalid
    * @returns
    * @memberof LoginComponent
    */
@@ -74,8 +42,7 @@ export class LoginComponent implements OnInit {
     private router: Router) { }
 
   /**
-   *
-   *
+   * This method is used to get initial value of email and password
    * @memberof LoginComponent
    */
   ngOnInit() {
@@ -90,16 +57,14 @@ export class LoginComponent implements OnInit {
   }
 
   /**
-   *
-   *
+   * This method is used to show password value when clicked the close eye icon
    * @memberof LoginComponent
    */
   showPasswordKey() {
     this.showPassword = true;
   }
   /**
-   *
-   *
+   * This method is used to hide password value when clicked the open eye icon
    * @memberof LoginComponent
    */
   hidePasswordKey() {
@@ -107,8 +72,7 @@ export class LoginComponent implements OnInit {
   }
 
   /**
-   *
-   *
+   * This method is used to route to main page when clicked log in button
    * @param {string} email
    * @param {string} pass
    * @memberof LoginComponent
@@ -123,8 +87,7 @@ export class LoginComponent implements OnInit {
   }
 
   /**
-   *
-   *
+   * This method is used to save user email & password 
    * @param {*} event
    * @param {string} email
    * @param {string} pass

@@ -12,8 +12,7 @@ export class AppComponent {
   }
 
   /**
-   *
-   *
+   * Initial method
    * @memberof AppComponent
    */
   ngOnInit() {

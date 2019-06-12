@@ -672,9 +672,15 @@
                     <tr>
                         <td class="col-md-4">
                                 <div class="io-description">
+                                </div>
+                                <div class="io-description">
                                     <b>Returns: </b>    <code>void</code>
     
                                 </div>
+                                    <div class="io-description">
+                                        <p>* </p>
+    
+                                    </div>
                         </td>
                     </tr>
                 </tbody>
@@ -696,9 +702,15 @@
                     <tr>
                         <td class="col-md-4">
                                 <div class="io-description">
+                                </div>
+                                <div class="io-description">
                                     <b>Returns: </b>    <code>void</code>
     
                                 </div>
+                                    <div class="io-description">
+                                        <p>* </p>
+    
+                                    </div>
                         </td>
                     </tr>
                 </tbody>
@@ -720,9 +732,14 @@
                     <tr>
                         <td class="col-md-4">
                                 <div class="io-description">
+                                </div>
+                                <div class="io-description">
                                     <b>Returns: </b>    <code>void</code>
     
                                 </div>
+                                    <div class="io-description">
+                                        
+                                    </div>
                         </td>
                     </tr>
                 </tbody>
@@ -744,9 +761,14 @@
                     <tr>
                         <td class="col-md-4">
                                 <div class="io-description">
+                                </div>
+                                <div class="io-description">
                                     <b>Returns: </b>    <code>void</code>
     
                                 </div>
+                                    <div class="io-description">
+                                        
+                                    </div>
                         </td>
                     </tr>
                 </tbody>
@@ -768,9 +790,33 @@
                     <tr>
                         <td class="col-md-4">
                                 <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <ul class="jsdoc-params">
+                                                <li>
+                                                    <div>
+                                                        <b>email</b>
+                                                    </div>
+                                                    <div>
+                                                        
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div>
+                                                        <b>pass</b>
+                                                    </div>
+                                                    <div>
+                                                        
+                                                    </div>
+                                                </li>
+                                        </ul>
+                                </div>
+                                <div class="io-description">
                                     <b>Returns: </b>    <code>void</code>
     
                                 </div>
+                                    <div class="io-description">
+                                        
+                                    </div>
                         </td>
                     </tr>
                 </tbody>
@@ -792,9 +838,41 @@
                     <tr>
                         <td class="col-md-4">
                                 <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <ul class="jsdoc-params">
+                                                <li>
+                                                    <div>
+                                                        <b>event</b>
+                                                    </div>
+                                                    <div>
+                                                        
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div>
+                                                        <b>email</b>
+                                                    </div>
+                                                    <div>
+                                                        
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div>
+                                                        <b>pass</b>
+                                                    </div>
+                                                    <div>
+                                                        
+                                                    </div>
+                                                </li>
+                                        </ul>
+                                </div>
+                                <div class="io-description">
                                     <b>Returns: </b>    <code>void</code>
     
                                 </div>
+                                    <div class="io-description">
+                                        
+                                    </div>
                         </td>
                     </tr>
                 </tbody>
@@ -898,21 +976,62 @@ import { AuthService } from &#x27;src/services/shared-service/auth.service&#x27;
 })
 export class LoginComponent implements OnInit {
 
+  /**
+   *
+   *
+   * @type {boolean}
+   * @memberof LoginComponent
+   */
   public showPassword: boolean &#x3D; false;
+  /**
+   *
+   *
+   * @type {boolean}
+   * @memberof LoginComponent
+   */
   public valueOfCheck: boolean;
+  /**
+   *
+   *
+   * @type {string}
+   * @memberof LoginComponent
+   */
   public emailValue: string;
+  /**
+   *
+   *
+   * @type {string}
+   * @memberof LoginComponent
+   */
   public passValue: string;
 
+  /**
+   *
+   *
+   * @memberof LoginComponent
+   */
   public formGroupValidation &#x3D; new FormGroup({
     email: new FormControl(null, [Validators.required, Validators.email]),
     pass: new FormControl(null, [Validators.required]),
   });
 
+  /**
+   *
+   *
+   * @returns
+   * @memberof LoginComponent
+   */
   getErrorMessage() {
     return this.formGroupValidation.controls[&#x27;email&#x27;].hasError(&#x27;required&#x27;) ? &#x27;Please enter your email address&#x27; :
       this.formGroupValidation.controls[&#x27;email&#x27;].hasError(&#x27;email&#x27;) ? &#x27;Not a valid email&#x27; : &#x27;&#x27;;
   }
 
+  /**
+   *
+   *
+   * @returns
+   * @memberof LoginComponent
+   */
   getPassErrorMessage() {
     return this.formGroupValidation.controls[&#x27;pass&#x27;].hasError(&#x27;required&#x27;) ? &#x27;Please enter your password&#x27; : &#x27;&#x27;;
   }
@@ -920,6 +1039,11 @@ export class LoginComponent implements OnInit {
   constructor(private _auth: AuthService,
     private router: Router) { }
 
+  /**
+   *
+   *
+   * @memberof LoginComponent
+   */
   ngOnInit() {
     if ((localStorage.getItem(&#x27;user_email&#x27;) !&#x3D;&#x3D; null) &amp;&amp; (localStorage.getItem(&#x27;user_pass&#x27;) !&#x3D;&#x3D; null)) {
       this.valueOfCheck &#x3D; true;
@@ -931,13 +1055,30 @@ export class LoginComponent implements OnInit {
     this._auth.logout();
   }
 
+  /**
+   *
+   *
+   * @memberof LoginComponent
+   */
   showPasswordKey() {
     this.showPassword &#x3D; true;
   }
+  /**
+   *
+   *
+   * @memberof LoginComponent
+   */
   hidePasswordKey() {
     this.showPassword &#x3D; false;
   }
 
+  /**
+   *
+   *
+   * @param {string} email
+   * @param {string} pass
+   * @memberof LoginComponent
+   */
   signIn(email: string, pass: string) {
     this._auth.login(email, pass)
       .subscribe(data &#x3D;&gt; {
@@ -947,6 +1088,14 @@ export class LoginComponent implements OnInit {
       );
   }
 
+  /**
+   *
+   *
+   * @param {*} event
+   * @param {string} email
+   * @param {string} pass
+   * @memberof LoginComponent
+   */
   rememberMe(event: any, email: string, pass: string) {
     if (email !&#x3D;&#x3D; &quot;&quot; || pass !&#x3D;&#x3D; &quot;&quot;) {
       localStorage.setItem(&#x27;user_email&#x27;, email);
