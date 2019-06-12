@@ -35,7 +35,7 @@ export class UpdatePasswordPage implements OnInit {
         route.queryParams
             .subscribe((params) => {
                 this._invitationId = params.token;
-                this._subscription = this._subscription = this.apiService.get_invitation(this._invitationId).subscribe(
+                this._subscription = this.apiService.get_invitation(this._invitationId).subscribe(
                     (data: any) => {
                         this.name = data.name;
                         this.email = data.email;

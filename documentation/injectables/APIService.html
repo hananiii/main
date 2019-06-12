@@ -1198,7 +1198,6 @@ export class APIService {
     }
 
     get_invitation(token): Observable&lt;any&gt; {
-        this.headerAuthorization();
         return this.getApiWithId(&#x27;/invitation/&#x27;, token);
     }
 

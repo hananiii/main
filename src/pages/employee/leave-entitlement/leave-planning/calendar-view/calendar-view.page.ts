@@ -1,5 +1,4 @@
 export interface Holidays {
-    day: string;
     start: string;
     end: string;
     title: string;
@@ -21,18 +20,26 @@ export class CalendarViewPage implements OnInit {
 
     @ViewChild('calendar') calendar: FullCalendarComponent;
     public calendarPlugins = [dayGridPlugin, timeGrigPlugin, listYear];
+    private _days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    // var d = new Date(dateString);
+    // var dayName = days[d.getDay()];
+
+    // get from server
     public calendarEvents: EventInput[] = [
-        { title: 'Wesak Day', start: new Date('05-12-2019'), end: new Date('05-16-2019'), allDay: true }
+        { title: 'Wesak Day', start: new Date('05-12-2019'), end: new Date('05-16-2019'), allDay: true },
+        { title: 'Wesak Day', start: new Date('04-13-2019'), allDay: true },
+        { title: 'Perak Sultan Birthday', start: new Date('05-15-2019'), allDay: true },
     ];
+    // get from server
     public holidays: Holidays[] = [
-        { 'day': 'Monday', 'start': '13-04-19', 'end': '13-04-19', 'title': 'Wesak Day' },
-        { 'day': 'Tuesday', 'start': '14-04-19', 'end': '14-04-19', 'title': 'Agong Birthday ' },
-        { 'day': 'Monday', 'start': '13-04-19', 'end': '14-04-19', 'title': 'Wesak Day' },
-        { 'day': 'Tuesday', 'start': '14-04-19', 'end': '14-04-19', 'title': 'Agong Birthday ' },
-        { 'day': 'Monday', 'start': '13-04-19', 'end': '14-04-19', 'title': 'Wesak Day' },
-        { 'day': 'Tuesday', 'start': '14-04-19', 'end': '14-04-19', 'title': 'Agong Birthday ' },
-        { 'day': 'Monday', 'start': '13-04-19', 'end': '13-04-19', 'title': 'Wesak Day' },
-        { 'day': 'Tuesday', 'start': '14-04-19', 'end': '14-04-19', 'title': 'Agong Birthday ' }
+        { 'start': '13-04-19', 'end': '13-04-19', 'title': 'Wesak Day' },
+        { 'start': '14-04-19', 'end': '14-04-19', 'title': 'Perak Sultan Birthday' },
+        { 'start': '15-05-19', 'end': '14-04-19', 'title': 'Raya' },
+        { 'start': '14-06-19', 'end': '14-04-19', 'title': 'Raya' },
+        { 'start': '13-07-19', 'end': '14-04-19', 'title': 'Agong Birthday' },
+        { 'start': '17-07-19', 'end': '14-04-19', 'title': 'Selangor Sultan Birthday' },
+        { 'start': '19-07-19', 'end': '13-04-19', 'title': 'Wesak Day' },
+        { 'start': '31-08-19', 'end': '14-04-19', 'title': 'Merdeka' }
     ];
 
     constructor(

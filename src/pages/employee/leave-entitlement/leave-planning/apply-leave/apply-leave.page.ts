@@ -104,7 +104,7 @@ export class ApplyLeavePage implements OnInit {
         return new FormGroup({
             dayTypes: new FormArray([
                 new FormGroup({
-                    name: new FormControl('0'),
+                    name: new FormControl(0),
                     selectArray: new FormArray([
                         new FormControl(['0']),
                         new FormControl(''),
@@ -119,11 +119,11 @@ export class ApplyLeavePage implements OnInit {
         });
     }
 
-    dayRender(ev) {
-        ev.el.addEventListener('dblclick', () => {
-            alert('double click!');
-        });
-    }
+    // dayRender(ev) {
+    //     ev.el.addEventListener('dblclick', () => {
+    //         alert('double click!');
+    //     });
+    // }
 
     createConsecutiveDate(arrayValue) {
         let arr = arrayValue,
@@ -149,7 +149,7 @@ export class ApplyLeavePage implements OnInit {
         newArray = newArray.filter(val => !this._secondForm.includes(val));
         newArray = newArray.filter(val => !this._thirdForm.includes(val));
 
-        if (this.dayTypes.value[0].name !== '2') {
+        if (this.dayTypes.value[0].name !== 2) {
             let result = this.createConsecutiveDate(newArray);
             for (let i = 0; i < result.length; i++) {
                 if (result[i] !== undefined) {
@@ -157,7 +157,7 @@ export class ApplyLeavePage implements OnInit {
                     const remainingFullDay = {
                         "startDate": moment(minMax[0]).format('YYYY-MM-DD HH:mm:ss'),
                         "endDate": moment(minMax[1]).format('YYYY-MM-DD HH:mm:ss'),
-                        "dayType": '0',
+                        "dayType": 0,
                         "slot": "",
                         "quarterDay": this.selectedQuarterHour
                     }
@@ -165,7 +165,7 @@ export class ApplyLeavePage implements OnInit {
                 }
             }
         }
-        if (this.dayTypes.value[0].name == '2') {
+        if (this.dayTypes.value[0].name == 2) {
             let result = this.createConsecutiveDate(newArray);
             for (let i = 0; i < result.length; i++) {
                 if (result[i] !== undefined) {
@@ -173,7 +173,7 @@ export class ApplyLeavePage implements OnInit {
                     const remainingFullDay = {
                         "startDate": moment(minMaxValue[0]).format('YYYY-MM-DD HH:mm:ss'),
                         "endDate": moment(minMaxValue[1]).format('YYYY-MM-DD HH:mm:ss'),
-                        "dayType": '2',
+                        "dayType": 2,
                         "slot": "",
                         "quarterDay": this.selectedQuarterHour
                     }
@@ -353,7 +353,7 @@ export class ApplyLeavePage implements OnInit {
             const obj = {
                 "startDate": moment(form[j]).format('YYYY-MM-DD HH:mm:ss'),
                 "endDate": moment(form[j]).format('YYYY-MM-DD HH:mm:ss'),
-                "dayType": this.dayTypes.controls[this._index].value.name,
+                "dayType": Number(this.dayTypes.controls[this._index].value.name),
                 "slot": slot,
                 "quarterDay": this.selectedQuarterHour,
             }
@@ -432,7 +432,7 @@ export class ApplyLeavePage implements OnInit {
     addFormField() {
         if (this.dayTypes.controls.length < Object.keys(DayType).length / 2) {
             this.dayTypes.push(new FormGroup({
-                name: new FormControl('0'),
+                name: new FormControl(0),
                 selectArray: new FormArray([new FormControl(this._dateArray), new FormControl('')]),
                 status: new FormControl([false])
             }));
