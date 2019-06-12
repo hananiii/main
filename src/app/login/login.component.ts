@@ -2,18 +2,50 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/services/shared-service/auth.service';
-
+/**
+ * Login component
+ * @export
+ * @class LoginComponent
+ * @implements {OnInit}
+ */
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
+  /**
+   * This is local property to show password value
+   * @type {boolean}
+   * @memberof LoginComponent
+   */
   public showPassword: boolean = false;
+
+  /**
+   * This is local property to determine checkbox is ticked or vice versa
+   * @type {boolean}
+   * @memberof LoginComponent
+   */
   public valueOfCheck: boolean;
+
+  /**
+   * This is local property to save email value
+   * @type {string}
+   * @memberof LoginComponent
+   */
   public emailValue: string;
+
+  /**
+   * This is local property to save password value
+   * @type {string}
+   * @memberof LoginComponent
+   */
   public passValue: string;
+
+  /**
+   * This is local property to form group of validation for email and password
+   * @memberof LoginComponent
+   */
   public formGroupValidation = new FormGroup({
     email: new FormControl(null, [Validators.required, Validators.email]),
     pass: new FormControl(null, [Validators.required]),
@@ -38,6 +70,12 @@ export class LoginComponent implements OnInit {
     return this.formGroupValidation.controls['pass'].hasError('required') ? 'Please enter your password' : '';
   }
 
+  /**
+   *Creates an instance of LoginComponent.
+   * @param {AuthService} _auth
+   * @param {Router} router
+   * @memberof LoginComponent
+   */
   constructor(private _auth: AuthService,
     private router: Router) { }
 

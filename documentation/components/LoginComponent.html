@@ -671,6 +671,8 @@
     
                     <tr>
                         <td class="col-md-4">
+                                <div class="io-description"><p>This method is used to show error message when the form control of email is invalid</p>
+    </div>
                                 <div class="io-description">
                                 </div>
                                 <div class="io-description">
@@ -701,6 +703,8 @@
     
                     <tr>
                         <td class="col-md-4">
+                                <div class="io-description"><p>This method is used to show error message when the form control of password is invalid</p>
+    </div>
                                 <div class="io-description">
                                 </div>
                                 <div class="io-description">
@@ -731,6 +735,8 @@
     
                     <tr>
                         <td class="col-md-4">
+                                <div class="io-description"><p>This method is used to show password value when clicked the close eye icon</p>
+    </div>
                                 <div class="io-description">
                                 </div>
                                 <div class="io-description">
@@ -760,6 +766,8 @@
     
                     <tr>
                         <td class="col-md-4">
+                                <div class="io-description"><p>This method is used to hide password value when clicked the open eye icon</p>
+    </div>
                                 <div class="io-description">
                                 </div>
                                 <div class="io-description">
@@ -789,6 +797,8 @@
     
                     <tr>
                         <td class="col-md-4">
+                                <div class="io-description"><p>This method is used to route to main page when clicked log in button</p>
+    </div>
                                 <div class="io-description">
                                         <b>Parameters :</b>
                                         <ul class="jsdoc-params">
@@ -837,6 +847,8 @@
     
                     <tr>
                         <td class="col-md-4">
+                                <div class="io-description"><p>This method is used to save user email &amp; password </p>
+    </div>
                                 <div class="io-description">
                                         <b>Parameters :</b>
                                         <ul class="jsdoc-params">
@@ -976,48 +988,17 @@ import { AuthService } from &#x27;src/services/shared-service/auth.service&#x27;
 })
 export class LoginComponent implements OnInit {
 
-  /**
-   *
-   *
-   * @type {boolean}
-   * @memberof LoginComponent
-   */
   public showPassword: boolean &#x3D; false;
-  /**
-   *
-   *
-   * @type {boolean}
-   * @memberof LoginComponent
-   */
   public valueOfCheck: boolean;
-  /**
-   *
-   *
-   * @type {string}
-   * @memberof LoginComponent
-   */
   public emailValue: string;
-  /**
-   *
-   *
-   * @type {string}
-   * @memberof LoginComponent
-   */
   public passValue: string;
-
-  /**
-   *
-   *
-   * @memberof LoginComponent
-   */
   public formGroupValidation &#x3D; new FormGroup({
     email: new FormControl(null, [Validators.required, Validators.email]),
     pass: new FormControl(null, [Validators.required]),
   });
 
   /**
-   *
-   *
+   * This method is used to show error message when the form control of email is invalid
    * @returns
    * @memberof LoginComponent
    */
@@ -1027,8 +1008,7 @@ export class LoginComponent implements OnInit {
   }
 
   /**
-   *
-   *
+   * This method is used to show error message when the form control of password is invalid
    * @returns
    * @memberof LoginComponent
    */
@@ -1040,8 +1020,7 @@ export class LoginComponent implements OnInit {
     private router: Router) { }
 
   /**
-   *
-   *
+   * This method is used to get initial value of email and password
    * @memberof LoginComponent
    */
   ngOnInit() {
@@ -1056,16 +1035,14 @@ export class LoginComponent implements OnInit {
   }
 
   /**
-   *
-   *
+   * This method is used to show password value when clicked the close eye icon
    * @memberof LoginComponent
    */
   showPasswordKey() {
     this.showPassword &#x3D; true;
   }
   /**
-   *
-   *
+   * This method is used to hide password value when clicked the open eye icon
    * @memberof LoginComponent
    */
   hidePasswordKey() {
@@ -1073,8 +1050,7 @@ export class LoginComponent implements OnInit {
   }
 
   /**
-   *
-   *
+   * This method is used to route to main page when clicked log in button
    * @param {string} email
    * @param {string} pass
    * @memberof LoginComponent
@@ -1089,8 +1065,7 @@ export class LoginComponent implements OnInit {
   }
 
   /**
-   *
-   *
+   * This method is used to save user email &amp; password 
    * @param {*} event
    * @param {string} email
    * @param {string} pass
