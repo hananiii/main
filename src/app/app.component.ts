@@ -11,6 +11,11 @@ export class AppComponent {
   constructor() {
   }
 
+  /**
+   *
+   *
+   * @memberof AppComponent
+   */
   ngOnInit() {
   }
 
