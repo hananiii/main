@@ -5,7 +5,12 @@ import { APIService } from 'src/services/shared-service/api.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
-
+/**
+ * Error when invalid control is dirty, touched, or submitted
+ * @export
+ * @class MyErrorStateMatcher
+ * @implements {ErrorStateMatcher}
+ */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
         const invalidCtrl = !!(control && control.invalid && control.parent.dirty);

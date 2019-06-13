@@ -14,19 +14,57 @@ import { DayType } from './apply-leave.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotificationPage } from './notification/notification.page';
 const moment = _moment;
-
+/**
+ * Apply Leave Page
+ * @export
+ * @class ApplyLeavePage
+ * @implements {OnInit}
+ */
 @Component({
     selector: 'app-apply-leave',
     templateUrl: './apply-leave.page.html',
     styleUrls: ['./apply-leave.page.scss'],
 })
 export class ApplyLeavePage implements OnInit {
-
+    /**
+     * Local property for leave entitlement details
+     * @type {*}
+     * @memberof ApplyLeavePage
+     */
     public entitlement: any;
+
+    /**
+     * Local property for leave day available
+     * @type {string}
+     * @memberof ApplyLeavePage
+     */
     public daysAvailable: string = '';
+
+    /**
+     * Local property for leave day applied
+     * @type {number}
+     * @memberof ApplyLeavePage
+     */
     public daysCount: number = 0;
+
+    /**
+     * Local property for show or hide Add icon
+     * @type {boolean}
+     * @memberof ApplyLeavePage
+     */
     public showAddIcon: boolean = true;
+
+    /**
+     * This is input property for plugins of Full Calendar Component
+     * @memberof ApplyLeavePage
+     */
     public calendarPlugins = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
+
+    /**
+     * Property for alias Event Input of Full Calendar Component
+     * @type {EventInput[]}
+     * @memberof ApplyLeavePage
+     */
     public calendarEvents: EventInput[] = [
         // Get from server and display in calendar after login
         {
@@ -34,16 +72,82 @@ export class ApplyLeavePage implements OnInit {
             // allDay: true, description: '', color: 'yellow', textColor: 'white', backgroundColor: '#057dcd'
         }
     ]
+
+    /**
+     * Local property for min. date range
+     * @type {string}
+     * @memberof ApplyLeavePage
+     */
     public minDate: string;
+
+    /**
+     * Local property for max. date range
+     * @type {string}
+     * @memberof ApplyLeavePage
+     */
     public maxDate: string;
+
+    /**
+     * Local property for leave form group
+     * @type {FormGroup}
+     * @memberof ApplyLeavePage
+     */
     public applyLeaveForm: FormGroup;
+
+    /**
+     * Local property for selected quarter hour value
+     * @type {string}
+     * @memberof ApplyLeavePage
+     */
     public selectedQuarterHour: string = '';
+
+    /**
+     * Local private property for value get from API
+     * @private
+     * @type {*}
+     * @memberof ApplyLeavePage
+     */
     private _userList: any;
+
+    /**
+     * Local private property for leave type name
+     * @private
+     * @type {string}
+     * @memberof ApplyLeavePage
+     */
     private _leaveTypeName: string;
+
+    /**
+     * Local private property for selected date array list
+     * @private
+     * @type {*}
+     * @memberof ApplyLeavePage
+     */
     private _dateArray: any;
+
+    /**
+     * Local private property for leave type ID
+     * @private
+     * @type {string}
+     * @memberof ApplyLeavePage
+     */
     private _leaveTypeId: string;
-    private reformatDateFrom: string;
-    private reformatDateTo: string;
+
+    /**
+     * Local private property for start date
+     * @private
+     * @type {string}
+     * @memberof ApplyLeavePage
+     */
+    private _reformatDateFrom: string;
+
+    /**
+     * Local private property for end date
+     * @private
+     * @type {string}
+     * @memberof ApplyLeavePage
+     */
+    private _reformatDateTo: string;
     private _index: string = '0';
     private _firstForm = [];
     private _secondForm = [];
@@ -52,18 +156,40 @@ export class ApplyLeavePage implements OnInit {
     private _secondFormIndex = [];
     private _thirdFormIndex = [];
     private _arrayList = [];
-    private _slot1: string; private _slot2: string; private _slot3: string;
+    private _slot1: string;
+    private _slot2: string;
+    private _slot3: string;
     private _objSlot1 = [];
     private _objSlot2 = [];
     private _objSlot3 = [];
     private _arrayDateSlot = [];
+
+    /**
+     * This is local property to set subscription
+     * @private
+     * @type {Subscription}
+     * @memberof ApplyLeavePage
+     */
     private subscription: Subscription = new Subscription();
+
+    /**
+     * This is local property for Full Calendar Component
+     * @type {FullCalendarComponent}
+     * @memberof ApplyLeavePage
+     */
     @ViewChild('calendar') calendarComponent: FullCalendarComponent;
 
     get dayTypes(): FormArray {
         return this.applyLeaveForm.get('dayTypes') as FormArray;
     }
 
+    /**
+     *Creates an instance of ApplyLeavePage.
+     * @param {APIService} apiService
+     * @param {ActivatedRoute} route
+     * @param {MatSnackBar} snackBar
+     * @memberof ApplyLeavePage
+     */
     constructor(private apiService: APIService,
         private route: ActivatedRoute, private snackBar: MatSnackBar) {
         this.applyLeaveForm = this.formGroup();
@@ -77,8 +203,12 @@ export class ApplyLeavePage implements OnInit {
             });
     }
 
+    /**
+     * Initial method
+     * Get user profile list from API
+     * @memberof ApplyLeavePage
+     */
     ngOnInit() {
-
         this.subscription = this.apiService.get_user_profile().subscribe(
             (data: any[]) => {
                 this._userList = data;
@@ -96,10 +226,19 @@ export class ApplyLeavePage implements OnInit {
         }, 100);
     }
 
+    /**
+     * This method is used to destroy subscription
+     * @memberof ApplyLeavePage
+     */
     ngOnDestroy() {
         this.subscription.unsubscribe();
     }
 
+    /**
+     * This method is used to form group for validation
+     * @returns
+     * @memberof ApplyLeavePage
+     */
     formGroup() {
         return new FormGroup({
             dayTypes: new FormArray([
@@ -125,6 +264,12 @@ export class ApplyLeavePage implements OnInit {
     //     });
     // }
 
+    /**
+     * This method is used to create consecutive date as an array list
+     * @param {*} arrayValue
+     * @returns
+     * @memberof ApplyLeavePage
+     */
     createConsecutiveDate(arrayValue) {
         let arr = arrayValue,
             i = 0,
@@ -142,6 +287,10 @@ export class ApplyLeavePage implements OnInit {
         return result;
     }
 
+    /**
+     * This method is used to post data to apply leave API 
+     * @memberof ApplyLeavePage
+     */
     postData() {
         let newArray = [];
         newArray = this._dateArray;
@@ -206,6 +355,10 @@ export class ApplyLeavePage implements OnInit {
         this.setEvent(this._leaveTypeName, this.applyLeaveForm.value.firstPicker, new Date((this.applyLeaveForm.value.secondPicker).setDate((this.applyLeaveForm.value.secondPicker).getDate() + 1)));
     }
 
+    /**
+     * This method is used to clear all form value
+     * @memberof ApplyLeavePage
+     */
     clearArrayList() {
         this.applyLeaveForm = this.formGroup();
         this._arrayList = [];
@@ -222,17 +375,28 @@ export class ApplyLeavePage implements OnInit {
         this.selectedQuarterHour = '';
     }
 
+    /**
+     * This method is used to patch value of selected start date & end date
+     * Calculate weekdays
+     * @memberof ApplyLeavePage
+     */
     onDateChange(): void {
         if (!this.applyLeaveForm.value.firstPicker || !this.applyLeaveForm.value.secondPicker) {
         } else {
-            this.reformatDateFrom = moment(this.applyLeaveForm.value.firstPicker).format('YYYY-MM-DD HH:mm:ss');
-            this.reformatDateTo = moment(this.applyLeaveForm.value.secondPicker).format('YYYY-MM-DD HH:mm:ss');
+            this._reformatDateFrom = moment(this.applyLeaveForm.value.firstPicker).format('YYYY-MM-DD HH:mm:ss');
+            this._reformatDateTo = moment(this.applyLeaveForm.value.secondPicker).format('YYYY-MM-DD HH:mm:ss');
             this.getWeekDays(this.applyLeaveForm.value.firstPicker, this.applyLeaveForm.value.secondPicker);
             this.dayTypes.patchValue([{ selectArray: [this._dateArray] }]);
         }
     }
 
-    // function to calculate weekdays
+    /**
+     * This method is used to calculate weekdays
+     * @param {Date} first
+     * @param {Date} last
+     * @returns
+     * @memberof ApplyLeavePage
+     */
     getWeekDays(first: Date, last: Date) {
         if (first > last) return -1;
         var start = new Date(first.getTime());
@@ -249,6 +413,12 @@ export class ApplyLeavePage implements OnInit {
         return [this.daysCount, this._dateArray];
     }
 
+    /**
+     * This method is used to get min. and max. date of each date array
+     * @param {*} all_dates
+     * @returns
+     * @memberof ApplyLeavePage
+     */
     getMinMaxDate(all_dates) {
         let max_dt = all_dates[0],
             max_dtObj = new Date(all_dates[0]);
@@ -278,9 +448,23 @@ export class ApplyLeavePage implements OnInit {
             })
         }
     }
+
+    /**
+     * This method is used to set min. date of datepicker start date
+     * @param {MatDatepickerInputEvent<string>} event
+     * @returns {string}
+     * @memberof ApplyLeavePage
+     */
     getValueFrom(event: MatDatepickerInputEvent<string>): string {
         return this.minDate = moment(event.value).format('YYYY-MM-DD');
     }
+
+    /**
+     * This method is used to set max. date of datepicker end date
+     * @param {MatDatepickerInputEvent<string>} event
+     * @returns {string}
+     * @memberof ApplyLeavePage
+     */
     getValueTo(event: MatDatepickerInputEvent<string>): string {
         const toDate: string = moment(event.value).format('YYYY-MM-DD');
         if (toDate < this.minDate) {
@@ -290,6 +474,12 @@ export class ApplyLeavePage implements OnInit {
         }
     }
 
+    /**
+     * This method is used to detect selection change of day types
+     * @param {*} event
+     * @param {*} index
+     * @memberof ApplyLeavePage
+     */
     dayTypesChanged(event: any, index: any) {
         this._index = index;
         this.showAddIcon = true;
@@ -298,6 +488,13 @@ export class ApplyLeavePage implements OnInit {
         }
     }
 
+    /**
+     * This method is used to patch value to form control status
+     * @param {number} i
+     * @param {*} value
+     * @param {boolean} disabled
+     * @memberof ApplyLeavePage
+     */
     patchValueFunction(i: number, value: any, disabled: boolean) {
         for (let j = 0; j < value.length; j++) {
             const valueFirst = (this.dayTypes.controls[i].value.status[0]).splice(value[j], 1, disabled);
@@ -305,6 +502,11 @@ export class ApplyLeavePage implements OnInit {
         }
     }
 
+    /**
+     * This method is used to detect opened change of half day dates
+     * @param {number} index
+     * @memberof ApplyLeavePage
+     */
     open(index: number) {
         if (this._arrayList.length === 0) {
             for (let j = 0; j < this.dayTypes.controls[index].value.selectArray[0].length; j++) {
@@ -328,6 +530,12 @@ export class ApplyLeavePage implements OnInit {
         }
     }
 
+    /**
+     * This method is used to calculate days of leave apply
+     * @param {*} date
+     * @param {*} form
+     * @memberof ApplyLeavePage
+     */
     calculate(date: any, form: any) {
         let missing = null;
         for (let i = 0; i < form.length; i++) {
@@ -339,6 +547,13 @@ export class ApplyLeavePage implements OnInit {
         if (!missing) { this.daysCount = this.daysCount - 0.5; }
     }
 
+    /**
+     * This method is used to check duplicate start date
+     * @param {*} obj
+     * @param {*} list
+     * @returns
+     * @memberof ApplyLeavePage
+     */
     containsObject(obj: any, list: any) {
         for (let i = 0; i < list.length; i++) {
             if (list[i].startDate === obj.startDate) {
@@ -348,6 +563,13 @@ export class ApplyLeavePage implements OnInit {
         return false;
     }
 
+    /**
+     * This method is used to format body to be send to POST API
+     * @param {*} form
+     * @param {*} array
+     * @param {string} slot
+     * @memberof ApplyLeavePage
+     */
     postValueReformat(form: any, array: any, slot: string) {
         for (let j = 0; j < form.length; j++) {
             const obj = {
@@ -366,6 +588,12 @@ export class ApplyLeavePage implements OnInit {
         }
     }
 
+    /**
+     * This method is used to calculate days when selected date options
+     * @param {*} selectedDate
+     * @param {number} index
+     * @memberof ApplyLeavePage
+     */
     halfDaySelectionChanged(selectedDate: any, index: number) {
         if (index == 0) {
             this.calculate(selectedDate, this._firstForm);
@@ -385,6 +613,12 @@ export class ApplyLeavePage implements OnInit {
         this._arrayDateSlot = this._objSlot1.concat(this._objSlot2).concat(this._objSlot3);
     }
 
+    /**
+     * This method is used to assign value of selected date option
+     * @param {number} i
+     * @param {number} indexj
+     * @memberof ApplyLeavePage
+     */
     valueSelected(i: number, indexj: number) {
         if (i == 0) {
             const index = this._firstFormIndex.findIndex(item => item === indexj);
@@ -410,6 +644,12 @@ export class ApplyLeavePage implements OnInit {
         }
     }
 
+    /**
+     * This method is used to get time slot AM/PM when detect change
+     * @param {*} event
+     * @param {*} i
+     * @memberof ApplyLeavePage
+     */
     timeSlotChanged(event: any, i: any) {
         this._index = i;
         const selected = (this.dayTypes.controls[this._index].value.selectArray).splice(1, 1, event.value);
@@ -429,6 +669,10 @@ export class ApplyLeavePage implements OnInit {
         this._arrayDateSlot = this._objSlot1.concat(this._objSlot2).concat(this._objSlot3);
     }
 
+    /**
+     * This method is used for add new form group after clicked add button
+     * @memberof ApplyLeavePage
+     */
     addFormField() {
         if (this.dayTypes.controls.length < Object.keys(DayType).length / 2) {
             this.dayTypes.push(new FormGroup({
@@ -442,12 +686,22 @@ export class ApplyLeavePage implements OnInit {
         }
     }
 
+    /**
+     * Get details from clicked leave type name option
+     * @param {*} leave
+     * @memberof ApplyLeavePage
+     */
     getIndex(leave: any) {
         this.daysAvailable = leave.balanceDays;
         this._leaveTypeId = leave.leaveTypeId;
         this._leaveTypeName = leave.leaveTypeName;
     }
 
+    /**
+     * Show message of pass or fail after post data
+     * @param {string} message
+     * @memberof ApplyLeavePage
+     */
     openSnackBar(message: string) {
         this.snackBar.openFromComponent(NotificationPage, {
             duration: 2000,

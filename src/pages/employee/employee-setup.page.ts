@@ -1,6 +1,23 @@
 export interface ISubSideMenu {
+  /**
+   * This is local interface property as title of menu
+   * @type {string}
+   * @memberof ISubSideMenu
+   */
   title: string;
+
+  /**
+   * This is local interface property as url of menu
+   * @type {string[]}
+   * @memberof ISubSideMenu
+   */
   url: string[];
+
+  /**
+   * This is local interface property as icon name of menu
+   * @type {string}
+   * @memberof ISubSideMenu
+   */
   icon: string;
 }
 
@@ -10,18 +27,58 @@ import { APIService } from 'src/services/shared-service/api.service';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
+/**
+ * Employee Setup Page
+ * @export
+ * @class EmployeeSetupPage
+ * @implements {OnInit}
+ */
 @Component({
   selector: 'app-employee-setup',
   templateUrl: './employee-setup.page.html',
   styleUrls: ['./employee-setup.page.scss'],
 })
 export class EmployeeSetupPage implements OnInit {
-
+  /**
+   * This is local property used to get the number of index in array of employee setup page
+   * @type {number}
+   * @memberof EmployeeSetupPage
+   */
   public numOfArray: number;
+
+  /** 
+   * This is local property used to get user ID from API
+   * @type {string}
+   * @memberof EmployeeSetupPage
+   */
   public userId: string;
+
+  /**
+   * This is local property used to get content from personal details API
+   * @type {*}
+   * @memberof EmployeeSetupPage
+   */
   public list: any;
+
+  /**
+   * This is local property used to get url 
+   * @type {string}
+   * @memberof EmployeeSetupPage
+   */
   public url: string;
+
+  /**
+   * Thid is local property used to get last segment of url
+   * @type {string}
+   * @memberof EmployeeSetupPage
+   */
   public lastSegment: string;
+
+  /**
+   * This is local property used to set menu title, path routing & icon name
+   * @type {ISubSideMenu[]}
+   * @memberof EmployeeSetupPage
+   */
   public employeeSetupPage: ISubSideMenu[] = [
     {
       title: 'Personal Details',
@@ -54,16 +111,36 @@ export class EmployeeSetupPage implements OnInit {
       icon: 'people',
     }
   ];
+
+  /**
+   * This is local private property to set subscription
+   * @private
+   * @type {Subscription}
+   * @memberof EmployeeSetupPage
+   */
   private subscription: Subscription = new Subscription();
 
 
   get personalList() {
     return this.list;
   }
+
+  /**
+   *Creates an instance of EmployeeSetupPage.
+   * @param {ActivatedRoute} route
+   * @param {APIService} apiService
+   * @param {Router} router
+   * @memberof EmployeeSetupPage
+   */
   constructor(private route: ActivatedRoute, private apiService: APIService,
     private router: Router) {
   }
 
+  /**
+   * Initial method
+   * Get personal details API content
+   * @memberof EmployeeSetupPage
+   */
   ngOnInit() {
     this.router.events
       .pipe(filter(e => e instanceof NavigationEnd))
@@ -80,10 +157,19 @@ export class EmployeeSetupPage implements OnInit {
     this.checkUrl(this.router.url);
   }
 
+  /**
+   * This method is used to destroy subscription
+   * @memberof EmployeeSetupPage
+   */
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
+  /**
+   * This method is used to check clicked current url
+   * @param {string} url
+   * @memberof EmployeeSetupPage
+   */
   checkUrl(url: string) {
     const splitUrl = url.split('/');
     this.lastSegment = splitUrl.pop();
@@ -99,6 +185,11 @@ export class EmployeeSetupPage implements OnInit {
     }
   }
 
+  /**
+   * This method is used to get the current url to show arrow icon
+   * @param {number} index
+   * @memberof EmployeeSetupPage
+   */
   getIndexToShowArrow(index: number) {
     this.numOfArray = index;
     if (this.employeeSetupPage[index].url && index !== 1) {

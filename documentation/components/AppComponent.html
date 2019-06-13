@@ -597,7 +597,19 @@
     <code>src/app/app.component.ts</code>
 </p>
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>App component</p>
 
+    </p>
+
+    <p class="comment">
+        <h3>Example</h3>
+    </p>
+    <div class="io-description">
+    </div>
 
 <section>
     <h3>Metadata</h3>
@@ -649,6 +661,14 @@
                         </td>
                     </tr>
     
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Creates an instance of AppComponent.</p>
+    </div>
+                                <div class="io-description">
+                                </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
     </section>
@@ -657,7 +677,11 @@
 </div>
         <div class="tab-pane fade tab-source-code" id="source">
             <pre><code class="hljs javascript">import { Component } from &#x27;@angular/core&#x27;;
-
+/**
+ * App component
+ * @export
+ * @class AppComponent
+ */
 @Component({
   selector: &#x27;app-root&#x27;,
   templateUrl: &#x27;app.component.html&#x27;,
@@ -665,7 +689,10 @@
 
 })
 export class AppComponent {
-
+  /**
+   *Creates an instance of AppComponent.
+   * @memberof AppComponent
+   */
   constructor() {
   }
 

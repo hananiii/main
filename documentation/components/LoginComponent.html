@@ -597,7 +597,19 @@
     <code>src/app/login/login.component.ts</code>
 </p>
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Login component</p>
 
+    </p>
+
+    <p class="comment">
+        <h3>Example</h3>
+    </p>
+    <div class="io-description">
+    </div>
 
 <section>
     <h3>Metadata</h3>
@@ -649,6 +661,37 @@
                         </td>
                     </tr>
     
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Creates an instance of LoginComponent.</p>
+    </div>
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <ul class="jsdoc-params">
+                                                <li>
+                                                    <div>
+                                                        <b>_auth</b>
+                                                            :     <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+    
+                                                    </div>
+                                                    <div>
+                                                        
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div>
+                                                        <b>router</b>
+                                                            :     <code><a href="https://angular.io/docs/ts/latest/api/router/index/Router-class.html" target="_blank" >Router</a></code>
+    
+                                                    </div>
+                                                    <div>
+                                                        
+                                                    </div>
+                                                </li>
+                                        </ul>
+                                </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
     </section>
@@ -906,6 +949,12 @@
     </bcode>
                         </td>
                     </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-description"><p>This is local property to save email value</p>
+    </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <table class="table table-sm table-bordered">
@@ -921,6 +970,12 @@
     </bcode>
                         </td>
                     </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-description"><p>This is local property to form group of validation for email and password</p>
+    </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <table class="table table-sm table-bordered">
@@ -934,6 +989,12 @@
                         <td class="col-md-4">
                             <span class="modifier-icon fa fa-circle"></span><code>passValue:     <code>string</code>
     </bcode>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-description"><p>This is local property to save password value</p>
+    </div>
                         </td>
                     </tr>
                 </tbody>
@@ -956,6 +1017,12 @@
                                 <i>Default value: </i><code>false</code>
                             </td>
                         </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-description"><p>This is local property to show password value</p>
+    </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <table class="table table-sm table-bordered">
@@ -971,6 +1038,12 @@
     </bcode>
                         </td>
                     </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-description"><p>This is local property to determine checkbox is ticked or vice versa</p>
+    </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
     </section>
@@ -980,18 +1053,50 @@
 import { FormControl, Validators, FormGroup } from &#x27;@angular/forms&#x27;;
 import { Router } from &#x27;@angular/router&#x27;;
 import { AuthService } from &#x27;src/services/shared-service/auth.service&#x27;;
-
+/**
+ * Login component
+ * @export
+ * @class LoginComponent
+ * @implements {OnInit}
+ */
 @Component({
   selector: &#x27;app-login&#x27;,
   templateUrl: &#x27;./login.component.html&#x27;,
   styleUrls: [&#x27;./login.component.scss&#x27;]
 })
 export class LoginComponent implements OnInit {
-
+  /**
+   * This is local property to show password value
+   * @type {boolean}
+   * @memberof LoginComponent
+   */
   public showPassword: boolean &#x3D; false;
+
+  /**
+   * This is local property to determine checkbox is ticked or vice versa
+   * @type {boolean}
+   * @memberof LoginComponent
+   */
   public valueOfCheck: boolean;
+
+  /**
+   * This is local property to save email value
+   * @type {string}
+   * @memberof LoginComponent
+   */
   public emailValue: string;
+
+  /**
+   * This is local property to save password value
+   * @type {string}
+   * @memberof LoginComponent
+   */
   public passValue: string;
+
+  /**
+   * This is local property to form group of validation for email and password
+   * @memberof LoginComponent
+   */
   public formGroupValidation &#x3D; new FormGroup({
     email: new FormControl(null, [Validators.required, Validators.email]),
     pass: new FormControl(null, [Validators.required]),
@@ -1016,6 +1121,12 @@ export class LoginComponent implements OnInit {
     return this.formGroupValidation.controls[&#x27;pass&#x27;].hasError(&#x27;required&#x27;) ? &#x27;Please enter your password&#x27; : &#x27;&#x27;;
   }
 
+  /**
+   *Creates an instance of LoginComponent.
+   * @param {AuthService} _auth
+   * @param {Router} router
+   * @memberof LoginComponent
+   */
   constructor(private _auth: AuthService,
     private router: Router) { }
 
