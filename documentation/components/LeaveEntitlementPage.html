@@ -916,6 +916,12 @@
     </bcode>
                         </td>
                     </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-description"><p>Return API content</p>
+    </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <table class="table table-sm table-bordered">
@@ -1007,6 +1013,12 @@
                         <td class="col-md-4">
                             <span class="modifier-icon fa fa-circle"></span><code>sortDirectionArrowDown:     <code>boolean</code>
     </bcode>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-description"><p>Return either arrow down or arrow up icon </p>
+    </div>
                         </td>
                     </tr>
                 </tbody>
@@ -1115,9 +1127,21 @@ export class LeaveEntitlementPage implements OnInit {
      */
     private subscription: Subscription &#x3D; new Subscription();
 
+    /**
+     * Return either arrow down or arrow up icon 
+     * @readonly
+     * @type {boolean}
+     * @memberof LeaveEntitlementPage
+     */
     public get sortDirectionArrowDown(): boolean {
         return this.arrowDown;
     }
+
+    /**
+     * Return API content
+     * @readonly
+     * @memberof LeaveEntitlementPage
+     */
     public get personalList() {
         return this.personalDataList;
     }

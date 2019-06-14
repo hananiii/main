@@ -541,13 +541,6 @@
             <code>src/pages/employee/update-password/update-password.page.ts</code>
         </p>
 
-            <p class="comment">
-                <h3>Description</h3>
-            </p>
-            <p class="comment">
-                <p>Error when invalid control is dirty, touched, or submitted</p>
-
-            </p>
 
 
             <section>
@@ -568,10 +561,37 @@
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Error when invalid control is dirty, touched, or submitted</p>
+            </div>
+                                        <div class="io-description">
+                                                <b>Parameters :</b>
+                                                <ul class="jsdoc-params">
+                                                        <li>
+                                                            <div>
+                                                                <b>control</b>
+                                                            </div>
+                                                            <div>
+                                                                
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <b>form</b>
+                                                            </div>
+                                                            <div>
+                                                                
+                                                            </div>
+                                                        </li>
+                                                </ul>
+                                        </div>
                                         <div class="io-description">
                                             <b>Returns: </b>    <code>boolean</code>
             
                                         </div>
+                                            <div class="io-description">
+                                                <p>* </p>
+            
+                                            </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -588,13 +608,15 @@ import { APIService } from &#x27;src/services/shared-service/api.service&#x27;;
 import { Subscription } from &#x27;rxjs&#x27;;
 import { ActivatedRoute } from &#x27;@angular/router&#x27;;
 
-/**
- * Error when invalid control is dirty, touched, or submitted
- * @export
- * @class MyErrorStateMatcher
- * @implements {ErrorStateMatcher}
- */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
+
+    /**
+     * Error when invalid control is dirty, touched, or submitted
+     * @param {(FormControl | null)} control
+     * @param {(FormGroupDirective | NgForm | null)} form
+     * @returns {boolean}
+     * @memberof MyErrorStateMatcher
+     */
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
         const invalidCtrl &#x3D; !!(control &amp;&amp; control.invalid &amp;&amp; control.parent.dirty);
         const invalidParent &#x3D; !!(control &amp;&amp; control.parent &amp;&amp; control.parent.invalid &amp;&amp; control.parent.dirty);

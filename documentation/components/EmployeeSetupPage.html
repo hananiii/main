@@ -833,6 +833,12 @@
     </bcode>
                         </td>
                     </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-description"><p>return value from API content </p>
+    </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <table class="table table-sm table-bordered">
@@ -1023,8 +1029,12 @@ export class EmployeeSetupPage implements OnInit {
    */
   private subscription: Subscription &#x3D; new Subscription();
 
-
-  get personalList() {
+/**
+ * return value from API content 
+ * @readonly
+ * @memberof EmployeeSetupPage
+ */
+get personalList() {
     return this.list;
   }
 

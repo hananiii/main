@@ -707,6 +707,12 @@
     </bcode>
                         </td>
                     </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-description"><p>Return API content</p>
+    </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <table class="table table-sm table-bordered">
@@ -799,6 +805,11 @@ export class LeavePlanningPage implements OnInit {
      */
     private subscription: Subscription &#x3D; new Subscription();
 
+    /**
+     * Return API content
+     * @readonly
+     * @memberof LeavePlanningPage
+     */
     get personalList() {
         return this.list;
     }

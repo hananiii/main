@@ -1215,6 +1215,12 @@
     </bcode>
                         </td>
                     </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-description"><p>Empty array to save child info</p>
+    </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <table class="table table-sm table-bordered">
@@ -1228,6 +1234,12 @@
                         <td class="col-md-4">
                             <span class="modifier-icon fa fa-circle"></span><code>childObj:     <code>{ childName: string; childIdentificationNumber: string; }</code>
     </bcode>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-description"><p>Object format of child details</p>
+    </div>
                         </td>
                     </tr>
                 </tbody>
@@ -1245,6 +1257,12 @@
     </bcode>
                         </td>
                     </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-description"><p>Object format of emergency contact</p>
+    </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <table class="table table-sm table-bordered">
@@ -1258,6 +1276,12 @@
                         <td class="col-md-4">
                             <code>dateForm:     <code><a href="https://angular.io/docs/ts/latest/api/forms/index/FormGroup-class.html" target="_blank" >FormGroup</a></code>
     </bcode>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-description"><p>Return dob value</p>
+    </div>
                         </td>
                     </tr>
                 </tbody>
@@ -1275,6 +1299,12 @@
     </bcode>
                         </td>
                     </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-description"><p>Show edit child form field</p>
+    </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <table class="table table-sm table-bordered">
@@ -1288,6 +1318,12 @@
                         <td class="col-md-4">
                             <span class="modifier-icon fa fa-circle"></span><code>displayEditEdu:     <code>boolean[]</code>
     </bcode>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-description"><p>Show edit education form field</p>
+    </div>
                         </td>
                     </tr>
                 </tbody>
@@ -1305,6 +1341,12 @@
     </bcode>
                         </td>
                     </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-description"><p>Show edit spouse form field </p>
+    </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <table class="table table-sm table-bordered">
@@ -1320,6 +1362,12 @@
     </bcode>
                         </td>
                     </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-description"><p>Object format of education details</p>
+    </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <table class="table table-sm table-bordered">
@@ -1333,6 +1381,12 @@
                         <td class="col-md-4">
                             <span class="modifier-icon fa fa-circle"></span><code>eduList:     <code>any</code>
     </bcode>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-description"><p>Empty array to save education info</p>
+    </div>
                         </td>
                     </tr>
                 </tbody>
@@ -1369,6 +1423,12 @@
                         <td class="col-md-4">
                             <code>personalList:     <code>any</code>
     </bcode>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-description"><p>Return API content of personal details</p>
+    </div>
                         </td>
                     </tr>
                 </tbody>
@@ -1410,6 +1470,12 @@
                         <td class="col-md-4">
                             <span class="modifier-icon fa fa-circle"></span><code>removeItems:     <code>any</code>
     </bcode>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-description"><p>Empty array to save emergency contact</p>
+    </div>
                         </td>
                     </tr>
                 </tbody>
@@ -1578,6 +1644,12 @@
     </bcode>
                         </td>
                     </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-description"><p>Empty array to save spouse info</p>
+    </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <table class="table table-sm table-bordered">
@@ -1591,6 +1663,12 @@
                         <td class="col-md-4">
                             <span class="modifier-icon fa fa-circle"></span><code>spouseObj:     <code>{ spouseName: string; spouseIdentificationNumber: string; }</code>
     </bcode>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-description"><p>Object format of spouse details</p>
+    </div>
                         </td>
                     </tr>
                 </tbody>
@@ -1645,9 +1723,33 @@ export class PersonalDetailsPage implements OnInit {
      * @memberof PersonalDetailsPage
      */
     public items: any;
+
+    /**
+     * Empty array to save emergency contact
+     * @type {*}
+     * @memberof PersonalDetailsPage
+     */
     public removeItems: any &#x3D; [];
+
+    /**
+     * Empty array to save spouse info
+     * @type {*}
+     * @memberof PersonalDetailsPage
+     */
     public spouseItems: any &#x3D; [];
+
+    /**
+     * Empty array to save child info
+     * @type {*}
+     * @memberof PersonalDetailsPage
+     */
     public childItems: any &#x3D; [];
+
+    /**
+     * Empty array to save education info
+     * @type {*}
+     * @memberof PersonalDetailsPage
+     */
     public eduList: any &#x3D; [];
 
     /**
@@ -1699,12 +1801,50 @@ export class PersonalDetailsPage implements OnInit {
      * @memberof PersonalDetailsPage
      */
     public showEducation: boolean &#x3D; false;
+
+    /**
+     * Show edit spouse form field 
+     * @type {boolean[]}
+     * @memberof PersonalDetailsPage
+     */
     public displayEditSpouse: boolean[] &#x3D; [];
+
+    /**
+     * Show edit child form field
+     * @type {boolean[]}
+     * @memberof PersonalDetailsPage
+     */
     public displayEditChild: boolean[] &#x3D; [];
+
+    /**
+     * Show edit education form field
+     * @type {boolean[]}
+     * @memberof PersonalDetailsPage
+     */
     public displayEditEdu: boolean[] &#x3D; [];
+
+    /**
+     * Object format of emergency contact
+     * @memberof PersonalDetailsPage
+     */
     public contactObj &#x3D; { contactName: &#x27;&#x27;, contactNumber: &#x27;&#x27; };
+
+    /**
+     * Object format of spouse details
+     * @memberof PersonalDetailsPage
+     */
     public spouseObj &#x3D; { spouseName: &#x27;&#x27;, spouseIdentificationNumber: &#x27;&#x27; };
+
+    /**
+     * Object format of child details
+     * @memberof PersonalDetailsPage
+     */
     public childObj &#x3D; { childName: &#x27;&#x27;, childIdentificationNumber: &#x27;&#x27; };
+
+    /**
+     * Object format of education details
+     * @memberof PersonalDetailsPage
+     */
     public educationObj &#x3D; { qualificationLevel: &#x27;&#x27;, major: &#x27;&#x27;, university: &#x27;&#x27;, year: &#x27;&#x27; };
 
     /**
@@ -1723,9 +1863,21 @@ export class PersonalDetailsPage implements OnInit {
      */
     private subscription: Subscription &#x3D; new Subscription();
 
+    /**
+     * Return API content of personal details
+     * @readonly
+     * @memberof PersonalDetailsPage
+     */
     get personalList() {
         return this.items;
     }
+
+    /**
+     * Return dob value
+     * @readonly
+     * @type {FormGroup}
+     * @memberof PersonalDetailsPage
+     */
     get dateForm(): FormGroup {
         return this._date;
     }
