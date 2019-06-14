@@ -181,37 +181,7 @@
                                     <a href="../classes/AppPage.html" >AppPage</a>
                                 </li>
                                 <li class="link">
-                                    <a href="../classes/BranchModel.html" >BranchModel</a>
-                                </li>
-                                <li class="link">
-                                    <a href="../classes/ConnectionsModel.html" >ConnectionsModel</a>
-                                </li>
-                                <li class="link">
-                                    <a href="../classes/CostCentreModel.html" >CostCentreModel</a>
-                                </li>
-                                <li class="link">
-                                    <a href="../classes/EmployeeModel.html" >EmployeeModel</a>
-                                </li>
-                                <li class="link">
-                                    <a href="../classes/LeaveTypeEntitlementModel.html" >LeaveTypeEntitlementModel</a>
-                                </li>
-                                <li class="link">
-                                    <a href="../classes/LeaveTypeModel.html" >LeaveTypeModel</a>
-                                </li>
-                                <li class="link">
                                     <a href="../classes/MyErrorStateMatcher.html" >MyErrorStateMatcher</a>
-                                </li>
-                                <li class="link">
-                                    <a href="../classes/PersonalDetailsModel.html" >PersonalDetailsModel</a>
-                                </li>
-                                <li class="link">
-                                    <a href="../classes/SectionModel.html" >SectionModel</a>
-                                </li>
-                                <li class="link">
-                                    <a href="../classes/UserInfoModel.html" >UserInfoModel</a>
-                                </li>
-                                <li class="link">
-                                    <a href="../classes/ViewLeaveTypeSetupModel.html" >ViewLeaveTypeSetupModel</a>
                                 </li>
                                 <li class="link">
                                     <a href="../classes/XmlJson.html" >XmlJson</a>
@@ -459,37 +429,7 @@
                                            <a href="../classes/AppPage.html" >AppPage</a>
                                        </li>
                                        <li class="link">
-                                           <a href="../classes/BranchModel.html" >BranchModel</a>
-                                       </li>
-                                       <li class="link">
-                                           <a href="../classes/ConnectionsModel.html" >ConnectionsModel</a>
-                                       </li>
-                                       <li class="link">
-                                           <a href="../classes/CostCentreModel.html" >CostCentreModel</a>
-                                       </li>
-                                       <li class="link">
-                                           <a href="../classes/EmployeeModel.html" >EmployeeModel</a>
-                                       </li>
-                                       <li class="link">
-                                           <a href="../classes/LeaveTypeEntitlementModel.html" >LeaveTypeEntitlementModel</a>
-                                       </li>
-                                       <li class="link">
-                                           <a href="../classes/LeaveTypeModel.html" >LeaveTypeModel</a>
-                                       </li>
-                                       <li class="link">
                                            <a href="../classes/MyErrorStateMatcher.html" >MyErrorStateMatcher</a>
-                                       </li>
-                                       <li class="link">
-                                           <a href="../classes/PersonalDetailsModel.html" >PersonalDetailsModel</a>
-                                       </li>
-                                       <li class="link">
-                                           <a href="../classes/SectionModel.html" >SectionModel</a>
-                                       </li>
-                                       <li class="link">
-                                           <a href="../classes/UserInfoModel.html" >UserInfoModel</a>
-                                       </li>
-                                       <li class="link">
-                                           <a href="../classes/ViewLeaveTypeSetupModel.html" >ViewLeaveTypeSetupModel</a>
                                        </li>
                                        <li class="link">
                                            <a href="../classes/XmlJson.html" >XmlJson</a>
@@ -632,6 +572,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Local property of end date in calendar</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -658,6 +604,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Local property of start date in calendar</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -684,14 +636,37 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Local property of title name in calendar</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
             </section>
     </div>
     <div class="tab-pane fade tab-source-code" id="source">
         <pre><code class="hljs javascript">export interface Holidays {
+    /**
+     * Local property of start date in calendar
+     * @type {string}
+     * @memberof Holidays
+     */
     start: string;
+
+    /**
+     * Local property of end date in calendar
+     * @type {string}
+     * @memberof Holidays
+     */
     end: string;
+
+    /**
+     * Local property of title name in calendar
+     * @type {string}
+     * @memberof Holidays
+     */
     title: string;
 }
 
@@ -702,6 +677,12 @@ import listYear from &#x27;@fullcalendar/list&#x27;;
 import { EventInput } from &#x27;@fullcalendar/core&#x27;;
 import { FullCalendarComponent } from &#x27;@fullcalendar/angular&#x27;;
 
+/**
+ * Calendar View Page
+ * @export
+ * @class CalendarViewPage
+ * @implements {OnInit}
+ */
 @Component({
     selector: &#x27;app-calendar-view&#x27;,
     templateUrl: &#x27;./calendar-view.page.html&#x27;,
@@ -709,19 +690,40 @@ import { FullCalendarComponent } from &#x27;@fullcalendar/angular&#x27;;
 })
 export class CalendarViewPage implements OnInit {
 
+    /**
+     * This is local property for Full Calendar Component
+     * @type {FullCalendarComponent}
+     * @memberof CalendarViewPage
+     */
     @ViewChild(&#x27;calendar&#x27;) calendar: FullCalendarComponent;
+
+    /**
+     * This is input property for plugins of Full Calendar Component
+     * @memberof CalendarViewPage
+     */
     public calendarPlugins &#x3D; [dayGridPlugin, timeGrigPlugin, listYear];
+
+
     private _days &#x3D; [&#x27;Sunday&#x27;, &#x27;Monday&#x27;, &#x27;Tuesday&#x27;, &#x27;Wednesday&#x27;, &#x27;Thursday&#x27;, &#x27;Friday&#x27;, &#x27;Saturday&#x27;];
     // var d &#x3D; new Date(dateString);
     // var dayName &#x3D; days[d.getDay()];
 
-    // get from server
+    /** 
+     * Property for alias Event Input of Full Calendar Component
+     * @type {EventInput[]}
+     * @memberof CalendarViewPage
+     */
     public calendarEvents: EventInput[] &#x3D; [
         { title: &#x27;Wesak Day&#x27;, start: new Date(&#x27;05-12-2019&#x27;), end: new Date(&#x27;05-16-2019&#x27;), allDay: true },
         { title: &#x27;Wesak Day&#x27;, start: new Date(&#x27;04-13-2019&#x27;), allDay: true },
         { title: &#x27;Perak Sultan Birthday&#x27;, start: new Date(&#x27;05-15-2019&#x27;), allDay: true },
     ];
-    // get from server
+
+    /**
+     * Local property for holiday list
+     * @type {Holidays[]}
+     * @memberof CalendarViewPage
+     */
     public holidays: Holidays[] &#x3D; [
         { &#x27;start&#x27;: &#x27;13-04-19&#x27;, &#x27;end&#x27;: &#x27;13-04-19&#x27;, &#x27;title&#x27;: &#x27;Wesak Day&#x27; },
         { &#x27;start&#x27;: &#x27;14-04-19&#x27;, &#x27;end&#x27;: &#x27;14-04-19&#x27;, &#x27;title&#x27;: &#x27;Perak Sultan Birthday&#x27; },
@@ -733,10 +735,19 @@ export class CalendarViewPage implements OnInit {
         { &#x27;start&#x27;: &#x27;31-08-19&#x27;, &#x27;end&#x27;: &#x27;14-04-19&#x27;, &#x27;title&#x27;: &#x27;Merdeka&#x27; }
     ];
 
+    /**
+     *Creates an instance of CalendarViewPage.
+     * @memberof CalendarViewPage
+     */
     constructor(
     ) {
     }
 
+    /**
+     * Initial method
+     * Render calendar
+     * @memberof CalendarViewPage
+     */
     ngOnInit() {
         setTimeout(() &#x3D;&gt; {
             let calendarView &#x3D; this.calendar.getApi();
