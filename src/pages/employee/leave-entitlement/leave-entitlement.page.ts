@@ -78,9 +78,21 @@ export class LeaveEntitlementPage implements OnInit {
      */
     private subscription: Subscription = new Subscription();
 
+    /**
+     * Return either arrow down or arrow up icon 
+     * @readonly
+     * @type {boolean}
+     * @memberof LeaveEntitlementPage
+     */
     public get sortDirectionArrowDown(): boolean {
         return this.arrowDown;
     }
+
+    /**
+     * Return API content
+     * @readonly
+     * @memberof LeaveEntitlementPage
+     */
     public get personalList() {
         return this.personalDataList;
     }

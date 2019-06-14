@@ -38,6 +38,11 @@ export class LeavePlanningPage implements OnInit {
      */
     private subscription: Subscription = new Subscription();
 
+    /**
+     * Return API content
+     * @readonly
+     * @memberof LeavePlanningPage
+     */
     get personalList() {
         return this.list;
     }

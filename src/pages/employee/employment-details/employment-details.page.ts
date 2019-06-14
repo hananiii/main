@@ -72,6 +72,11 @@ export class EmploymentDetailsPage implements OnInit {
      */
     private subscription: Subscription = new Subscription();
 
+    /**
+     * return API content
+     * @readonly
+     * @memberof EmploymentDetailsPage
+     */
     get personalList() {
         return this.list;
     }

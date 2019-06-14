@@ -24,9 +24,33 @@ export class PersonalDetailsPage implements OnInit {
      * @memberof PersonalDetailsPage
      */
     public items: any;
+
+    /**
+     * Empty array to save emergency contact
+     * @type {*}
+     * @memberof PersonalDetailsPage
+     */
     public removeItems: any = [];
+
+    /**
+     * Empty array to save spouse info
+     * @type {*}
+     * @memberof PersonalDetailsPage
+     */
     public spouseItems: any = [];
+
+    /**
+     * Empty array to save child info
+     * @type {*}
+     * @memberof PersonalDetailsPage
+     */
     public childItems: any = [];
+
+    /**
+     * Empty array to save education info
+     * @type {*}
+     * @memberof PersonalDetailsPage
+     */
     public eduList: any = [];
 
     /**
@@ -78,12 +102,50 @@ export class PersonalDetailsPage implements OnInit {
      * @memberof PersonalDetailsPage
      */
     public showEducation: boolean = false;
+
+    /**
+     * Show edit spouse form field 
+     * @type {boolean[]}
+     * @memberof PersonalDetailsPage
+     */
     public displayEditSpouse: boolean[] = [];
+
+    /**
+     * Show edit child form field
+     * @type {boolean[]}
+     * @memberof PersonalDetailsPage
+     */
     public displayEditChild: boolean[] = [];
+
+    /**
+     * Show edit education form field
+     * @type {boolean[]}
+     * @memberof PersonalDetailsPage
+     */
     public displayEditEdu: boolean[] = [];
+
+    /**
+     * Object format of emergency contact
+     * @memberof PersonalDetailsPage
+     */
     public contactObj = { contactName: '', contactNumber: '' };
+
+    /**
+     * Object format of spouse details
+     * @memberof PersonalDetailsPage
+     */
     public spouseObj = { spouseName: '', spouseIdentificationNumber: '' };
+
+    /**
+     * Object format of child details
+     * @memberof PersonalDetailsPage
+     */
     public childObj = { childName: '', childIdentificationNumber: '' };
+
+    /**
+     * Object format of education details
+     * @memberof PersonalDetailsPage
+     */
     public educationObj = { qualificationLevel: '', major: '', university: '', year: '' };
 
     /**
@@ -102,9 +164,21 @@ export class PersonalDetailsPage implements OnInit {
      */
     private subscription: Subscription = new Subscription();
 
+    /**
+     * Return API content of personal details
+     * @readonly
+     * @memberof PersonalDetailsPage
+     */
     get personalList() {
         return this.items;
     }
+
+    /**
+     * Return dob value
+     * @readonly
+     * @type {FormGroup}
+     * @memberof PersonalDetailsPage
+     */
     get dateForm(): FormGroup {
         return this._date;
     }
