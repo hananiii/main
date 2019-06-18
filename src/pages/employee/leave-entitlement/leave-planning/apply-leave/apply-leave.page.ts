@@ -34,6 +34,13 @@ export class ApplyLeavePage implements OnInit {
     public entitlement: any;
 
     /**
+     * Get calendar id from user profile API & request data from calendar API
+     * @type {string}
+     * @memberof CalendarViewPage
+     */
+    public calendarId: string;
+
+    /**
      * Local property for leave day available
      * @type {string}
      * @memberof ApplyLeavePage
@@ -65,13 +72,7 @@ export class ApplyLeavePage implements OnInit {
      * @type {EventInput[]}
      * @memberof ApplyLeavePage
      */
-    public calendarEvents: EventInput[] = [
-        // Get from server and display in calendar after login
-        {
-            title: 'Wesak Day', start: '2019-05-16T08:00:00', end: '2019-05-18'
-            // allDay: true, description: '', color: 'yellow', textColor: 'white', backgroundColor: '#057dcd'
-        }
-    ]
+    public calendarEvents: EventInput[];
 
     /**
      * Local property for min. date range
@@ -148,20 +149,115 @@ export class ApplyLeavePage implements OnInit {
      * @memberof ApplyLeavePage
      */
     private _reformatDateTo: string;
+
+    /**
+     * Default index number for first day types selection
+     * @private
+     * @type {string}
+     * @memberof ApplyLeavePage
+     */
     private _index: string = '0';
+
+    /**
+     * Date selected for 1st day types selection 
+     * @private
+     * @memberof ApplyLeavePage
+     */
     private _firstForm = [];
+
+    /**
+     * Date selected for 2nd day types selection 
+     * @private
+     * @memberof ApplyLeavePage
+     */
     private _secondForm = [];
+
+    /**
+     * Date selected for 3rd day types selection 
+     * @private
+     * @memberof ApplyLeavePage
+     */
     private _thirdForm = [];
+
+    /**
+     * Index number of selected date from selection list (_dateArray) for 1st day types selection
+     * @private
+     * @memberof ApplyLeavePage
+     */
     private _firstFormIndex = [];
+
+    /**
+     * Index number of selected date from selection list (_dateArray) for 2nd day types selection
+     * @private
+     * @memberof ApplyLeavePage
+     */
     private _secondFormIndex = [];
+
+    /**
+     * Index number of selected date from selection list (_dateArray) for 3rd day types selection
+     * @private
+     * @memberof ApplyLeavePage
+     */
     private _thirdFormIndex = [];
+
+    /**
+     * Disable date option list (true/false)
+     * @private
+     * @memberof ApplyLeavePage
+     */
     private _arrayList = [];
+
+    /**
+     * AM/PM for 1st day types selection
+     * @private
+     * @type {string}
+     * @memberof ApplyLeavePage
+     */
     private _slot1: string;
+
+    /**
+     * AM/PM for 2nd day types selection
+     * @private
+     * @type {string}
+     * @memberof ApplyLeavePage
+     */
     private _slot2: string;
+
+    /**
+     * AM/PM for 3rd day types selection
+     * @private
+     * @type {string}
+     * @memberof ApplyLeavePage
+     */
     private _slot3: string;
+
+    /**
+     * {startDate: "YYYY-MM-DD 00:00:00", endDate: "YYYY-MM-DD 00:00:00", dayType: number, slot: string, quarterDay: string}
+     * Object for 1st day types selection
+     * @private
+     * @memberof ApplyLeavePage
+     */
     private _objSlot1 = [];
+
+    /**
+     * Object for 2nd day types selection
+     * @private
+     * @memberof ApplyLeavePage
+     */
     private _objSlot2 = [];
+
+    /**
+     * Object for 3rd day types selection
+     * @private
+     * @memberof ApplyLeavePage
+     */
     private _objSlot3 = [];
+
+    /**
+     * Data collected from (_objSlot1, _objSlot2, _objSlot3) POST to apply leave API
+     * @private
+     * @memberof ApplyLeavePage
+     */
     private _arrayDateSlot = [];
 
     /**
@@ -213,11 +309,19 @@ export class ApplyLeavePage implements OnInit {
             (data: any[]) => {
                 this._userList = data;
                 this.entitlement = this._userList.entitlementDetail;
+                this.calendarId = this._userList.calendarId;
             },
             error => {
                 if (error) {
                     window.location.href = '/login';
                 }
+            },
+            () => {
+                this.subscription = this.apiService.get_personal_holiday_calendar(this.calendarId).subscribe(
+                    data => {
+                        this.formatDate(data.holiday);
+                    }
+                );
             }
         );
         setTimeout(() => {
@@ -263,6 +367,38 @@ export class ApplyLeavePage implements OnInit {
     //         alert('double click!');
     //     });
     // }
+
+    /**
+     * format date using moment library
+     * @param {*} holiday
+     * @memberof CalendarViewPage
+     */
+    formatDate(holiday) {
+        this.calendarEvents = holiday;
+        for (let i = 0; i < holiday.length; i++) {
+            this.calendarEvents[i].start = (moment(holiday[i].start).format('YYYY-MM-DD'));
+            this.calendarEvents[i].end = moment(holiday[i].end).format('YYYY-MM-DD');
+            this.calendarEvents[i].day = this.getWeekDay(new Date(holiday[i].start));
+            this.calendarEvents[i].allDay = true;
+        }
+    }
+
+    /**
+     * Method to get day of the week from a given date
+     * @param {*} date
+     * @returns
+     * @memberof CalendarViewPage
+     */
+    getWeekDay(date) {
+        //Create an array containing each day, starting with Sunday.
+        const weekdays = new Array(
+            "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+        );
+        //Use the getDay() method to get the day.
+        const day = date.getDay();
+        //Return the element that corresponds to that index.
+        return weekdays[day];
+    }
 
     /**
      * This method is used to create consecutive date as an array list
@@ -352,7 +488,7 @@ export class ApplyLeavePage implements OnInit {
                     window.location.href = '/login';
                 }
             });
-        this.setEvent(this._leaveTypeName, this.applyLeaveForm.value.firstPicker, new Date((this.applyLeaveForm.value.secondPicker).setDate((this.applyLeaveForm.value.secondPicker).getDate() + 1)));
+        // this.setEvent(this._leaveTypeName, this.applyLeaveForm.value.firstPicker, new Date((this.applyLeaveForm.value.secondPicker).setDate((this.applyLeaveForm.value.secondPicker).getDate() + 1)));
     }
 
     /**
@@ -435,18 +571,6 @@ export class ApplyLeavePage implements OnInit {
             }
         });
         return [min_dt, max_dt];
-    }
-
-    // get event from server that postData()
-    setEvent(name: string, sdt: Date, edt: Date) {
-        if (name && sdt && edt) {
-            this.calendarEvents = this.calendarEvents.concat({
-                title: name,
-                start: sdt,
-                end: edt,
-                allDay: true
-            })
-        }
     }
 
     /**

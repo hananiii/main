@@ -597,7 +597,7 @@
                 <tbody>
                     <tr>
                         <td class="col-md-4">
-                            <code>constructor()</code>
+                            <code>constructor(apiService: any)</code>
                         </td>
                     </tr>
     
@@ -606,6 +606,19 @@
                                 <div class="io-description"><p>Creates an instance of CalendarViewPage.</p>
     </div>
                                 <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <ul class="jsdoc-params">
+                                                <li>
+                                                    <div>
+                                                        <b>apiService</b>
+                                                            :     <code><a href="../injectables/APIService.html" target="_self" >APIService</a></code>
+    
+                                                    </div>
+                                                    <div>
+                                                        
+                                                    </div>
+                                                </li>
+                                        </ul>
                                 </div>
                         </td>
                     </tr>
@@ -613,24 +626,97 @@
             </table>
     </section>
 
-
     <section>
-        <h3 id="inputs">Properties</h3>
+        <h3 id="methods">Methods</h3>
             <table class="table table-sm table-bordered">
                 <tbody>
                     <tr>
                         <td class="col-md-4">
-                            <b><span class="modifier">Private</span> _days</b>
+                            <b> formatDate</b>
                         </td>
                     </tr>
+    
                     <tr>
                         <td class="col-md-4">
-                            <span class="modifier-icon fa fa-lock"></span><code>_days:     <code>string[]</code>
-    </bcode>
+    <code>formatDate(holiday: any)</code>
+                        </td>
+                    </tr>
+    
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>format date using moment library</p>
+    </div>
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <ul class="jsdoc-params">
+                                                <li>
+                                                    <div>
+                                                        <b>holiday</b>
+                                                    </div>
+                                                    <div>
+                                                        
+                                                    </div>
+                                                </li>
+                                        </ul>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns: </b>    <code>void</code>
+    
+                                </div>
+                                    <div class="io-description">
+                                        
+                                    </div>
                         </td>
                     </tr>
                 </tbody>
             </table>
+            <table class="table table-sm table-bordered">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <b> getWeekDay</b>
+                        </td>
+                    </tr>
+    
+                    <tr>
+                        <td class="col-md-4">
+    <code>getWeekDay(date: any)</code>
+                        </td>
+                    </tr>
+    
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Method to get day of the week from a given date</p>
+    </div>
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <ul class="jsdoc-params">
+                                                <li>
+                                                    <div>
+                                                        <b>date</b>
+                                                    </div>
+                                                    <div>
+                                                        
+                                                    </div>
+                                                </li>
+                                        </ul>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns: </b>    <code>void</code>
+    
+                                </div>
+                                    <div class="io-description">
+                                        <p>* </p>
+    
+                                    </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+    </section>
+
+    <section>
+        <h3 id="inputs">Properties</h3>
             <table class="table table-sm table-bordered">
                 <tbody>
                     <tr>
@@ -677,6 +763,27 @@
                 <tbody>
                     <tr>
                         <td class="col-md-4">
+                            <b><span class="modifier">Public</span> calendarId</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <span class="modifier-icon fa fa-circle"></span><code>calendarId:     <code>string</code>
+    </bcode>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-description"><p>Get calendar id from user profile API &amp; request data from calendar API</p>
+    </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-sm table-bordered">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
                             <b><span class="modifier">Public</span> calendarPlugins</b>
                         </td>
                     </tr>
@@ -698,18 +805,39 @@
                 <tbody>
                     <tr>
                         <td class="col-md-4">
-                            <b><span class="modifier">Public</span> holidays</b>
+                            <b><span class="modifier">Public</span> list</b>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                            <span class="modifier-icon fa fa-circle"></span><code>holidays:     <code>Holidays[]</code>
+                            <span class="modifier-icon fa fa-circle"></span><code>list:     <code>any</code>
     </bcode>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-description"><p>Local property for holiday list</p>
+                            <div class="io-description"><p>Get data from user profile API</p>
+    </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-sm table-bordered">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <b><span class="modifier">Private</span> subscription</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <span class="modifier-icon fa fa-lock"></span><code>subscription:     <code>Subscription</code>
+    </bcode>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-description"><p>This local property is used to set subscription</p>
     </div>
                         </td>
                     </tr>
@@ -719,6 +847,13 @@
 </div>
         <div class="tab-pane fade tab-source-code" id="source">
             <pre><code class="hljs javascript">export interface Holidays {
+
+    /**
+     * Local property of Day for date in calendar
+     * @type {string}
+     * @memberof Holidays
+     */
+    day: string;
     /**
      * Local property of start date in calendar
      * @type {string}
@@ -747,6 +882,10 @@ import timeGrigPlugin from &#x27;@fullcalendar/timegrid&#x27;;
 import listYear from &#x27;@fullcalendar/list&#x27;;
 import { EventInput } from &#x27;@fullcalendar/core&#x27;;
 import { FullCalendarComponent } from &#x27;@fullcalendar/angular&#x27;;
+import { APIService } from &#x27;src/services/shared-service/api.service&#x27;;
+import { Subscription } from &#x27;rxjs&#x27;;
+import * as _moment from &#x27;moment&#x27;;
+const moment &#x3D; _moment;
 
 /**
  * Calendar View Page
@@ -774,57 +913,109 @@ export class CalendarViewPage implements OnInit {
      */
     public calendarPlugins &#x3D; [dayGridPlugin, timeGrigPlugin, listYear];
 
+    /**
+     * This local property is used to set subscription
+     * @private
+     * @type {Subscription}
+     * @memberof LeavePlanningPage
+     */
+    private subscription: Subscription &#x3D; new Subscription();
 
-    private _days &#x3D; [&#x27;Sunday&#x27;, &#x27;Monday&#x27;, &#x27;Tuesday&#x27;, &#x27;Wednesday&#x27;, &#x27;Thursday&#x27;, &#x27;Friday&#x27;, &#x27;Saturday&#x27;];
-    // var d &#x3D; new Date(dateString);
-    // var dayName &#x3D; days[d.getDay()];
+    /**
+     * Get data from user profile API
+     * @type {*}
+     * @memberof CalendarViewPage
+     */
+    public list: any;
+
+    /**
+     * Get calendar id from user profile API &amp; request data from calendar API
+     * @type {string}
+     * @memberof CalendarViewPage
+     */
+    public calendarId: string;
 
     /** 
      * Property for alias Event Input of Full Calendar Component
      * @type {EventInput[]}
      * @memberof CalendarViewPage
      */
-    public calendarEvents: EventInput[] &#x3D; [
-        { title: &#x27;Wesak Day&#x27;, start: new Date(&#x27;05-12-2019&#x27;), end: new Date(&#x27;05-16-2019&#x27;), allDay: true },
-        { title: &#x27;Wesak Day&#x27;, start: new Date(&#x27;04-13-2019&#x27;), allDay: true },
-        { title: &#x27;Perak Sultan Birthday&#x27;, start: new Date(&#x27;05-15-2019&#x27;), allDay: true },
-    ];
-
-    /**
-     * Local property for holiday list
-     * @type {Holidays[]}
-     * @memberof CalendarViewPage
-     */
-    public holidays: Holidays[] &#x3D; [
-        { &#x27;start&#x27;: &#x27;13-04-19&#x27;, &#x27;end&#x27;: &#x27;13-04-19&#x27;, &#x27;title&#x27;: &#x27;Wesak Day&#x27; },
-        { &#x27;start&#x27;: &#x27;14-04-19&#x27;, &#x27;end&#x27;: &#x27;14-04-19&#x27;, &#x27;title&#x27;: &#x27;Perak Sultan Birthday&#x27; },
-        { &#x27;start&#x27;: &#x27;15-05-19&#x27;, &#x27;end&#x27;: &#x27;14-04-19&#x27;, &#x27;title&#x27;: &#x27;Raya&#x27; },
-        { &#x27;start&#x27;: &#x27;14-06-19&#x27;, &#x27;end&#x27;: &#x27;14-04-19&#x27;, &#x27;title&#x27;: &#x27;Raya&#x27; },
-        { &#x27;start&#x27;: &#x27;13-07-19&#x27;, &#x27;end&#x27;: &#x27;14-04-19&#x27;, &#x27;title&#x27;: &#x27;Agong Birthday&#x27; },
-        { &#x27;start&#x27;: &#x27;17-07-19&#x27;, &#x27;end&#x27;: &#x27;14-04-19&#x27;, &#x27;title&#x27;: &#x27;Selangor Sultan Birthday&#x27; },
-        { &#x27;start&#x27;: &#x27;19-07-19&#x27;, &#x27;end&#x27;: &#x27;13-04-19&#x27;, &#x27;title&#x27;: &#x27;Wesak Day&#x27; },
-        { &#x27;start&#x27;: &#x27;31-08-19&#x27;, &#x27;end&#x27;: &#x27;14-04-19&#x27;, &#x27;title&#x27;: &#x27;Merdeka&#x27; }
-    ];
+    public calendarEvents: EventInput[];
 
     /**
      *Creates an instance of CalendarViewPage.
+     * @param {APIService} apiService
      * @memberof CalendarViewPage
      */
-    constructor(
-    ) {
+    constructor(private apiService: APIService
+    ) { }
+
+    ngOnInit() {
+        this.subscription &#x3D; this.apiService.get_user_profile().subscribe(
+            (data: any[]) &#x3D;&gt; {
+                this.list &#x3D; data;
+                this.calendarId &#x3D; this.list.calendarId;
+            },
+            error &#x3D;&gt; {
+                if (error) {
+                    window.location.href &#x3D; &#x27;/login&#x27;;
+                }
+            },
+            () &#x3D;&gt; {
+                this.subscription &#x3D; this.apiService.get_personal_holiday_calendar(this.calendarId).subscribe(
+                    data &#x3D;&gt; {
+                        this.formatDate(data.holiday);
+                    }
+                );
+            }
+        );
     }
 
     /**
-     * Initial method
-     * Render calendar
+     * This method is used to destroy subscription
+     * @memberof ApplyLeavePage
+     */
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
+    }
+
+    /**
+     * format date using moment library
+     * @param {*} holiday
      * @memberof CalendarViewPage
      */
-    ngOnInit() {
+    formatDate(holiday) {
+        this.calendarEvents &#x3D; holiday;
+        for (let i &#x3D; 0; i &lt; holiday.length; i++) {
+            this.calendarEvents[i].start &#x3D; (moment(holiday[i].start).format(&#x27;YYYY-MM-DD&#x27;));
+            this.calendarEvents[i].end &#x3D; moment(holiday[i].end).format(&#x27;YYYY-MM-DD&#x27;);
+            this.calendarEvents[i].day &#x3D; this.getWeekDay(new Date(holiday[i].start));
+            this.calendarEvents[i].allDay &#x3D; true;
+        }
         setTimeout(() &#x3D;&gt; {
             let calendarView &#x3D; this.calendar.getApi();
             calendarView.render();
         }, 100);
     }
+
+    /**
+     * Method to get day of the week from a given date
+     * @param {*} date
+     * @returns
+     * @memberof CalendarViewPage
+     */
+    getWeekDay(date) {
+        //Create an array containing each day, starting with Sunday.
+        const weekdays &#x3D; new Array(
+            &quot;Sunday&quot;, &quot;Monday&quot;, &quot;Tuesday&quot;, &quot;Wednesday&quot;, &quot;Thursday&quot;, &quot;Friday&quot;, &quot;Saturday&quot;
+        );
+        //Use the getDay() method to get the day.
+        const day &#x3D; date.getDay();
+        //Return the element that corresponds to that index.
+        return weekdays[day];
+    }
+
+
 
 }
 </code></pre>

@@ -1283,6 +1283,49 @@
                             </tr>
                         </tbody>
                     </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
+                                    <b> get_personal_holiday_calendar</b>
+                                </td>
+                            </tr>
+            
+                            <tr>
+                                <td class="col-md-4">
+            <code>get_personal_holiday_calendar(id: any)</code>
+                                </td>
+                            </tr>
+            
+                            <tr>
+                                <td class="col-md-4">
+                                        <div class="io-description"><p>To get personal calendar holiday details</p>
+            </div>
+                                        <div class="io-description">
+                                                <b>Parameters :</b>
+                                                <ul class="jsdoc-params">
+                                                        <li>
+                                                            <div>
+                                                                <b>calendarId</b>
+                                                            </div>
+                                                            <div>
+                                                                
+                                                            </div>
+                                                        </li>
+                                                </ul>
+                                        </div>
+                                        <div class="io-description">
+                                            <b>Returns: </b>    <code>Observable&lt;any&gt;</code>
+            
+                                        </div>
+                                            <div class="io-description">
+                                                <p>* </p>
+            
+                                            </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
             </section>
 
             <section>
@@ -1302,7 +1345,7 @@
                             </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <i>Default value: </i><code>http://zencore.zen.com.my:3000/api</code>
+                                        <i>Default value: </i><code>http://zencore.zen.com.my:3000</code>
                                     </td>
                                 </tr>
                         </tbody>
@@ -1373,7 +1416,7 @@ export class APIService {
     public queryHeaders &#x3D; new Headers();
     public headers &#x3D; new Headers();
     // public baseUrl: string &#x3D; &quot;http://zencore.southeastasia.cloudapp.azure.com:3000&quot;;
-    public baseUrl: string &#x3D; &quot;http://zencore.zen.com.my:3000/api&quot;;
+    public baseUrl: string &#x3D; &quot;http://zencore.zen.com.my:3000&quot;;
 
     /**
      *Creates an instance of APIService.
@@ -1448,7 +1491,7 @@ export class APIService {
      */
     get_personal_details(): Observable&lt;any&gt; {
         this.headerAuthorization();
-        return this.getApi(&#x27;/userprofile/personal-detail&#x27;);
+        return this.getApi(&#x27;/api/userprofile/personal-detail&#x27;);
     }
 
     /**
@@ -1458,7 +1501,7 @@ export class APIService {
      * @memberof APIService
      */
     get_user_personal_details(guid): Observable&lt;any&gt; {
-        return this.getApiWithId(&#x27;/userprofile/personal-detail/&#x27;, guid);
+        return this.getApiWithId(&#x27;/api/userprofile/personal-detail/&#x27;, guid);
     }
 
     /**
@@ -1469,7 +1512,7 @@ export class APIService {
      */
     patch_personal_details(updateData): Observable&lt;any[]&gt; {
         this.headerAuthorization();
-        return this.patchApi(updateData, &#x27;/userprofile/personal-detail&#x27;);
+        return this.patchApi(updateData, &#x27;/api/userprofile/personal-detail&#x27;);
     }
 
     /**
@@ -1479,7 +1522,7 @@ export class APIService {
      * @memberof APIService
      */
     get_employment_details(userId): Observable&lt;any&gt; {
-        return this.getApiWithId(&#x27;/userprofile/employment-detail/&#x27;, userId);
+        return this.getApiWithId(&#x27;/api/userprofile/employment-detail/&#x27;, userId);
     }
 
     /**
@@ -1490,7 +1533,7 @@ export class APIService {
      */
     patch_employment_details(updateData: any): Observable&lt;any&gt; {
         this.headerAuthorization();
-        return this.patchApi(updateData, &#x27;/userprofile/employment-detail&#x27;);
+        return this.patchApi(updateData, &#x27;/api/userprofile/employment-detail&#x27;);
     }
 
     /**
@@ -1501,7 +1544,7 @@ export class APIService {
      */
     get_user_profile(): Observable&lt;any&gt; {
         this.headerAuthorization();
-        return this.getApi(&#x27;/userprofile&#x27;);
+        return this.getApi(&#x27;/api/userprofile&#x27;);
     }
 
     /**
@@ -1512,7 +1555,7 @@ export class APIService {
      */
     get_user_profile_list(): Observable&lt;any&gt; {
         this.headerAuthorization();
-        return this.getApi(&#x27;/users&#x27;);
+        return this.getApi(&#x27;/api/users&#x27;);
     }
 
     /**
@@ -1523,7 +1566,7 @@ export class APIService {
      */
     get_user_profile_details(guid): Observable&lt;any&gt; {
         this.headerAuthorization();
-        return this.http.get(this.baseUrl + &#x27;/userprofile/&#x27; + guid, { headers: this.headers })
+        return this.http.get(this.baseUrl + &#x27;/api/userprofile/&#x27; + guid, { headers: this.headers })
             .pipe(map((res: Response) &#x3D;&gt; res.json()));
     }
 
@@ -1535,7 +1578,7 @@ export class APIService {
      */
     post_user_apply_leave(leaveData: any): Observable&lt;any&gt; {
         this.headerAuthorization();
-        return this.http.post(this.baseUrl + &#x27;/leave/apply&#x27;, leaveData, { headers: this.headers })
+        return this.http.post(this.baseUrl + &#x27;/api/leave/apply&#x27;, leaveData, { headers: this.headers })
             .pipe(map((res: Response) &#x3D;&gt; res.json()));
     }
 
@@ -1546,7 +1589,7 @@ export class APIService {
      */
     get_department(): Observable&lt;any&gt; {
         this.headerAuthorization();
-        return this.getApi(&#x27;/department&#x27;);
+        return this.getApi(&#x27;/api/department&#x27;);
     }
 
     /**
@@ -1557,7 +1600,7 @@ export class APIService {
      */
     patch_invitation(password): Observable&lt;any&gt; {
         this.headerAuthorization();
-        return this.patchApi(password, &#x27;/invitation&#x27;);
+        return this.patchApi(password, &#x27;/api/invitation&#x27;);
     }
 
     /**
@@ -1567,7 +1610,18 @@ export class APIService {
      * @memberof APIService
      */
     get_invitation(token): Observable&lt;any&gt; {
-        return this.getApiWithId(&#x27;/invitation/&#x27;, token);
+        return this.getApiWithId(&#x27;/api/invitation/&#x27;, token);
+    }
+
+    /**
+     * To get personal calendar holiday details
+     * @param {string} calendarId
+     * @returns {Observable&lt;any&gt;}
+     * @memberof APIService
+     */
+    get_personal_holiday_calendar(id): Observable&lt;any&gt; {
+        // this.headerAuthorization();
+        return this.getApiWithId(&#x27;/api/admin/holiday/&#x27;, id);
     }
 
 }

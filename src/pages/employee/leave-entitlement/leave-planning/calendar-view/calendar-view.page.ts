@@ -1,4 +1,11 @@
 export interface Holidays {
+
+    /**
+     * Local property of Day for date in calendar
+     * @type {string}
+     * @memberof Holidays
+     */
+    day: string;
     /**
      * Local property of start date in calendar
      * @type {string}
@@ -27,6 +34,10 @@ import timeGrigPlugin from '@fullcalendar/timegrid';
 import listYear from '@fullcalendar/list';
 import { EventInput } from '@fullcalendar/core';
 import { FullCalendarComponent } from '@fullcalendar/angular';
+import { APIService } from 'src/services/shared-service/api.service';
+import { Subscription } from 'rxjs';
+import * as _moment from 'moment';
+const moment = _moment;
 
 /**
  * Calendar View Page
@@ -54,56 +65,108 @@ export class CalendarViewPage implements OnInit {
      */
     public calendarPlugins = [dayGridPlugin, timeGrigPlugin, listYear];
 
+    /**
+     * This local property is used to set subscription
+     * @private
+     * @type {Subscription}
+     * @memberof LeavePlanningPage
+     */
+    private subscription: Subscription = new Subscription();
 
-    private _days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    // var d = new Date(dateString);
-    // var dayName = days[d.getDay()];
+    /**
+     * Get data from user profile API
+     * @type {*}
+     * @memberof CalendarViewPage
+     */
+    public list: any;
+
+    /**
+     * Get calendar id from user profile API & request data from calendar API
+     * @type {string}
+     * @memberof CalendarViewPage
+     */
+    public calendarId: string;
 
     /** 
      * Property for alias Event Input of Full Calendar Component
      * @type {EventInput[]}
      * @memberof CalendarViewPage
      */
-    public calendarEvents: EventInput[] = [
-        { title: 'Wesak Day', start: new Date('05-12-2019'), end: new Date('05-16-2019'), allDay: true },
-        { title: 'Wesak Day', start: new Date('04-13-2019'), allDay: true },
-        { title: 'Perak Sultan Birthday', start: new Date('05-15-2019'), allDay: true },
-    ];
-
-    /**
-     * Local property for holiday list
-     * @type {Holidays[]}
-     * @memberof CalendarViewPage
-     */
-    public holidays: Holidays[] = [
-        { 'start': '13-04-19', 'end': '13-04-19', 'title': 'Wesak Day' },
-        { 'start': '14-04-19', 'end': '14-04-19', 'title': 'Perak Sultan Birthday' },
-        { 'start': '15-05-19', 'end': '14-04-19', 'title': 'Raya' },
-        { 'start': '14-06-19', 'end': '14-04-19', 'title': 'Raya' },
-        { 'start': '13-07-19', 'end': '14-04-19', 'title': 'Agong Birthday' },
-        { 'start': '17-07-19', 'end': '14-04-19', 'title': 'Selangor Sultan Birthday' },
-        { 'start': '19-07-19', 'end': '13-04-19', 'title': 'Wesak Day' },
-        { 'start': '31-08-19', 'end': '14-04-19', 'title': 'Merdeka' }
-    ];
+    public calendarEvents: EventInput[];
 
     /**
      *Creates an instance of CalendarViewPage.
+     * @param {APIService} apiService
      * @memberof CalendarViewPage
      */
-    constructor(
-    ) {
+    constructor(private apiService: APIService
+    ) { }
+
+    ngOnInit() {
+        this.subscription = this.apiService.get_user_profile().subscribe(
+            (data: any[]) => {
+                this.list = data;
+                this.calendarId = this.list.calendarId;
+            },
+            error => {
+                if (error) {
+                    window.location.href = '/login';
+                }
+            },
+            () => {
+                this.subscription = this.apiService.get_personal_holiday_calendar(this.calendarId).subscribe(
+                    data => {
+                        this.formatDate(data.holiday);
+                    }
+                );
+            }
+        );
     }
 
     /**
-     * Initial method
-     * Render calendar
+     * This method is used to destroy subscription
+     * @memberof ApplyLeavePage
+     */
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
+    }
+
+    /**
+     * format date using moment library
+     * @param {*} holiday
      * @memberof CalendarViewPage
      */
-    ngOnInit() {
+    formatDate(holiday) {
+        this.calendarEvents = holiday;
+        for (let i = 0; i < holiday.length; i++) {
+            this.calendarEvents[i].start = (moment(holiday[i].start).format('YYYY-MM-DD'));
+            this.calendarEvents[i].end = moment(holiday[i].end).format('YYYY-MM-DD');
+            this.calendarEvents[i].day = this.getWeekDay(new Date(holiday[i].start));
+            this.calendarEvents[i].allDay = true;
+        }
         setTimeout(() => {
             let calendarView = this.calendar.getApi();
             calendarView.render();
         }, 100);
     }
+
+    /**
+     * Method to get day of the week from a given date
+     * @param {*} date
+     * @returns
+     * @memberof CalendarViewPage
+     */
+    getWeekDay(date) {
+        //Create an array containing each day, starting with Sunday.
+        const weekdays = new Array(
+            "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+        );
+        //Use the getDay() method to get the day.
+        const day = date.getDay();
+        //Return the element that corresponds to that index.
+        return weekdays[day];
+    }
+
+
 
 }
