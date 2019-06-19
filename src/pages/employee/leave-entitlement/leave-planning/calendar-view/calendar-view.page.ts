@@ -92,7 +92,7 @@ export class CalendarViewPage implements OnInit {
      * @type {EventInput[]}
      * @memberof CalendarViewPage
      */
-    public calendarEvents: EventInput[];
+    public events: EventInput[];
 
     /**
      *Creates an instance of CalendarViewPage.
@@ -116,7 +116,7 @@ export class CalendarViewPage implements OnInit {
             () => {
                 this.subscription = this.apiService.get_personal_holiday_calendar(this.calendarId).subscribe(
                     data => {
-                        this.formatDate(data.holiday);
+                        this.editDateFormat(data.holiday);
                     }
                 );
             }
@@ -133,16 +133,16 @@ export class CalendarViewPage implements OnInit {
 
     /**
      * format date using moment library
-     * @param {*} holiday
+     * @param {*} date
      * @memberof CalendarViewPage
      */
-    formatDate(holiday) {
-        this.calendarEvents = holiday;
-        for (let i = 0; i < holiday.length; i++) {
-            this.calendarEvents[i].start = (moment(holiday[i].start).format('YYYY-MM-DD'));
-            this.calendarEvents[i].end = moment(holiday[i].end).format('YYYY-MM-DD');
-            this.calendarEvents[i].day = this.getWeekDay(new Date(holiday[i].start));
-            this.calendarEvents[i].allDay = true;
+    editDateFormat(date) {
+        this.events = date;
+        for (let i = 0; i < date.length; i++) {
+            this.events[i].start = (moment(date[i].start).format('YYYY-MM-DD'));
+            this.events[i].end = moment(date[i].end).format('YYYY-MM-DD');
+            this.events[i].day = this.getWeekDay(new Date(date[i].start));
+            this.events[i].allDay = true;
         }
         setTimeout(() => {
             let calendarView = this.calendar.getApi();

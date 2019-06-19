@@ -3,7 +3,7 @@
                           left: 'prev,next today',
                           center: 'title',
                           right: 'dayGridMonth,timeGridWeek, listYear'
-                        }" [plugins]="calendarPlugins" [events]="calendarEvents">
+                        }" [plugins]="calendarPlugins" [events]="events">
     </full-calendar>
 </div>
 
@@ -20,7 +20,7 @@
         </ion-col>
     </ion-row>
 
-    <ion-row class="detailsRow" *ngFor="let holiday of calendarEvents">
+    <ion-row class="detailsRow" *ngFor="let holiday of events">
         <ion-col>
             <ion-label>{{holiday.day}}</ion-label>
         </ion-col>
