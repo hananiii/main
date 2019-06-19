@@ -119,6 +119,14 @@ export class ApplyLeavePage implements OnInit {
     private _leaveTypeName: string;
 
     /**
+     * Local private property to get number of day from a week
+     * eg: sunday-saturday is 0-6
+     * @private
+     * @type {number}
+     * @memberof ApplyLeavePage
+     */
+    private _weekDayNumber: number[] = [];
+    /**
      * Local private property for selected date array list
      * @private
      * @type {*}
@@ -320,6 +328,12 @@ export class ApplyLeavePage implements OnInit {
                 this.subscription = this.apiService.get_personal_holiday_calendar(this.calendarId).subscribe(
                     data => {
                         this.formatDate(data.holiday);
+                        for (let i = 0; i < data.rest.length; i++) {
+                            const weekdays = new Array(
+                                "SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"
+                            );
+                            this._weekDayNumber.push(weekdays.indexOf(data.rest[i].fullname));
+                        }
                     }
                 );
             }
@@ -378,7 +392,7 @@ export class ApplyLeavePage implements OnInit {
         for (let i = 0; i < holiday.length; i++) {
             this.calendarEvents[i].start = (moment(holiday[i].start).format('YYYY-MM-DD'));
             this.calendarEvents[i].end = moment(holiday[i].end).format('YYYY-MM-DD');
-            this.calendarEvents[i].day = this.getWeekDay(new Date(holiday[i].start));
+            this.calendarEvents[i].day = this.getDayName(new Date(holiday[i].start));
             this.calendarEvents[i].allDay = true;
         }
     }
@@ -389,7 +403,7 @@ export class ApplyLeavePage implements OnInit {
      * @returns
      * @memberof CalendarViewPage
      */
-    getWeekDay(date) {
+    getDayName(date) {
         //Create an array containing each day, starting with Sunday.
         const weekdays = new Array(
             "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
@@ -521,7 +535,7 @@ export class ApplyLeavePage implements OnInit {
         } else {
             this._reformatDateFrom = moment(this.applyLeaveForm.value.firstPicker).format('YYYY-MM-DD HH:mm:ss');
             this._reformatDateTo = moment(this.applyLeaveForm.value.secondPicker).format('YYYY-MM-DD HH:mm:ss');
-            this.getWeekDays(this.applyLeaveForm.value.firstPicker, this.applyLeaveForm.value.secondPicker);
+            this.getWeekDays(this.applyLeaveForm.value.firstPicker, this.applyLeaveForm.value.secondPicker, this._weekDayNumber);
             this.dayTypes.patchValue([{ selectArray: [this._dateArray] }]);
         }
     }
@@ -533,14 +547,14 @@ export class ApplyLeavePage implements OnInit {
      * @returns
      * @memberof ApplyLeavePage
      */
-    getWeekDays(first: Date, last: Date) {
+    getWeekDays(first: Date, last: Date, dayNumber: number[]) {
         if (first > last) return -1;
         var start = new Date(first.getTime());
         var end = new Date(last.getTime());
         this.daysCount = 0;
         this._dateArray = [];
         while (start <= end) {
-            if (start.getDay() != 0 && start.getDay() != 6) {
+            if (!dayNumber.includes(start.getDay())) {
                 this.daysCount++;
                 this._dateArray.push(new Date(start));
             }

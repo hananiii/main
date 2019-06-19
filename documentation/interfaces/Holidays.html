@@ -773,7 +773,7 @@ export class CalendarViewPage implements OnInit {
      * @type {EventInput[]}
      * @memberof CalendarViewPage
      */
-    public calendarEvents: EventInput[];
+    public events: EventInput[];
 
     /**
      *Creates an instance of CalendarViewPage.
@@ -797,7 +797,7 @@ export class CalendarViewPage implements OnInit {
             () &#x3D;&gt; {
                 this.subscription &#x3D; this.apiService.get_personal_holiday_calendar(this.calendarId).subscribe(
                     data &#x3D;&gt; {
-                        this.formatDate(data.holiday);
+                        this.editDateFormat(data.holiday);
                     }
                 );
             }
@@ -814,16 +814,16 @@ export class CalendarViewPage implements OnInit {
 
     /**
      * format date using moment library
-     * @param {*} holiday
+     * @param {*} date
      * @memberof CalendarViewPage
      */
-    formatDate(holiday) {
-        this.calendarEvents &#x3D; holiday;
-        for (let i &#x3D; 0; i &lt; holiday.length; i++) {
-            this.calendarEvents[i].start &#x3D; (moment(holiday[i].start).format(&#x27;YYYY-MM-DD&#x27;));
-            this.calendarEvents[i].end &#x3D; moment(holiday[i].end).format(&#x27;YYYY-MM-DD&#x27;);
-            this.calendarEvents[i].day &#x3D; this.getWeekDay(new Date(holiday[i].start));
-            this.calendarEvents[i].allDay &#x3D; true;
+    editDateFormat(date) {
+        this.events &#x3D; date;
+        for (let i &#x3D; 0; i &lt; date.length; i++) {
+            this.events[i].start &#x3D; (moment(date[i].start).format(&#x27;YYYY-MM-DD&#x27;));
+            this.events[i].end &#x3D; moment(date[i].end).format(&#x27;YYYY-MM-DD&#x27;);
+            this.events[i].day &#x3D; this.getWeekDay(new Date(date[i].start));
+            this.events[i].allDay &#x3D; true;
         }
         setTimeout(() &#x3D;&gt; {
             let calendarView &#x3D; this.calendar.getApi();

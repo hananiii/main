@@ -632,13 +632,13 @@
                 <tbody>
                     <tr>
                         <td class="col-md-4">
-                            <b> formatDate</b>
+                            <b> editDateFormat</b>
                         </td>
                     </tr>
     
                     <tr>
                         <td class="col-md-4">
-    <code>formatDate(holiday: any)</code>
+    <code>editDateFormat(date: any)</code>
                         </td>
                     </tr>
     
@@ -651,7 +651,7 @@
                                         <ul class="jsdoc-params">
                                                 <li>
                                                     <div>
-                                                        <b>holiday</b>
+                                                        <b>date</b>
                                                     </div>
                                                     <div>
                                                         
@@ -742,27 +742,6 @@
                 <tbody>
                     <tr>
                         <td class="col-md-4">
-                            <b><span class="modifier">Public</span> calendarEvents</b>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <span class="modifier-icon fa fa-circle"></span><code>calendarEvents:     <code>EventInput[]</code>
-    </bcode>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-description"><p>Property for alias Event Input of Full Calendar Component</p>
-    </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="table table-sm table-bordered">
-                <tbody>
-                    <tr>
-                        <td class="col-md-4">
                             <b><span class="modifier">Public</span> calendarId</b>
                         </td>
                     </tr>
@@ -796,6 +775,27 @@
                     <tr>
                         <td class="col-md-4">
                             <div class="io-description"><p>This is input property for plugins of Full Calendar Component</p>
+    </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-sm table-bordered">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <b><span class="modifier">Public</span> events</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <span class="modifier-icon fa fa-circle"></span><code>events:     <code>EventInput[]</code>
+    </bcode>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-description"><p>Property for alias Event Input of Full Calendar Component</p>
     </div>
                         </td>
                     </tr>
@@ -940,7 +940,7 @@ export class CalendarViewPage implements OnInit {
      * @type {EventInput[]}
      * @memberof CalendarViewPage
      */
-    public calendarEvents: EventInput[];
+    public events: EventInput[];
 
     /**
      *Creates an instance of CalendarViewPage.
@@ -964,7 +964,7 @@ export class CalendarViewPage implements OnInit {
             () &#x3D;&gt; {
                 this.subscription &#x3D; this.apiService.get_personal_holiday_calendar(this.calendarId).subscribe(
                     data &#x3D;&gt; {
-                        this.formatDate(data.holiday);
+                        this.editDateFormat(data.holiday);
                     }
                 );
             }
@@ -981,16 +981,16 @@ export class CalendarViewPage implements OnInit {
 
     /**
      * format date using moment library
-     * @param {*} holiday
+     * @param {*} date
      * @memberof CalendarViewPage
      */
-    formatDate(holiday) {
-        this.calendarEvents &#x3D; holiday;
-        for (let i &#x3D; 0; i &lt; holiday.length; i++) {
-            this.calendarEvents[i].start &#x3D; (moment(holiday[i].start).format(&#x27;YYYY-MM-DD&#x27;));
-            this.calendarEvents[i].end &#x3D; moment(holiday[i].end).format(&#x27;YYYY-MM-DD&#x27;);
-            this.calendarEvents[i].day &#x3D; this.getWeekDay(new Date(holiday[i].start));
-            this.calendarEvents[i].allDay &#x3D; true;
+    editDateFormat(date) {
+        this.events &#x3D; date;
+        for (let i &#x3D; 0; i &lt; date.length; i++) {
+            this.events[i].start &#x3D; (moment(date[i].start).format(&#x27;YYYY-MM-DD&#x27;));
+            this.events[i].end &#x3D; moment(date[i].end).format(&#x27;YYYY-MM-DD&#x27;);
+            this.events[i].day &#x3D; this.getWeekDay(new Date(date[i].start));
+            this.events[i].allDay &#x3D; true;
         }
         setTimeout(() &#x3D;&gt; {
             let calendarView &#x3D; this.calendar.getApi();
