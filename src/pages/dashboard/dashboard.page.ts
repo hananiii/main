@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { APIService } from 'src/services/shared-service/api.service';
+import { DatePipe } from '@angular/common';
 /**
  * Dashboard Page
  * @export
@@ -9,6 +11,7 @@ import { Component, OnInit } from '@angular/core';
     selector: 'app-dashboard',
     templateUrl: './dashboard.page.html',
     styleUrls: ['./dashboard.page.scss'],
+    providers: [DatePipe]
 })
 export class DashboardPage implements OnInit {
     /**
@@ -103,16 +106,66 @@ export class DashboardPage implements OnInit {
     public clickOnSeeAll: boolean;
 
     /**
+     * Get user profile details from API
+     * @type {*}
+     * @memberof DashboardPage
+     */
+    public userProfile: any;
+
+    /**
+     * Get tenant Id from userProfile details
+     * @type {string}
+     * @memberof DashboardPage
+     */
+    public tenantId: string;
+
+    /**
+     * Get on leave total employee number & employee onleave number from API
+     * @type {*}
+     * @memberof DashboardPage
+     */
+    public onLeaveNumber: any;
+
+    /**
+     * Get on leave employee name & designation from API
+     * @type {*}
+     * @memberof DashboardPage
+     */
+    public onLeaveList: any;
+
+    /**
      *Creates an instance of DashboardPage.
      * @memberof DashboardPage
      */
-    constructor() { }
+    constructor(private api: APIService, private datePipe: DatePipe) { }
 
     /**
      * Initial method
      * @memberof DashboardPage
      */
     ngOnInit() {
+        this.api.get_user_profile().subscribe(
+            data => {
+                this.userProfile = data;
+                this.tenantId = this.userProfile.tenantId;
+            },
+            error => {
+                if (error) {
+                    window.location.href = '/login';
+                }
+            },
+            () => {
+                const params = { 'startdate': this.datePipe.transform(new Date(), 'yyyy-MM-dd'), 'enddate': this.datePipe.transform(new Date(), 'yyyy-MM-dd'), 'tenantguid': this.tenantId };
+                this.api.get_status_onleave(params).subscribe(
+                    data => {
+                        this.onLeaveNumber = data;
+                    })
+                this.api.get_onleave_list(params).subscribe(
+                    data => {
+                        this.onLeaveList = data;
+                    })
+            },
+        );
     }
 
     /**

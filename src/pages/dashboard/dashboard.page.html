@@ -182,10 +182,11 @@
     </mat-grid-tile>
 
     <mat-grid-tile colspan="1" rowspan="1">
-        <mat-card class="rightCardBottom">
+        <mat-card class="rightCardBottom" *ngFor="let number of onLeaveNumber">
             <mat-card-subtitle style="color: #7a8589; font-size: 12px; text-align: center">TOTAL EMPLOYEES
             </mat-card-subtitle>
-            <mat-card-subtitle style="color: #057dcd; font-size: 30px; text-align: center; font-weight: bold">428
+            <mat-card-subtitle style="color: #057dcd; font-size: 30px; text-align: center; font-weight: bold">
+                {{number.total_employee}}
             </mat-card-subtitle>
             <ion-item lines="full" style="--min-height: none;padding-bottom: 5%;width: 100%;"></ion-item>
             <mat-list role="list">
@@ -193,15 +194,15 @@
                     <mat-icon mat-list-icon style="font-size: 19px;color: #7a8589;">
                         <i class="material-icons" style="font-size: 16px;">account_circle</i>
                     </mat-icon>
-                    <p mat-line> 382 present </p>
+                    <p mat-line> {{number.total_employee - number.no_of_onleave}} present </p>
                 </mat-list-item>
                 <mat-list-item role="listitem">
                     <mat-icon mat-list-icon style="font-size: 19px;color: #7a8589;">
                         <i class="material-icons" style="font-size: 16px;">remove_circle</i>
                     </mat-icon>
-                    <p mat-line> 46 onleave </p>
+                    <p mat-line> {{number.no_of_onleave}} onleave </p>
                 </mat-list-item>
-                <mat-list-item role="listitem">
+                <!-- <mat-list-item role="listitem">
                     <mat-icon mat-list-icon style="font-size: 19px;color: #7a8589;">
                         <i class="material-icons" style="font-size: 16px;">message</i>
                     </mat-icon>
@@ -212,7 +213,7 @@
                         <i class="material-icons" style="font-size: 16px;">check_circle</i>
                     </mat-icon>
                     <p mat-line> 30 leave approved
-                </mat-list-item>
+                </mat-list-item> -->
             </mat-list>
         </mat-card>
     </mat-grid-tile>
@@ -224,17 +225,17 @@
             </mat-card-subtitle>
             <ion-list class="list" [style.overflow]="clickOnSeeAll == true ? 'auto' : 'hidden'"
                 [style.max-height.px]="clickOnSeeAll == true ? '' : '160'">
-                <ion-item lines="none">
+                <ion-item lines="none" *ngFor="let detail of onLeaveList">
                     <ion-avatar slot="start" class="avatar">
                         <img src="assets/icon/picture.png">
                     </ion-avatar>
                     <ion-label text-wrap class="labelText">
-                        <p style="color: #7a8589; font-size: 11px;white-space: nowrap;margin: 0">Nadrah Abdullah</p>
-                        <p style="color: #bebebe; font-size: 9px;white-space: nowrap;margin: 0">Customer Service
-                            Executive</p>
+                        <p style="color: #7a8589; font-size: 11px;white-space: nowrap;margin: 0">{{detail.FULLNAME}}</p>
+                        <p style="color: #bebebe; font-size: 9px;white-space: nowrap;margin: 0">{{detail.DESIGNATION}}
+                        </p>
                     </ion-label>
                 </ion-item>
-                <ion-item lines="none">
+                <!-- <ion-item lines="none">
                     <ion-avatar slot="start" class="avatar">
                         <img src="assets/icon/picture.png">
                     </ion-avatar>
@@ -277,11 +278,12 @@
                             Architect
                         </p>
                     </ion-label>
-                </ion-item>
+                </ion-item> -->
             </ion-list>
             <mat-card-actions style="text-align: center" *ngIf="seeAll">
                 <button mat-button style="background: transparent;">
-                    <span style="color: #057dcd; cursor: pointer;" (click)="clickOnSeeAll=true;seeAll=false;seeLess=true">See all</span>
+                    <span style="color: #057dcd; cursor: pointer;"
+                        (click)="clickOnSeeAll=true;seeAll=false;seeLess=true">See all</span>
                     <mat-icon style="position: absolute;margin-top: -7px;padding-left: 3px;">
                         <i class="material-icons" style="color: #057dcd; cursor: pointer;font-size: 20px;"
                             (click)="clickOnSeeAll=true;seeAll=false;seeLess=true">expand_more</i>
@@ -290,7 +292,8 @@
             </mat-card-actions>
             <mat-card-actions style="text-align: center" *ngIf="seeLess">
                 <button mat-button style="background: transparent;">
-                    <span style="color: #057dcd; cursor: pointer;" (click)="clickOnSeeAll=false;seeAll=true;seeLess=false">See less</span>
+                    <span style="color: #057dcd; cursor: pointer;"
+                        (click)="clickOnSeeAll=false;seeAll=true;seeLess=false">See less</span>
                     <mat-icon style="position: absolute;margin-top: -7px;padding-left: 3px;">
                         <i class="material-icons" style="color: #057dcd; cursor: pointer;font-size: 20px;"
                             (click)="clickOnSeeAll=false;seeAll=true;seeLess=false">expand_less</i>

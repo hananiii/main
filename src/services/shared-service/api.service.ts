@@ -224,4 +224,34 @@ export class APIService {
         return this.getApiWithId('/api/admin/holiday/', id);
     }
 
+    /**
+     * To get employee onleave status
+     * Number of total employee
+     * Number of employee onleave
+     * @param {*} param
+     * @returns {Observable<any>}
+     * @memberof APIService
+     */
+    get_status_onleave(param): Observable<any> {
+        this.headerAuthorization();
+        return this.http.get(this.baseUrl + '/api/employee/status-onleave', { params: param, headers: this.headers })
+            .pipe(map((res: Response) => res.json()))
+    }
+
+    /**
+     * To get employee onleave details
+     * Name of employee 
+     * Designation of employee
+     * @param {*} param
+     * @returns {Observable<any>}
+     * @memberof APIService
+     */
+    get_onleave_list(param): Observable<any> {
+        this.headerAuthorization();
+        return this.http.get(this.baseUrl + '/api/employee/leave-list', { params: param, headers: this.headers })
+            .pipe(map((res: Response) => res.json()))
+    }
+
+
+
 }
