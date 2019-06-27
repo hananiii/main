@@ -242,14 +242,14 @@ export class APIService {
      * To get employee onleave details
      * Name of employee 
      * Designation of employee
-     * @param {*} param
+     * @value {*} value
      * @returns {Observable<any>}
      * @memberof APIService
      */
-    get_onleave_list(param): Observable<any> {
+    get_onleave_list(value): Observable<any> {
         this.headerAuthorization();
-        return this.http.get(this.baseUrl + '/api/employee/leave-list', { params: param, headers: this.headers })
-            .pipe(map((res: Response) => res.json()))
+        return this.http.get(this.baseUrl + '/api/employee/leave-list', { params: value, headers: this.headers })
+            .pipe(map((response: Response) => response.json()))
     }
 
 

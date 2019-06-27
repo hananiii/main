@@ -103,20 +103,19 @@ export class ApplyLeavePage implements OnInit {
     public selectedQuarterHour: string = '';
 
     /**
+     * Local property for leave type ID
+     * @type {string}
+     * @memberof ApplyLeavePage
+     */
+    public leaveTypeId: string;
+
+    /**
      * Local private property for value get from API
      * @private
      * @type {*}
      * @memberof ApplyLeavePage
      */
     private _userList: any;
-
-    /**
-     * Local private property for leave type name
-     * @private
-     * @type {string}
-     * @memberof ApplyLeavePage
-     */
-    private _leaveTypeName: string;
 
     /**
      * Local private property to get number of day from a week
@@ -133,14 +132,6 @@ export class ApplyLeavePage implements OnInit {
      * @memberof ApplyLeavePage
      */
     private _dateArray: any;
-
-    /**
-     * Local private property for leave type ID
-     * @private
-     * @type {string}
-     * @memberof ApplyLeavePage
-     */
-    private _leaveTypeId: string;
 
     /**
      * Local private property for start date
@@ -303,7 +294,7 @@ export class ApplyLeavePage implements OnInit {
                     leaveTypes: params.type,
                 });
                 this.daysAvailable = params.balance;
-                this._leaveTypeId = params.id;
+                this.leaveTypeId = params.id;
             });
     }
 
@@ -482,7 +473,7 @@ export class ApplyLeavePage implements OnInit {
         }
 
         const applyLeaveData = {
-            "leaveTypeID": this._leaveTypeId,
+            "leaveTypeID": this.leaveTypeId,
             "reason": this.applyLeaveForm.value.inputReason,
             "data": this._arrayDateSlot
         }
@@ -502,7 +493,6 @@ export class ApplyLeavePage implements OnInit {
                     window.location.href = '/login';
                 }
             });
-        // this.setEvent(this._leaveTypeName, this.applyLeaveForm.value.firstPicker, new Date((this.applyLeaveForm.value.secondPicker).setDate((this.applyLeaveForm.value.secondPicker).getDate() + 1)));
     }
 
     /**
@@ -822,17 +812,6 @@ export class ApplyLeavePage implements OnInit {
             this.showAddIcon = false;
             alert("No other option");
         }
-    }
-
-    /**
-     * Get details from clicked leave type name option
-     * @param {*} leave
-     * @memberof ApplyLeavePage
-     */
-    getIndex(leave: any) {
-        this.daysAvailable = leave.balanceDays;
-        this._leaveTypeId = leave.leaveTypeId;
-        this._leaveTypeName = leave.leaveTypeName;
     }
 
     /**

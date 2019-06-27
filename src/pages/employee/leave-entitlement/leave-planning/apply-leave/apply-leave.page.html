@@ -3,7 +3,7 @@
                           left: 'prev,next today',
                           center: 'title',
                           right: 'dayGridMonth,timeGridWeek'
-                        }" [plugins]="calendarPlugins" [events]="calendarEvents" >
+                        }" [plugins]="calendarPlugins" [events]="calendarEvents">
         <!-- (dateClick)="handleDateClick($event) (select)="select($event)"  (dayRender)="dayRender($event,el)"-->
     </full-calendar>
 </div>
@@ -14,7 +14,7 @@
                 <mat-label>Leave types</mat-label>
                 <mat-select class="selectLeave" name="leave" formControlName="leaveTypes">
                     <mat-option *ngFor="let leave of entitlement; let i=index" [value]="leave.leaveTypeName"
-                        (click)="getIndex(leave)">
+                        (click)="daysAvailable = leave.balanceDays;leaveTypeId = leave.leaveTypeId;">
                         {{leave.leaveTypeName}}</mat-option>
                 </mat-select>
                 <mat-error *ngIf="!applyLeaveForm.leaveTypes" style="padding: 5px;padding-left: 0;">
