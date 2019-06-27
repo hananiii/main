@@ -10,6 +10,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { GoogleChartModule } from 'src/library/google-chart/google-chart.module';
+import { SpinnerModule } from 'src/library/spinner/spinner.module';
 
 
 const routes: Routes = [
@@ -29,6 +30,7 @@ const routes: Routes = [
         MatListModule,
         MatGridListModule,
         GoogleChartModule,
+        SpinnerModule,
         RouterModule.forChild(routes)
     ],
     declarations: [DashboardPage]

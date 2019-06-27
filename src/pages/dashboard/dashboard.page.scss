@@ -2,13 +2,44 @@
   top: 48px;
   background: #f9fafc;
   overflow: auto;
+  justify-content: flex-start !important;
 
-  .leftCard {
-    width: 100%;
-    left: 20px;
-    margin-right: 22px;
-    height: 98%;
+  // Flexbox
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 10px;
   }
+  .column {
+    flex: 75%;
+    max-width: 75%;
+    padding: 0 10px;
+  }
+  .columns {
+    flex: 25%;
+    max-width: 25%;
+    padding: 0 10px;
+  }
+  .column .leftCard {
+    margin-top: 5px;
+    vertical-align: middle;
+  }
+  .column .googleCart {
+    margin-top: 20px;
+    vertical-align: middle;
+  }
+  .columns .rightCard {
+    margin-top: 5px;
+    vertical-align: middle;
+  }
+  .columns .rightCardBottom,
+  .columns .rightCardLast {
+    margin-top: 20px;
+    vertical-align: middle;
+  }
+
+  // mat grid list
+
   .button1,
   .button2 {
     color: #057dcd;
@@ -45,35 +76,13 @@
     overflow: hidden;
     max-height: 160px;
   }
-
-  .rightCard {
-    width: 90%;
-    position: absolute;
-    height: 98%;
-  }
   .divider {
     --min-height: none;
     padding-top: 5%;
     padding-bottom: 1%;
     width: 100%;
   }
-  .rightCardBottom {
-    width: 90%;
-    position: absolute;
-    height: 98%;
-  }
-  .googleCart {
-    width: 100%;
-    left: 20px;
-    margin-right: 22px;
-    height: 98%;
-  }
-  .rightCardLast {
-    width: 90%;
-    position: absolute;
-    height: 95%;
-  }
-  .list{
+  .list {
     padding: 0;
   }
   .avatar {

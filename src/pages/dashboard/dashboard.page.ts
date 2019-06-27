@@ -134,7 +134,23 @@ export class DashboardPage implements OnInit {
     public onLeaveList: any;
 
     /**
+     * This local property is used to show or hide spinner
+     * @type {boolean}
+     * @memberof LeavePlanningPage
+     */
+    public showSpinner: boolean = true;
+
+    /**
+     * Show dashboard content
+     * @type {boolean}
+     * @memberof DashboardPage
+     */
+    public row: boolean = false;
+
+    /**
      *Creates an instance of DashboardPage.
+     * @param {APIService} api
+     * @param {DatePipe} datePipe
      * @memberof DashboardPage
      */
     constructor(private api: APIService, private datePipe: DatePipe) { }
@@ -162,6 +178,8 @@ export class DashboardPage implements OnInit {
                     })
                 this.api.get_onleave_list(params).subscribe(
                     data => {
+                        this.row = true;
+                        this.showSpinner = false;
                         this.onLeaveList = data;
                     })
             },

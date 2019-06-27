@@ -66,7 +66,7 @@ export class GoogleChartComponent implements OnInit {
      * This is input property of width in google chart
      * @memberof GoogleChartComponent
      */
-    width = 700;
+    width = 600;
 
     /**
      * This is input property of height in google chart
