@@ -4,6 +4,8 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import * as _moment from 'moment';
 import { Subscription } from 'rxjs';
 import { genderStatus, maritalStatus } from './personal-details.service';
+import { MAT_DATE_FORMATS, DateAdapter } from '@angular/material';
+import { APP_DATE_FORMATS, AppDateAdapter } from '../date.adapter';
 const moment = _moment;
 /**
  * Personal Details Page
@@ -14,7 +16,10 @@ const moment = _moment;
 @Component({
     selector: 'app-personal-details',
     templateUrl: './personal-details.page.html',
-    styleUrls: ['./personal-details.page.scss']
+    styleUrls: ['./personal-details.page.scss'],
+    providers: [
+        { provide: DateAdapter, useClass: AppDateAdapter },
+        { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS }]
 })
 export class PersonalDetailsPage implements OnInit {
 

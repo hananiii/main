@@ -614,6 +614,29 @@
                                 <div class="io-description"><p>Creates an instance of DashboardPage.</p>
     </div>
                                 <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <ul class="jsdoc-params">
+                                                <li>
+                                                    <div>
+                                                        <b>api</b>
+                                                            :     <code><a href="../injectables/APIService.html" target="_self" >APIService</a></code>
+    
+                                                    </div>
+                                                    <div>
+                                                        
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div>
+                                                        <b>datePipe</b>
+                                                            :     <code><a href="https://angular.io/docs/ts/latest/api/common/index/DatePipe-pipe.html" target="_blank" >DatePipe</a></code>
+    
+                                                    </div>
+                                                    <div>
+                                                        
+                                                    </div>
+                                                </li>
+                                        </ul>
                                 </div>
                         </td>
                     </tr>
@@ -835,6 +858,32 @@
                 <tbody>
                     <tr>
                         <td class="col-md-4">
+                            <b><span class="modifier">Public</span> row</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <span class="modifier-icon fa fa-circle"></span><code>row:     <code>boolean</code>
+    </bcode>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <i>Default value: </i><code>false</code>
+                            </td>
+                        </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-description"><p>Show dashboard content</p>
+    </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-sm table-bordered">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
                             <b><span class="modifier">Public</span> seeAll</b>
                         </td>
                     </tr>
@@ -982,6 +1031,32 @@
                     <tr>
                         <td class="col-md-4">
                             <div class="io-description"><p>This is local property of show my recent content</p>
+    </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-sm table-bordered">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <b><span class="modifier">Public</span> showSpinner</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <span class="modifier-icon fa fa-circle"></span><code>showSpinner:     <code>boolean</code>
+    </bcode>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <i>Default value: </i><code>true</code>
+                            </td>
+                        </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-description"><p>This local property is used to show or hide spinner</p>
     </div>
                         </td>
                     </tr>
@@ -1220,7 +1295,23 @@ export class DashboardPage implements OnInit {
     public onLeaveList: any;
 
     /**
+     * This local property is used to show or hide spinner
+     * @type {boolean}
+     * @memberof LeavePlanningPage
+     */
+    public showSpinner: boolean &#x3D; true;
+
+    /**
+     * Show dashboard content
+     * @type {boolean}
+     * @memberof DashboardPage
+     */
+    public row: boolean &#x3D; false;
+
+    /**
      *Creates an instance of DashboardPage.
+     * @param {APIService} api
+     * @param {DatePipe} datePipe
      * @memberof DashboardPage
      */
     constructor(private api: APIService, private datePipe: DatePipe) { }
@@ -1248,6 +1339,8 @@ export class DashboardPage implements OnInit {
                     })
                 this.api.get_onleave_list(params).subscribe(
                     data &#x3D;&gt; {
+                        this.row &#x3D; true;
+                        this.showSpinner &#x3D; false;
                         this.onLeaveList &#x3D; data;
                     })
             },

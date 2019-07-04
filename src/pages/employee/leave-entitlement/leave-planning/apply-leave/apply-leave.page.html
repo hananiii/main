@@ -114,12 +114,12 @@
 
         <div style="text-align: center;">
             <ion-button shape="round" fill="outline"
-                (click)="applyLeaveForm.reset(); daysAvailable='';daysCount='0';minDate='';maxDate='';clearArrayList()"
+                (click)="applyLeaveForm.reset(); daysAvailable='';daysCount=0;minDate='';maxDate='';clearArrayList()"
                 style="height: 27px; font-size: 12px;text-transform: none">Clear
             </ion-button>
             <ion-button shape="round" style="height: 27px;font-size: 12px;width: 115px;text-transform: none"
                 [disabled]="!applyLeaveForm.valid"
-                (click)="postData(); applyLeaveForm.reset();daysAvailable='';daysCount='0';minDate='';maxDate='';">
+                (click)="postData(); applyLeaveForm.reset();daysAvailable='';daysCount=0;minDate='';maxDate='';">
                 Apply for {{daysCount}} days
             </ion-button>
         </div>

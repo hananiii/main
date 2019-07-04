@@ -13,6 +13,8 @@ import { Subscription } from 'rxjs';
 import { DayType } from './apply-leave.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotificationPage } from './notification/notification.page';
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
+import { AppDateAdapter, APP_DATE_FORMATS } from 'src/pages/employee/date.adapter';
 const moment = _moment;
 /**
  * Apply Leave Page
@@ -24,6 +26,9 @@ const moment = _moment;
     selector: 'app-apply-leave',
     templateUrl: './apply-leave.page.html',
     styleUrls: ['./apply-leave.page.scss'],
+    providers: [
+        { provide: DateAdapter, useClass: AppDateAdapter },
+        { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS }]
 })
 export class ApplyLeavePage implements OnInit {
     /**
@@ -93,7 +98,7 @@ export class ApplyLeavePage implements OnInit {
      * @type {FormGroup}
      * @memberof ApplyLeavePage
      */
-    public applyLeaveForm: FormGroup;
+    public applyLeaveForm: any;
 
     /**
      * Local property for selected quarter hour value

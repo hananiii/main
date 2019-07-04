@@ -1583,48 +1583,6 @@
                 <tbody>
                     <tr>
                         <td class="col-md-4">
-                            <b> getIndex</b>
-                        </td>
-                    </tr>
-    
-                    <tr>
-                        <td class="col-md-4">
-    <code>getIndex(leave: any)</code>
-                        </td>
-                    </tr>
-    
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-description"><p>Get details from clicked leave type name option</p>
-    </div>
-                                <div class="io-description">
-                                        <b>Parameters :</b>
-                                        <ul class="jsdoc-params">
-                                                <li>
-                                                    <div>
-                                                        <b>leave</b>
-                                                    </div>
-                                                    <div>
-                                                        
-                                                    </div>
-                                                </li>
-                                        </ul>
-                                </div>
-                                <div class="io-description">
-                                    <b>Returns: </b>    <code>void</code>
-    
-                                </div>
-                                    <div class="io-description">
-                                        
-                                    </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="table table-sm table-bordered">
-                <tbody>
-                    <tr>
-                        <td class="col-md-4">
                             <b> openSnackBar</b>
                         </td>
                     </tr>
@@ -1793,48 +1751,6 @@
                     <tr>
                         <td class="col-md-4">
                             <div class="io-description"><p>Default index number for first day types selection</p>
-    </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="table table-sm table-bordered">
-                <tbody>
-                    <tr>
-                        <td class="col-md-4">
-                            <b><span class="modifier">Private</span> _leaveTypeId</b>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <span class="modifier-icon fa fa-lock"></span><code>_leaveTypeId:     <code>string</code>
-    </bcode>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-description"><p>Local private property for leave type ID</p>
-    </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="table table-sm table-bordered">
-                <tbody>
-                    <tr>
-                        <td class="col-md-4">
-                            <b><span class="modifier">Private</span> _leaveTypeName</b>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <span class="modifier-icon fa fa-lock"></span><code>_leaveTypeName:     <code>string</code>
-    </bcode>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-description"><p>Local private property for leave type name</p>
     </div>
                         </td>
                     </tr>
@@ -2326,6 +2242,27 @@
                 <tbody>
                     <tr>
                         <td class="col-md-4">
+                            <b><span class="modifier">Public</span> leaveTypeId</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <span class="modifier-icon fa fa-circle"></span><code>leaveTypeId:     <code>string</code>
+    </bcode>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-description"><p>Local property for leave type ID</p>
+    </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-sm table-bordered">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
                             <b><span class="modifier">Public</span> maxDate</b>
                         </td>
                     </tr>
@@ -2540,20 +2477,19 @@ export class ApplyLeavePage implements OnInit {
     public selectedQuarterHour: string &#x3D; &#x27;&#x27;;
 
     /**
+     * Local property for leave type ID
+     * @type {string}
+     * @memberof ApplyLeavePage
+     */
+    public leaveTypeId: string;
+
+    /**
      * Local private property for value get from API
      * @private
      * @type {*}
      * @memberof ApplyLeavePage
      */
     private _userList: any;
-
-    /**
-     * Local private property for leave type name
-     * @private
-     * @type {string}
-     * @memberof ApplyLeavePage
-     */
-    private _leaveTypeName: string;
 
     /**
      * Local private property to get number of day from a week
@@ -2570,14 +2506,6 @@ export class ApplyLeavePage implements OnInit {
      * @memberof ApplyLeavePage
      */
     private _dateArray: any;
-
-    /**
-     * Local private property for leave type ID
-     * @private
-     * @type {string}
-     * @memberof ApplyLeavePage
-     */
-    private _leaveTypeId: string;
 
     /**
      * Local private property for start date
@@ -2740,7 +2668,7 @@ export class ApplyLeavePage implements OnInit {
                     leaveTypes: params.type,
                 });
                 this.daysAvailable &#x3D; params.balance;
-                this._leaveTypeId &#x3D; params.id;
+                this.leaveTypeId &#x3D; params.id;
             });
     }
 
@@ -2919,7 +2847,7 @@ export class ApplyLeavePage implements OnInit {
         }
 
         const applyLeaveData &#x3D; {
-            &quot;leaveTypeID&quot;: this._leaveTypeId,
+            &quot;leaveTypeID&quot;: this.leaveTypeId,
             &quot;reason&quot;: this.applyLeaveForm.value.inputReason,
             &quot;data&quot;: this._arrayDateSlot
         }
@@ -2939,7 +2867,6 @@ export class ApplyLeavePage implements OnInit {
                     window.location.href &#x3D; &#x27;/login&#x27;;
                 }
             });
-        // this.setEvent(this._leaveTypeName, this.applyLeaveForm.value.firstPicker, new Date((this.applyLeaveForm.value.secondPicker).setDate((this.applyLeaveForm.value.secondPicker).getDate() + 1)));
     }
 
     /**
@@ -3259,17 +3186,6 @@ export class ApplyLeavePage implements OnInit {
             this.showAddIcon &#x3D; false;
             alert(&quot;No other option&quot;);
         }
-    }
-
-    /**
-     * Get details from clicked leave type name option
-     * @param {*} leave
-     * @memberof ApplyLeavePage
-     */
-    getIndex(leave: any) {
-        this.daysAvailable &#x3D; leave.balanceDays;
-        this._leaveTypeId &#x3D; leave.leaveTypeId;
-        this._leaveTypeName &#x3D; leave.leaveTypeName;
     }
 
     /**

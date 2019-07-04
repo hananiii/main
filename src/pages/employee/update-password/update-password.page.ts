@@ -30,7 +30,7 @@ export class UpdatePasswordPage implements OnInit {
 
     public showNewPassword: boolean = false;
     public showConfirmPassword: boolean = false;
-    public formPassValidation: FormGroup;
+    public formPassValidation: any;
     public matcher = new MyErrorStateMatcher();
     public name: string;
     public email: string;

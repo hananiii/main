@@ -1379,7 +1379,7 @@
             
                             <tr>
                                 <td class="col-md-4">
-            <code>get_onleave_list(param: any)</code>
+            <code>get_onleave_list(value: any)</code>
                                 </td>
                             </tr>
             
@@ -1388,17 +1388,6 @@
                                         <div class="io-description"><p>To get employee onleave details<br>Name of employee<br>Designation of employee</p>
             </div>
                                         <div class="io-description">
-                                                <b>Parameters :</b>
-                                                <ul class="jsdoc-params">
-                                                        <li>
-                                                            <div>
-                                                                <b>param</b>
-                                                            </div>
-                                                            <div>
-                                                                
-                                                            </div>
-                                                        </li>
-                                                </ul>
                                         </div>
                                         <div class="io-description">
                                             <b>Returns: </b>    <code>Observable&lt;any&gt;</code>
@@ -1728,14 +1717,14 @@ export class APIService {
      * To get employee onleave details
      * Name of employee 
      * Designation of employee
-     * @param {*} param
+     * @value {*} value
      * @returns {Observable&lt;any&gt;}
      * @memberof APIService
      */
-    get_onleave_list(param): Observable&lt;any&gt; {
+    get_onleave_list(value): Observable&lt;any&gt; {
         this.headerAuthorization();
-        return this.http.get(this.baseUrl + &#x27;/api/employee/leave-list&#x27;, { params: param, headers: this.headers })
-            .pipe(map((res: Response) &#x3D;&gt; res.json()))
+        return this.http.get(this.baseUrl + &#x27;/api/employee/leave-list&#x27;, { params: value, headers: this.headers })
+            .pipe(map((response: Response) &#x3D;&gt; response.json()))
     }
 
 
