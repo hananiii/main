@@ -21,7 +21,6 @@ export const sideMenuNavigationRoutes: Routes = [
         children: [
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
             { path: 'dashboard', component: DashboardPage },
-            { path: 'inbox', component: PublicPersonalDetailsPage },
             { path: 'plan-my-leave', component: LeavePlanningPage },
             { path: 'employee-directory', component: ConnectionsPage },
             { path: 'user-public-profile', component: PublicPersonalDetailsPage },

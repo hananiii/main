@@ -77,9 +77,9 @@ export class SideMenuNavigationComponent implements OnInit {
       icon: 'dashboard.svg'
     },
     {
-      title: 'Inbox',
-      url: '/main/inbox',
-      icon: 'inbox.svg'
+      title: 'Profile',
+      url: '/main/employee-setup',
+      icon: 'profile.svg'
     },
     {
       title: 'Plan My Leave',
