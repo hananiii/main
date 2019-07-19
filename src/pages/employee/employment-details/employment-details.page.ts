@@ -65,6 +65,13 @@ export class EmploymentDetailsPage implements OnInit {
     public showSpinner: boolean = true;
 
     /**
+     * Local property to show or hide content during loading
+     * @type {boolean}
+     * @memberof EmploymentDetailsPage
+     */
+    public showContent: boolean = false;
+
+    /**
      * This local private property is used to set subscription
      * @private
      * @type {Subscription}
@@ -106,6 +113,7 @@ export class EmploymentDetailsPage implements OnInit {
                 this.list = data;
                 this.status = employeeStatus[this.list.employmentDetail.employmentStatus];
                 this.showSpinner = false;
+                this.showContent = true;
             },
             error => {
                 if (error) {

@@ -8,7 +8,7 @@
     <div style="width: 100%; height:100%; text-align: center; margin-top: -30px" *ngIf="showSpinner">
         <app-spinner></app-spinner>
     </div>
-    <ion-card-header>
+    <ion-card-header *ngIf="showContent">
         <div *ngIf="!showEditProfile" style="right: 25px; position: absolute;" (click)="showEditProfile = true;">
             <div class="edit-profile-icon" [inlineSVG]="'assets/icon/Option/edit.svg'"></div>
             <p style="color: #057dcd; display: inline;cursor: pointer;padding-left: 10px">Edit
@@ -52,8 +52,8 @@
             </ion-button>
         </div>
     </ion-card-header>
-    <ion-item lines="full" class="mainDivider"></ion-item>
-    <div class="cardContent" *ngIf="personalList">
+    <ion-item *ngIf="showContent" lines="full" class="mainDivider"></ion-item>
+    <div class="cardContent" *ngIf="personalList && showContent">
         <ion-card-content>
             <ion-row class="detailsRow">
                 <ion-col>

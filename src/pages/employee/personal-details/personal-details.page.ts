@@ -81,6 +81,13 @@ export class PersonalDetailsPage implements OnInit {
     public showSpinner: boolean = true;
 
     /**
+     * Local property to show or hide content during loading
+     * @type {boolean}
+     * @memberof PersonalDetailsPage
+     */
+    public showContent: boolean = false;
+
+    /**
      * Local property to show or hide edit profile
      * @type {boolean}
      * @memberof PersonalDetailsPage
@@ -208,6 +215,7 @@ export class PersonalDetailsPage implements OnInit {
             (data: any[]) => {
                 this.items = data;
                 this.showSpinner = false;
+                this.showContent = true;
                 this._date = this._formBuilder.group({ firstPicker: ['', Validators.required] });
                 this._date = new FormGroup({
                     firstPicker: new FormControl(new Date(this.items.personalDetail.dob))

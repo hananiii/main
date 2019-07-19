@@ -71,6 +71,13 @@ export class LeaveEntitlementPage implements OnInit {
     public showSpinner: boolean = true;
 
     /**
+   * Local property to show or hide content during loading
+   * @type {boolean}
+   * @memberof LeaveEntitlementPage
+   */
+    public showContent: boolean = false;
+
+    /**
      * This is local property used to set subscription
      * @private
      * @type {Subscription}
@@ -117,6 +124,7 @@ export class LeaveEntitlementPage implements OnInit {
                 this.personalDataList = data;
                 this.entitlement = this.personalDataList.entitlementDetail;
                 this.showSpinner = false;
+                this.showContent = true;
             },
             error => {
                 if (error) {
