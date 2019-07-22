@@ -10,7 +10,7 @@
     </div>
     <ion-card-header *ngIf="showContent">
         <div *ngIf="!showEditProfile" style="right: 25px; position: absolute;" (click)="showEditProfile = true;">
-            <div class="edit-profile-icon" [inlineSVG]="'assets/icon/Option/edit.svg'"></div>
+            <div class="edit-profile-icon" [inlineSVG]="'assets/icon/option/edit.svg'"></div>
             <p style="color: #057dcd; display: inline;cursor: pointer;padding-left: 10px">Edit
                 Profile</p>
         </div>
@@ -21,7 +21,7 @@
                     <img src="assets/icon/picture.png">
                 </ion-avatar>
                 <ion-badge style="background-color: white;border: 1px solid#bebebe;">
-                    <div class="pic-icon" [inlineSVG]="'assets/icon/Option/picture.svg'"></div>
+                    <div class="pic-icon" [inlineSVG]="'assets/icon/option/picture.svg'"></div>
                 </ion-badge>
             </div>
             <div class="right" *ngIf="personalList">
@@ -34,7 +34,7 @@
                     </ion-card-subtitle>
                 </div>
                 <div style="padding-top: 10px;">
-                    <div class="marker-icon" [inlineSVG]="'assets/icon/User_profile/pin.svg'"></div>
+                    <div class="marker-icon" [inlineSVG]="'assets/icon/user_profile/pin.svg'"></div>
                     <ion-card-subtitle class="subtitle" style="padding-left:8px">{{personalList.employeeLocation}}
                     </ion-card-subtitle>
                 </div>
@@ -207,10 +207,10 @@
                         <input matInput placeholder="Contact Number" [(ngModel)]="removeItems[index].contactNumber">
                     </mat-form-field>
                     <div class="delete-icon" *ngIf="!showEditContact[index]"
-                        [inlineSVG]="'assets/icon/Option/trash.svg'" (click)="removeItem(index, removeItems)">
+                        [inlineSVG]="'assets/icon/option/trash.svg'" (click)="removeItem(index, removeItems)">
                     </div>
                     <div class="edit-pencil-icon" *ngIf="!showEditContact[index]"
-                        [inlineSVG]="'assets/icon/Option/pencil.svg'" (click)="editContact(index, true)">
+                        [inlineSVG]="'assets/icon/option/pencil.svg'" (click)="editContact(index, true)">
                     </div>
                     <div style="float: right;" *ngIf="showEditContact[index]">
                         <ion-button fill="clear" (click)="editContact(index, false)"
@@ -256,10 +256,10 @@
                                 [(ngModel)]="spouseItems[index].spouseIdentificationNumber">
                         </mat-form-field>
                         <div class="delete-icon" *ngIf="!displayEditSpouse[index]"
-                            [inlineSVG]="'assets/icon/Option/trash.svg'" (click)="removeItem(index, spouseItems)">
+                            [inlineSVG]="'assets/icon/option/trash.svg'" (click)="removeItem(index, spouseItems)">
                         </div>
                         <div class="edit-pencil-icon" *ngIf="!displayEditSpouse[index]"
-                            [inlineSVG]="'assets/icon/Option/pencil.svg'" (click)="editSpouse(index, true)">
+                            [inlineSVG]="'assets/icon/option/pencil.svg'" (click)="editSpouse(index, true)">
                         </div>
                         <div style="float: right;" *ngIf="displayEditSpouse[index]">
                             <ion-button fill="clear" (click)="editSpouse(index, false)"
@@ -301,10 +301,10 @@
                                 [(ngModel)]="childItems[index].childIdentificationNumber">
                         </mat-form-field>
                         <div class="delete-icon" *ngIf="!displayEditChild[index]"
-                            [inlineSVG]="'assets/icon/Option/trash.svg'" (click)="removeItem(index, childItems)">
+                            [inlineSVG]="'assets/icon/option/trash.svg'" (click)="removeItem(index, childItems)">
                         </div>
                         <div class="edit-pencil-icon" *ngIf="!displayEditChild[index]"
-                            [inlineSVG]="'assets/icon/Option/pencil.svg'" (click)="editChild(index, true)">
+                            [inlineSVG]="'assets/icon/option/pencil.svg'" (click)="editChild(index, true)">
                         </div>
                         <div style="float: right;" *ngIf="displayEditChild[index]">
                             <ion-button fill="clear" (click)="editChild(index, false)"
@@ -382,10 +382,10 @@
                     </ion-col>
                     <ion-col size="1">
                         <div class="education-delete-icon" *ngIf="!displayEditEdu[index]"
-                            [inlineSVG]="'assets/icon/Option/trash.svg'" (click)="removeItem(index, eduList)">
+                            [inlineSVG]="'assets/icon/option/trash.svg'" (click)="removeItem(index, eduList)">
                         </div>
                         <div class="education-edit-pencil-icon" *ngIf="!displayEditEdu[index]"
-                            [inlineSVG]="'assets/icon/Option/pencil.svg'" (click)="editEducation(index, true)">
+                            [inlineSVG]="'assets/icon/option/pencil.svg'" (click)="editEducation(index, true)">
                         </div>
                     </ion-col>
                     <div *ngIf="displayEditEdu[index]" style="display: block;width: 99.1%;text-align: right;">
@@ -422,7 +422,7 @@
                     <span style="color: white; font-size: 18px;">Add family </span>
                     <br>
                     <span style="color: white; font-size: 18px;">information</span>
-                    <div class="family-icon" [inlineSVG]="'assets/icon/User_profile/family.svg'"></div>
+                    <div class="family-icon" [inlineSVG]="'assets/icon/user_profile/family.svg'"></div>
 
                 </ion-col>
                 <div style="width: 20px"></div>
@@ -432,7 +432,7 @@
                     <span style="color: white; font-size: 18px;">Add education </span>
                     <br>
                     <span style="color: white; font-size: 18px;">qualification</span>
-                    <div class="education-icon" [inlineSVG]="'assets/icon/User_profile/education.svg'"></div>
+                    <div class="education-icon" [inlineSVG]="'assets/icon/user_profile/education.svg'"></div>
                 </ion-col>
             </ion-row>
         </ion-card-content>
