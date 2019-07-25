@@ -1,6 +1,15 @@
+export enum Category {
+    "new-announcement", // sms
+    "new-user-join", // account-box
+    "user-leave", // sms
+    "user-update", // account-box
+    "user-birthday" // cake
+}
+
 import { Component, OnInit } from '@angular/core';
 import { APIService } from 'src/services/shared-service/api.service';
 import { DatePipe } from '@angular/common';
+import { DashboardAPIService } from './dashboard-api.service';
 /**
  * Dashboard Page
  * @export
@@ -148,19 +157,37 @@ export class DashboardPage implements OnInit {
     public row: boolean = false;
 
     /**
+     * Notification update from API
+     * @type {*}
+     * @memberof DashboardPage
+     */
+    public notification: any;
+
+    /**
+     * Return enum category
+     * @readonly
+     * @type {*}
+     * @memberof DashboardPage
+     */
+    get enumCategory(): any {
+        return Category;
+    }
+
+    /**
      *Creates an instance of DashboardPage.
-     * @param {APIService} api
+     * @param {APIService} apiService
+     * @param {DashboardAPIService} dashboardAPI
      * @param {DatePipe} datePipe
      * @memberof DashboardPage
      */
-    constructor(private api: APIService, private datePipe: DatePipe) { }
+    constructor(private apiService: APIService, private dashboardAPI: DashboardAPIService, private datePipe: DatePipe) { }
 
     /**
      * Initial method
      * @memberof DashboardPage
      */
     ngOnInit() {
-        this.api.get_user_profile().subscribe(
+        this.apiService.get_user_profile().subscribe(
             data => {
                 this.userProfile = data;
                 this.tenantId = this.userProfile.tenantId;
@@ -171,19 +198,52 @@ export class DashboardPage implements OnInit {
                 }
             },
             () => {
-                const params = { 'startdate': this.datePipe.transform(new Date(), 'yyyy-MM-dd'), 'enddate': this.datePipe.transform(new Date(), 'yyyy-MM-dd'), 'tenantguid': this.tenantId };
-                this.api.get_status_onleave(params).subscribe(
-                    data => {
-                        this.onLeaveNumber = data;
-                    })
-                this.api.get_onleave_list(params).subscribe(
-                    data => {
-                        this.row = true;
-                        this.showSpinner = false;
-                        this.onLeaveList = data;
-                    })
-            },
-        );
+                this.getOnleaveDetails();
+            });
+        this.dashboardAPI.get_news_notification().subscribe(data => {
+            this.notificationCategory(data);
+        });
+    }
+
+    /**
+     * Get today onleave status(number of employee onleave, total employee) & onleave list from API
+     * @memberof DashboardPage
+     */
+    getOnleaveDetails() {
+        const params = { 'startdate': this.datePipe.transform(new Date(), 'yyyy-MM-dd'), 'enddate': this.datePipe.transform(new Date(), 'yyyy-MM-dd'), 'tenantguid': this.tenantId };
+        this.dashboardAPI.get_status_onleave(params).subscribe(
+            data => {
+                this.onLeaveNumber = data;
+            })
+        this.dashboardAPI.get_onleave_list(params).subscribe(
+            data => {
+                this.row = true;
+                this.showSpinner = false;
+                this.onLeaveList = data;
+            })
+    }
+
+    /**
+     * Show material-icon according category of notification
+     * @param {*} data
+     * @memberof DashboardPage
+     */
+    notificationCategory(data: any) {
+        this.notification = data;
+        for (let i = 0; i < this.notification.length; i++) {
+            if (this.notification[i].CATEGORY === Category[0] || this.notification[i].CATEGORY === Category[2]) {
+                this.notification[i].icon = 'sms';
+            }
+            else if (this.notification[i].CATEGORY === Category[1] || this.notification[i].CATEGORY === Category[3]) {
+                this.notification[i].icon = 'account_box';
+            }
+            else if (this.notification[i].CATEGORY === Category[4]) {
+                this.notification[i].icon = 'cake';
+            }
+            else {
+                this.notification[i].icon = 'account_box';
+            }
+        }
     }
 
     /**

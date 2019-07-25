@@ -35,8 +35,8 @@ import listYear from '@fullcalendar/list';
 import { EventInput } from '@fullcalendar/core';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { APIService } from 'src/services/shared-service/api.service';
-import { Subscription } from 'rxjs';
 import * as _moment from 'moment';
+import { LeavePlanningAPIService } from '../leave-planning-api.service';
 const moment = _moment;
 
 /**
@@ -66,14 +66,6 @@ export class CalendarViewPage implements OnInit {
     public calendarPlugins = [dayGridPlugin, timeGrigPlugin, listYear];
 
     /**
-     * This local property is used to set subscription
-     * @private
-     * @type {Subscription}
-     * @memberof LeavePlanningPage
-     */
-    private subscription: Subscription = new Subscription();
-
-    /**
      * Get data from user profile API
      * @type {*}
      * @memberof CalendarViewPage
@@ -97,13 +89,13 @@ export class CalendarViewPage implements OnInit {
     /**
      *Creates an instance of CalendarViewPage.
      * @param {APIService} apiService
+     * @param {LeavePlanningAPIService} leaveAPI
      * @memberof CalendarViewPage
      */
-    constructor(private apiService: APIService
-    ) { }
+    constructor(private apiService: APIService, private leaveAPI: LeavePlanningAPIService) { }
 
     ngOnInit() {
-        this.subscription = this.apiService.get_user_profile().subscribe(
+        this.apiService.get_user_profile().subscribe(
             (data: any[]) => {
                 this.list = data;
                 this.calendarId = this.list.calendarId;
@@ -114,21 +106,13 @@ export class CalendarViewPage implements OnInit {
                 }
             },
             () => {
-                this.subscription = this.apiService.get_personal_holiday_calendar(this.calendarId).subscribe(
+                this.leaveAPI.get_personal_holiday_calendar(this.calendarId).subscribe(
                     data => {
                         this.editDateFormat(data.holiday);
                     }
                 );
             }
         );
-    }
-
-    /**
-     * This method is used to destroy subscription
-     * @memberof ApplyLeavePage
-     */
-    ngOnDestroy() {
-        this.subscription.unsubscribe();
     }
 
     /**

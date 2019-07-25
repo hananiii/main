@@ -27,12 +27,16 @@
   .column .googleCart {
     margin-top: 20px;
     vertical-align: middle;
+    margin-bottom: 20px;
   }
   .columns .rightCard {
     margin-top: 5px;
     vertical-align: middle;
   }
-  .columns .rightCardBottom,
+  .columns .rightCardBottom {
+    margin-top: 5px;
+    vertical-align: middle;
+  }
   .columns .rightCardLast {
     margin-top: 20px;
     vertical-align: middle;

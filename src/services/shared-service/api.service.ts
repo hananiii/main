@@ -13,9 +13,7 @@ import { map } from 'rxjs/operators';
 })
 export class APIService {
 
-    public queryHeaders = new Headers();
     public headers = new Headers();
-    // public baseUrl: string = "http://zencore.southeastasia.cloudapp.azure.com:3000";
     public baseUrl: string = "http://zencore.zen.com.my:3000";
 
     /**
@@ -171,18 +169,6 @@ export class APIService {
     }
 
     /**
-     * This method is used to submit leave application information
-     * @param {*} leaveData
-     * @returns {Observable<any>}
-     * @memberof APIService
-     */
-    post_user_apply_leave(leaveData: any): Observable<any> {
-        this.headerAuthorization();
-        return this.http.post(this.baseUrl + '/api/leave/apply', leaveData, { headers: this.headers })
-            .pipe(map((res: Response) => res.json()));
-    }
-
-    /**
      * This method is used to get all departments name
      * @returns {Observable<any>}
      * @memberof APIService
@@ -191,67 +177,6 @@ export class APIService {
         this.headerAuthorization();
         return this.getApi('/api/department');
     }
-
-    /**
-     * This method is used to update password for first time
-     * @param {*} password
-     * @returns {Observable<any>}
-     * @memberof APIService
-     */
-    patch_invitation(password): Observable<any> {
-        this.headerAuthorization();
-        return this.patchApi(password, '/api/invitation');
-    }
-
-    /**
-     * This method is used to accept invitation sent by admin
-     * @param {*} token
-     * @returns {Observable<any>}
-     * @memberof APIService
-     */
-    get_invitation(token): Observable<any> {
-        return this.getApiWithId('/api/invitation/', token);
-    }
-
-    /**
-     * To get personal calendar holiday details
-     * @param {string} calendarId
-     * @returns {Observable<any>}
-     * @memberof APIService
-     */
-    get_personal_holiday_calendar(id): Observable<any> {
-        // this.headerAuthorization();
-        return this.getApiWithId('/api/admin/holiday/', id);
-    }
-
-    /**
-     * To get employee onleave status
-     * Number of total employee
-     * Number of employee onleave
-     * @param {*} param
-     * @returns {Observable<any>}
-     * @memberof APIService
-     */
-    get_status_onleave(param): Observable<any> {
-        this.headerAuthorization();
-        return this.http.get(this.baseUrl + '/api/employee/status-onleave', { params: param, headers: this.headers })
-            .pipe(map((res: Response) => res.json()))
-    }
-
-    /**
-     * To get employee onleave details
-     * Name of employee 
-     * Designation of employee
-     * @value {*} value
-     * @returns {Observable<any>}
-     * @memberof APIService
-     */
-    get_onleave_list(value): Observable<any> {
-        this.headerAuthorization();
-        return this.http.get(this.baseUrl + '/api/employee/leave-list', { params: value, headers: this.headers })
-            .pipe(map((response: Response) => response.json()))
-    }
-
 
 
 }

@@ -11,7 +11,6 @@ import { LeaveEntitlementPage } from 'src/pages/employee/leave-entitlement/leave
 import { AccountSettingPage } from 'src/pages/employee/account-setting/account-setting.page';
 import { LeavePlanningPage } from 'src/pages/employee/leave-entitlement/leave-planning/leave-planning.page';
 import { DashboardPage } from 'src/pages/dashboard/dashboard.page';
-import { UpdatePasswordPage } from 'src/pages/employee/update-password/update-password.page';
 
 export const sideMenuNavigationRoutes: Routes = [
     {

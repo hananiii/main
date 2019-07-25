@@ -9,12 +9,12 @@ import interactionPlugin from '@fullcalendar/interaction'; // for dateClick
 import { FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import * as _moment from 'moment';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { Subscription } from 'rxjs';
 import { DayType } from './apply-leave.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotificationPage } from './notification/notification.page';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
 import { AppDateAdapter, APP_DATE_FORMATS } from 'src/pages/employee/date.adapter';
+import { LeavePlanningAPIService } from '../leave-planning-api.service';
 const moment = _moment;
 /**
  * Apply Leave Page
@@ -265,14 +265,6 @@ export class ApplyLeavePage implements OnInit {
     private _arrayDateSlot = [];
 
     /**
-     * This is local property to set subscription
-     * @private
-     * @type {Subscription}
-     * @memberof ApplyLeavePage
-     */
-    private subscription: Subscription = new Subscription();
-
-    /**
      * This is local property for Full Calendar Component
      * @type {FullCalendarComponent}
      * @memberof ApplyLeavePage
@@ -291,7 +283,7 @@ export class ApplyLeavePage implements OnInit {
      * @memberof ApplyLeavePage
      */
     constructor(private apiService: APIService,
-        private route: ActivatedRoute, private snackBar: MatSnackBar) {
+        private route: ActivatedRoute, private snackBar: MatSnackBar, private leaveAPI: LeavePlanningAPIService) {
         this.applyLeaveForm = this.formGroup();
         route.queryParams
             .subscribe(params => {
@@ -309,7 +301,7 @@ export class ApplyLeavePage implements OnInit {
      * @memberof ApplyLeavePage
      */
     ngOnInit() {
-        this.subscription = this.apiService.get_user_profile().subscribe(
+        this.apiService.get_user_profile().subscribe(
             (data: any[]) => {
                 this._userList = data;
                 this.entitlement = this._userList.entitlementDetail;
@@ -321,7 +313,7 @@ export class ApplyLeavePage implements OnInit {
                 }
             },
             () => {
-                this.subscription = this.apiService.get_personal_holiday_calendar(this.calendarId).subscribe(
+                this.leaveAPI.get_personal_holiday_calendar(this.calendarId).subscribe(
                     data => {
                         this.formatDate(data.holiday);
                         for (let i = 0; i < data.rest.length; i++) {
@@ -338,14 +330,6 @@ export class ApplyLeavePage implements OnInit {
             let calendarApi = this.calendarComponent.getApi();
             calendarApi.render();
         }, 100);
-    }
-
-    /**
-     * This method is used to destroy subscription
-     * @memberof ApplyLeavePage
-     */
-    ngOnDestroy() {
-        this.subscription.unsubscribe();
     }
 
     /**
@@ -484,7 +468,7 @@ export class ApplyLeavePage implements OnInit {
         }
         console.log(applyLeaveData);
 
-        this.subscription = this.apiService.post_user_apply_leave(applyLeaveData).subscribe(
+        this.leaveAPI.post_user_apply_leave(applyLeaveData).subscribe(
             (val) => {
                 console.log("PATCH call successful value returned in body", val);
                 this.clearArrayList();
