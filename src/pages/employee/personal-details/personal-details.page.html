@@ -231,7 +231,7 @@
                     padding-left: 0.5%;font-size: 16px;cursor: pointer;"></ion-icon>
                 <span style="color:#057dcd; cursor: pointer;"
                     (click)="addList(removeItems, contactObj);editContact(removeItems.length-1, true)">Add
-                    more</span>
+                    emergency contact</span>
             </ion-row>
             <ion-item class="divider"></ion-item>
             <!---------------------------------------- Family Info -------------------------------------->
@@ -411,7 +411,7 @@
                 <ion-item class="divider"></ion-item>
             </div>
             <!----------------------------- Add details --------------------------------->
-            <ion-row class="detailsRow"
+            <ion-row class="detailsRow" [style.padding-bottom.%]="showEditProfile? 5: 0"
                 *ngIf="(spouseItems === undefined || childItems === undefined || eduList === undefined)">
                 <p style="width: 100%">Your profile missing these details</p>
                 <br>

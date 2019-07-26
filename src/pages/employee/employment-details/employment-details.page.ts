@@ -7,7 +7,7 @@ export enum employeeStatus {
 import { Component, OnInit } from '@angular/core';
 import { APIService } from 'src/services/shared-service/api.service';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { PersonalDetailsService } from '../personal-details/personal-details.service';
 
 /**
  * Employment Details Page
@@ -48,7 +48,7 @@ export class EmploymentDetailsPage implements OnInit {
      * @type {number}
      * @memberof EmploymentDetailsPage
      */
-    public progressPercentage: number = 80;
+    public progressPercentage: number;
 
     /**
      * This local property is used to get employment details from API
@@ -72,14 +72,6 @@ export class EmploymentDetailsPage implements OnInit {
     public showContent: boolean = false;
 
     /**
-     * This local private property is used to set subscription
-     * @private
-     * @type {Subscription}
-     * @memberof EmploymentDetailsPage
-     */
-    private subscription: Subscription = new Subscription();
-
-    /**
      * return API content
      * @readonly
      * @memberof EmploymentDetailsPage
@@ -95,7 +87,13 @@ export class EmploymentDetailsPage implements OnInit {
      * @memberof EmploymentDetailsPage
      */
     constructor(private apiService: APIService,
-        private route: ActivatedRoute) {
+        private route: ActivatedRoute, private xservice: PersonalDetailsService) {
+        route.params.subscribe(params => {
+            this.userId = params.id;
+        });
+        xservice.percentChanged.subscribe(value => {
+            this.progressPercentage = value;
+        })
     }
 
     /**
@@ -104,11 +102,7 @@ export class EmploymentDetailsPage implements OnInit {
      * @memberof EmploymentDetailsPage
      */
     ngOnInit() {
-        this.route.params.subscribe(params => {
-            this.userId = params.id;
-        });
-
-        this.subscription = this.apiService.get_employment_details(this.userId).subscribe(
+        this.apiService.get_employment_details(this.userId).subscribe(
             data => {
                 this.list = data;
                 this.status = employeeStatus[this.list.employmentDetail.employmentStatus];
@@ -121,14 +115,6 @@ export class EmploymentDetailsPage implements OnInit {
                 }
             }
         )
-    }
-
-    /**
-     * This method is used to destroy subscription
-     * @memberof EmploymentDetailsPage
-     */
-    ngOnDestroy() {
-        this.subscription.unsubscribe();
     }
 
     /**

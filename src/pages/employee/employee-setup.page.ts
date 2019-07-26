@@ -120,12 +120,12 @@ export class EmployeeSetupPage implements OnInit {
    */
   private subscription: Subscription = new Subscription();
 
-/**
- * return value from API content 
- * @readonly
- * @memberof EmployeeSetupPage
- */
-get personalList() {
+  /**
+   * return value from API content 
+   * @readonly
+   * @memberof EmployeeSetupPage
+   */
+  get personalList() {
     return this.list;
   }
 

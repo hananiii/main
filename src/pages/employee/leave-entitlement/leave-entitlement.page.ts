@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { APIService } from 'src/services/shared-service/api.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { PersonalDetailsService } from '../personal-details/personal-details.service';
 /**
  * Leave Entitlement Page
  * @export
@@ -110,8 +111,12 @@ export class LeaveEntitlementPage implements OnInit {
      * @param {Router} router
      * @memberof LeaveEntitlementPage
      */
-    constructor(private apiService: APIService, private router: Router
-    ) { }
+    constructor(private apiService: APIService, private router: Router, private xservice: PersonalDetailsService
+    ) {
+        xservice.percentChanged.subscribe(value => {
+            this.progressPercentage = value;
+        })
+    }
 
     /**
      * Initial method

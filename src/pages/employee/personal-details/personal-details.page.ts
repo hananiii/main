@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { APIService } from 'src/services/shared-service/api.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import * as _moment from 'moment';
-import { Subscription } from 'rxjs';
-import { genderStatus, maritalStatus } from './personal-details.service';
+import { genderStatus, maritalStatus, PersonalDetailsService } from './personal-details.service';
 import { MAT_DATE_FORMATS, DateAdapter } from '@angular/material';
 import { APP_DATE_FORMATS, AppDateAdapter } from '../date.adapter';
 const moment = _moment;
@@ -71,7 +70,7 @@ export class PersonalDetailsPage implements OnInit {
      * @type {number}
      * @memberof PersonalDetailsPage
      */
-    public progressPercentage: number = 80;
+    public progressPercentage: number;
 
     /** 
      * Local property to show or hide loading spinner
@@ -169,14 +168,6 @@ export class PersonalDetailsPage implements OnInit {
     private _date: FormGroup;
 
     /**
-     * Local property to set subscription
-     * @private
-     * @type {Subscription}
-     * @memberof PersonalDetailsPage
-     */
-    private subscription: Subscription = new Subscription();
-
-    /**
      * Return API content of personal details
      * @readonly
      * @memberof PersonalDetailsPage
@@ -202,7 +193,7 @@ export class PersonalDetailsPage implements OnInit {
      * @memberof PersonalDetailsPage
      */
     constructor(private apiService: APIService,
-        private _formBuilder: FormBuilder) {
+        private _formBuilder: FormBuilder, private xservice: PersonalDetailsService) {
     }
 
     /**
@@ -211,9 +202,10 @@ export class PersonalDetailsPage implements OnInit {
      * @memberof PersonalDetailsPage
      */
     ngOnInit() {
-        this.subscription = this.apiService.get_personal_details().subscribe(
+        this.apiService.get_personal_details().subscribe(
             (data: any[]) => {
                 this.items = data;
+                this.checkProfileComplete();
                 this.showSpinner = false;
                 this.showContent = true;
                 this._date = this._formBuilder.group({ firstPicker: ['', Validators.required] });
@@ -233,11 +225,19 @@ export class PersonalDetailsPage implements OnInit {
     }
 
     /**
-     * This is method used to destroy subscription
+     * Calculate profile completeness %
      * @memberof PersonalDetailsPage
      */
-    ngOnDestroy() {
-        this.subscription.unsubscribe();
+    checkProfileComplete() {
+        const value = (Object.keys(this.items.personalDetail).map(key => this.items.personalDetail[key]));
+        const array = [];
+        for (let i = 0; i < value.length; i++) {
+            if (value[i] === "" || value[i] === null) {
+                array.push(i);
+            }
+        }
+        this.progressPercentage = Math.floor(((value.length - array.length) / value.length) * 100);
+        this.xservice.percentChanged.next(this.progressPercentage);
     }
 
     /**
@@ -437,9 +437,9 @@ export class PersonalDetailsPage implements OnInit {
      */
     patchData() {
         this.showEditProfile = false;
-        this.subscription = this.apiService.patch_personal_details(this.data()).subscribe(
+        this.apiService.patch_personal_details(this.data()).subscribe(
             (val) => {
-                this.subscription = this.apiService.get_personal_details().subscribe(
+                this.apiService.get_personal_details().subscribe(
                     (data: any[]) => {
                         this.items = data;
                     }
