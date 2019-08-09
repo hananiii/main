@@ -15,6 +15,7 @@ import { EmployeeSetupPage } from './employee-setup.page';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { AccountSettingModule } from './account-setting/account-setting.module';
 import { PersonalDetailsService } from './personal-details/personal-details.service';
+import { AwardCertificationModule } from './award-certification/award-certification.module';
 
 const routes: Routes = [
   {
@@ -35,6 +36,7 @@ const routes: Routes = [
     LeaveEntitlementModule,
     ConnectionsModule,
     AccountSettingModule,
+    AwardCertificationModule,
     InlineSVGModule,
     RouterModule.forChild(routes)
   ],

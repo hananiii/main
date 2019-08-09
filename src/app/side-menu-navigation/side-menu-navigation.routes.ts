@@ -11,6 +11,7 @@ import { LeaveEntitlementPage } from 'src/pages/employee/leave-entitlement/leave
 import { AccountSettingPage } from 'src/pages/employee/account-setting/account-setting.page';
 import { LeavePlanningPage } from 'src/pages/employee/leave-entitlement/leave-planning/leave-planning.page';
 import { DashboardPage } from 'src/pages/dashboard/dashboard.page';
+import { AwardCertificationPage } from 'src/pages/employee/award-certification/award-certification.page';
 
 export const sideMenuNavigationRoutes: Routes = [
     {
@@ -30,7 +31,7 @@ export const sideMenuNavigationRoutes: Routes = [
                     { path: 'personal-details', component: PersonalDetailsPage },
                     { path: 'employment-details/:id', component: EmploymentDetailsPage },
                     { path: 'leave-entitlement', component: LeaveEntitlementPage },
-                    { path: 'awards-certification', component: PageNotFoundComponent },
+                    { path: 'awards-certification', component: AwardCertificationPage },
                     { path: 'connection', component: ConnectionsPage },
                     { path: 'account', component: AccountSettingPage }
                 ]
