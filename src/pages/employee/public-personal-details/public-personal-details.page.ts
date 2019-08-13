@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { APIService } from 'src/services/shared-service/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import * as _moment from 'moment';
+const moment = _moment;
 /**
  * Public Personal Details Page
  * @export
@@ -72,6 +74,7 @@ export class PublicPersonalDetailsPage implements OnInit {
                     (data: any[]) => {
                         this.showSpinner = false;
                         this.list = data;
+                        this.list.personalDetail.dob = moment(this.list.personalDetail.dob).format('DD-MM-YYYY');
                     },
                     error => {
                         if (error.status === 401) {
