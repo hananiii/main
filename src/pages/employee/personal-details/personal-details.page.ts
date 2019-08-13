@@ -205,12 +205,13 @@ export class PersonalDetailsPage implements OnInit {
         this.apiService.get_personal_details().subscribe(
             (data: any[]) => {
                 this.items = data;
+                this.items.personalDetail.dob = moment(this.items.personalDetail.dob).format('DD-MM-YYYY');
                 this.checkProfileComplete();
                 this.showSpinner = false;
                 this.showContent = true;
                 this._date = this._formBuilder.group({ firstPicker: ['', Validators.required] });
                 this._date = new FormGroup({
-                    firstPicker: new FormControl(new Date(this.items.personalDetail.dob))
+                    firstPicker: new FormControl(new Date(moment(this.items.personalDetail.dob).format('DD-MM-YYYY')))
                 })
                 this.initContact();
                 this.initSpouse();
@@ -442,6 +443,7 @@ export class PersonalDetailsPage implements OnInit {
                 this.apiService.get_personal_details().subscribe(
                     (data: any[]) => {
                         this.items = data;
+                        this.items.personalDetail.dob = moment(this.items.personalDetail.dob).format('DD-MM-YYYY');
                     }
                 );
             },

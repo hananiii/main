@@ -59,14 +59,14 @@ margin: 0 auto;margin-top: 3%;">
             <ion-col size="0.7" style="padding-left: 10px;">
                 <!-- <ion-checkbox mode="ios" style="width: 20px; height: 20px;"></ion-checkbox> -->
             </ion-col>
-            <ion-col size="1" style="display: inline-flex">
+            <ion-col size="1">
                 <ion-label style="font-size: 12px;">ID</ion-label>
                 <ion-icon class="arrow" name="arrow-dropdown" (click)="IDSorting(false,1,-1)" *ngIf="arrowDownId">
                 </ion-icon>
                 <ion-icon class="arrow" name="arrow-dropup" *ngIf="!arrowDownId" (click)="IDSorting(true,-1,1)">
                 </ion-icon>
             </ion-col>
-            <ion-col size="3" style="display: inline-flex">
+            <ion-col size="3">
                 <ion-label style="font-size: 12px;">EMPLOYEE NAME</ion-label>
                 <ion-icon class="arrow" name="arrow-dropdown" (click)="nameSorting(false,1,-1)" *ngIf="arrowDownName">
                 </ion-icon>

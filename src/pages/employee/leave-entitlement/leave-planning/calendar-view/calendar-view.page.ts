@@ -124,6 +124,7 @@ export class CalendarViewPage implements OnInit {
         this.events = date;
         for (let i = 0; i < date.length; i++) {
             this.events[i].start = (moment(date[i].start).format('YYYY-MM-DD'));
+            this.events[i].str = (moment(date[i].start).format('DD-MM-YYYY'));
             this.events[i].end = moment(date[i].end).format('YYYY-MM-DD');
             this.events[i].day = this.getWeekDay(new Date(date[i].start));
             this.events[i].allDay = true;

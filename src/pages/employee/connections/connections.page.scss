@@ -119,15 +119,11 @@
   }
   .listContent {
     padding: 20px;
-    // height: 75%;
     height: calc(100% - 130px);
-    // --overflow: hidden ;
   }
   .gridContent {
     padding: 20px;
-    // height: 100%;
     height: calc(100% - 130px);
-    // --overflow: hidden !important;
   }
   ion-label {
     color: #20291f;
@@ -137,11 +133,16 @@
     font-size: 18px;
     padding-left: 10px;
     cursor: pointer;
-    margin-top: -2px;
+    position: absolute;
   }
   .detailsRow {
     height: 55px;
-    // background-color: #f9fafc;
+  }
+  ion-col {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    align-self: center;
   }
   .divider {
     --min-height: none;
@@ -152,7 +153,6 @@
   .avatar {
     width: 30px;
     height: 30px;
-    margin-top: -7px;
   }
   .topPaginator {
     display: inline-block;
