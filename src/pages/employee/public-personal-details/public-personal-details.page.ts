@@ -3,6 +3,7 @@ import { APIService } from 'src/services/shared-service/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import * as _moment from 'moment';
+import { employeeStatus } from '../employment-details/employment-details.page';
 const moment = _moment;
 /**
  * Public Personal Details Page
@@ -75,6 +76,7 @@ export class PublicPersonalDetailsPage implements OnInit {
                         this.showSpinner = false;
                         this.list = data;
                         this.list.personalDetail.dob = moment(this.list.personalDetail.dob).format('DD-MM-YYYY');
+                        this.list.employmentDetail.employmentStatus = employeeStatus[this.list.employmentDetail.employmentStatus];
                     },
                     error => {
                         if (error.status === 401) {

@@ -1,6 +1,7 @@
 :host {
   top: 48px;
   overflow: auto;
+  background: #f9fafc;
   // ------------------- header ----------------//
   .header-md:after {
     height: 0px;
@@ -78,6 +79,9 @@
     position: absolute;
     top: 58px;
     left: 60px;
+    margin-bottom: 3%;
+    background: white;
+    box-shadow: none;
   }
   .detailsRow {
     padding-left: 10%;
@@ -86,6 +90,7 @@
   ion-label {
     color: #20291f;
     font-weight: 500;
+    font-size: 13px;
   }
   .text {
     display: inline-block;
@@ -135,6 +140,8 @@
     right: 60px;
     top: 68px;
     height: 57%;
+    background: white;
+    box-shadow: none;
   }
   .fa-star {
     position: absolute;
