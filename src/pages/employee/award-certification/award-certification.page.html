@@ -18,7 +18,7 @@
 
             <div class="left">
                 <ion-avatar class="avatar">
-                    <img src="assets/icon/picture.png">
+                    <img src="assets/icon/avatar.jpg">
                 </ion-avatar>
                 <ion-badge style="background-color: white;border: 1px solid#bebebe;">
                     <div class="pic-icon" [inlineSVG]="'assets/icon/option/picture.svg'"></div>
@@ -35,7 +35,7 @@
                 </div>
                 <div style="padding-top: 10px;">
                     <div class="marker-icon" [inlineSVG]="'assets/icon/user_profile/pin.svg'"></div>
-                    <ion-card-subtitle class="subtitle" style="padding-left:8px">{{personalList.employeeLocation}}
+                    <ion-card-subtitle class="subtitle" style="padding-left:8px" *ngIf="employ">{{employ.employmentDetail.workLocation}}
                     </ion-card-subtitle>
                 </div>
             </div>

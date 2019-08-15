@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { APIService } from "src/services/shared-service/api.service";
 import { FormGroup, FormBuilder } from "@angular/forms";
+import { PersonalDetailsService } from "../personal-details/personal-details.service";
 
 @Component({
     selector: 'app-award-certification',
@@ -22,18 +23,27 @@ export class AwardCertificationPage implements OnInit {
     public showImg: boolean = false;
     public showPdf: boolean = false;
     public showAttach: boolean = true;
+    public employ: any;
 
     get personalList() {
         return this.items;
     }
 
-    constructor(private apiService: APIService, private fb: FormBuilder) { }
+    constructor(private apiService: APIService, private fb: FormBuilder, private xservice: PersonalDetailsService) {
+        xservice.percentChanged.subscribe(value => {
+            this.progressPercentage = value;
+        })
+    }
 
     ngOnInit() {
         this.apiService.get_personal_details().subscribe(
             (data: any[]) => {
                 this.items = data;
                 console.log(this.items);
+                this.apiService.get_employment_details(this.items.id).subscribe(
+                    data => {
+                        this.employ = data;
+                    })
                 this.showContent = true;
                 const award = this.items.personalDetail.certification;
                 if (award != undefined) {
@@ -120,6 +130,8 @@ export class AwardCertificationPage implements OnInit {
         const body = this.items.personalDetail;
         body['certification'] = {};
         body['certification']['certificationDetail'] = this.awards;
+        body['certification']['certificationDetail']['certificationName'] = this.filename;
+        console.log(body);
         this.apiService.patch_personal_details(body).subscribe(response => {
             console.log(response);
             this.apiService.get_personal_details().subscribe(

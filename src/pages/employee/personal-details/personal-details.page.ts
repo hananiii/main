@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { APIService } from 'src/services/shared-service/api.service';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { Validators, FormControl } from '@angular/forms';
 import * as _moment from 'moment';
 import { genderStatus, maritalStatus, PersonalDetailsService } from './personal-details.service';
 import { MAT_DATE_FORMATS, DateAdapter } from '@angular/material';
@@ -160,12 +160,18 @@ export class PersonalDetailsPage implements OnInit {
     public educationObj = { qualificationLevel: '', major: '', university: '', year: '' };
 
     /**
-     * Local private property for form group validation
-     * @private
-     * @type {FormGroup}
+     * date validation
+     * @type {*}
      * @memberof PersonalDetailsPage
      */
-    private _date: FormGroup;
+    public firstPicker: any;
+
+    /**
+     * employment details from API
+     * @type {*}
+     * @memberof PersonalDetailsPage
+     */
+    public employ: any;
 
     /**
      * Return API content of personal details
@@ -177,23 +183,12 @@ export class PersonalDetailsPage implements OnInit {
     }
 
     /**
-     * Return dob value
-     * @readonly
-     * @type {FormGroup}
-     * @memberof PersonalDetailsPage
-     */
-    get dateForm(): FormGroup {
-        return this._date;
-    }
-
-    /**
      *Creates an instance of PersonalDetailsPage.
      * @param {APIService} apiService
-     * @param {FormBuilder} _formBuilder
+     * @param {PersonalDetailsService} xservice
      * @memberof PersonalDetailsPage
      */
-    constructor(private apiService: APIService,
-        private _formBuilder: FormBuilder, private xservice: PersonalDetailsService) {
+    constructor(private apiService: APIService, private xservice: PersonalDetailsService) {
     }
 
     /**
@@ -205,18 +200,19 @@ export class PersonalDetailsPage implements OnInit {
         this.apiService.get_personal_details().subscribe(
             (data: any[]) => {
                 this.items = data;
-                this.items.personalDetail.dob = moment(this.items.personalDetail.dob).format('DD-MM-YYYY');
                 this.checkProfileComplete();
                 this.showSpinner = false;
                 this.showContent = true;
-                this._date = this._formBuilder.group({ firstPicker: ['', Validators.required] });
-                this._date = new FormGroup({
-                    firstPicker: new FormControl(new Date(moment(this.items.personalDetail.dob).format('DD-MM-YYYY')))
-                })
+                this.firstPicker = new FormControl((this.items.personalDetail.dob), Validators.required);
+                this.items.personalDetail.dob = moment(this.items.personalDetail.dob).format('DD-MM-YYYY');
                 this.initContact();
                 this.initSpouse();
                 this.initChild();
                 this.initEducation();
+                this.apiService.get_employment_details(this.items.id).subscribe(
+                    data => {
+                        this.employ = data;
+                    })
             },
             error => {
                 if (error.status === 401) {
@@ -246,20 +242,20 @@ export class PersonalDetailsPage implements OnInit {
      * @memberof PersonalDetailsPage
      */
     initContact() {
-        if ((this.items.personalDetail.emergencyContactNumber.contacts instanceof Array) && this.items.personalDetail.emergencyContactNumber.contacts !== undefined) {
-            this.removeItems = (this.items.personalDetail.emergencyContactNumber.contacts);
+        if ((this.items.personalDetail.emergencyContact.contacts instanceof Array) && this.items.personalDetail.emergencyContact.contacts !== undefined) {
+            this.removeItems = (this.items.personalDetail.emergencyContact.contacts);
             for (let i = 0; i < this.removeItems.length; i++) {
                 this.showEditContact.push(false);
             }
         }
-        else if (!(this.items.personalDetail.emergencyContactNumber.contacts instanceof Array) && this.items.personalDetail.emergencyContactNumber.contacts !== undefined) {
-            this.removeItems.push(this.items.personalDetail.emergencyContactNumber.contacts);
+        else if (!(this.items.personalDetail.emergencyContact.contacts instanceof Array) && this.items.personalDetail.emergencyContact.contacts !== undefined) {
+            this.removeItems.push(this.items.personalDetail.emergencyContact.contacts);
             for (let i = 0; i < this.removeItems.length; i++) {
                 this.showEditContact.push(false);
             }
         }
         else {
-            this.removeItems = this.items.personalDetail.emergencyContactNumber.contacts;
+            this.removeItems = this.items.personalDetail.emergencyContact.contacts;
         }
     }
 
@@ -464,7 +460,7 @@ export class PersonalDetailsPage implements OnInit {
             "id": this.items.id,
             "nickname": 'wantan',
             "nric": this.items.personalDetail.nric.toString(),
-            "dob": moment(this._date.value.firstPicker).format('YYYY-MM-DD'),
+            "dob": moment(this.firstPicker.value).format('YYYY-MM-DD'),
             "gender": genderStatus[this.items.personalDetail.gender],
             "maritalStatus": maritalStatus[this.items.personalDetail.maritalStatus],
             "race": this.items.personalDetail.race,
@@ -474,8 +470,8 @@ export class PersonalDetailsPage implements OnInit {
             "workPhoneNumber": this.items.personalDetail.workPhoneNumber.toString(),
             "emailAddress": this.items.personalDetail.emailAddress,
             "workEmailAddress": this.items.personalDetail.workEmailAddress,
-            "address1": this.items.personalDetail.residentialAddress1.toString(),
-            "address2": this.items.personalDetail.residentialAddress2.toString(),
+            "address1": this.items.personalDetail.address1.toString(),
+            "address2": this.items.personalDetail.address2.toString(),
             "postcode": this.items.personalDetail.postcode.toString(),
             "city": this.items.personalDetail.city,
             "state": this.items.personalDetail.state,

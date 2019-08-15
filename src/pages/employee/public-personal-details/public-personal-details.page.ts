@@ -52,8 +52,14 @@ export class PublicPersonalDetailsPage implements OnInit {
      */
     public numOfArray: boolean = false;
     public showSpinner: boolean = true;
+
+    /**
+     * user id pass get from clicked name
+     * @private
+     * @type {string}
+     * @memberof PublicPersonalDetailsPage
+     */
     private _guid: string;
-    private _subscription: Subscription = new Subscription();
 
     get personalList() {
         return this.list;
@@ -71,7 +77,7 @@ export class PublicPersonalDetailsPage implements OnInit {
         route.queryParams
             .subscribe((params) => {
                 this._guid = params.GUID;
-                this._subscription = this.apiService.get_user_profile_details(this._guid).subscribe(
+                this.apiService.get_user_profile_details(this._guid).subscribe(
                     (data: any[]) => {
                         this.showSpinner = false;
                         this.list = data;
@@ -93,7 +99,7 @@ export class PublicPersonalDetailsPage implements OnInit {
      * @memberof PublicPersonalDetailsPage
      */
     ngOnInit() {
-        this._subscription = this.apiService.get_personal_details().subscribe(
+        this.apiService.get_personal_details().subscribe(
             (data: any[]) => {
                 this.personalItem = data;
                 this.personalName = this.personalItem.employeeName;
@@ -104,14 +110,6 @@ export class PublicPersonalDetailsPage implements OnInit {
                 }
             }
         );
-    }
-
-    /**
-     * Destroy subscription
-     * @memberof PublicPersonalDetailsPage
-     */
-    ngOnDestroy() {
-        this._subscription.unsubscribe();
     }
 
     /**
