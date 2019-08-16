@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { APIService } from 'src/services/shared-service/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import * as _moment from 'moment';
 import { employeeStatus } from '../employment-details/employment-details.page';
 const moment = _moment;
@@ -51,6 +50,12 @@ export class PublicPersonalDetailsPage implements OnInit {
      * @memberof PublicPersonalDetailsPage
      */
     public numOfArray: boolean = false;
+
+    /**
+     * show loading spinner when the page loading
+     * @type {boolean}
+     * @memberof PublicPersonalDetailsPage
+     */
     public showSpinner: boolean = true;
 
     /**

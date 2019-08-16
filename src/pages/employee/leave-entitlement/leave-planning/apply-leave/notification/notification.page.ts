@@ -1,6 +1,11 @@
 import { Component, Inject } from "@angular/core";
 import { MAT_SNACK_BAR_DATA } from "@angular/material/snack-bar";
 
+/**
+ * show pop up notification
+ * @export
+ * @class NotificationPage
+ */
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.page.html',
