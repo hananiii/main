@@ -73,6 +73,20 @@ export class EmploymentDetailsPage implements OnInit {
     public showContent: boolean = false;
 
     /**
+     * details of user list from API
+     * @type {*}
+     * @memberof EmploymentDetailsPage
+     */
+    public data: any;
+
+    /**
+     * get filtered superior name
+     * @type {string}
+     * @memberof EmploymentDetailsPage
+     */
+    public reportingName: string;
+
+    /**
      * return API content
      * @readonly
      * @memberof EmploymentDetailsPage
@@ -112,6 +126,7 @@ export class EmploymentDetailsPage implements OnInit {
                 this.status = employeeStatus[this.list.employmentDetail.employmentStatus];
                 this.showSpinner = false;
                 this.showContent = true;
+                this.reporting();
             },
             error => {
                 if (error) {
@@ -127,6 +142,21 @@ export class EmploymentDetailsPage implements OnInit {
      */
     clickToHideHeader() {
         this.showHeader = false;
+    }
+
+    /**
+     * filter superior name from user id
+     * @memberof EmploymentDetailsPage
+     */
+    reporting() {
+        this.apiService.get_user_profile_list().subscribe(data => {
+            this.data = data;
+            for (let i = 0; i < this.data.length; i++) {
+                if (this.data[i].userId === this.list.employmentDetail.reportingTo) {
+                    this.reportingName = this.data[i].employeeName;
+                }
+            }
+        })
     }
 
 }
