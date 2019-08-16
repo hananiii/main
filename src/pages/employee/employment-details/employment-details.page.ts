@@ -135,7 +135,11 @@ export class EmploymentDetailsPage implements OnInit {
                 this.list = data;
                 this.list.employmentDetail.dateOfJoin = moment(this.list.employmentDetail.dateOfJoin).format('DD-MM-YYYY');
                 this.list.employmentDetail.dateOfConfirmation = moment(this.list.employmentDetail.dateOfConfirmation).format('DD-MM-YYYY');
-                this.list.employmentDetail.dateOfResign = moment(this.list.employmentDetail.dateOfResign).format('DD-MM-YYYY');
+                if (this.list.employmentDetail.dateOfResign === null) {
+                    this.list.employmentDetail.dateOfResign = 'NA';
+                } else {
+                    this.list.employmentDetail.dateOfResign = moment(this.list.employmentDetail.dateOfResign).format('DD-MM-YYYY');
+                }
                 this.status = employeeStatus[this.list.employmentDetail.employmentStatus];
                 this.type = employeeType[this.list.employmentDetail.employmentType];
                 this.showSpinner = false;

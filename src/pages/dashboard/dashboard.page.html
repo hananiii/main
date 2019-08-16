@@ -22,8 +22,8 @@
                 </span>
             </ion-button>
             <!----------------- All updates -------------------------->
-            <mat-list *ngIf="showAllUpdates" #matList [style.overflow]="clickOnViewMore == true ? 'hidden' : 'hidden'"
-                [style.max-height]="clickOnViewMore == true ? '100%' : '160px'">
+            <mat-list *ngIf="showAllUpdates" #matList [style.overflow]="clickOnViewMore == true ? 'auto' : 'hidden'"
+                [style.max-height]="clickOnViewMore == true ? '300px' : '160px'">
                 <mat-list-item *ngFor="let item of notification">
                     <mat-icon mat-list-icon style="font-size: 19px;color: #7a8589;">
                         <i class="material-icons" style="font-size: 16px;">{{item.icon}}</i>
@@ -36,8 +36,8 @@
             </mat-list>
 
             <!----------------- My recent -------------------------->
-            <mat-list *ngIf="showMyRecent" #matList [style.overflow]="clickOnViewMore == true ? 'hidden' : 'hidden'"
-                [style.max-height]="clickOnViewMore == true ? '100%' : '160px'">
+            <mat-list *ngIf="showMyRecent" #matList [style.overflow]="clickOnViewMore == true ? 'auto' : 'hidden'"
+                [style.max-height]="clickOnViewMore == true ? '300px' : '160px'">
                 <span *ngFor="let item of notification">
                     <mat-list-item *ngIf="item.CATEGORY === enumCategory[3]">
                         <mat-icon mat-list-icon style="font-size: 19px;color: #7a8589;">
@@ -49,8 +49,8 @@
             </mat-list>
 
             <!----------------- Announcement -------------------------->
-            <mat-list *ngIf="showAnnouncement" #matList [style.overflow]="clickOnViewMore == true ? 'hidden' : 'hidden'"
-                [style.max-height]="clickOnViewMore == true ? '100%' : '160px'">
+            <mat-list *ngIf="showAnnouncement" #matList [style.overflow]="clickOnViewMore == true ? 'auto' : 'hidden'"
+                [style.max-height]="clickOnViewMore == true ? '300px' : '160px'">
                 <span *ngFor="let item of notification">
                     <mat-list-item *ngIf="item.CATEGORY === enumCategory[0]">
                         <mat-icon mat-list-icon style="font-size: 19px;color: #7a8589;">
@@ -168,7 +168,7 @@
                 [style.max-height]="clickOnSeeAll == true ? '100%' : '160px'" [style.height]="clickOnSeeAll ">
                 <ion-item lines="none" *ngFor="let detail of onLeaveList">
                     <ion-avatar slot="start" class="avatar">
-                        <img src="assets/icon/avatar.jpg">
+                        <img src="assets/icon/picture.png">
                     </ion-avatar>
                     <ion-label text-wrap class="labelText">
                         <p style="color: #7a8589; font-size: 11px;white-space: nowrap;margin: 0">{{detail.FULLNAME}}</p>
