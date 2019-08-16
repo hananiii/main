@@ -11,6 +11,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { GoogleChartModule } from 'src/library/google-chart/google-chart.module';
 import { SpinnerModule } from 'src/library/spinner/spinner.module';
+import { MatTooltipModule } from '@angular/material';
 
 
 const routes: Routes = [
@@ -31,6 +32,7 @@ const routes: Routes = [
         MatGridListModule,
         GoogleChartModule,
         SpinnerModule,
+        MatTooltipModule,
         RouterModule.forChild(routes)
     ],
     declarations: [DashboardPage]
