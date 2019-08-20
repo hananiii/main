@@ -44,13 +44,6 @@ export class EmploymentDetailsPage implements OnInit {
     public status: string;
 
     /**
-     * This local property is used to get employment type from API
-     * @type {string}
-     * @memberof EmploymentDetailsPage
-     */
-    public type: string;
-
-    /**
      * This local property is used to show progress header
      * @type {boolean}
      * @memberof EmploymentDetailsPage
@@ -141,7 +134,6 @@ export class EmploymentDetailsPage implements OnInit {
                     this.list.employmentDetail.dateOfResign = moment(this.list.employmentDetail.dateOfResign).format('DD-MM-YYYY');
                 }
                 this.status = employeeStatus[this.list.employmentDetail.employmentStatus];
-                this.type = employeeType[this.list.employmentDetail.employmentType];
                 this.showSpinner = false;
                 this.showContent = true;
                 this.reporting();
