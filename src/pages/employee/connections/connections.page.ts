@@ -204,7 +204,7 @@ export class ConnectionsPage implements OnInit {
             }
         );
 
-        this.subscription = this.apiService.get_department().subscribe((data) => {
+        this.subscription = this.apiService.get_master_list('department').subscribe((data) => {
             this.departmentList = data;
         });
 

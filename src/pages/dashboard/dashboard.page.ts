@@ -115,20 +115,6 @@ export class DashboardPage implements OnInit {
     public clickOnSeeAll: boolean;
 
     /**
-     * Get user profile details from API
-     * @type {*}
-     * @memberof DashboardPage
-     */
-    public userProfile: any;
-
-    /**
-     * Get tenant Id from userProfile details
-     * @type {string}
-     * @memberof DashboardPage
-     */
-    public tenantId: string;
-
-    /**
      * Get on leave total employee number & employee onleave number from API
      * @type {*}
      * @memberof DashboardPage
@@ -175,33 +161,24 @@ export class DashboardPage implements OnInit {
 
     /**
      *Creates an instance of DashboardPage.
-     * @param {APIService} apiService
      * @param {DashboardAPIService} dashboardAPI
      * @param {DatePipe} datePipe
      * @memberof DashboardPage
      */
-    constructor(private apiService: APIService, private dashboardAPI: DashboardAPIService, private datePipe: DatePipe) { }
+    constructor(private dashboardAPI: DashboardAPIService, private datePipe: DatePipe) { }
 
     /**
      * Initial method
      * @memberof DashboardPage
      */
     ngOnInit() {
-        this.apiService.get_user_profile().subscribe(
-            data => {
-                this.userProfile = data;
-                this.tenantId = this.userProfile.tenantId;
-            },
-            error => {
-                if (error) {
-                    window.location.href = '/login';
-                }
-            },
-            () => {
-                this.getOnleaveDetails();
-            });
+        this.getOnleaveDetails();
         this.dashboardAPI.get_news_notification().subscribe(data => {
             this.notificationCategory(data);
+        }, error => {
+            if (error) {
+                window.location.href = '/login';
+            }
         });
     }
 
@@ -210,7 +187,7 @@ export class DashboardPage implements OnInit {
      * @memberof DashboardPage
      */
     getOnleaveDetails() {
-        const params = { 'startdate': this.datePipe.transform(new Date(), 'yyyy-MM-dd'), 'enddate': this.datePipe.transform(new Date(), 'yyyy-MM-dd'), 'tenantguid': this.tenantId };
+        const params = { 'startdate': this.datePipe.transform(new Date(), 'yyyy-MM-dd'), 'enddate': this.datePipe.transform(new Date(), 'yyyy-MM-dd') };
         this.dashboardAPI.get_status_onleave(params).subscribe(
             data => {
                 this.onLeaveNumber = data;

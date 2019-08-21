@@ -169,13 +169,14 @@ export class APIService {
     }
 
     /**
-     * This method is used to get all departments name
+     * This method is used to get any desired item
+     * department, designation, section, branch, bank, costcentre, country
      * @returns {Observable<any>}
      * @memberof APIService
      */
-    get_department(): Observable<any> {
+    get_master_list(item): Observable<any> {
         this.headerAuthorization();
-        return this.getApi('/api/department');
+        return this.getApiWithId('/api/admin/master/', item);
     }
 
 

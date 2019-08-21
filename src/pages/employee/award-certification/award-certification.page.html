@@ -18,11 +18,11 @@
 
             <div class="left">
                 <ion-avatar class="avatar">
-                    <img src="assets/icon/avatar.jpg">
+                    <img src="assets/icon/chris.jpg">
                 </ion-avatar>
-                <ion-badge style="background-color: white;border: 1px solid#bebebe;">
+                <!-- <ion-badge style="background-color: white;border: 1px solid#bebebe;">
                     <div class="pic-icon" [inlineSVG]="'assets/icon/option/picture.svg'"></div>
-                </ion-badge>
+                </ion-badge> -->
             </div>
             <div class="right" *ngIf="personalList">
                 <ion-card-title>{{personalList.employeeName}}</ion-card-title>
@@ -35,7 +35,8 @@
                 </div>
                 <div style="padding-top: 10px;">
                     <div class="marker-icon" [inlineSVG]="'assets/icon/user_profile/pin.svg'"></div>
-                    <ion-card-subtitle class="subtitle" style="padding-left:8px" *ngIf="employ">{{employ.employmentDetail.workLocation}}
+                    <ion-card-subtitle class="subtitle" style="padding-left:8px" *ngIf="employ">
+                        {{employ.employmentDetail.workLocation}}
                     </ion-card-subtitle>
                 </div>
             </div>
