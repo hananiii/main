@@ -124,17 +124,6 @@ export class APIService {
     }
 
     /**
-     * This method is used to update employment details
-     * @param {*} updateData
-     * @returns {Observable<any>}
-     * @memberof APIService
-     */
-    patch_employment_details(updateData: any): Observable<any> {
-        this.headerAuthorization();
-        return this.patchApi(updateData, '/api/userprofile/employment-detail');
-    }
-
-    /**
      * This method is used to get user profile information
      * Personal, employment, leave entitlement, education details
      * @returns {Observable<any>}

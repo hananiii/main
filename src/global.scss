@@ -91,7 +91,7 @@ $theme: mat-light-theme($primary, $accent);
 
 @include angular-material-theme($theme);
 
-app-connections
+app-employee-directory
   > div.connectionsContainer
   > div.topHeader
   > ion-searchbar.searchbar
@@ -102,7 +102,7 @@ app-connections
   border: 0.5px solid #bebebe;
   height: 31px;
 }
-app-connections
+app-employee-directory
   > div.connectionsContainer
   > div.topHeader
   > ion-searchbar.searchbar
@@ -110,7 +110,7 @@ app-connections
   > ion-icon.searchbar-search-icon.sc-ion-searchbar-ios {
   height: 88%;
 }
-app-connections
+app-employee-directory
   > div.connectionsContainer
   > div.topHeader
   > ion-searchbar.searchbar
@@ -120,7 +120,7 @@ app-connections
   height: 80%;
   margin-top: -3px;
 }
-app-connections
+app-employee-directory
   > div.connectionsContainer
   > ion-content
   > .mat-grid-list

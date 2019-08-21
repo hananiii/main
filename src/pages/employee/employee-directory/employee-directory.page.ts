@@ -1,160 +1,144 @@
 import { Component, OnInit, ElementRef, Renderer } from '@angular/core';
 import { APIService } from 'src/services/shared-service/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 
 /**
- * Connections Page
+ * Employee Directory Page
  * @export
- * @class ConnectionsPage
+ * @class EmployeeDirectoryPage
  * @implements {OnInit}
  */
 @Component({
-    selector: 'app-connections',
-    templateUrl: './connections.page.html',
-    styleUrls: ['./connections.page.scss'],
+    selector: 'app-employee-directory',
+    templateUrl: './employee-directory.page.html',
+    styleUrls: ['./employee-directory.page.scss'],
 })
-export class ConnectionsPage implements OnInit {
+export class EmployeeDirectoryPage implements OnInit {
 
     /**
      * This local property is used to get user profile list from API
      * @type {*}
-     * @memberof ConnectionsPage
+     * @memberof EmployeeDirectoryPage
      */
     public items: any;
 
     /**
      * This local property is used to get department list from API
      * @type {*}
-     * @memberof ConnectionsPage
+     * @memberof EmployeeDirectoryPage
      */
     public departmentList: any;
 
     /**
      * This local property is used to show types of arrow icon for name column
      * @type {boolean}
-     * @memberof ConnectionsPage
+     * @memberof EmployeeDirectoryPage
      */
     public arrowDownName: boolean = true;
 
     /**
      * This local property is used to show types of arrow icon for ID column
      * @type {boolean}
-     * @memberof ConnectionsPage
+     * @memberof EmployeeDirectoryPage
      */
     public arrowDownId: boolean = true;
 
     /**
      * This local property is used to get total number of user profile list
      * @type {number}
-     * @memberof ConnectionsPage
+     * @memberof EmployeeDirectoryPage
      */
     public totalItem: number;
 
     /**
      * This local property is used to set page items
      * @type {number}
-     * @memberof ConnectionsPage
+     * @memberof EmployeeDirectoryPage
      */
     public pageItems: number = 6;
 
     /**
      * This local property is used to set range for calculation
      * @type {number}
-     * @memberof ConnectionsPage
+     * @memberof EmployeeDirectoryPage
      */
     public range: number = 5;
 
     /**
      * This local property is used to calculate page number
      * @type {number}
-     * @memberof ConnectionsPage
+     * @memberof EmployeeDirectoryPage
      */
     public pageNum: number;
 
     /** 
      * This local property is used to calculate total page number
      * @type {number}
-     * @memberof ConnectionsPage
+     * @memberof EmployeeDirectoryPage
      */
     public totalPageNum: number;
 
     /**
      * This local property is used to show current page content items
      * @type {*}
-     * @memberof ConnectionsPage
+     * @memberof EmployeeDirectoryPage
      */
     public currentPageItems: any;
 
     /**
      * This local property is used to enable or disable next button
      * @type {boolean}
-     * @memberof ConnectionsPage
+     * @memberof EmployeeDirectoryPage
      */
     public disableNextButton: boolean;
 
     /**
      * This local property is used to enable or disable previous button
      * @type {boolean}
-     * @memberof ConnectionsPage
+     * @memberof EmployeeDirectoryPage
      */
     public disablePrevButton: boolean = true;
 
     /**
      * This local property is used to show list view
      * @type {boolean}
-     * @memberof ConnectionsPage
+     * @memberof EmployeeDirectoryPage
      */
     public listView: boolean = true;
 
     /**
      * This local property is used to show grid view
      * @type {boolean}
-     * @memberof ConnectionsPage
+     * @memberof EmployeeDirectoryPage
      */
     public gridView: boolean = false;
 
     /**
      * This local property is used to save favourite name card
-     * @memberof ConnectionsPage
+     * @memberof EmployeeDirectoryPage
      */
     public setAsFavourite = [];
 
     /**
      * This local property is used to show filter details
      * @type {boolean}
-     * @memberof ConnectionsPage
+     * @memberof EmployeeDirectoryPage
      */
     public viewMoreFilter: boolean = false;
 
     /**
-     * This local property is used to get connection url
-     * @type {boolean}
-     * @memberof ConnectionsPage
-     */
-    public connectionRoute: boolean;
-
-    /**
      * This local property is used to show header of advertisement message
      * @type {boolean}
-     * @memberof ConnectionsPage
+     * @memberof EmployeeDirectoryPage
      */
     public showHeader: boolean = true;
 
     /**
      * This local property is used to show loading spinner
      * @type {boolean}
-     * @memberof ConnectionsPage
+     * @memberof EmployeeDirectoryPage
      */
     public showSpinner: boolean = true;
-
-    /**
-     * This local private property is used to set subscription
-     * @private
-     * @type {Subscription}
-     * @memberof ConnectionsPage
-     */
-    private subscription: Subscription = new Subscription();
 
     foods = [
         { value: 'steak-0', viewValue: 'Steak' },
@@ -167,13 +151,13 @@ export class ConnectionsPage implements OnInit {
     }
 
     /**
-     *Creates an instance of ConnectionsPage.
+     *Creates an instance of EmployeeDirectoryPage.
      * @param {APIService} apiService
      * @param {ActivatedRoute} route
      * @param {ElementRef} elRef
      * @param {Renderer} renderer
      * @param {Router} router
-     * @memberof ConnectionsPage
+     * @memberof EmployeeDirectoryPage
      */
     constructor(private apiService: APIService, private route: ActivatedRoute,
         private elRef: ElementRef, private renderer: Renderer, public router: Router) { }
@@ -182,15 +166,10 @@ export class ConnectionsPage implements OnInit {
      * Inital method
      * Get user profile list from API
      * Get department list from API
-     * @memberof ConnectionsPage
+     * @memberof EmployeeDirectoryPage
      */
     ngOnInit() {
-        if (this.route.routeConfig.path.includes('connection')) {
-            this.connectionRoute = true;
-        } else {
-            this.renderer.setElementStyle(this.elRef.nativeElement, 'top', '48px');
-        }
-        this.subscription = this.apiService.get_user_profile_list().subscribe(
+        this.apiService.get_user_profile_list().subscribe(
             (data: any[]) => {
                 this.items = data;
                 this.pageNum = 1;
@@ -203,20 +182,9 @@ export class ConnectionsPage implements OnInit {
                 }
             }
         );
-
-        this.subscription = this.apiService.get_master_list('department').subscribe((data) => {
+        this.apiService.get_master_list('department').subscribe((data) => {
             this.departmentList = data;
         });
-
-
-    }
-
-    /**
-     * Destroy subscription
-     * @memberof ConnectionsPage
-     */
-    ngOnDestroy() {
-        this.subscription.unsubscribe();
     }
 
     /**
@@ -224,7 +192,7 @@ export class ConnectionsPage implements OnInit {
      * @param {boolean} showList
      * @param {number} pageItem
      * @param {number} range
-     * @memberof ConnectionsPage
+     * @memberof EmployeeDirectoryPage
      */
     viewList(showList: boolean, pageItem: number, range: number) {
         this.listView = showList;
@@ -242,7 +210,7 @@ export class ConnectionsPage implements OnInit {
      * @param {*} data
      * @param {number} pageIndex
      * @param {number} rangeNumber
-     * @memberof ConnectionsPage
+     * @memberof EmployeeDirectoryPage
      */
     renderItems(i: number, data: any, pageIndex: number, rangeNumber: number) {
         this.pageNum = i;
@@ -264,7 +232,7 @@ export class ConnectionsPage implements OnInit {
 
     /**
      * This method is used to disable or enable next button
-     * @memberof ConnectionsPage
+     * @memberof EmployeeDirectoryPage
      */
     disableEnableNextButton() {
         if (this.pageNum > 0 && this.pageNum < this.totalPageNum) {
@@ -280,7 +248,7 @@ export class ConnectionsPage implements OnInit {
 
     /**
      * This method is used to disable or enable previous button
-     * @memberof ConnectionsPage
+     * @memberof EmployeeDirectoryPage
      */
     disableEnablePreviousButton() {
         if (this.pageNum > 1 && this.pageNum === this.totalPageNum) {
@@ -298,7 +266,7 @@ export class ConnectionsPage implements OnInit {
      * This method is used to show page content when clicked on next or previous button
      * @param {number} index
      * @param {string} nextOrPrev
-     * @memberof ConnectionsPage
+     * @memberof EmployeeDirectoryPage
      */
     clickPageButton(index: number, nextOrPrev: string) {
         if (!(index > this.totalPageNum) && nextOrPrev === 'next') {
@@ -318,7 +286,7 @@ export class ConnectionsPage implements OnInit {
      * @param {boolean} value
      * @param {number} checkAsc
      * @param {number} checkDes
-     * @memberof ConnectionsPage
+     * @memberof EmployeeDirectoryPage
      */
     nameSorting(value: boolean, checkAsc: number, checkDes: number) {
         this.showSpinner = true;
@@ -339,7 +307,7 @@ export class ConnectionsPage implements OnInit {
      * @param {boolean} value
      * @param {number} ascValue
      * @param {number} desValue
-     * @memberof ConnectionsPage
+     * @memberof EmployeeDirectoryPage
      */
     IDSorting(value: boolean, ascValue: number, desValue: number) {
         this.showSpinner = true;
@@ -358,7 +326,7 @@ export class ConnectionsPage implements OnInit {
     /**
      * This method is used to filter employee name
      * @param {*} char
-     * @memberof ConnectionsPage
+     * @memberof EmployeeDirectoryPage
      */
     filterDetails(char: any) {
         if (char && char.trim() != '') {
@@ -374,10 +342,10 @@ export class ConnectionsPage implements OnInit {
 
     /**
      * This method is used to get content after clear value from search bar
-     * @memberof ConnectionsPage
+     * @memberof EmployeeDirectoryPage
      */
     clearDetails() {
-        this.subscription = this.apiService.get_user_profile_list().subscribe(
+        this.apiService.get_user_profile_list().subscribe(
             (data: any[]) => {
                 this.items = data;
                 this.pageNum = 1;
@@ -391,7 +359,7 @@ export class ConnectionsPage implements OnInit {
     /**
      * This method is used to determine the filter content when change occured
      * @param {*} text
-     * @memberof ConnectionsPage
+     * @memberof EmployeeDirectoryPage
      */
     changeDetails(text: any) {
         this.showSpinner = true;
@@ -406,7 +374,7 @@ export class ConnectionsPage implements OnInit {
      * This method is used to check user ID exist or not
      * @param {string} ID
      * @returns
-     * @memberof ConnectionsPage
+     * @memberof EmployeeDirectoryPage
      */
     userIDExists(ID: string) {
         return this.setAsFavourite.some(function (el) {
@@ -418,7 +386,7 @@ export class ConnectionsPage implements OnInit {
      * This method is used to save name card as favourite list when clicked on star icon
      * @param {number} index
      * @param {*} item
-     * @memberof ConnectionsPage
+     * @memberof EmployeeDirectoryPage
      */
     clickAsFavourite(index: number, item: any) {
         const obj = { index: index, itemId: item.id };

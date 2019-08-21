@@ -1,6 +1,7 @@
 :host {
   background: #f9fafc;
   overflow-y: auto;
+  top: 48px;
   .header-md:after {
     height: 0px;
     background-image: none;
@@ -189,6 +190,8 @@
     padding-right: 20px;
     // width: 95%;
     margin: 0 auto;
+    height: calc(100% - 58px);
+    width: 95%;
   }
   .titleRow {
     padding-bottom: 10px;
@@ -222,6 +225,7 @@
     position: absolute;
     // left: 3%;
     color: #20291f;
+    left: 5%;
   }
   .crossIcon {
     cursor: pointer;

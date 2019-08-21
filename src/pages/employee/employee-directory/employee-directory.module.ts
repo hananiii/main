@@ -8,19 +8,19 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
-import { ConnectionsPage } from './connections.page';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { SpinnerModule } from 'src/library/spinner/spinner.module';
+import { EmployeeDirectoryPage } from './employee-directory.page';
 
 
 const routes: Routes = [
     {
         path: '',
-        component: ConnectionsPage
+        component: EmployeeDirectoryPage
     }
 ];
 
@@ -41,6 +41,6 @@ const routes: Routes = [
         SpinnerModule,
         RouterModule.forChild(routes)
     ],
-    declarations: [ConnectionsPage]
+    declarations: [EmployeeDirectoryPage]
 })
-export class ConnectionsModule { }
+export class EmployeeDirectoryModule { }

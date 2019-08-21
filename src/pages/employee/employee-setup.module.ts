@@ -9,7 +9,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { PersonalDetailsModule } from './personal-details/personal-details.module';
 import { EmploymentDetailsModule } from './employment-details/employment-details.module';
 import { LeaveEntitlementModule } from './leave-entitlement/leave-entitlement.module';
-import { ConnectionsModule } from './connections/connections.module';
+import { EmployeeDirectoryModule } from './employee-directory/employee-directory.module';
 import { AuthGuard } from 'src/services/shared-service/guards/auth-guard.service';
 import { EmployeeSetupPage } from './employee-setup.page';
 import { InlineSVGModule } from 'ng-inline-svg';
@@ -34,7 +34,7 @@ const routes: Routes = [
     PersonalDetailsModule,
     EmploymentDetailsModule,
     LeaveEntitlementModule,
-    ConnectionsModule,
+    EmployeeDirectoryModule,
     AccountSettingModule,
     AwardCertificationModule,
     InlineSVGModule,

@@ -4,7 +4,7 @@ import { SideMenuNavigationComponent } from './side-menu-navigation.component';
 import { EmployeeSetupPage } from 'src/pages/employee/employee-setup.page';
 import { PageNotFoundComponent } from '../page-not-found.component';
 import { PublicPersonalDetailsPage } from 'src/pages/employee/public-personal-details/public-personal-details.page';
-import { ConnectionsPage } from 'src/pages/employee/connections/connections.page';
+import { EmployeeDirectoryPage } from 'src/pages/employee/employee-directory/employee-directory.page';
 import { PersonalDetailsPage } from 'src/pages/employee/personal-details/personal-details.page';
 import { EmploymentDetailsPage } from 'src/pages/employee/employment-details/employment-details.page';
 import { LeaveEntitlementPage } from 'src/pages/employee/leave-entitlement/leave-entitlement.page';
@@ -22,7 +22,7 @@ export const sideMenuNavigationRoutes: Routes = [
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
             { path: 'dashboard', component: DashboardPage },
             { path: 'plan-my-leave', component: LeavePlanningPage },
-            { path: 'employee-directory', component: ConnectionsPage },
+            { path: 'employee-directory', component: EmployeeDirectoryPage },
             { path: 'user-public-profile', component: PublicPersonalDetailsPage },
             {
                 path: 'employee-setup', component: EmployeeSetupPage,
@@ -32,7 +32,7 @@ export const sideMenuNavigationRoutes: Routes = [
                     { path: 'employment-details/:id', component: EmploymentDetailsPage },
                     { path: 'leave-entitlement', component: LeaveEntitlementPage },
                     { path: 'awards-certification', component: AwardCertificationPage },
-                    { path: 'connection', component: ConnectionsPage },
+                    // { path: 'connection', component: ConnectionsPage },
                     { path: 'account', component: AccountSettingPage }
                 ]
             }

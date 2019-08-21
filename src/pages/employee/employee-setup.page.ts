@@ -100,11 +100,11 @@ export class EmployeeSetupPage implements OnInit {
       url: ['/main/employee-setup/awards-certification'],
       icon: 'people',
     },
-    {
-      title: 'My Connections',
-      url: ['/main/employee-setup/connection'],
-      icon: 'people',
-    },
+    // {
+    //   title: 'My Connections',
+    //   url: ['/main/employee-setup/connection'],
+    //   icon: 'people',
+    // },
     {
       title: 'Account Settings',
       url: ['/main/employee-setup/account'],
