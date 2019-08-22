@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/services/shared-service/auth.service';
+import { NgxSpinnerService } from "ngx-spinner";
+
 /**
  * Login component
  * @export
@@ -76,8 +78,7 @@ export class LoginComponent implements OnInit {
    * @param {Router} router
    * @memberof LoginComponent
    */
-  constructor(private _auth: AuthService,
-    private router: Router) { }
+  constructor(private _auth: AuthService, private router: Router, private spinner: NgxSpinnerService) { }
 
   /**
    * This method is used to get initial value of email and password
@@ -116,10 +117,12 @@ export class LoginComponent implements OnInit {
    * @memberof LoginComponent
    */
   signIn(email: string, pass: string) {
+    this.spinner.show();
     this._auth.login(email, pass)
       .subscribe(data => {
         console.log(data);
         this.router.navigate(['main'])
+        this.spinner.hide();
       }
       );
   }
