@@ -12,6 +12,7 @@ import { AccountSettingPage } from 'src/pages/employee/account-setting/account-s
 import { LeavePlanningPage } from 'src/pages/employee/leave-entitlement/leave-planning/leave-planning.page';
 import { DashboardPage } from 'src/pages/dashboard/dashboard.page';
 import { AwardCertificationPage } from 'src/pages/employee/award-certification/award-certification.page';
+import { EmployeeListPage } from 'src/pages/employee/employee-directory/employee-list/employee-list.page';
 
 export const sideMenuNavigationRoutes: Routes = [
     {
@@ -22,7 +23,13 @@ export const sideMenuNavigationRoutes: Routes = [
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
             { path: 'dashboard', component: DashboardPage },
             { path: 'plan-my-leave', component: LeavePlanningPage },
-            { path: 'employee-directory', component: EmployeeDirectoryPage },
+            {
+                path: 'employee-directory', component: EmployeeDirectoryPage,
+                children: [
+                    { path: '', redirectTo: 'list', pathMatch: 'full' },
+                    { path: 'list', component: EmployeeListPage }
+                ]
+            },
             { path: 'user-public-profile', component: PublicPersonalDetailsPage },
             {
                 path: 'employee-setup', component: EmployeeSetupPage,

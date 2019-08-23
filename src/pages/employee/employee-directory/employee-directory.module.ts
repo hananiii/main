@@ -15,6 +15,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { SpinnerModule } from 'src/library/spinner/spinner.module';
 import { EmployeeDirectoryPage } from './employee-directory.page';
+import { EmployeeListPage } from './employee-list/employee-list.page';
 
 
 const routes: Routes = [
@@ -41,6 +42,6 @@ const routes: Routes = [
         SpinnerModule,
         RouterModule.forChild(routes)
     ],
-    declarations: [EmployeeDirectoryPage]
+    declarations: [EmployeeDirectoryPage, EmployeeListPage]
 })
 export class EmployeeDirectoryModule { }

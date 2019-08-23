@@ -1,9 +1,10 @@
 <ion-header>
     <ion-toolbar class="toolbar2">
         <div class="back-icon" [inlineSVG]="'assets/icon/option/arrow-pointing-to-left.svg'"
-            (click)="router.navigate(['/main/employee-setup']);"></div>
+            (click)="router.navigate(['/main/employee-directory']);"></div>
         <ion-title style="display: inline-block;color: #20291f;font-size: 16px;" *ngIf="personalName">
-            {{personalName}}'s Profile
+            <!-- {{personalName}}'s Profile -->
+            Employee Directory
         </ion-title>
         <!-- <div style="float: right; padding-right: 20px;">
             <i class="fab fa-facebook-f"></i>
