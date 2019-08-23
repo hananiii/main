@@ -1,6 +1,6 @@
-import { Component, OnInit, ElementRef, Renderer } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { APIService } from 'src/services/shared-service/api.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 /**
  * Employee Directory Page
@@ -146,6 +146,11 @@ export class EmployeeDirectoryPage implements OnInit {
         { value: 'tacos-2', viewValue: 'Tacos' }
     ];
 
+    /**
+     * return current page users
+     * @readonly
+     * @memberof EmployeeDirectoryPage
+     */
     public get personalList() {
         return this.currentPageItems;
     }
@@ -159,8 +164,7 @@ export class EmployeeDirectoryPage implements OnInit {
      * @param {Router} router
      * @memberof EmployeeDirectoryPage
      */
-    constructor(private apiService: APIService, private route: ActivatedRoute,
-        private elRef: ElementRef, private renderer: Renderer, public router: Router) { }
+    constructor(private apiService: APIService, public router: Router) { }
 
     /**
      * Inital method

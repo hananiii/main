@@ -13,7 +13,17 @@ import { map } from 'rxjs/operators';
 })
 export class APIService {
 
+    /**
+     * headers for application
+     * @memberof APIService
+     */
     public headers = new Headers();
+
+    /**
+     * main server URL
+     * @type {string}
+     * @memberof APIService
+     */
     public baseUrl: string = "http://zencore.zen.com.my:3000";
 
     /**

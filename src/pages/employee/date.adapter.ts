@@ -48,6 +48,13 @@ export class AppDateAdapter extends NativeDateAdapter {
         }
     }
 
+    /**
+     * function to control 2 digit for any number 
+     * @private
+     * @param {number} n
+     * @returns
+     * @memberof AppDateAdapter
+     */
     private _to2digit(n: number) {
         return ('00' + n).slice(-2);
     }
