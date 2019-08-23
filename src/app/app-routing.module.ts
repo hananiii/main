@@ -6,10 +6,10 @@ import { EmailInvitationPage } from 'src/pages/employee/email-invitation/email-i
 
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
+  { path: '', component: LoginComponent },
   { path: 'update-password', component: UpdatePasswordPage },
   { path: 'email-verify', component: EmailInvitationPage },
-  { path: '', redirectTo: 'main', pathMatch: 'full' },
+  // { path: '', redirectTo: 'main', pathMatch: 'full' },
 ];
 
 
