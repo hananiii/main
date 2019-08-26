@@ -9,7 +9,6 @@ const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'update-password', component: UpdatePasswordPage },
   { path: 'email-verify', component: EmailInvitationPage },
-  // { path: '', redirectTo: 'main', pathMatch: 'full' },
 ];
 
 
