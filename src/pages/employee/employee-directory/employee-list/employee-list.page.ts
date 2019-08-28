@@ -113,11 +113,11 @@ export class EmployeeListPage implements OnInit {
      */
     public gridView: boolean = false;
 
-    /**
-     * This local property is used to save favourite name card
-     * @memberof EmployeeListPage
-     */
-    public setAsFavourite = [];
+    // /**
+    //  * This local property is used to save favourite name card
+    //  * @memberof EmployeeListPage
+    //  */
+    // public setAsFavourite = [];
 
     /**
      * This local property is used to show filter details
@@ -179,7 +179,7 @@ export class EmployeeListPage implements OnInit {
             (data: any[]) => {
                 this.items = data;
                 this.pageNum = 1;
-                this.renderItems(this.pageNum, this.items, this.pageItems, this.range);
+                this.renderItems(this.pageNum);
                 this.showSpinner = false;
                 this.showContent = true;
             },
@@ -208,27 +208,24 @@ export class EmployeeListPage implements OnInit {
         this.disablePrevButton = true;
         this.pageItems = pageItem;
         this.range = range;
-        this.renderItems(1, this.items, this.pageItems, this.range);
+        this.renderItems(1);
     }
 
     /**
      * This method is used to calculate content of items in a page
      * @param {number} i
-     * @param {*} data
-     * @param {number} pageIndex
-     * @param {number} rangeNumber
      * @memberof EmployeeListPage
      */
-    renderItems(i: number, data: any, pageIndex: number, rangeNumber: number) {
+    renderItems(i: number) {
         this.pageNum = i;
         this.totalItem = this.items.length;
-        this.totalPageNum = this.totalItem / pageIndex;
+        this.totalPageNum = this.totalItem / this.pageItems;
         this.totalPageNum = Math.ceil(this.totalPageNum);
-        const firstNum = (this.pageNum * pageIndex) - rangeNumber;
-        const lastNum = this.pageNum * pageIndex;
+        const firstNum = (this.pageNum * this.pageItems) - this.range;
+        const lastNum = this.pageNum * this.pageItems;
         const currentPageList = [];
         for (let j = firstNum - 1; j < lastNum; j++) {
-            const itemValue = data[j];
+            const itemValue = this.items[j];
             if (itemValue !== undefined) {
                 currentPageList.push(itemValue);
             }
@@ -279,12 +276,12 @@ export class EmployeeListPage implements OnInit {
     clickPageButton(index: number, nextOrPrev: string) {
         if (!(index > this.totalPageNum) && nextOrPrev === 'next') {
             this.showSpinner = true;
-            this.renderItems(index, this.items, this.pageItems, this.range);
+            this.renderItems(index);
             this.disableEnableNextButton();
         }
         if (!(index < 1) && nextOrPrev === 'prev') {
             this.showSpinner = true;
-            this.renderItems(index, this.items, this.pageItems, this.range);
+            this.renderItems(index);
             this.disableEnablePreviousButton();
         }
     }
@@ -305,7 +302,7 @@ export class EmployeeListPage implements OnInit {
             const y = b.employeeName.toUpperCase();
             return x < y ? checkAsc : x > y ? checkDes : 0;
         });
-        this.renderItems(1, this.items, this.pageItems, this.range);
+        this.renderItems(1);
         this.disableNextButton = false;
         this.disablePrevButton = true;
     }
@@ -326,7 +323,7 @@ export class EmployeeListPage implements OnInit {
             const b = y.staffNumber;
             return a < b ? ascValue : a > b ? desValue : 0;
         });
-        this.renderItems(1, this.items, this.pageItems, this.range);
+        this.renderItems(1);
         this.disableNextButton = false;
         this.disablePrevButton = true;
     }
@@ -342,7 +339,7 @@ export class EmployeeListPage implements OnInit {
                 return (data.employeeName.toUpperCase().indexOf(char.toUpperCase()) > -1);
             })
             this.pageNum = 1;
-            this.renderItems(this.pageNum, this.items, this.pageItems, this.range);
+            this.renderItems(this.pageNum);
             this.disableEnableNextButton();
             this.disableEnablePreviousButton();
         }
@@ -357,7 +354,7 @@ export class EmployeeListPage implements OnInit {
             (data: any[]) => {
                 this.items = data;
                 this.pageNum = 1;
-                this.renderItems(this.pageNum, this.items, this.pageItems, this.range);
+                this.renderItems(this.pageNum);
             }
         );
         this.disableNextButton = false;
@@ -378,38 +375,38 @@ export class EmployeeListPage implements OnInit {
         }
     }
 
-    /**
-     * This method is used to check user ID exist or not
-     * @param {string} ID
-     * @returns
-     * @memberof EmployeeListPage
-     */
-    userIDExists(ID: string) {
-        return this.setAsFavourite.some(function (el) {
-            return el.itemId === ID;
-        });
-    }
+    // /**
+    //  * This method is used to check user ID exist or not
+    //  * @param {string} ID
+    //  * @returns
+    //  * @memberof EmployeeListPage
+    //  */
+    // userIDExists(ID: string) {
+    //     return this.setAsFavourite.some(function (el) {
+    //         return el.itemId === ID;
+    //     });
+    // }
 
-    /**
-     * This method is used to save name card as favourite list when clicked on star icon
-     * @param {number} index
-     * @param {*} item
-     * @memberof EmployeeListPage
-     */
-    clickAsFavourite(index: number, item: any) {
-        const obj = { index: index, itemId: item.id };
-        const data = obj;
-        if (!this.userIDExists(item.id) && this.setAsFavourite.length > 0) {
-            this.setAsFavourite.push(data);
-        } else if (this.userIDExists(item.id) && this.setAsFavourite.length > 0) {
-            for (let i = 0; i < this.setAsFavourite.length; i++) {
-                if (this.setAsFavourite[i].itemId == item.id && this.setAsFavourite[i].index == index) {
-                    this.setAsFavourite.splice(i, 1);
-                }
-            }
-        } else {
-            this.setAsFavourite.push(data);
-        }
-    };
+    // /**
+    //  * This method is used to save name card as favourite list when clicked on star icon
+    //  * @param {number} index
+    //  * @param {*} item
+    //  * @memberof EmployeeListPage
+    //  */
+    // clickAsFavourite(index: number, item: any) {
+    //     const obj = { index: index, itemId: item.id };
+    //     const data = obj;
+    //     if (!this.userIDExists(item.id) && this.setAsFavourite.length > 0) {
+    //         this.setAsFavourite.push(data);
+    //     } else if (this.userIDExists(item.id) && this.setAsFavourite.length > 0) {
+    //         for (let i = 0; i < this.setAsFavourite.length; i++) {
+    //             if (this.setAsFavourite[i].itemId == item.id && this.setAsFavourite[i].index == index) {
+    //                 this.setAsFavourite.splice(i, 1);
+    //             }
+    //         }
+    //     } else {
+    //         this.setAsFavourite.push(data);
+    //     }
+    // };
 
 }
