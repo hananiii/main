@@ -56,88 +56,6 @@
     <ion-item *ngIf="showContent" lines="full" class="mainDivider"></ion-item>
     <div class="cardContent" *ngIf="personalList && showContent">
         <ion-card-content>
-            <!------------------------- Add award certification --------------------->
-            <!-- <div>
-                <ion-label style="display: block; padding-left: 5.6%;padding-top: 5px;">AWARD CERTIFICATION(S)
-                </ion-label>
-                <ion-row class="detailsRow">
-                    <ion-col size="3">
-                        <ion-label>CERTIFICATE NAME</ion-label>
-                    </ion-col>
-                    <ion-col size="3">
-                        <ion-label>ENROLL YEAR</ion-label>
-                    </ion-col>
-                    <ion-col size="3">
-                        <ion-label>GRADUATE YEAR</ion-label>
-                    </ion-col>
-                    <!-- <ion-col size="2">
-                        <ion-label>YEAR</ion-label>
-                    </ion-col> --
-                    <ion-col size="1"></ion-col>
-                </ion-row>
-                <ion-row class="detailsRow" *ngFor="let item of awards; let index = index">
-                    <ion-col size="3">
-                        <p *ngIf="!displayEditAward[index]">
-                            {{item.certificationName}}</p>
-                        <mat-form-field *ngIf="displayEditAward[index]" style="width: 100%;">
-                            <input matInput placeholder="Certification Name"
-                                [(ngModel)]="awards[index].certificationName">
-                        </mat-form-field>
-                    </ion-col>
-                    <ion-col size="3">
-                        <p *ngIf="!displayEditAward[index]">
-                            {{item.certificationEnrollYear}}</p>
-                        <mat-form-field *ngIf="displayEditAward[index]" style="width: 100%;">
-                            <input matInput placeholder="Enroll year"
-                                [(ngModel)]="awards[index].certificationEnrollYear">
-                        </mat-form-field>
-                    </ion-col>
-                    <ion-col size="3">
-                        <p *ngIf="!displayEditAward[index]">
-                            {{item.certificationGraduateYear}}</p>
-                        <mat-form-field *ngIf="displayEditAward[index]" style="width: 100%;">
-                            <input matInput placeholder="Graduate year"
-                                [(ngModel)]="awards[index].certificationGraduateYear">
-                        </mat-form-field>
-                    </ion-col>
-                    <!-- <ion-col size="2">
-                        <p *ngIf="!displayEditAward[index]">
-                            {{item.year}}</p>
-                        <mat-form-field *ngIf="displayEditAward[index]" style="width: 100%;">
-                            <input matInput placeholder="Year" [(ngModel)]="awards[index].year">
-                        </mat-form-field>
-                    </ion-col> --
-                    <ion-col size="1">
-                        <div class="education-delete-icon" *ngIf="!displayEditAward[index]"
-                            [inlineSVG]="'assets/icon/option/trash.svg'" (click)="removeItem(index, awards)">
-                        </div>
-                        <div class="education-edit-pencil-icon" *ngIf="!displayEditAward[index]"
-                            [inlineSVG]="'assets/icon/option/pencil.svg'" (click)="editEducation(index, true)">
-                        </div>
-                    </ion-col>
-                    <div *ngIf="displayEditAward[index]" style="display: block;width: 99.1%;text-align: right;">
-                        <ion-button fill="clear" (click)="editEducation(index, false)"
-                            style="font-size: 12px;height: 30px;cursor: pointer;text-transform: none;" color="primary">
-                            cancel
-                        </ion-button>
-                        <div style="display: inline-block"></div>
-                        <ion-button shape="round" fill="outline" (click)="patchData(); editEducation(index, false)"
-                            style="font-size: 12px;height: 23px;width: 55px;cursor: pointer;text-transform: none;"
-                            color="primary">
-                            save
-                        </ion-button>
-                    </div>
-                </ion-row>
-                <ion-row class="detailsRow">
-                    <ion-icon name="add-circle-outline" style="color: #057dcd;padding-top: 2px;padding-right: 10px;
-        padding-left: 0.5%;font-size: 16px;cursor: pointer;"></ion-icon>
-                    <span style="color:#057dcd; cursor: pointer;"
-                        (click)="addList(awards, educationObj);editEducation(awards.length-1, true)">
-                        Add award certification</span>
-                </ion-row>
-                <ion-item class="divider"></ion-item>
-            </div> -->
-
             <div style="margin-top: 3%">
                 <ion-row class="titleRow">
                     <ion-col size="4" style="display: inline-flex;text-overflow: ellipsis;
@@ -209,7 +127,7 @@
                     <ion-icon name="add-circle-outline" style="color: #057dcd;padding-top: 2px;padding-right: 10px;
         padding-left: 0.5%;font-size: 16px;cursor: pointer;"></ion-icon>
                     <span style="color:#057dcd; cursor: pointer;"
-                        (click)="addList(awards, awardObj); showEditProfile=true">Add
+                        (click)="addInput(awards, awardObj); showEditProfile=true">Add
                         award or certification</span>
                 </ion-row>
                 <div class="imgClass" *ngIf="showImg">
@@ -223,33 +141,6 @@
                 </div>
                 <!-- <span style="margin-left: 2%;" *ngIf="!showPdf && !showImg">{{filename}}</span> -->
             </div>
-
-            <!-- Add details -->
-            <!-- <ion-row class="detailsRow">
-                <!-- [style.padding-bottom.%]="showEditProfile? 5: 0" -->
-            <!-- *ngIf="(spouseItems === undefined || childItems === undefined || eduList === undefined)" --
-                <p style="width: 100%">Your profile missing these details</p>
-                <br>
-                <br>
-                <ion-col [style.cursor]="(spouseItems === undefined || childItems === undefined) ? 'pointer' : ''"
-                    style="background: #006994; border-radius: 3px;padding: 20px;height: 100px;"
-                    (click)="showFamily = true;">
-                    <span style="color: white; font-size: 18px;">Add award </span>
-                    <br>
-                    <span style="color: white; font-size: 18px;">information</span>
-                    <div class="award-icon" [inlineSVG]="'assets/icon/user_profile/trophy.svg'"></div>
-
-                </ion-col>
-                <div style="width: 20px"></div>
-                <ion-col [style.cursor]="(eduList === undefined) ? 'pointer' : ''"
-                    style="background: #5f4180; border-radius: 3px;padding: 20px;height: 100px;"
-                    (click)="showEducation = true;">
-                    <span style="color: white; font-size: 18px;">Add certificate </span>
-                    <br>
-                    <span style="color: white; font-size: 18px;">information</span>
-                    <div class="certificate-icon" [inlineSVG]="'assets/icon/user_profile/certificate.svg'"></div>
-                </ion-col>
-            </ion-row> -->
         </ion-card-content>
     </div>
 </ion-card>

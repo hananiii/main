@@ -238,18 +238,18 @@ export class AwardCertificationPage implements OnInit {
 
     /**
      * add new form field
-     * @param {*} data
+     * @param {*} details
      * @param {Object} item
      * @memberof AwardCertificationPage
      */
-    addList(data: any, item: Object) {
-        if (data !== undefined) {
-            data.push(item);
-            this.getObject(data, item);
+    addInput(details: any, item: Object) {
+        if (details !== undefined) {
+            details.push(item);
+            this.awardObject(details, item);
         } else {
-            data = [];
-            data.push(item);
-            this.getObject(data, item);
+            details = [];
+            details.push(item);
+            this.awardObject(details, item);
         }
     }
 
@@ -259,25 +259,7 @@ export class AwardCertificationPage implements OnInit {
      * @param {*} obj
      * @memberof PersonalDetailsPage
      */
-    getObject(list, obj) {
+    awardObject(list, obj) {
         if (obj === this.awardObj) { this.awards = list; }
     }
-
-    // editSpouse(i: number, value: boolean) {
-    //     for (let j = 0; j < this.awards.length; j++) {
-    //         // this.displayEditSpouse.splice(i, 1, value);
-    //         if ((this.awards[j].spouseName == '' || this.awards[j].spouseIdentificationNumber == '') && !value) {
-    //             // this.removeItem(j, this.awards);
-    //         }
-    //     }
-    //     if (value == false) {
-    //         this.apiService.get_personal_details().subscribe(
-    //             (data: any[]) => {
-    //                 this.items = data;
-    //                 // this.initSpouse();
-    //             })
-    //     }
-    // }
-
-
 }
