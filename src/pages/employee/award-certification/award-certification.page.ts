@@ -1,8 +1,14 @@
 import { Component, OnInit } from "@angular/core";
 import { APIService } from "src/services/shared-service/api.service";
 import { FormGroup, FormBuilder } from "@angular/forms";
-import { PersonalDetailsService } from "../personal-details/personal-details.service";
+import { PersonalDetailsService, genderStatus, maritalStatus } from "../personal-details/personal-details.service";
 
+/**
+ * award & certificate page
+ * @export
+ * @class AwardCertificationPage
+ * @implements {OnInit}
+ */
 @Component({
     selector: 'app-award-certification',
     templateUrl: './award-certification.page.html',
@@ -10,25 +16,123 @@ import { PersonalDetailsService } from "../personal-details/personal-details.ser
 })
 export class AwardCertificationPage implements OnInit {
 
+    /**
+     * percentage of completensss
+     * @type {number}
+     * @memberof AwardCertificationPage
+     */
     public progressPercentage: number;
+
+    /**
+     * show/hide progress bar percentage
+     * @type {boolean}
+     * @memberof AwardCertificationPage
+     */
     public showHeader: boolean = true;
+
+    /**
+     * show/hide content before loading complete
+     * @type {boolean}
+     * @memberof AwardCertificationPage
+     */
     public showContent: boolean = false;
+
+    /**
+     * data of personal details from API
+     * @type {*}
+     * @memberof AwardCertificationPage
+     */
     public items: any;
+
+    /**
+     * awards details
+     * @type {*}
+     * @memberof AwardCertificationPage
+     */
     public awards: any = [];
+
+    /**
+     * show/hide when click edit profile
+     * @type {boolean}
+     * @memberof AwardCertificationPage
+     */
     public displayEditAward: boolean = false;
-    public fileform: FormGroup;
-    public imagePath;
+
+    /**
+     * img/pdf src url
+     * @type {*}
+     * @memberof AwardCertificationPage
+     */
     public imgURL: any;
-    public filename: string;
+
+    /**
+     * show/hide img
+     * @type {boolean}
+     * @memberof AwardCertificationPage
+     */
     public showImg: boolean = false;
+
+    /**
+     * show/hide pdf
+     * @type {boolean}
+     * @memberof AwardCertificationPage
+     */
     public showPdf: boolean = false;
+
+    /**
+     * show.hide attachment button
+     * @type {boolean}
+     * @memberof AwardCertificationPage
+     */
     public showAttach: boolean = true;
+
+    /**
+     * employment details from requested Id
+     * @type {*}
+     * @memberof AwardCertificationPage
+     */
     public employ: any;
+
+    /** 
+     * show loading spinner during waiting requested data
+     * @type {boolean}
+     * @memberof AwardCertificationPage
+     */
+    public showSpinner: boolean = false;
+
+    /**
+     * object of form field awards
+     * @memberof AwardCertificationPage
+     */
+    public awardObj = { certificationName: '', certificationEnrollYear: '', certificationGraduateYear: '', certificationAttachment: '' };
+
+    /**
+     * validation group of file
+     * @private
+     * @type {FormGroup}
+     * @memberof AwardCertificationPage
+     */
+    private _fileform: FormGroup;
+
+    /**
+     * file name get from input
+     * @private
+     * @memberof AwardCertificationPage
+     */
+    private _imagePath: any;
+
 
     get personalList() {
         return this.items;
     }
 
+    /**
+     *Creates an instance of AwardCertificationPage.
+     * @param {APIService} apiService
+     * @param {FormBuilder} fb
+     * @param {PersonalDetailsService} xservice
+     * @memberof AwardCertificationPage
+     */
     constructor(private apiService: APIService, private fb: FormBuilder, private xservice: PersonalDetailsService) {
         xservice.percentChanged.subscribe(value => {
             this.progressPercentage = value;
@@ -36,10 +140,11 @@ export class AwardCertificationPage implements OnInit {
     }
 
     ngOnInit() {
+        this.showSpinner = true;
         this.apiService.get_personal_details().subscribe(
             (data: any[]) => {
                 this.items = data;
-                console.log(this.items);
+                this.showSpinner = false;
                 this.apiService.get_employment_details(this.items.id).subscribe(
                     data => {
                         this.employ = data;
@@ -47,63 +152,38 @@ export class AwardCertificationPage implements OnInit {
                 this.showContent = true;
                 const award = this.items.personalDetail.certification;
                 if (award != undefined) {
-                    if (typeof (award.certificationDetail) == 'object') {
-                        this.awards.push(award.certificationDetail);
-                        console.log(this.awards);
-                    } else {
+                    if (award.certificationDetail instanceof Array) {
                         this.awards = award.certificationDetail;
+                    } else {
+                        this.awards.push(award.certificationDetail);
                     }
                 } else {
                     this.awards = [];
                 }
-
-                // "certification": {
-                //     "certificationDetail": {
-                //       "certificationName": "Bachelor Degree In Computer Science",
-                //       "certificationEnrollYear": 2011,
-                //       "certificationGraduateYear": 2015,
-                //       "certificationAttachment": "attachment1.png"
-                //     }
-                //   }
             });
 
-        this.fileform = this.fb.group({
+        this._fileform = this.fb.group({
             file: ''
         });
     }
 
-    openFile(event, fileName) {
-        console.log(event, fileName);
-        if (fileName) {
-            // this.showUploadButton = true;
-            console.log(fileName);
-        }
-        if (event.target.files.length > 0) {
-            const file = event.target.files[0];
-            const a = file.name;
-            this.fileform.get('file').setValue(file);
-            console.log(a, this.fileform);
-            var reader = new FileReader();
-            this.imagePath = file.name;
-            reader.readAsDataURL(file.name[0]);
-            reader.onload = (_event) => {
-                this.imgURL = reader.result;
-            }
-        }
-    }
-
-    preview(files) {
+    /**
+     * get details of file after upload from local file
+     * @param {*} files
+     * @param {number} i
+     * @returns
+     * @memberof AwardCertificationPage
+     */
+    preview(files: any, i: number) {
         if (files.length === 0)
             return;
-
-        var mimeType = files[0].type;
-        this.filename = files[0].name;
-        console.log(this.filename);
+        const mimeType = files[0].type;
+        this.awards[i].certificationAttachment = files[0].name;
         if (mimeType.match(/image\/*/) == null) {
             this.showPdf = true;
             this.showAttach = false;
-            var reader = new FileReader();
-            this.imagePath = files;
+            const reader = new FileReader();
+            this._imagePath = files;
             reader.readAsDataURL(files[0]);
             reader.onload = (_event) => {
                 this.imgURL = reader.result;
@@ -112,34 +192,92 @@ export class AwardCertificationPage implements OnInit {
         }
         this.showImg = true;
         this.showAttach = false;
-        var reader = new FileReader();
-        this.imagePath = files;
+        const reader = new FileReader();
+        this._imagePath = files;
         reader.readAsDataURL(files[0]);
         reader.onload = (_event) => {
             this.imgURL = reader.result;
         }
     }
 
+    /**
+     * hide attached file (after clicked close icon)
+     * @memberof AwardCertificationPage
+     */
     clickToHideAttachment() {
         this.imgURL = null;
         this.showPdf = false;
         this.showImg = false;
     }
 
-    updateCertificate() {
+    /**
+     * upload awards & certification details to API
+     * @param {number} [index]
+     * @memberof AwardCertificationPage
+     */
+    updateCertificate(index?: number) {
         const body = this.items.personalDetail;
-        body['certification'] = {};
-        body['certification']['certificationDetail'] = this.awards;
-        body['certification']['certificationDetail']['certificationName'] = this.filename;
-        console.log(body);
+        body['id'] = this.items.id;
+        body.nric = this.items.personalDetail.nric.toString();
+        body.gender = genderStatus[this.items.personalDetail.gender];
+        body.maritalStatus = maritalStatus[this.items.personalDetail.maritalStatus];
+        body.postcode = this.items.personalDetail.postcode.toString();
+        if (body.certification != undefined) {
+            body.certification.certificationDetail = this.awards;
+        } else {
+            body['certification'] = {};
+            body['certification']['certificationDetail'] = this.awards;
+        }
         this.apiService.patch_personal_details(body).subscribe(response => {
-            console.log(response);
             this.apiService.get_personal_details().subscribe(
                 (data: any[]) => {
                     this.items = data;
                 })
         })
     }
+
+    /**
+     * add new form field
+     * @param {*} data
+     * @param {Object} item
+     * @memberof AwardCertificationPage
+     */
+    addList(data: any, item: Object) {
+        if (data !== undefined) {
+            data.push(item);
+            this.getObject(data, item);
+        } else {
+            data = [];
+            data.push(item);
+            this.getObject(data, item);
+        }
+    }
+
+    /**
+     * This method is used to get object format   
+     * @param {*} list
+     * @param {*} obj
+     * @memberof PersonalDetailsPage
+     */
+    getObject(list, obj) {
+        if (obj === this.awardObj) { this.awards = list; }
+    }
+
+    // editSpouse(i: number, value: boolean) {
+    //     for (let j = 0; j < this.awards.length; j++) {
+    //         // this.displayEditSpouse.splice(i, 1, value);
+    //         if ((this.awards[j].spouseName == '' || this.awards[j].spouseIdentificationNumber == '') && !value) {
+    //             // this.removeItem(j, this.awards);
+    //         }
+    //     }
+    //     if (value == false) {
+    //         this.apiService.get_personal_details().subscribe(
+    //             (data: any[]) => {
+    //                 this.items = data;
+    //                 // this.initSpouse();
+    //             })
+    //     }
+    // }
 
 
 }
