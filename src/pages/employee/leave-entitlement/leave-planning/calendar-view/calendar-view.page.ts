@@ -153,7 +153,8 @@ export class CalendarViewPage implements OnInit {
                 this.events[i].start = moment(list[i].START_DATE).format('YYYY-MM-DD');
                 this.events[i].end = moment(list[i].END_DATE).add(1, "days").format("YYYY-MM-DD");
                 this.events[i].title = list[i].FULLNAME + ' ' + '(' + (list[i].CODE) + ')';
-                this.events[i].allDay = true;
+                // this.events[i].allDay = true;
+                this.checkAllDay(list, i);
             } else {
                 this.events[i].start = (moment(list[i].start).format('YYYY-MM-DD'));
                 this.events[i].end = moment(list[i].end).format('YYYY-MM-DD');
@@ -164,6 +165,20 @@ export class CalendarViewPage implements OnInit {
             let calendarView = this.calendar.getApi();
             calendarView.render();
         }, 100);
+    }
+
+    /**
+     * check either is all day or half day
+     * @param {*} list
+     * @param {number} index
+     * @memberof CalendarViewPage
+     */
+    checkAllDay(list: any, index: number) {
+        if (list[index].TIME_SLOT) {
+            this.events[index].allDay = false;
+        } else {
+            this.events[index].allDay = true;
+        }
     }
 
     /**
