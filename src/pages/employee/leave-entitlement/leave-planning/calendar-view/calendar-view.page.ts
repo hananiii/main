@@ -87,6 +87,27 @@ export class CalendarViewPage implements OnInit {
     public events: EventInput[];
 
     /**
+     * public holiday list
+     * @type {*}
+     * @memberof CalendarViewPage
+     */
+    public PBList: any;
+
+    /**
+     * get end date
+     * @type {string}
+     * @memberof CalendarViewPage
+     */
+    public endDate: string;
+
+    /**
+     * get full or half day
+     * @type {string}
+     * @memberof CalendarViewPage
+     */
+    public timeslot: string;
+
+    /**
      *Creates an instance of CalendarViewPage.
      * @param {APIService} apiService
      * @param {LeavePlanningAPIService} leaveAPI
@@ -94,25 +115,16 @@ export class CalendarViewPage implements OnInit {
      */
     constructor(private apiService: APIService, private leaveAPI: LeavePlanningAPIService) { }
 
-    ngOnInit() {
-        this.apiService.get_user_profile().subscribe(
-            (data: any[]) => {
-                this.list = data;
-                this.calendarId = this.list.calendarId;
-            },
-            error => {
-                if (error) {
-                    window.location.href = '/login';
-                }
-            },
-            () => {
-                this.leaveAPI.get_personal_holiday_calendar(this.calendarId).subscribe(
-                    data => {
-                        this.editDateFormat(data.holiday);
-                    }
-                );
-            }
-        );
+    async ngOnInit() {
+        let a = await this.apiService.get_user_profile().toPromise();
+        this.list = a;
+        this.calendarId = this.list.calendarId;
+        let holidayList = await this.leaveAPI.get_personal_holiday_calendar(this.calendarId).toPromise();
+        this.PBList = holidayList.holiday;
+        let onLeaveList = await this.leaveAPI.get_calendar_onleave_list({ 'startdate ': '2019-01-01', 'enddate': '2019-12-31' }).toPromise();
+        this.events = this.PBList.concat(onLeaveList);
+        this.editDateFormat(this.PBList);
+        this.getEmployeeLeaveList(this.events);
     }
 
     /**
@@ -120,14 +132,33 @@ export class CalendarViewPage implements OnInit {
      * @param {*} date
      * @memberof CalendarViewPage
      */
-    editDateFormat(date) {
-        this.events = date;
+    editDateFormat(date: any) {
         for (let i = 0; i < date.length; i++) {
-            this.events[i].start = (moment(date[i].start).format('YYYY-MM-DD'));
-            this.events[i].str = (moment(date[i].start).format('DD-MM-YYYY'));
-            this.events[i].end = moment(date[i].end).format('YYYY-MM-DD');
-            this.events[i].day = this.getWeekDay(new Date(date[i].start));
-            this.events[i].allDay = true;
+            this.PBList[i].str = (moment(date[i].start).format('DD-MM-YYYY'));
+            this.PBList[i].day = this.getWeekDay(new Date(date[i].start));
+            this.PBList[i]["backgroundColor"] = "#c2185b";
+            this.PBList[i]["borderColor"] = "#c2185b";
+        }
+    }
+
+
+    /**
+     * display onleave & public holiday event in calendar
+     * @param {*} list
+     * @memberof CalendarViewPage
+     */
+    getEmployeeLeaveList(list: any) {
+        for (let i = 0; i < list.length; i++) {
+            if (list[i].CODE != undefined) {
+                this.events[i].start = moment(list[i].START_DATE).format('YYYY-MM-DD');
+                this.events[i].end = moment(list[i].END_DATE).add(1, "days").format("YYYY-MM-DD");
+                this.events[i].title = list[i].FULLNAME + ' ' + '(' + (list[i].CODE) + ')';
+                this.events[i].allDay = true;
+            } else {
+                this.events[i].start = (moment(list[i].start).format('YYYY-MM-DD'));
+                this.events[i].end = moment(list[i].end).format('YYYY-MM-DD');
+                this.events[i].allDay = true;
+            }
         }
         setTimeout(() => {
             let calendarView = this.calendar.getApi();
@@ -152,6 +183,23 @@ export class CalendarViewPage implements OnInit {
         return weekdays[day];
     }
 
+    /**
+     * when event is clicked
+     * show 'All Day' || 'Half Day'
+     * @param {*} clicked
+     * @memberof CalendarViewPage
+     */
+    onEventClick(clicked: any) {
+        if (clicked.event.end) {
+            this.endDate = moment(clicked.event.end).subtract(1, "days").format("YYYY-MM-DD");
+        }
+        if (clicked.event._def.extendedProps.TIME_SLOT) {
+            this.timeslot = 'Half Day' + '(' + clicked.event._def.extendedProps.TIME_SLOT + ')';
+        }
+        if (clicked.event._def.extendedProps.TIME_SLOT == null) {
+            this.timeslot = 'All Day';
+        }
+    }
 
 
 }

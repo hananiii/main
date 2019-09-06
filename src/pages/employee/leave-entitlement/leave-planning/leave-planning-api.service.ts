@@ -44,4 +44,14 @@ export class LeavePlanningAPIService {
     get_personal_holiday_calendar(id): Observable<any> {
         return this.apiService.getApiWithId('/api/admin/holiday/', id);
     }
+
+    /**
+     * get all employee onleave list
+     * @returns {Observable<any>}
+     * @memberof LeavePlanningAPIService
+     */
+    get_calendar_onleave_list(value: any): Observable<any> {
+        return this.http.get(this.apiService.baseUrl + '/api/employee/calendar-leave-list', { params: value, headers: this.apiService.headers })
+            .pipe(map((res: Response) => res.json()))
+    }
 }

@@ -1,11 +1,17 @@
 <div class='app-calendar'>
-    <full-calendar #calendar defaultView="dayGridMonth" selectable="true" [header]="{
+    <full-calendar #calendar defaultView="dayGridMonth" [header]="{
                           left: 'prev,next today',
                           center: 'title',
                           right: 'dayGridMonth,timeGridWeek'
-                        }" [plugins]="calendarPlugins" [events]="calendarEvents">
-        <!-- (dateClick)="handleDateClick($event) (select)="select($event)"  (dayRender)="dayRender($event,el)"-->
+                        }" [plugins]="calendarPlugins" [events]="calendarEvents"
+        (eventClick)="text = $event.el.text; date = $event.event.start">
     </full-calendar>
+    <div *ngIf="text" style="border: 2px solid #c2185b;height: 30px;float: left;margin-top: 29px;width: 5px;"></div>
+    <div *ngIf="text" style=" font-size: 16px;padding-top: 5px;position: absolute;padding-left: 20px;">
+        {{date | date:'EEEE, MMM d'}}</div><br>
+    <div *ngIf="text" style="padding-left: 20px;padding-top: 13px;position: absolute;">All Day
+    </div>
+    <div *ngIf="text" style="padding-left: 120px;padding-top: 13px;position: absolute;">{{text}}</div>
 </div>
 <div class="selection">
     <form [formGroup]="applyLeaveForm">

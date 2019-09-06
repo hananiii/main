@@ -356,12 +356,6 @@ export class ApplyLeavePage implements OnInit {
         });
     }
 
-    // dayRender(ev) {
-    //     ev.el.addEventListener('dblclick', () => {
-    //         alert('double click!');
-    //     });
-    // }
-
     /**
      * format date using moment library
      * @param {*} holiday
@@ -374,6 +368,8 @@ export class ApplyLeavePage implements OnInit {
             this.calendarEvents[i].end = moment(holiday[i].end).format('YYYY-MM-DD');
             this.calendarEvents[i].day = this.getDayName(new Date(holiday[i].start));
             this.calendarEvents[i].allDay = true;
+            this.calendarEvents[i]["backgroundColor"] = "#c2185b";
+            this.calendarEvents[i]["borderColor"] = "#c2185b";
         }
     }
 

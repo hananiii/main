@@ -1,10 +1,18 @@
 <div class='app-calendar'>
-    <full-calendar #calendar defaultView="dayGridMonth" [header]="{
+    <full-calendar *ngIf="events" #calendar defaultView="dayGridMonth" [header]="{
                           left: 'prev,next today',
                           center: 'title',
                           right: 'dayGridMonth,timeGridWeek, listYear'
-                        }" [plugins]="calendarPlugins" [events]="events">
+                        }" [plugins]="calendarPlugins" [events]="events"
+        (eventClick)="text = $event.el.text; start = $event.event.start; end = $event.event.end;color = $event.event.backgroundColor; onEventClick($event)">
     </full-calendar>
+    <div *ngIf="text" style="height: 30px;float: left;margin-top: 29px;width: 5px;"
+        [style.border]="color=='' ? '2px solid #057dcd':'2px solid #c2185b'"></div>
+    <div *ngIf="text" style=" font-size: 16px;padding-top: 5px;position: absolute;padding-left: 20px;">
+        {{start | date:'EEEE, MMM d'}} <span *ngIf="endDate !== start && end !== null">-
+            {{endDate | date:'EEEE, MMM d'}}</span></div><br>
+    <div *ngIf="text" style="padding-left: 20px;padding-top: 13px;position: absolute;">{{timeslot}}</div>
+    <div *ngIf="text" style="padding-left: 120px;padding-top: 13px;position: absolute;">{{text}}</div>
 </div>
 
 <div class="holidayView">
@@ -20,7 +28,7 @@
         </ion-col>
     </ion-row>
 
-    <ion-row class="detailsRow" *ngFor="let holiday of events">
+    <ion-row class="detailsRow" *ngFor="let holiday of PBList">
         <ion-col>
             <ion-label>{{holiday.day}}</ion-label>
         </ion-col>
