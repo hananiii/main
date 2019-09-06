@@ -17,10 +17,10 @@ export class LeavePlanningAPIService {
     /**
      *Creates an instance of LeavePlanningAPIService.
      * @param {Http} http
-     * @param {APIService} apiService
+     * @param {APIService} api
      * @memberof LeavePlanningAPIService
      */
-    constructor(public http: Http, private apiService: APIService) {
+    constructor(public http: Http, private api: APIService) {
     }
 
     /**
@@ -30,8 +30,8 @@ export class LeavePlanningAPIService {
      * @memberof LeavePlanningAPIService
      */
     post_user_apply_leave(leaveData: any): Observable<any> {
-        this.apiService.headerAuthorization();
-        return this.http.post(this.apiService.baseUrl + '/api/leave/apply', leaveData, { headers: this.apiService.headers })
+        this.api.headerAuthorization();
+        return this.http.post(this.api.baseUrl + '/api/leave/apply', leaveData, { headers: this.api.headers })
             .pipe(map((res: Response) => res.json()));
     }
 
@@ -42,7 +42,7 @@ export class LeavePlanningAPIService {
      * @memberof LeavePlanningAPIService
      */
     get_personal_holiday_calendar(id): Observable<any> {
-        return this.apiService.getApiWithId('/api/admin/holiday/', id);
+        return this.api.getApiWithId('/api/admin/holiday/', id);
     }
 
     /**
@@ -51,7 +51,7 @@ export class LeavePlanningAPIService {
      * @memberof LeavePlanningAPIService
      */
     get_calendar_onleave_list(value: any): Observable<any> {
-        return this.http.get(this.apiService.baseUrl + '/api/employee/calendar-leave-list', { params: value, headers: this.apiService.headers })
-            .pipe(map((res: Response) => res.json()))
+        return this.http.get(this.api.baseUrl + '/api/employee/calendar-leave-list', { params: value, headers: this.api.headers })
+            .pipe(map((response: Response) => response.json()))
     }
 }

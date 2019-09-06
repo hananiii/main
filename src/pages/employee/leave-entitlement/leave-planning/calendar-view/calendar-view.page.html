@@ -3,7 +3,7 @@
                           left: 'prev,next today',
                           center: 'title',
                           right: 'dayGridMonth,timeGridWeek, listYear'
-                        }" [plugins]="calendarPlugins" [events]="events"
+                        }" [plugins]="calendarPlugins" [events]="events" [eventLimit]=true
         (eventClick)="text = $event.el.text; start = $event.event.start; end = $event.event.end;color = $event.event.backgroundColor; onEventClick($event)">
     </full-calendar>
     <div *ngIf="text" style="height: 30px;float: left;margin-top: 29px;width: 5px;"
