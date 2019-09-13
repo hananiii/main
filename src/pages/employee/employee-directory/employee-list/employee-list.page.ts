@@ -140,8 +140,17 @@ export class EmployeeListPage implements OnInit {
      */
     public showSpinner: boolean = true;
 
+    /**
+     * hide content during loading
+     * @type {boolean}
+     * @memberof EmployeeListPage
+     */
     public showContent: boolean = false;
 
+    /**
+     * selection
+     * @memberof EmployeeListPage
+     */
     foods = [
         { value: 'steak-0', viewValue: 'Steak' },
         { value: 'pizza-1', viewValue: 'Pizza' },
@@ -160,9 +169,6 @@ export class EmployeeListPage implements OnInit {
     /**
      *Creates an instance of EmployeeListPage.
      * @param {APIService} apiService
-     * @param {ActivatedRoute} route
-     * @param {ElementRef} elRef
-     * @param {Renderer} renderer
      * @param {Router} router
      * @memberof EmployeeListPage
      */

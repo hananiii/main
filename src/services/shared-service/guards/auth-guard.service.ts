@@ -6,10 +6,22 @@ import { AuthService } from 'src/services/shared-service/auth.service';
 @Injectable()
 export class AuthGuard implements CanActivate {
 
-
+  /**
+   *Creates an instance of AuthGuard.
+   * @param {AuthService} _authService
+   * @param {Router} _router
+   * @memberof AuthGuard
+   */
   constructor(private _authService: AuthService, private _router: Router) {
   }
 
+  /**
+   * determine the route is it active
+   * @param {ActivatedRouteSnapshot} next
+   * @param {RouterStateSnapshot} state
+   * @returns {(Observable<boolean> | Promise<boolean> | boolean)}
+   * @memberof AuthGuard
+   */
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     if (this._authService.isAuthenticated()) {
       return true;

@@ -4,15 +4,29 @@ import { map } from 'rxjs/operators';
 import decode from 'jwt-decode';
 import { HttpClient } from '@angular/common/http';
 
+/**
+ * authenticate service
+ * @export
+ * @class AuthService
+ */
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
-    // public baseUrl: string = "http://zencore.southeastasia.cloudapp.azure.com:3000";
-    public baseUrl: string = "http://zencore.zen.com.my:3000";
 
-    constructor(private _router: Router,
-        private httpClient: HttpClient) { }
+    /**
+     * main url of server
+     * @type {string}
+     * @memberof AuthService
+     */
+    public baseUrl: string = "http://zencore.zen.com.my:3000";
+    /**
+     *Creates an instance of AuthService.
+     * @param {Router} _router
+     * @param {HttpClient} httpClient
+     * @memberof AuthService
+     */
+    constructor(private _router: Router, private httpClient: HttpClient) { }
 
     /**
      * this is used to clear anything that needs to be removed
@@ -31,6 +45,11 @@ export class AuthService {
 
     // simulate jwt token is valid
     // https://github.com/theo4u/angular4-auth/blob/master/src/app/helpers/jwt-helper.ts
+    /**
+     * return false if token is expired
+     * @returns {boolean}
+     * @memberof AuthService
+     */
     isTokenExpired(): boolean {
         return false;
     }
@@ -41,6 +60,13 @@ export class AuthService {
     //     this._router.navigate(['/dashboard']);
     // }
 
+    /**
+     * login to post to endpoint
+     * @param {string} email
+     * @param {string} password
+     * @returns
+     * @memberof AuthService
+     */
     login(email: string, password: string) {
         return this.httpClient.post<any>(this.baseUrl + `/api/auth/login`, { email, password })
             .pipe(map(user => {
@@ -53,6 +79,12 @@ export class AuthService {
             }));
     }
 
+    /**
+     * return access token or vice versa
+     * @readonly
+     * @type {boolean}
+     * @memberof AuthService
+     */
     public get loggedIn(): boolean {
         return (localStorage.getItem('access_token') !== null);
     }
@@ -65,6 +97,11 @@ export class AuthService {
         localStorage.removeItem('access_token');
     }
 
+    /**
+     * read access token
+     * @returns
+     * @memberof AuthService
+     */
     decode() {
         return decode(localStorage.getItem('access_token'));
     }

@@ -66,6 +66,11 @@ export class PublicPersonalDetailsPage implements OnInit {
      */
     private _guid: string;
 
+    /**
+     * return requested personal details
+     * @readonly
+     * @memberof PublicPersonalDetailsPage
+     */
     get personalList() {
         return this.list;
     }

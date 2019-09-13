@@ -10,8 +10,6 @@ import { FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import * as _moment from 'moment';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { DayType } from './apply-leave.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { NotificationPage } from './notification/notification.page';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
 import { AppDateAdapter, APP_DATE_FORMATS } from 'src/pages/employee/date.adapter';
 import { LeavePlanningAPIService } from '../leave-planning-api.service';
@@ -271,19 +269,24 @@ export class ApplyLeavePage implements OnInit {
      */
     @ViewChild('calendar') calendarComponent: FullCalendarComponent;
 
+    /**
+     * get return value of dayTypes array list
+     * @readonly
+     * @type {FormArray}
+     * @memberof ApplyLeavePage
+     */
     get dayTypes(): FormArray {
         return this.applyLeaveForm.get('dayTypes') as FormArray;
     }
 
     /**
-     *Creates an instance of ApplyLeavePage.
+     * Creates an instance of ApplyLeavePage.
      * @param {APIService} apiService
      * @param {ActivatedRoute} route
-     * @param {MatSnackBar} snackBar
+     * @param {LeavePlanningAPIService} leaveAPI
      * @memberof ApplyLeavePage
      */
-    constructor(private apiService: APIService,
-        private route: ActivatedRoute, private snackBar: MatSnackBar, private leaveAPI: LeavePlanningAPIService) {
+    constructor(private apiService: APIService, private route: ActivatedRoute, private leaveAPI: LeavePlanningAPIService) {
         this.applyLeaveForm = this.formGroup();
         route.queryParams
             .subscribe(params => {
@@ -468,12 +471,12 @@ export class ApplyLeavePage implements OnInit {
             (val) => {
                 console.log("PATCH call successful value returned in body", val);
                 this.clearArrayList();
-                this.openSnackBar('success');
+                this.leaveAPI.openSnackBar('success');
             },
             response => {
                 console.log("PATCH call in error", response);
                 this.clearArrayList();
-                this.openSnackBar('fail');
+                this.leaveAPI.openSnackBar('fail');
                 if (response.status === 401) {
                     window.location.href = '/login';
                 }
@@ -799,16 +802,6 @@ export class ApplyLeavePage implements OnInit {
         }
     }
 
-    /**
-     * Show message of pass or fail after post data
-     * @param {string} message
-     * @memberof ApplyLeavePage
-     */
-    openSnackBar(message: string) {
-        this.snackBar.openFromComponent(NotificationPage, {
-            duration: 2000,
-            data: message
-        });
-    }
+
 
 }

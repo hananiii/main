@@ -6,7 +6,12 @@ import { AuthService } from 'src/services/shared-service/auth.service';
 @Injectable()
 export class RoleGuard implements CanActivate {
 
-
+  /**
+   *Creates an instance of RoleGuard.
+   * @param {AuthService} _authService
+   * @param {Router} _router
+   * @memberof RoleGuard
+   */
   constructor(private _authService: AuthService, private _router: Router) {
   }
 

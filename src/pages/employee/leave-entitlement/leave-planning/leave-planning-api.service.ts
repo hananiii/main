@@ -3,6 +3,8 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { APIService } from 'src/services/shared-service/api.service';
+import { NotificationPage } from './apply-leave/notification/notification.page';
+import { MatSnackBar } from '@angular/material';
 
 /**
  * All leave planning API
@@ -18,9 +20,10 @@ export class LeavePlanningAPIService {
      *Creates an instance of LeavePlanningAPIService.
      * @param {Http} http
      * @param {APIService} api
+     * @param {MatSnackBar} snackBar
      * @memberof LeavePlanningAPIService
      */
-    constructor(public http: Http, private api: APIService) {
+    constructor(public http: Http, private api: APIService, public snackBar: MatSnackBar) {
     }
 
     /**
@@ -53,5 +56,17 @@ export class LeavePlanningAPIService {
     get_calendar_onleave_list(value: any): Observable<any> {
         return this.http.get(this.api.baseUrl + '/api/employee/calendar-leave-list', { params: value, headers: this.api.headers })
             .pipe(map((response: Response) => response.json()))
+    }
+
+    /**
+     * Show message of pass or fail after post data
+     * @param {string} message
+     * @memberof LeavePlanningAPIService
+     */
+    openSnackBar(message: string) {
+        this.snackBar.openFromComponent(NotificationPage, {
+            duration: 2000,
+            data: message
+        });
     }
 }

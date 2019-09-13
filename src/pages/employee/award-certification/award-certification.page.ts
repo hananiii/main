@@ -121,7 +121,11 @@ export class AwardCertificationPage implements OnInit {
      */
     private _imagePath: any;
 
-
+    /**
+     * return personal details from API
+     * @readonly
+     * @memberof AwardCertificationPage
+     */
     get personalList() {
         return this.items;
     }
