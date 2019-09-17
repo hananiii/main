@@ -83,12 +83,12 @@ export class EmployeeSetupPage implements OnInit {
     {
       title: 'Personal Details',
       url: ['/main/employee-setup/personal-details'],
-      icon: 'Icon-User.svg',
+      icon: 'user.svg',
     },
     {
       title: 'Employment Details',
       url: ['/main/employee-setup/employment-details', this.userId],
-      icon: 'Icon-org-profile.svg',
+      icon: 'employ.svg',
     },
     {
       title: 'Leave Entitlement',
@@ -98,7 +98,7 @@ export class EmployeeSetupPage implements OnInit {
     {
       title: 'Awards & Certification',
       url: ['/main/employee-setup/awards-certification'],
-      icon: 'Icon-users-roles.svg',
+      icon: 'award.svg',
     },
     // {
     //   title: 'My Connections',

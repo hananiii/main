@@ -98,42 +98,42 @@ export class PersonalDetailsPage implements OnInit {
      * @type {boolean[]}
      * @memberof PersonalDetailsPage
      */
-    public showEditContact: boolean[] = [];
+    // public showEditContact: boolean[] = [];
 
     /**
      * Local property to show or hide family info
      * @type {boolean}
      * @memberof PersonalDetailsPage
      */
-    public showFamily: boolean = false;
+    // public showFamily: boolean = false;
 
     /**
      * Local property to show or hide education info
      * @type {boolean}
      * @memberof PersonalDetailsPage
      */
-    public showEducation: boolean = false;
+    // public showEducation: boolean = false;
 
     /**
      * Show edit spouse form field 
      * @type {boolean[]}
      * @memberof PersonalDetailsPage
      */
-    public displayEditSpouse: boolean[] = [];
+    // public displayEditSpouse: boolean[] = [];
 
     /**
      * Show edit child form field
      * @type {boolean[]}
      * @memberof PersonalDetailsPage
      */
-    public displayEditChild: boolean[] = [];
+    // public displayEditChild: boolean[] = [];
 
     /**
      * Show edit education form field
      * @type {boolean[]}
      * @memberof PersonalDetailsPage
      */
-    public displayEditEdu: boolean[] = [];
+    // public displayEditEdu: boolean[] = [];
 
     /**
      * Object format of emergency contact
@@ -244,15 +244,15 @@ export class PersonalDetailsPage implements OnInit {
     initContact() {
         if ((this.items.personalDetail.emergencyContact.contacts instanceof Array) && this.items.personalDetail.emergencyContact.contacts !== undefined) {
             this.removeItems = (this.items.personalDetail.emergencyContact.contacts);
-            for (let i = 0; i < this.removeItems.length; i++) {
-                this.showEditContact.push(false);
-            }
+            // for (let i = 0; i < this.removeItems.length; i++) {
+            //     this.showEditContact.push(false);
+            // }
         }
         else if (!(this.items.personalDetail.emergencyContact.contacts instanceof Array) && this.items.personalDetail.emergencyContact.contacts !== undefined) {
             this.removeItems.push(this.items.personalDetail.emergencyContact.contacts);
-            for (let i = 0; i < this.removeItems.length; i++) {
-                this.showEditContact.push(false);
-            }
+            // for (let i = 0; i < this.removeItems.length; i++) {
+            //     this.showEditContact.push(false);
+            // }
         }
         else {
             this.removeItems = this.items.personalDetail.emergencyContact.contacts;
@@ -265,20 +265,20 @@ export class PersonalDetailsPage implements OnInit {
      */
     initSpouse() {
         if ((this.items.personalDetail.family.spouse instanceof Array) && this.items.personalDetail.family.spouse !== undefined) {
-            this.showFamily = true;
+            // this.showFamily = true;
             this.spouseItems = (this.items.personalDetail.family.spouse);
-            for (let i = 0; i < this.spouseItems.length; i++) {
-                this.displayEditSpouse.push(false);
-            }
+            // for (let i = 0; i < this.spouseItems.length; i++) {
+            //     this.displayEditSpouse.push(false);
+            // }
         }
         else if (!(this.items.personalDetail.family.spouse instanceof Array) && this.items.personalDetail.family.spouse !== undefined) {
-            this.showFamily = true;
+            // this.showFamily = true;
             this.spouseItems.push(this.items.personalDetail.family.spouse);
-            for (let i = 0; i < this.spouseItems.length; i++) {
-                this.displayEditSpouse.push(false);
-            }
+            // for (let i = 0; i < this.spouseItems.length; i++) {
+            //     this.displayEditSpouse.push(false);
+            // }
         } else {
-            this.showFamily = false;
+            // this.showFamily = false;
             this.spouseItems = this.items.personalDetail.family.spouse;
         }
     }
@@ -289,18 +289,18 @@ export class PersonalDetailsPage implements OnInit {
      */
     initChild() {
         if ((this.items.personalDetail.family.child instanceof Array) && this.items.personalDetail.family.child !== undefined) {
-            this.showFamily = true;
+            // this.showFamily = true;
             this.childItems = (this.items.personalDetail.family.child);
-            for (let i = 0; i < this.childItems.length; i++) {
-                this.displayEditChild.push(false);
-            }
+            // for (let i = 0; i < this.childItems.length; i++) {
+            //     this.displayEditChild.push(false);
+            // }
         }
         else if (!(this.items.personalDetail.family.child instanceof Array) && this.items.personalDetail.family.child !== undefined) {
-            this.showFamily = true;
+            // this.showFamily = true;
             this.childItems.push(this.items.personalDetail.family.child);
-            for (let i = 0; i < this.childItems.length; i++) {
-                this.displayEditChild.push(false);
-            }
+            // for (let i = 0; i < this.childItems.length; i++) {
+            //     this.displayEditChild.push(false);
+            // }
         } else {
             this.childItems = this.items.personalDetail.family.child;
         }
@@ -312,20 +312,20 @@ export class PersonalDetailsPage implements OnInit {
      */
     initEducation() {
         if ((this.items.personalDetail.education.educationDetail instanceof Array) && this.items.personalDetail.education.educationDetail !== undefined) {
-            this.showEducation = true;
+            // this.showEducation = true;
             this.eduList = (this.items.personalDetail.education.educationDetail);
-            for (let j = 0; j < this.eduList.length; j++) {
-                this.displayEditEdu.push(false);
-            }
+            // for (let j = 0; j < this.eduList.length; j++) {
+            //     this.displayEditEdu.push(false);
+            // }
         }
         else if (!(this.items.personalDetail.education.educationDetail instanceof Array) && this.items.personalDetail.education.educationDetail !== undefined) {
-            this.showEducation = true;
+            // this.showEducation = true;
             this.eduList.push(this.items.personalDetail.education.educationDetail);
-            for (let j = 0; j < this.eduList.length; j++) {
-                this.displayEditEdu.push(false);
-            }
+            // for (let j = 0; j < this.eduList.length; j++) {
+            //     this.displayEditEdu.push(false);
+            // }
         } else {
-            this.showEducation = false;
+            // this.showEducation = false;
             this.eduList = this.items.personalDetail.education.educationDetail;
         }
     }
@@ -368,64 +368,6 @@ export class PersonalDetailsPage implements OnInit {
      */
     removeItem(index: number, list: any) {
         list.splice(index, 1);
-        this.patchData();
-    }
-
-    /**
-     * This method is used to show edit contact details after clicked 
-     * @param {number} i
-     * @param {boolean} booValue
-     * @memberof PersonalDetailsPage
-     */
-    editContact(i: number, booValue: boolean) {
-        for (let j = 0; j < this.removeItems.length; j++) {
-            this.showEditContact.splice(i, 1, booValue);
-        }
-    }
-
-    /**
-     * This method is used to show edit spouse details after clicked 
-     * @param {number} i
-     * @param {boolean} value
-     * @memberof PersonalDetailsPage
-     */
-    editSpouse(i: number, value: boolean) {
-        for (let j = 0; j < this.spouseItems.length; j++) {
-            this.displayEditSpouse.splice(i, 1, value);
-            if ((this.spouseItems[j].spouseName == '' || this.spouseItems[j].spouseIdentificationNumber == '') && !value) {
-                this.removeItem(j, this.spouseItems);
-            }
-        }
-    }
-
-    /**
-     * This method is used to show edit child details after clicked 
-     * @param {number} i
-     * @param {boolean} value
-     * @memberof PersonalDetailsPage
-     */
-    editChild(i: number, value: boolean) {
-        for (let j = 0; j < this.childItems.length; j++) {
-            this.displayEditChild.splice(i, 1, value);
-            if ((this.childItems[j].childName == '' || this.childItems[j].childIdentificationNumber == '') && !value) {
-                this.removeItem(j, this.childItems);
-            }
-        }
-    }
-
-    /**
-     * This method is used to show edit education details after clicked 
-     * @param {number} i
-     * @param {boolean} value
-     * @memberof PersonalDetailsPage
-     */
-    editEducation(i: number, value: boolean) {
-        for (let j = 0; j < this.eduList.length; j++) {
-            this.displayEditEdu.splice(i, 1, value);
-            if ((this.eduList[j].qualificationLevel == '' || this.eduList[j].major == '' || this.eduList[j].university == '' || this.eduList[j].year == '') && !value) {
-                this.removeItem(j, this.eduList);
-            }
-        }
     }
 
     /**

@@ -5,6 +5,7 @@
   }
   .card-content-md p {
     font-size: 13px;
+    color: #4d4f5c;
   }
   .subtitle {
     display: block;
@@ -35,20 +36,22 @@
     margin: 0;
   }
   .cardContent {
-    background-color: #f9fafc;
+    line-height: 1.25;
+    background: #f0f0f7;
     overflow: auto;
     height: calc(100% - 133px);
   }
   .detailsRow {
-    padding-left: 5%;
-    padding-right: 5%;
-    padding-top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 15px;
   }
   ion-label {
-    color: #20291f;
-    font-weight: 500;
+    color: #43425d;
+    opacity: 0.8;
+    font-weight: bold;
     display: block;
-    font-size: 13px
+    font-size: 13px;
   }
   ion-badge {
     position: absolute;

@@ -123,10 +123,12 @@ export class CalendarViewPage implements OnInit {
     constructor(private apiService: APIService, private leaveAPI: LeavePlanningAPIService) { }
 
     async ngOnInit() {
+        const date = new Date();
+        let year = date.getFullYear();
         let a = await this.apiService.get_user_profile().toPromise();
         this.list = a;
         this.calendarId = this.list.calendarId;
-        let holidayList = await this.leaveAPI.get_personal_holiday_calendar(this.calendarId).toPromise();
+        let holidayList = await this.leaveAPI.get_personal_holiday_calendar(this.calendarId, year).toPromise();
         this.PBList = holidayList.holiday;
         let onLeaveList = await this.leaveAPI.get_calendar_onleave_list({ 'startdate ': '2019-01-01', 'enddate': '2019-12-31' }).toPromise();
         this.events = this.PBList.concat(onLeaveList);

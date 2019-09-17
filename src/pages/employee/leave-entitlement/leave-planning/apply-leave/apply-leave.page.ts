@@ -318,6 +318,8 @@ export class ApplyLeavePage implements OnInit {
      * @memberof ApplyLeavePage
      */
     ngOnInit() {
+        const dt = new Date();
+        const yr = dt.getFullYear();
         this.apiService.get_user_profile().subscribe(
             (data: any[]) => {
                 this._userList = data;
@@ -330,7 +332,7 @@ export class ApplyLeavePage implements OnInit {
                 }
             },
             () => {
-                this.leaveAPI.get_personal_holiday_calendar(this.calendarId).subscribe(
+                this.leaveAPI.get_personal_holiday_calendar(this.calendarId, yr).subscribe(
                     data => {
                         this.formatDate(data.holiday);
                         for (let i = 0; i < data.rest.length; i++) {

@@ -40,12 +40,14 @@ export class LeavePlanningAPIService {
 
     /**
      * To get personal calendar holiday details
-     * @param {string} calendarId
+     * @param {string} id
+     * @param {number} year
      * @returns {Observable<any>}
      * @memberof LeavePlanningAPIService
      */
-    get_personal_holiday_calendar(id): Observable<any> {
-        return this.api.getApiWithId('/api/admin/holiday/', id);
+    get_personal_holiday_calendar(id: string, year: number): Observable<any> {
+        return this.http.get(this.api.baseUrl + '/api/admin/holiday/calendar-profile/days/' + id + '/' + year, { headers: this.api.headers })
+            .pipe(map((response: Response) => response.json()))
     }
 
     /**
