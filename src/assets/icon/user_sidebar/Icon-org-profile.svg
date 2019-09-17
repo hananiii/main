@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="11.588" height="9.56" viewBox="0 0 11.588 9.56">
+    <defs>
+        <style>
+            .cls-1{fill:#f0f0f7}
+        </style>
+    </defs>
+    <g id="Icon-org-profile" transform="translate(-14 -12)">
+        <path id="Fill-180" d="M-358.337-467.072h-.676v-1.714a.33.33 0 0 0-.338-.338h-9.536a.33.33 0 0 0-.338.338v1.714h-.676v-1.714a1.02 1.02 0 0 1 1.014-1.014h9.536a1.02 1.02 0 0 1 1.014 1.014v1.714" class="cls-1" transform="translate(383.924 481.8)"/>
+        <path id="Fill-181" d="M-358-451.592h-8.184a1.02 1.02 0 0 1-1.014-1.014v-5.794h.676v5.794a.33.33 0 0 0 .338.338H-358a.33.33 0 0 0 .338-.338v-5.794h.676v5.794a.99.99 0 0 1-1.014 1.014" class="cls-1" transform="translate(381.876 473.152)"/>
+        <path id="Fill-182" d="M-350.034-452.124h-2.728a.33.33 0 0 1-.338-.338.33.33 0 0 1 .338-.338h2.728a.33.33 0 0 1 .338.338.33.33 0 0 1-.338.338" class="cls-1" transform="translate(371.18 468.904)"/>
+        <path id="Fill-183" d="M-370-461.3h11.588v.676H-370z" class="cls-1" transform="translate(384 475.352)"/>
+    </g>
+</svg>

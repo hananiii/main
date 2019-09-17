@@ -83,22 +83,22 @@ export class EmployeeSetupPage implements OnInit {
     {
       title: 'Personal Details',
       url: ['/main/employee-setup/personal-details'],
-      icon: 'desktop',
+      icon: 'Icon-User.svg',
     },
     {
       title: 'Employment Details',
       url: ['/main/employee-setup/employment-details', this.userId],
-      icon: 'mail-unread',
+      icon: 'Icon-org-profile.svg',
     },
     {
       title: 'Leave Entitlement',
       url: ['/main/employee-setup/leave-entitlement'],
-      icon: 'calendar',
+      icon: 'icon_calendar.svg',
     },
     {
       title: 'Awards & Certification',
       url: ['/main/employee-setup/awards-certification'],
-      icon: 'people',
+      icon: 'Icon-users-roles.svg',
     },
     // {
     //   title: 'My Connections',
@@ -108,7 +108,7 @@ export class EmployeeSetupPage implements OnInit {
     {
       title: 'Account Settings',
       url: ['/main/employee-setup/account'],
-      icon: 'people',
+      icon: 'icon_setting.svg',
     }
   ];
 

@@ -113,6 +113,20 @@ export class ApplyLeavePage implements OnInit {
     public leaveTypeId: string;
 
     /**
+     * show text in clicked calendar
+     * @type {string}
+     * @memberof ApplyLeavePage
+     */
+    public text: string;
+
+    /**
+     * date in clicked calendar
+     * @type {Date}
+     * @memberof ApplyLeavePage
+     */
+    public date: Date;
+
+    /**
      * Local private property for value get from API
      * @private
      * @type {*}

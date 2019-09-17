@@ -1,18 +1,21 @@
-<div class="header" *ngIf="showHeader">
+<!-- <div class="header" *ngIf="showHeader">
     Your profile completeness is {{progressPercentage}}%
     <ion-progress-bar [value]="progressPercentage/100" color="success"
         style="display:inline-block; width:10%; margin-left: 3%"></ion-progress-bar>
     <ion-icon class="crossIcon" name="close" (click)="showHeader = false;"></ion-icon>
-</div>
+</div> -->
 <ion-card>
     <div style="width: 100%; height:100%; text-align: center; margin-top: -30px" *ngIf="showSpinner">
         <app-spinner></app-spinner>
     </div>
     <ion-card-header *ngIf="showContent">
         <div *ngIf="!showEditProfile" style="right: 25px; position: absolute;" (click)="showEditProfile = true;">
-            <div class="edit-profile-icon" [inlineSVG]="'assets/icon/option/edit.svg'"></div>
-            <p style="color: #057dcd; display: inline;cursor: pointer;padding-left: 10px">Edit
-                Profile</p>
+            <!-- <div class="edit-profile-icon" [inlineSVG]="'assets/icon/option/edit.svg'"></div> -->
+            <!-- <p style="color: #057dcd; display: inline;cursor: pointer;padding-left: 10px">Edit
+                Profile</p> -->
+            <ion-button style="font-size: 12px;height: 30px;width: 124px;display: inline-block; text-transform: capitalize" color="primary">Edit
+                Profile
+            </ion-button>
         </div>
         <div class="fullContainer">
 
@@ -25,20 +28,21 @@
                 </ion-badge> -->
             </div>
             <div class="right" *ngIf="personalList">
-                <ion-card-title>{{personalList.employeeName}}</ion-card-title>
-                <div style="display:inline-block; padding-top: 10px;">
-                    <ion-card-subtitle class="subtitle">
-                        {{personalList.employeeDesignation}}</ion-card-subtitle>
-                    <i class="fas fa-circle"></i>
-                    <ion-card-subtitle class="subtitle">{{personalList.employeeDepartment}}
-                    </ion-card-subtitle>
-                </div>
-                <div style="padding-top: 10px;">
-                    <div class="marker-icon" [inlineSVG]="'assets/icon/user_profile/pin.svg'"></div>
-                    <ion-card-subtitle class="subtitle" style="padding-left:8px" *ngIf="employ">
-                        {{employ.employmentDetail.workLocation}}
-                    </ion-card-subtitle>
-                </div>
+                <ion-card-subtitle style="color: #43425d;opacity: 0.8;font-weight: bold;">{{personalList.employeeName}}
+                </ion-card-subtitle>
+                <!-- <div style="display:block; padding-top: 5px;"> -->
+                <ion-card-subtitle class="subtitle">
+                    {{personalList.employeeDesignation}}</ion-card-subtitle>
+                <!-- <i class="fas fa-circle"></i> -->
+                <ion-card-subtitle class="subtitle">{{personalList.employeeDepartment}}
+                </ion-card-subtitle>
+                <!-- </div> -->
+                <!-- <div style="padding-top: 5px;"> -->
+                <!-- <div class="marker-icon" [inlineSVG]="'assets/icon/user_profile/pin.svg'"></div> -->
+                <ion-card-subtitle class="subtitle" *ngIf="employ">
+                    {{employ.employmentDetail.workLocation}}
+                </ion-card-subtitle>
+                <!-- </div> -->
             </div>
         </div>
         <div style="text-align: right;" *ngIf="showEditProfile">

@@ -15,6 +15,7 @@
   }
   .contentMenu {
     width: 230px;
+    --background: #8b89b4;
     border-right: 1px solid
       var(--ion-item-border-color, var(--ion-border-color, var(--ion-color-step-150, rgba(0, 0, 0, 0.13))));
     border-left: 1px solid
@@ -25,12 +26,24 @@
   }
   .items {
     cursor: pointer;
-    color: #7a8589;
+    color: #ffffff;
     font-size: 14px;
+    // --background: #8b89b4;
+  }
+  .my-icon {
+    // fill: #f9fafc;
+    width: 14px;
+    height: 14px;
+  }
+  .mainColor{
+    --background: rgba(0, 0, 0, 0.1);
+  }
+  .highlightColor{
+    --background: #8b89b4;
   }
   .content2 {
     position: absolute;
-    top: 37px;
+    // top: 37px;
     width: calc(100% - 230px);
     right: 0;
     height: calc(100% - 38px);

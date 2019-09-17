@@ -108,6 +108,13 @@ export class CalendarViewPage implements OnInit {
     public timeslot: string;
 
     /**
+     * show text in clicked calendar
+     * @type {string}
+     * @memberof CalendarViewPage
+     */
+    public text: string;
+
+    /**
      *Creates an instance of CalendarViewPage.
      * @param {APIService} apiService
      * @param {LeavePlanningAPIService} leaveAPI
