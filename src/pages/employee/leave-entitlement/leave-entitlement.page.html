@@ -1,9 +1,9 @@
-<div class="header" *ngIf="showHeader">
+<!-- <div class="header" *ngIf="showHeader">
     Your profile completeness is {{progressPercentage}}%
     <ion-progress-bar [value]="progressPercentage/100" color="success"
         style="display:inline-block; width:10%; margin-left: 3%"></ion-progress-bar>
     <ion-icon class="crossIcon" name="close" (click)="clickToHideHeader()"></ion-icon>
-</div>
+</div> -->
 <ion-card>
     <div style="width: 100%; height:100%; text-align: center;margin-top: -30px" *ngIf="showSpinner">
         <app-spinner></app-spinner>
@@ -14,10 +14,27 @@
                 <ion-avatar class="avatar">
                     <img src="assets/icon/chris.jpg">
                 </ion-avatar>
+            </div>
+            <div class="right" *ngIf="personalList">
+                <ion-card-subtitle style="color: #43425d;opacity: 0.8;font-weight: bold;">
+                    {{personalList.employeeName}}
+                </ion-card-subtitle>
+                <ion-card-subtitle class="subtitle">
+                    {{personalList.employeeDesignation}}</ion-card-subtitle>
+                <ion-card-subtitle class="subtitle">{{personalList.employeeDepartment}}
+                </ion-card-subtitle>
+                <ion-card-subtitle class="subtitle">
+                    {{personalList.employmentDetail.workLocation}}
+                </ion-card-subtitle>
+            </div>
+            <!-- <div class="left">
+                <ion-avatar class="avatar">
+                    <img src="assets/icon/chris.jpg">
+                </ion-avatar>
                 <!-- <ion-badge style="background-color: white;border: 1px solid#bebebe;">
                     <!-- <ion-icon name="image"></ion-icon> --
                     <div class="pic-icon" [inlineSVG]="'assets/icon/option/picture.svg'"></div>
-                </ion-badge> -->
+                </ion-badge> --
             </div>
             <div class="right" *ngIf="personalList">
                 <ion-card-title>{{personalList.employeeName}}</ion-card-title>
@@ -29,13 +46,13 @@
                     </ion-card-subtitle>
                 </div>
                 <div style="padding-top: 10px;">
-                    <!-- <i class="fas fa-map-marker-alt"></i> -->
+                    <!-- <i class="fas fa-map-marker-alt"></i> --
                     <div class="marker-icon" [inlineSVG]="'assets/icon/user_profile/pin.svg'"></div>
                     <ion-card-subtitle class="subtitle" style="padding-left:8px">
                         {{personalList.employmentDetail.workLocation}}
                     </ion-card-subtitle>
                 </div>
-            </div>
+            </div> -->
         </div>
     </ion-card-header>
     <ion-item *ngIf="showContent" lines="full" class="mainDivider"></ion-item>
@@ -43,7 +60,78 @@
         <ion-card-content>
             <!-- <div class="leaveHistoryContainer">View leave history</div> -->
             <div style="margin-top: 3%">
-                <ion-row class="titleRow">
+                <div class="row">
+                    <div class="column1" *ngFor="let leaveDetail of entitlement">
+                        <div>
+                            <ion-label
+                                style="float: left;font-size: 18px;color: #43425d;font-weight: bold;width: 130px;line-height: 1;">
+                                {{leaveDetail.leaveTypeName}}</ion-label>
+                            <img class="svg-icon" *ngIf="leaveDetail.leaveTypeName == 'Annual Leave'"
+                                src="assets/icon/user_profile/icon_annual_leave@3x.png">
+                            <img class="svg-icon" *ngIf="leaveDetail.leaveTypeName == 'Hospitalization Leave'"
+                                src="assets/icon/user_profile/icon_hospitalization@3x.png">
+                            <img class="svg-icon" *ngIf="leaveDetail.leaveTypeName == 'Medical Leave'"
+                                src="assets/icon/user_profile/icon_medical@3x.png">
+                        </div>
+                        <ion-progress-bar *ngIf="leaveDetail.leaveTypeName == 'Annual Leave'"
+                            [value]="(leaveDetail.takenDays/leaveDetail.entitledDays)" color="primary"
+                            style="display:inline-block; width:100%;border-radius: 5px;height: 10px;margin-top: 20px; ">
+                        </ion-progress-bar>
+                        <ion-progress-bar *ngIf="leaveDetail.leaveTypeName == 'Hospitalization Leave'"
+                            [value]="(leaveDetail.takenDays/leaveDetail.entitledDays)" color="secondary"
+                            style="display:inline-block; width:100%;border-radius: 5px;height: 10px;margin-top: 20px; ">
+                        </ion-progress-bar>
+                        <ion-progress-bar *ngIf="leaveDetail.leaveTypeName == 'Medical Leave'"
+                            [value]="(leaveDetail.takenDays/leaveDetail.entitledDays)" color="tertiary"
+                            style="display:inline-block; width:100%;border-radius: 5px;height: 10px;margin-top: 20px; ">
+                        </ion-progress-bar>
+                        <div>
+                            <ion-row>
+                                <ion-col class="colOfLeave" style="font-size: 13px">
+                                    {{leaveDetail.entitledDays}}
+                                </ion-col>
+                                <ion-col class="colTitle">Entitled Days</ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col class="colOfLeave" style="font-size: 13px">
+                                    {{leaveDetail.takenDays}}
+                                </ion-col>
+                                <ion-col class="colTitle">Day(s) Taken</ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col class="colOfLeave" style="font-size: 13px">{{leaveDetail.pendingDays}}
+                                </ion-col>
+                                <ion-col class="colTitle">Day(s) Pending</ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col class="colOfLeave" style="font-size: 13px">{{leaveDetail.balanceDays}}
+                                </ion-col>
+                                <ion-col class="colTitle">Day(s) Balance</ion-col>
+                            </ion-row>
+                        </div>
+                        <div style="text-align: center">
+                            <ion-button
+                                (click)="toPlanLeave(leaveDetail.leaveTypeName, leaveDetail.balanceDays, leaveDetail.leaveTypeId)"
+                                *ngIf="leaveDetail.leaveTypeName == 'Annual Leave'"
+                                style="font-size: 12px;margin-top: 20px;height: 30px;width: 124px;display: inline-block; text-transform: capitalize"
+                                color="primary">Apply
+                            </ion-button>
+                            <ion-button
+                                (click)="toPlanLeave(leaveDetail.leaveTypeName, leaveDetail.balanceDays, leaveDetail.leaveTypeId)"
+                                *ngIf="leaveDetail.leaveTypeName == 'Hospitalization Leave'"
+                                style="font-size: 12px;margin-top: 20px;height: 30px;width: 124px;display: inline-block; text-transform: capitalize"
+                                color="secondary">Apply
+                            </ion-button>
+                            <ion-button
+                                (click)="toPlanLeave(leaveDetail.leaveTypeName, leaveDetail.balanceDays, leaveDetail.leaveTypeId)"
+                                *ngIf="leaveDetail.leaveTypeName == 'Medical Leave'"
+                                style="font-size: 12px;margin-top: 20px;height: 30px;width: 124px;display: inline-block; text-transform: capitalize"
+                                color="tertiary">Apply
+                            </ion-button>
+                        </div>
+                    </div>
+                </div>
+                <!-- <ion-row class="titleRow">
                     <ion-col size="2.5">
                         <ion-label style="font-size: 12px">LEAVE TYPES</ion-label>
                         <ion-icon class="arrow" name="arrow-dropdown" (click)="sortDesLeaveType()"
@@ -91,7 +179,7 @@
                     <ion-item class="divider" lines="full"></ion-item>
                     <br>
                     <br>
-                </ion-row>
+                </ion-row> -->
             </div>
         </ion-card-content>
     </div>

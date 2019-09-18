@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { APIService } from 'src/services/shared-service/api.service';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { PersonalDetailsService } from '../personal-details/personal-details.service';
 /**
  * Leave Entitlement Page
@@ -79,14 +78,6 @@ export class LeaveEntitlementPage implements OnInit {
     public showContent: boolean = false;
 
     /**
-     * This is local property used to set subscription
-     * @private
-     * @type {Subscription}
-     * @memberof LeaveEntitlementPage
-     */
-    private subscription: Subscription = new Subscription();
-
-    /**
      * Return either arrow down or arrow up icon 
      * @readonly
      * @type {boolean}
@@ -124,12 +115,13 @@ export class LeaveEntitlementPage implements OnInit {
      * @memberof LeaveEntitlementPage
      */
     ngOnInit() {
-        this.subscription = this.apiService.get_user_profile().subscribe(
+        this.apiService.get_user_profile().subscribe(
             (data: any[]) => {
                 this.personalDataList = data;
                 this.entitlement = this.personalDataList.entitlementDetail;
                 this.showSpinner = false;
                 this.showContent = true;
+                // this.setTwoDigit();
             },
             error => {
                 if (error) {
@@ -139,21 +131,24 @@ export class LeaveEntitlementPage implements OnInit {
         );
     }
 
-    /**
-     * This method is used to destroy subscription
-     * @memberof LeaveEntitlementPage
-     */
-    ngOnDestroy() {
-        this.subscription.unsubscribe();
+    setTwoDigit() {
+        for (let i = 0; i < this.entitlement.length; i++) {
+            if (this.entitlement[i].entitledDays < 10) {
+                this.entitlement[i].entitledDays = '0' + this.entitlement[i].entitledDays.toString()
+            }
+            if (this.entitlement[i].takenDays < 10) {
+                this.entitlement[i].takenDays = '0' + this.entitlement[i].takenDays.toString()
+            }
+            if (this.entitlement[i].pendingDays < 10) {
+                this.entitlement[i].pendingDays = '0' + this.entitlement[i].pendingDays.toString()
+            }
+            if (this.entitlement[i].balanceDays < 10) {
+                this.entitlement[i].balanceDays = '0' + this.entitlement[i].balanceDays.toString()
+            }
+
+        }
     }
 
-    /**
-     * This method is used to hide or show header of profile completeness
-     * @memberof LeaveEntitlementPage
-     */
-    clickToHideHeader() {
-        this.showHeader = false;
-    }
 
     /**
      * This method is used to route to apply leave menu with query parameters (leave type, leave balance)

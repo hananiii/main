@@ -18,7 +18,8 @@
         <ion-menu-toggle auto-hide="false" *ngFor="let p of employeeSetupPage; let i=index">
             <ion-item class="items" lines="none" (click)="getIndexToShowArrow(i)" [ngClass]="{
                     'mainColor': numOfArray === i,'highlightColor': numOfArray !== i}">
-                <div class="my-icon" [inlineSVG]="'assets/icon/user_sidebar/' + p.icon"></div>
+                <!-- <div class="my-icon" [inlineSVG]="'assets/icon/user_sidebar/' + p.icon"></div> -->
+                <img class="my-icon" src="assets/icon/user_sidebar/{{p.icon}} ">
                 <ion-label style="padding-left: 15px;">
                     {{p.title}}
                 </ion-label>

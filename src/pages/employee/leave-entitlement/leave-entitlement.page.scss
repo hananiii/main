@@ -4,8 +4,12 @@
     flex-wrap: wrap;
   }
   .subtitle {
-    display: inline;
-    padding-left: 2px;
+    display: block;
+    color: #43425d;
+    opacity: 0.8;
+    padding-top: 5px;
+    // display: inline;
+    // padding-left: 2px;
   }
   .marker-icon {
     width: 17px;
@@ -57,11 +61,6 @@
     padding-top: 5px;
     // flex-wrap: nowrap;
   }
-  ion-col {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
   ion-badge {
     position: absolute;
     top: 26px;
@@ -97,7 +96,19 @@
   //   cursor: pointer;
   // }
   .colOfLeave {
-    text-align: center;
+    text-align: left;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.25;
+  }
+  .colTitle {
+    text-align: right;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #43425d;
+    opacity: 0.5;
+    font-size: 12px;
   }
   .button-round {
     --padding-start: 18px;
@@ -111,5 +122,32 @@
     padding-left: 10px;
     cursor: pointer;
     position: absolute;
+  }
+  .svg-icon {
+    width: 35px;
+    height: 32px;
+    float: right;
+  }
+  .row {
+    display: flex;
+    flex-wrap: nowrap;
+    padding: 0 10px;
+  }
+  .column1 {
+    flex: 30%;
+    max-width: 33%;
+    padding: 20px 15px;
+    background: white;
+    margin-right: 20px;
+  }
+  .column2 {
+    flex: 30%;
+    max-width: 30%;
+    padding: 0 10px;
+  }
+  .column3 {
+    flex: 30%;
+    max-width: 30%;
+    padding: 0 10px;
   }
 }

@@ -10,24 +10,22 @@
     </div>
     <ion-card-header *ngIf="showContent">
         <div class="fullContainer">
-            <div class="fullContainer">
-                <div class="left">
-                    <ion-avatar class="avatar">
-                        <img src="assets/icon/chris.jpg">
-                    </ion-avatar>
-                </div>
-                <div class="right" *ngIf="personalList">
-                    <ion-card-subtitle style="color: #43425d;opacity: 0.8;font-weight: bold;">
-                        {{personalList.employeeName}}
-                    </ion-card-subtitle>
-                    <ion-card-subtitle class="subtitle">
-                        {{personalList.employeeDesignation}}</ion-card-subtitle>
-                    <ion-card-subtitle class="subtitle">{{personalList.employeeDepartment}}
-                    </ion-card-subtitle>
-                    <ion-card-subtitle class="subtitle">
-                        {{personalList.employmentDetail.workLocation}}
-                    </ion-card-subtitle>
-                </div>
+            <div class="left">
+                <ion-avatar class="avatar">
+                    <img src="assets/icon/chris.jpg">
+                </ion-avatar>
+            </div>
+            <div class="right" *ngIf="personalList">
+                <ion-card-subtitle style="color: #43425d;opacity: 0.8;font-weight: bold;">
+                    {{personalList.employeeName}}
+                </ion-card-subtitle>
+                <ion-card-subtitle class="subtitle">
+                    {{personalList.employeeDesignation}}</ion-card-subtitle>
+                <ion-card-subtitle class="subtitle">{{personalList.employeeDepartment}}
+                </ion-card-subtitle>
+                <ion-card-subtitle class="subtitle">
+                    {{personalList.employmentDetail.workLocation}}
+                </ion-card-subtitle>
             </div>
             <!-- <div class="left">
                 <ion-avatar class="avatar">
