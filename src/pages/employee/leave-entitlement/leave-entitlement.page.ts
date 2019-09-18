@@ -33,14 +33,14 @@ export class LeaveEntitlementPage implements OnInit {
      * @type {number}
      * @memberof LeaveEntitlementPage
      */
-    public progressPercentage: number = 80;
+    // public progressPercentage: number = 80;
 
     /**
      * This is local property used to show arrow down icon
      * @type {boolean}
      * @memberof LeaveEntitlementPage
      */
-    public arrowDown: boolean = true;
+    // public arrowDown: boolean = true;
 
     /**
      * This is local property used to get the entitlement details from API
@@ -83,9 +83,9 @@ export class LeaveEntitlementPage implements OnInit {
      * @type {boolean}
      * @memberof LeaveEntitlementPage
      */
-    public get sortDirectionArrowDown(): boolean {
-        return this.arrowDown;
-    }
+    // public get sortDirectionArrowDown(): boolean {
+    //     return this.arrowDown;
+    // }
 
     /**
      * Return API content
@@ -102,11 +102,11 @@ export class LeaveEntitlementPage implements OnInit {
      * @param {Router} router
      * @memberof LeaveEntitlementPage
      */
-    constructor(private apiService: APIService, private router: Router, private xservice: PersonalDetailsService
+    constructor(private apiService: APIService, private router: Router
     ) {
-        xservice.percentChanged.subscribe(value => {
-            this.progressPercentage = value;
-        })
+        // xservice.percentChanged.subscribe(value => {
+        //     this.progressPercentage = value;
+        // })
     }
 
     /**
@@ -131,24 +131,6 @@ export class LeaveEntitlementPage implements OnInit {
         );
     }
 
-    setTwoDigit() {
-        for (let i = 0; i < this.entitlement.length; i++) {
-            if (this.entitlement[i].entitledDays < 10) {
-                this.entitlement[i].entitledDays = '0' + this.entitlement[i].entitledDays.toString()
-            }
-            if (this.entitlement[i].takenDays < 10) {
-                this.entitlement[i].takenDays = '0' + this.entitlement[i].takenDays.toString()
-            }
-            if (this.entitlement[i].pendingDays < 10) {
-                this.entitlement[i].pendingDays = '0' + this.entitlement[i].pendingDays.toString()
-            }
-            if (this.entitlement[i].balanceDays < 10) {
-                this.entitlement[i].balanceDays = '0' + this.entitlement[i].balanceDays.toString()
-            }
-
-        }
-    }
-
 
     /**
      * This method is used to route to apply leave menu with query parameters (leave type, leave balance)
@@ -167,29 +149,29 @@ export class LeaveEntitlementPage implements OnInit {
      * This method is used to sort leave type column in ascending order
      * @memberof LeaveEntitlementPage
      */
-    sortAscLeaveType() {
-        this.arrowDown = true;
-        this.entitlement = this.entitlement.slice(0);
-        this.entitlement.sort(function (a, b) {
-            const nameX = a.leaveTypeName.toLowerCase();
-            const nameY = b.leaveTypeName.toLowerCase();
-            return nameX < nameY ? -1 : nameX > nameY ? 1 : 0;
-        });
-    }
+    // sortAscLeaveType() {
+    //     this.arrowDown = true;
+    //     this.entitlement = this.entitlement.slice(0);
+    //     this.entitlement.sort(function (a, b) {
+    //         const nameX = a.leaveTypeName.toLowerCase();
+    //         const nameY = b.leaveTypeName.toLowerCase();
+    //         return nameX < nameY ? -1 : nameX > nameY ? 1 : 0;
+    //     });
+    // }
 
     /**
      * This method is used to sort leave type column in descending order
      * @memberof LeaveEntitlementPage
      */
-    sortDesLeaveType() {
-        this.arrowDown = false;
-        this.entitlement = this.entitlement.slice(0);
-        this.entitlement.sort(function (a, b) {
-            const nameX = a.leaveTypeName.toLowerCase();
-            const nameY = b.leaveTypeName.toLowerCase();
-            return nameX < nameY ? 1 : nameX > nameY ? -1 : 0;
-        });
-    }
+    // sortDesLeaveType() {
+    //     this.arrowDown = false;
+    //     this.entitlement = this.entitlement.slice(0);
+    //     this.entitlement.sort(function (a, b) {
+    //         const nameX = a.leaveTypeName.toLowerCase();
+    //         const nameY = b.leaveTypeName.toLowerCase();
+    //         return nameX < nameY ? 1 : nameX > nameY ? -1 : 0;
+    //     });
+    // }
 }
 
 

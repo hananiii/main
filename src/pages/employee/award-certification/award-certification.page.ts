@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { APIService } from "src/services/shared-service/api.service";
 import { FormGroup, FormBuilder } from "@angular/forms";
-import { PersonalDetailsService, genderStatus, maritalStatus } from "../personal-details/personal-details.service";
+import { genderStatus, maritalStatus } from "../personal-details/personal-details.service";
 
 /**
  * award & certificate page
@@ -21,14 +21,14 @@ export class AwardCertificationPage implements OnInit {
      * @type {number}
      * @memberof AwardCertificationPage
      */
-    public progressPercentage: number;
+    // public progressPercentage: number;
 
     /**
      * show/hide progress bar percentage
      * @type {boolean}
      * @memberof AwardCertificationPage
      */
-    public showHeader: boolean = true;
+    // public showHeader: boolean = true;
 
     /**
      * show/hide content before loading complete
@@ -52,11 +52,11 @@ export class AwardCertificationPage implements OnInit {
     public awards: any = [];
 
     /**
-     * show/hide when click edit profile
+     * Local property to show or hide edit profile
      * @type {boolean}
      * @memberof AwardCertificationPage
      */
-    public displayEditAward: boolean = false;
+    public showEditProfile: boolean = false;
 
     /**
      * img/pdf src url
@@ -137,10 +137,12 @@ export class AwardCertificationPage implements OnInit {
      * @param {PersonalDetailsService} xservice
      * @memberof AwardCertificationPage
      */
-    constructor(private apiService: APIService, private fb: FormBuilder, private xservice: PersonalDetailsService) {
-        xservice.percentChanged.subscribe(value => {
-            this.progressPercentage = value;
-        })
+    constructor(private apiService: APIService, private fb: FormBuilder) {
+
+        // private xservice: PersonalDetailsService
+        // xservice.percentChanged.subscribe(value => {
+        //     this.progressPercentage = value;
+        // })
     }
 
     ngOnInit() {
@@ -194,6 +196,15 @@ export class AwardCertificationPage implements OnInit {
             }
             return;
         }
+        this.readFile(files);
+    }
+
+    /**
+     * read file of attachment
+     * @param {*} files
+     * @memberof AwardCertificationPage
+     */
+    readFile(files) {
         this.showImg = true;
         this.showAttach = false;
         const reader = new FileReader();
@@ -223,8 +234,8 @@ export class AwardCertificationPage implements OnInit {
         const body = this.items.personalDetail;
         body['id'] = this.items.id;
         body.nric = this.items.personalDetail.nric.toString();
-        body.gender = genderStatus[this.items.personalDetail.gender];
-        body.maritalStatus = maritalStatus[this.items.personalDetail.maritalStatus];
+        body.gender = Number(genderStatus[this.items.personalDetail.gender]);
+        body.maritalStatus = Number(maritalStatus[this.items.personalDetail.maritalStatus]);
         body.postcode = this.items.personalDetail.postcode.toString();
         if (body.certification != undefined) {
             body.certification.certificationDetail = this.awards;
@@ -232,10 +243,20 @@ export class AwardCertificationPage implements OnInit {
             body['certification'] = {};
             body['certification']['certificationDetail'] = this.awards;
         }
+        this.getPatchedValue(body);
+    }
+
+    /**
+     * get back patched value
+     * @param {*} body
+     * @memberof AwardCertificationPage
+     */
+    getPatchedValue(body: any) {
         this.apiService.patch_personal_details(body).subscribe(response => {
             this.apiService.get_personal_details().subscribe(
                 (data: any[]) => {
                     this.items = data;
+                    this.clickToHideAttachment();
                 })
         })
     }
@@ -265,5 +286,16 @@ export class AwardCertificationPage implements OnInit {
      */
     awardObject(list, obj) {
         if (obj === this.awardObj) { this.awards = list; }
+    }
+
+
+    /**
+     * delete unwanted items
+     * @param {number} i
+     * @param {*} awards
+     * @memberof AwardCertificationPage
+     */
+    deleteItem(i: number, awards: any) {
+        this.awards.splice(i, 1);
     }
 }

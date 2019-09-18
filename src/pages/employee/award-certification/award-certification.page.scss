@@ -7,8 +7,12 @@
     font-size: 13px;
   }
   .subtitle {
-    display: inline;
-    padding-left: 2px;
+    // display: inline;
+    // padding-left: 2px;
+    display: block;
+    color: #43425d;
+    opacity: 0.8;
+    padding-top: 5px;
   }
   .fa-circle {
     font-size: 5px;
@@ -54,9 +58,14 @@
   //   }
   ion-label {
     // color: #20291f;
-    font-weight: 500;
+    // font-weight: 500;
+    // display: block;
+    // font-size: 12px;
+    color: #43425d;
+    opacity: 0.8;
+    font-weight: bold;
     display: block;
-    font-size: 12px;
+    font-size: 13px;
   }
   ion-badge {
     position: absolute;
@@ -100,9 +109,10 @@
     height: 13px;
     fill: #dfe3e6;
     cursor: pointer;
-    margin-left: 12%;
+    // margin-left: 12%;
     float: right;
     margin-right: 1%;
+    margin-top: 16px;
   }
   .edit-pencil-icon {
     width: 13px;
