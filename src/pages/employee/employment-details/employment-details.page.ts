@@ -1,21 +1,10 @@
-export enum employeeStatus {
-    "Probation",
-    "Confirmed",
-    "Terminated"
-}
-
-export enum employeeType {
-    "Permanent",
-    "Contract",
-    "Temporary"
-}
-
 import { Component, OnInit } from '@angular/core';
 import { APIService } from 'src/services/shared-service/api.service';
 import { ActivatedRoute } from '@angular/router';
 import { PersonalDetailsService } from '../personal-details/personal-details.service';
 import * as _moment from 'moment';
 const moment = _moment;
+
 /**
  * Employment Details Page
  * @export
@@ -35,13 +24,6 @@ export class EmploymentDetailsPage implements OnInit {
      * @memberof EmploymentDetailsPage
      */
     public list: any;
-
-    /**
-     * This local property is used to get employment status from API
-     * @type {string}
-     * @memberof EmploymentDetailsPage
-     */
-    public status: string;
 
     /**
      * This local property is used to show progress header
@@ -133,7 +115,6 @@ export class EmploymentDetailsPage implements OnInit {
                 } else {
                     this.list.employmentDetail.dateOfResign = moment(this.list.employmentDetail.dateOfResign).format('DD-MM-YYYY');
                 }
-                this.status = employeeStatus[this.list.employmentDetail.employmentStatus];
                 this.showSpinner = false;
                 this.showContent = true;
                 this.reporting();
