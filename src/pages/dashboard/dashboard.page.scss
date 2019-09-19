@@ -1,6 +1,6 @@
 :host {
   top: 48px;
-  background: #f9fafc;
+  background: #f0f0f7;
   overflow: auto;
   justify-content: flex-start !important;
 
@@ -15,11 +15,93 @@
     max-width: 75%;
     padding: 0 10px;
   }
+  .annual,
+  .replacement,
+  .medical,
+  .birthday {
+    flex: 23%;
+    max-width: 23%;
+    padding: 0 15px;
+    background: #ffffff;
+    margin: 1%;
+    border-radius: 2px;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);
+  }
+  .annoucement,
+  .holiday {
+    flex: 48%;
+    max-width: 48%;
+    background: #ffffff;
+    margin: 1%;
+    border-radius: 2px;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);
+  }
+  .tasks {
+    flex: 72%;
+    max-width: 72%;
+    background: #ffffff;
+    margin: 1%;
+    border-radius: 2px;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);
+    margin-bottom: 30px;
+  }
+  .reminder {
+    flex: 24%;
+    max-width: 24%;
+    background: #ffffff;
+    margin: 1%;
+    border-radius: 2px;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);
+    margin-bottom: 30px;
+    height: 290px;
+    background: #7069d8;
+    text-align: center;
+  }
+  .divider {
+    --min-height: none;
+    padding-top: 2%;
+    padding-bottom: 1%;
+    width: 99%;
+    padding-left: 1%;
+  }
+  mat-chip {
+    max-width: 60px;
+    min-height: 20px;
+    min-width: 60px;
+  }
+  .mat-chip.mat-standard-chip {
+    background-color: #5ee2a0;
+  }
+  .annual-icon {
+    width: 46px;
+    height: 44px;
+    float: right;
+  }
+  .replace-icon {
+    width: 55px;
+    height: 45px;
+    float: right;
+  }
+  .medical-icon {
+    width: 44px;
+    height: 43px;
+    float: right;
+  }
+  .svg-icon {
+    width: 46px;
+    height: 44px;
+    float: right;
+  }
   .columns {
     flex: 25%;
     max-width: 25%;
     padding: 0 10px;
   }
+  .column .annual {
+    margin-top: 5px;
+    vertical-align: middle;
+  }
+
   .column .leftCard {
     margin-top: 5px;
     vertical-align: middle;
@@ -79,12 +161,6 @@
   .mat-list {
     overflow: hidden;
     max-height: 160px;
-  }
-  .divider {
-    --min-height: none;
-    padding-top: 5%;
-    padding-bottom: 1%;
-    width: 100%;
   }
   .list {
     padding: 0;

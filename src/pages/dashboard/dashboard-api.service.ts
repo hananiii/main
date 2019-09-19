@@ -60,5 +60,23 @@ export class DashboardAPIService {
         return this.apiService.getApi('/api/admin/notification');
     }
 
+    /**
+     * get all announcement created from admin
+     * @returns
+     * @memberof DashboardAPIService
+     */
+    get_announcement_list() {
+        return this.apiService.getApi('/api/admin/announcement');
+    }
+
+    /**
+     * get upcoming holidays from today date
+     * @returns {Observable<any>}
+     * @memberof DashboardAPIService
+     */
+    get_upcoming_holidays(): Observable<any> {
+        return this.apiService.getApi('/api/employee/upcoming-holiday');
+    }
+
 
 }

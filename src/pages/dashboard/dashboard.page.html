@@ -1,8 +1,157 @@
-<h4 style="padding-left: 20px;">Activity Feeds</h4>
+<p style="color: #43425d;line-height: 1.53;font-size:16px;padding-left: 20px;margin-bottom: 5px;">Overview</p>
+
+<!-------------------------------- show announcement ---------------------------------->
+<ion-menu contentId="announcedMenuContent" side="end" type="overlay" menuId="viewAnnouncementDetails">
+    <ion-header style="background-color:#43425d; color: #fcfcfc;">
+        <img style="margin: 15px;width: 20px;height:21px;float:left"
+            src="assets/icon/dashboard/icon announcement@3x.png">
+        <p style="line-height: 1.27;font-size: 11px;color: #fcfcfc;font-weight: bold;margin: 20px;">ANNOUNCEMENT</p>
+    </ion-header>
+
+    <ion-content>
+        <ion-list>
+            <!-- <ion-list-header>
+                            Online
+                        </ion-list-header> -->
+            <ion-item *ngFor="let item of announcements">
+                <ion-label>
+                    <p style="color:#4d4f5c; font-weight: bold;font-size: 11px;line-height: 1.82;">{{item.TITLE}}</p>
+                    <p style="opacity: 0.8;font-size: 9px;line-height: 2.22;color: #4d4f5c;">{{item.FROM_DATE}}</p>
+                    <p style="white-space: normal;font-size: 10px;color: #4d4f5c;line-height:1.4">{{item.MESSAGE}}
+                    </p>
+                </ion-label>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-menu>
+<ion-router-outlet id="announcedMenuContent"></ion-router-outlet>
+
+<!-------------------------------- show holiday ---------------------------------->
+<ion-menu contentId="holidayMenuContent" side="end" type="overlay" menuId="viewHolidayDetails">
+    <ion-header style="background-color:#43425d; color: #fcfcfc;">
+        <img style="margin: 15px;width: 20px;height:21px;float:left"
+            src="assets/icon/dashboard/icon All Holidays@3x.png">
+        <p style="line-height: 1.27;font-size: 11px;color: #fcfcfc;font-weight: bold;margin: 20px;">ALL HOLIDAYS</p>
+    </ion-header>
+
+    <ion-content>
+        <ion-list>
+            <ng-container *ngFor="let item of holidays; let i = index;">
+                <ion-item *ngIf="i<6 && showall===false">
+                    <ion-row style="width: 100%;padding-bottom: 10px;">
+                        <ion-col size="4">
+                            <mat-chip-list>
+                                <ion-label
+                                    style="padding: 5px;padding-bottom: 0;color:#4d4f5c; font-size:9px;line-height:2.22">
+                                    {{item.start}}
+                                </ion-label>
+                                <mat-chip>
+                                    <p
+                                        style="white-space: nowrap;width: 100%;text-align: center;color: #ffffff;font-size: 9px;line-height: 2.22;">
+                                        {{item.day}}</p>
+                                </mat-chip>
+                            </mat-chip-list>
+                        </ion-col>
+                        <ion-col align-self-center
+                            style="padding-top: 15px;color:#4d4f5c;font-size:11px;line-height: 1.82;">{{item.title}}
+                        </ion-col>
+                    </ion-row>
+                </ion-item>
+                <ion-item *ngIf="showall">
+                    <ion-row style="width: 100%;padding-bottom: 10px;">
+                        <ion-col size="4">
+                            <mat-chip-list>
+                                <ion-label
+                                    style="padding: 5px;padding-bottom: 0;color:#4d4f5c; font-size:9px;line-height:2.22">
+                                    {{item.start}}
+                                </ion-label>
+                                <mat-chip>
+                                    <p
+                                        style="white-space: nowrap;width: 100%;text-align: center;color: #ffffff;font-size: 9px;line-height: 2.22;">
+                                        {{item.day}}</p>
+                                </mat-chip>
+                            </mat-chip-list>
+                        </ion-col>
+                        <ion-col align-self-center
+                            style="padding-top: 15px;color:#4d4f5c;font-size:11px;line-height: 1.82;">
+                            {{item.title}}
+                        </ion-col>
+                    </ion-row>
+                </ion-item>
+            </ng-container>
+        </ion-list>
+
+        <div style="text-align: center;margin:30px">
+            <ion-button *ngIf="!showViewLessButton" (click)="showall = true; showViewLessButton = true"
+                style="font-size: 11px;height: 30px;width:124px;cursor: pointer;text-transform: none;" color="primary">
+                View More
+            </ion-button>
+            <ion-button *ngIf="showViewLessButton" (click)="showall = false; showViewLessButton = false"
+                style="font-size: 11px;height: 30px;width:124px;cursor: pointer;text-transform: none;" color="primary">
+                View Less
+            </ion-button>
+        </div>
+    </ion-content>
+</ion-menu>
+<ion-router-outlet id="holidayMenuContent"></ion-router-outlet>
+
 
 <div class="row" *ngIf="row">
-    <div class="column">
-        <mat-card class="leftCard" #matCard>
+    <!-- <div class="column"> -->
+    <div class="annual">
+        <p style="color:#43425d;opacity: 0.8;font-weight: bold;line-height: 1.25;font-size: 12px">Annual Leave</p>
+        <ion-label style="float: left;font-size: 35px;color: #43425d;font-weight: bold;line-height: 1.26;">
+            17</ion-label>
+        <img class="annual-icon" src="assets/icon/dashboard/icon_annual_leave@3x.png">
+        <p style="font-size: 12px;opacity: 0.5;color: #43425d;line-height: 1.25;display: inline-block;
+        margin-bottom: 0;width: 100%;">Days Available</p>
+        <p
+            style="float:left;color: #ff6768;opacity: 0.8;font-weight: bold;font-size: 11px;line-height: 1.36;margin-top: 5px;">
+            Expiring in 30 days
+        </p>
+        <p
+            style="cursor: pointer;margin-top: 5px;float: right;color:#3b86ff;opacity: 0.8;line-height: 1.36;font-size: 11px;font-weight: bold;">
+            View
+            Details</p>
+    </div>
+    <div class="replacement">
+        <p style="color:#43425d;opacity: 0.8;font-weight: bold;line-height: 1.25;font-size: 12px">Replacement Leave</p>
+        <ion-label style="float: left;font-size: 35px;color: #43425d;font-weight: bold;line-height: 1.26;">
+            19</ion-label>
+        <img class="replace-icon" src="assets/icon/dashboard/icon_replacement_leave@3x.png">
+        <p style="font-size: 12px;opacity: 0.5;color: #43425d;line-height: 1.25;display: inline-block;
+            margin-bottom: 0;width: 100%;">Days Available</p>
+        <p
+            style="float:left;color: #ff6768;opacity: 0.8;font-weight: bold;font-size: 11px;line-height: 1.36;margin-top: 5px;">
+            Expiring in 30 days
+        </p>
+        <p
+            style="cursor: pointer;margin-top: 5px;float: right;color:#3b86ff;opacity: 0.8;line-height: 1.36;font-size: 11px;font-weight: bold;">
+            View
+            Details</p>
+    </div>
+    <div class="medical">
+        <p style="font-size: 12px;color:#43425d;opacity: 0.8;font-weight: bold;line-height: 1.25;">Medical Leave</p>
+        <ion-label style="float: left;font-size: 35px;color: #43425d;font-weight: bold;line-height: 1.26;">
+            08</ion-label>
+        <img class="medical-icon" src="assets/icon/dashboard/icon_medical@3x.png">
+        <p style="font-size: 12px;opacity: 0.5;color: #43425d;line-height: 1.25;display: inline-block;
+                margin-bottom: 0;width: 100%;">Days Available</p>
+    </div>
+    <div class="birthday">
+        <p style="font-size: 12px;color:#43425d;opacity: 0.8;font-weight: bold;line-height: 1.25;">Birthday Leave</p>
+        <ion-label style="float: left;font-size: 35px;color: #43425d;font-weight: bold;line-height: 1.26;">
+            27 Aug</ion-label>
+        <img class="svg-icon" style="margin-right: 20px;width: 37px;height: 45px;"
+            src="assets/icon/dashboard/icon_birthday@3x.png">
+        <img style="position: absolute;right: 20px;top: 55px;width: 64px;height: 64px;"
+            src="assets/icon/dashboard/Path 332@3x.png">
+        <img class="svg-icon" style="position: absolute;right: 14px;top: 58px;"
+            src="assets/icon/dashboard/Happy Birthday!@3x.png">
+        <p style="font-size: 12px;opacity: 0.5;color: #43425d;line-height: 1.25;display: inline-block;
+                    margin-bottom: 0;width: 100%;">4 days to go</p>
+    </div>
+    <!-- <mat-card class="leftCard" #matCard>
             <ion-button class="button1" shape="round"
                 [style.color]="buttonOneFill === 'outline' ? '#057dcd' : '#7a8589'" [fill]="buttonOneFill"
                 (click)="buttonClick(1)">
@@ -21,21 +170,23 @@
                                     padding-left: 2px;" *ngIf="showDot"></i>
                 </span>
             </ion-button>
-            <!----------------- All updates -------------------------->
+            <!----------------- All updates --------------------------
             <mat-list *ngIf="showAllUpdates" #matList [style.overflow]="clickOnViewMore == true ? 'auto' : 'hidden'"
                 [style.max-height]="clickOnViewMore == true ? '300px' : '160px'">
                 <mat-list-item *ngFor="let item of notification">
                     <mat-icon mat-list-icon style="font-size: 19px;color: #7a8589;">
                         <i class="material-icons" style="font-size: 16px;">{{item.icon}}</i>
                     </mat-icon>
-                    <p mat-line [matTooltip]=item.MESSAGE *ngIf="item.CATEGORY !== enumCategory[0]">{{item.MESSAGE}} </p>
-                    <p mat-line [matTooltip]=item.MESSAGE *ngIf="item.CATEGORY === enumCategory[0]"> {{item.MESSAGE}}
+                    <p mat-line [matTooltip]=item.MESSAGE *ngIf="item.CATEGORY !== enumCategory[0]">{{item.MESSAGE}}
+                    </p>
+                    <p mat-line [matTooltip]=item.MESSAGE *ngIf="item.CATEGORY === enumCategory[0]">
+                        {{item.MESSAGE}}
                         <span style="font-size: 12px;color:#057dcd; text-decoration:underline; cursor: pointer;"
                             (click)="buttonClick(3)">View</span></p>
                 </mat-list-item>
             </mat-list>
 
-            <!----------------- My recent -------------------------->
+            <!----------------- My recent --------------------------
             <mat-list *ngIf="showMyRecent" #matList [style.overflow]="clickOnViewMore == true ? 'auto' : 'hidden'"
                 [style.max-height]="clickOnViewMore == true ? '300px' : '160px'">
                 <span *ngFor="let item of notification">
@@ -48,7 +199,7 @@
                 </span>
             </mat-list>
 
-            <!----------------- Announcement -------------------------->
+            <!----------------- Announcement --------------------------
             <mat-list *ngIf="showAnnouncement" #matList [style.overflow]="clickOnViewMore == true ? 'auto' : 'hidden'"
                 [style.max-height]="clickOnViewMore == true ? '300px' : '160px'">
                 <span *ngFor="let item of notification">
@@ -83,11 +234,127 @@
         </mat-card>
         <mat-card class="googleCart">
             <app-google-chart></app-google-chart>
-        </mat-card>
-    </div>
+        </mat-card> -->
+    <!-- </div> -->
+</div>
 
-    <div class="columns">
-        <!-- <mat-card class="rightCard">
+<div class="row" *ngIf="row">
+    <div class="annoucement">
+        <div style="background-color: #ffffff;padding: 10px;">
+            <div
+                style="font-size: 13px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
+                Latest Annoucement <p (click)="viewAnnouncement()"
+                    style="cursor: pointer;margin-top: 0px;float: right;margin-right: 5px;color:#3b86ff;opacity: 0.8;line-height: 1.36;font-size: 11px;font-weight: bold;">
+                    View Details</p>
+            </div>
+            <ion-row style="width: 100%;" *ngFor="let item of announcements; let i = index;">
+                <ng-container style="padding-top: 2%;" *ngIf="i<3">
+                    <ion-col size="3" style="padding-left: 15px;color:#4d4f5c;font-size:11px;line-height: 1.82;">
+                        {{item.FROM_DATE}}
+                    </ion-col>
+                    <ion-col style="color:#4d4f5c;font-size:11px;line-height: 1.82;">{{item.MESSAGE}}
+                    </ion-col>
+                    <ion-item *ngIf="i<2" class="divider" lines="full"></ion-item>
+                </ng-container>
+            </ion-row>
+        </div>
+    </div>
+    <div class="holiday">
+        <div style="background-color: #ffffff;padding: 10px;">
+            <div
+                style="font-size: 13px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
+                Upcoming Holidays <p (click)="viewHoliday()"
+                    style="cursor: pointer;margin-top: 0px;float: right;margin-right: 5px;color:#3b86ff;opacity: 0.8;line-height: 1.36;font-size: 11px;font-weight: bold;">
+                    View Details</p>
+            </div>
+            <ion-row style="width: 100%;" *ngFor="let item of holidays; let i = index;">
+                <ng-container style="padding-top: 2%;" *ngIf="i<3">
+                    <ion-col size="3" style="padding-left: 15px;color:#4d4f5c;font-size:11px;line-height: 1.82;">
+                        <ion-label>{{item.start}}</ion-label>
+                    </ion-col>
+                    <ion-col size="3">
+                        <mat-chip-list>
+                            <mat-chip>
+                                <p
+                                    style="white-space: nowrap;width: 100%;text-align: center;color: #ffffff;font-size: 9px;line-height: 2.22;">
+                                    {{item.day}}</p>
+                            </mat-chip>
+                        </mat-chip-list>
+                    </ion-col>
+                    <ion-col style="color:#4d4f5c;font-size:11px;line-height: 1.82;">{{item.title}}
+                    </ion-col>
+                    <ion-item *ngIf="i<2" class="divider" lines="full"></ion-item>
+                </ng-container>
+            </ion-row>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="row">
+    <div class="tasks">
+        <div style="background-color: #ffffff;padding: 10px;">
+            <div
+                style="font-size: 13px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
+                Your Tasks
+            </div>
+            <ion-row style="width: 100%;" *ngFor="let item of notification; let i = index;">
+                <ng-container style="padding-top: 2%;">
+                    <ion-col size="6" style="padding-left: 15px;color:#4d4f5c;font-size:11px;line-height: 1.82;">
+                        {{item.MESSAGE}}
+                    </ion-col>
+                    <ion-col>
+                        <div style="display: inline;padding-right: 30px;">
+                            <ion-icon name="add-circle-outline" style="color: #3b86ff;padding-top: 2px;padding-right: 10px;
+                            padding-left: 0.5%;font-size: 16px;cursor: pointer;">
+                            </ion-icon>
+                            <p style="position: absolute;top: -5px;font-weight: bold;display: inline-block;color: #3b86ff;cursor: pointer;font-size: 11px;line-height: 1.82;"
+                                (click)="addList(removeItems, contactObj)">Action</p>
+                        </div>
+                    </ion-col>
+                    <ion-col>
+                        <div style="display: inline;padding-right: 30px;">
+                            <ion-icon name="checkmark" style="color: #5ee2a0;padding-top: 2px;padding-right: 10px;
+                                padding-left: 0.5%;font-size: 16px;cursor: pointer;">
+                            </ion-icon>
+                            <p style="position: absolute;top: -5px;font-weight: bold;display: inline-block;color: #5ee2a0;cursor: pointer;font-size: 11px;line-height: 1.82;"
+                                (click)="addList(removeItems, contactObj)">Accept</p>
+                        </div>
+                    </ion-col>
+                    <ion-col>
+                        <div style="display: inline;padding-right: 30px;">
+                            <ion-icon name="close" style="color: #ff6768;padding-top: 2px;padding-right: 10px;
+                                            padding-left: 0.5%;font-size: 16px;cursor: pointer;">
+                            </ion-icon>
+                            <p style="position: absolute;top: -5px;font-weight: bold;display: inline-block;color: #ff6768;cursor: pointer;font-size: 11px;line-height: 1.82;"
+                                (click)="addList(removeItems, contactObj)">Cancel</p>
+                        </div>
+                    </ion-col>
+                    <ion-item *ngIf="i<notification.length-1" class="divider" lines="full"></ion-item>
+                </ng-container>
+            </ion-row>
+        </div>
+    </div>
+    <div class="reminder">
+        <p style="color:#f0f0f7;font-weight: bold;line-height: 1.07;font-size: 14px;margin-bottom: 10px;">Long Leave
+            Reminder</p>
+        <img style="width: 27px;height:27px;" src="assets/icon/dashboard/icon_long_reminder@3x.png">
+        <p style="color:#f0f0f7;line-height: 1.36;font-size: 11px;margin-top: 10px;margin-bottom: 5px;">Total leave
+            taken:</p>
+        <p style="color:#5ee2a0;line-height: 1.26;font-size: 34px;font-weight: bold;margin-top: 0;margin-bottom: 0;">7
+            Days</p>
+        <p style="color:#f0f0f7;line-height: 1.36;font-size: 11px;margin-top: 5px;">10 days to go</p>
+        <p style="color:#f0f0f7;font-weight: bold;line-height: 1.25;font-size: 12px;margin-bottom: 5px;">From: 22
+            September 2019</p>
+        <p style="color:#f0f0f7;font-weight: bold;line-height: 1.25;font-size: 12px;margin-top: 0">Until: 28 September
+            2019</p>
+        <p style="color:#f0f0f7;line-height: 1.36;font-size: 11px;padding: 3% 17%;">*Kindly ensure to segregate your
+            pending task / tasks
+            accordingly</p>
+    </div>
+</div>
+
+<!-- <div class="columns">
+    <!-- <mat-card class="rightCard">
             <mat-card-subtitle style="color: #7a8589; font-size: 12px">Pending tasks
                 <ion-badge mode="ios" style="background-color: #45cc77;position: absolute;
                                 margin-left: 10px;font-size: 10px;">3</ion-badge>
@@ -125,28 +392,28 @@
                     <ion-item class="divider" lines="full"></ion-item>
                 </ion-row>
             </ion-grid>
-        </mat-card> -->
-        <mat-card class="rightCardBottom" *ngFor="let number of onLeaveNumber">
-            <mat-card-subtitle style="color: #7a8589; font-size: 12px; text-align: center">TOTAL EMPLOYEES
-            </mat-card-subtitle>
-            <mat-card-subtitle style="color: #057dcd; font-size: 30px; text-align: center; font-weight: bold">
-                {{number.total_employee}}
-            </mat-card-subtitle>
-            <ion-item lines="full" style="--min-height: none;padding-bottom: 5%;width: 100%;"></ion-item>
-            <mat-list>
-                <mat-list-item>
-                    <mat-icon mat-list-icon style="font-size: 19px;color: #7a8589;">
-                        <i class="material-icons" style="font-size: 16px;">account_circle</i>
-                    </mat-icon>
-                    <p mat-line> {{number.total_employee - number.no_of_onleave}} Present </p>
-                </mat-list-item>
-                <mat-list-item>
-                    <mat-icon mat-list-icon style="font-size: 19px;color: #7a8589;">
-                        <i class="material-icons" style="font-size: 16px;">remove_circle</i>
-                    </mat-icon>
-                    <p mat-line> {{number.no_of_onleave}} On Leave </p>
-                </mat-list-item>
-                <!-- <mat-list-item role="listitem">
+        </mat-card> --
+    <mat-card class="rightCardBottom" *ngFor="let number of onLeaveNumber">
+        <mat-card-subtitle style="color: #7a8589; font-size: 12px; text-align: center">TOTAL EMPLOYEES
+        </mat-card-subtitle>
+        <mat-card-subtitle style="color: #057dcd; font-size: 30px; text-align: center; font-weight: bold">
+            {{number.total_employee}}
+        </mat-card-subtitle>
+        <ion-item lines="full" style="--min-height: none;padding-bottom: 5%;width: 100%;"></ion-item>
+        <mat-list>
+            <mat-list-item>
+                <mat-icon mat-list-icon style="font-size: 19px;color: #7a8589;">
+                    <i class="material-icons" style="font-size: 16px;">account_circle</i>
+                </mat-icon>
+                <p mat-line> {{number.total_employee - number.no_of_onleave}} Present </p>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-icon mat-list-icon style="font-size: 19px;color: #7a8589;">
+                    <i class="material-icons" style="font-size: 16px;">remove_circle</i>
+                </mat-icon>
+                <p mat-line> {{number.no_of_onleave}} On Leave </p>
+            </mat-list-item>
+            <!-- <mat-list-item role="listitem">
                                 <mat-icon mat-list-icon style="font-size: 19px;color: #7a8589;">
                                     <i class="material-icons" style="font-size: 16px;">message</i>
                                 </mat-icon>
@@ -157,49 +424,50 @@
                                     <i class="material-icons" style="font-size: 16px;">check_circle</i>
                                 </mat-icon>
                                 <p mat-line> 30 leave approved
-                            </mat-list-item> -->
-            </mat-list>
-        </mat-card>
-        <mat-card class="rightCardLast">
-            <mat-card-subtitle style="color: #7a8589; font-size: 12px">Who's on leave
-                <span style="color: #7a8589; font-size: 10px; float: right;padding-right: 10px;">Today</span>
-            </mat-card-subtitle>
-            <ion-list class="list" [style.overflow]="clickOnSeeAll == true ? 'hidden' : 'hidden'"
-                [style.max-height]="clickOnSeeAll == true ? '100%' : '160px'" [style.height]="clickOnSeeAll ">
-                <ion-item lines="none" *ngFor="let detail of onLeaveList">
-                    <ion-avatar slot="start" class="avatar">
-                        <img src="assets/icon/picture.png">
-                    </ion-avatar>
-                    <ion-label text-wrap class="labelText">
-                        <p style="color: #7a8589; font-size: 11px;white-space: nowrap;margin: 0">{{detail.FULLNAME}}</p>
-                        <p style="color: #bebebe; font-size: 9px;white-space: nowrap;margin: 0">{{detail.DESIGNATION}}
-                        </p>
-                    </ion-label>
-                </ion-item>
-            </ion-list>
-            <mat-card-actions style="text-align: center" *ngIf="seeAll">
-                <button mat-button style="background: transparent;">
-                    <span style="color: #057dcd; cursor: pointer;"
-                        (click)="clickOnSeeAll=true;seeAll=false;seeLess=true">See all</span>
-                    <mat-icon style="position: absolute;margin-top: -7px;padding-left: 3px;">
-                        <i class="material-icons" style="color: #057dcd; cursor: pointer;font-size: 20px;"
-                            (click)="clickOnSeeAll=true;seeAll=false;seeLess=true">expand_more</i>
-                    </mat-icon>
-                </button>
-            </mat-card-actions>
-            <mat-card-actions style="text-align: center" *ngIf="seeLess">
-                <button mat-button style="background: transparent;">
-                    <span style="color: #057dcd; cursor: pointer;"
-                        (click)="clickOnSeeAll=false;seeAll=true;seeLess=false">See less</span>
-                    <mat-icon style="position: absolute;margin-top: -7px;padding-left: 3px;">
-                        <i class="material-icons" style="color: #057dcd; cursor: pointer;font-size: 20px;"
-                            (click)="clickOnSeeAll=false;seeAll=true;seeLess=false">expand_less</i>
-                    </mat-icon>
-                </button>
-            </mat-card-actions>
-        </mat-card>
-    </div>
-</div>
+                            </mat-list-item> --
+        </mat-list>
+    </mat-card>
+    <mat-card class="rightCardLast">
+        <mat-card-subtitle style="color: #7a8589; font-size: 12px">Who's on leave
+            <span style="color: #7a8589; font-size: 10px; float: right;padding-right: 10px;">Today</span>
+        </mat-card-subtitle>
+        <ion-list class="list" [style.overflow]="clickOnSeeAll == true ? 'hidden' : 'hidden'"
+            [style.max-height]="clickOnSeeAll == true ? '100%' : '160px'" [style.height]="clickOnSeeAll ">
+            <ion-item lines="none" *ngFor="let detail of onLeaveList">
+                <ion-avatar slot="start" class="avatar">
+                    <img src="assets/icon/picture.png">
+                </ion-avatar>
+                <ion-label text-wrap class="labelText">
+                    <p style="color: #7a8589; font-size: 11px;white-space: nowrap;margin: 0">{{detail.FULLNAME}}
+                    </p>
+                    <p style="color: #bebebe; font-size: 9px;white-space: nowrap;margin: 0">
+                        {{detail.DESIGNATION}}
+                    </p>
+                </ion-label>
+            </ion-item>
+        </ion-list>
+        <mat-card-actions style="text-align: center" *ngIf="seeAll">
+            <button mat-button style="background: transparent;">
+                <span style="color: #057dcd; cursor: pointer;"
+                    (click)="clickOnSeeAll=true;seeAll=false;seeLess=true">See all</span>
+                <mat-icon style="position: absolute;margin-top: -7px;padding-left: 3px;">
+                    <i class="material-icons" style="color: #057dcd; cursor: pointer;font-size: 20px;"
+                        (click)="clickOnSeeAll=true;seeAll=false;seeLess=true">expand_more</i>
+                </mat-icon>
+            </button>
+        </mat-card-actions>
+        <mat-card-actions style="text-align: center" *ngIf="seeLess">
+            <button mat-button style="background: transparent;">
+                <span style="color: #057dcd; cursor: pointer;"
+                    (click)="clickOnSeeAll=false;seeAll=true;seeLess=false">See less</span>
+                <mat-icon style="position: absolute;margin-top: -7px;padding-left: 3px;">
+                    <i class="material-icons" style="color: #057dcd; cursor: pointer;font-size: 20px;"
+                        (click)="clickOnSeeAll=false;seeAll=true;seeLess=false">expand_less</i>
+                </mat-icon>
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div> -->
 
 <div style="width: 100%; height:100%; text-align: center" *ngIf="showSpinner">
     <app-spinner style="width: 100%; height:100%; text-align: center" *ngIf="showSpinner"></app-spinner>
