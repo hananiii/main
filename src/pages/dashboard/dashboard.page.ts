@@ -228,6 +228,12 @@ export class DashboardPage implements OnInit {
      */
     public birtdayToGo: number;
 
+    /**
+     * get birthday details from endpoint
+     * @type {*}
+     * @memberof DashboardPage
+     */
+    public birthdayDetail: any;
 
     /**
      * Return enum category
@@ -253,6 +259,7 @@ export class DashboardPage implements OnInit {
      */
     ngOnInit() {
         // this.getOnleaveDetails();
+        this.dashboardAPI.get_birthday_details().subscribe(data => this.birthdayDetail = data);
         this.dashboardAPI.get_news_notification().subscribe(data => {
             this.notificationCategory(data);
             this.row = true;
@@ -308,25 +315,15 @@ export class DashboardPage implements OnInit {
     }
 
     /**
-     * find the type of value provided
-     * @param {*} val
-     * @returns
-     * @memberof DashboardPage
-     */
-    isObj(val) { return typeof val === 'object'; }
-
-    /**
      * get holiday list from endpoint
      * @memberof DashboardPage
      */
     getHolidayList() {
         this.dashboardAPI.get_upcoming_holidays().subscribe(details => {
             this.holidays = details;
-            if (typeof (this.holidays) != 'object') {
-                for (let i = 0; i < this.holidays.length; i++) {
-                    this.holidays[i].day = this.getDayFromDate(new Date(this.holidays[i].start));
-                    this.holidays[i].start = (moment(this.holidays[i].start).format('DD MMM YYYY'));
-                }
+            for (let i = 0; i < this.holidays.length; i++) {
+                this.holidays[i].day = this.getDayFromDate(new Date(this.holidays[i].start));
+                this.holidays[i].start = (moment(this.holidays[i].start).format('DD MMM YYYY'));
             }
         })
     }

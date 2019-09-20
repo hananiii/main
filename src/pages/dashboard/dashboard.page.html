@@ -161,7 +161,7 @@
     </ion-header>
 
     <ion-content>
-        <ion-list *ngIf='!isObj(holidays)'>
+        <ion-list>
             <ng-container *ngFor="let item of holidays; let i = index;">
                 <ion-item *ngIf="i<6 && showall===false">
                     <ion-row style="width: 100%;padding-bottom: 10px;">
@@ -269,7 +269,7 @@
     <div class="birthday">
         <p style="font-size: 12px;color:#43425d;opacity: 0.8;font-weight: bold;line-height: 1.25;">Birthday Leave</p>
         <ion-label style="float: left;font-size: 35px;color: #43425d;font-weight: bold;line-height: 1.26;">
-            {{dateOfBirth}}</ion-label>
+            {{birthdayDetail.day}} {{birthdayDetail.month}}</ion-label>
         <img class="svg-icon" style="margin-right: 20px;width: 37px;height: 45px;"
             src="assets/icon/dashboard/icon_birthday@3x.png">
         <img style="position: absolute;right: 20px;top: 55px;width: 64px;height: 64px;"
@@ -277,7 +277,7 @@
         <img class="svg-icon" style="position: absolute;right: 14px;top: 58px;"
             src="assets/icon/dashboard/Happy Birthday!@3x.png">
         <p style="font-size: 12px;opacity: 0.5;color: #43425d;line-height: 1.25;display: inline-block;
-                    margin-bottom: 0;width: 100%;">{{birtdayToGo}} days to go</p>
+                    margin-bottom: 0;width: 100%;">{{birthdayDetail.remainingDays}} </p>
     </div>
     <!-- <mat-card class="leftCard" #matCard>
             <ion-button class="button1" shape="round"
@@ -401,7 +401,6 @@
                     style="cursor: pointer;margin-top: 0px;float: right;margin-right: 5px;color:#3b86ff;opacity: 0.8;line-height: 1.36;font-size: 11px;font-weight: bold;">
                     View Details</p>
             </div>
-            <div *ngIf='!isObj(holidays)'>
                 <ion-row style="width: 100%;" *ngFor="let item of holidays; let i = index;">
                     <ng-container style="padding-top: 2%;" *ngIf="i<3">
                         <ion-col size="3" style="padding-left: 15px;color:#4d4f5c;font-size:11px;line-height: 1.82;">
@@ -421,9 +420,6 @@
                         <ion-item *ngIf="i<2" class="divider" lines="full"></ion-item>
                     </ng-container>
                 </ion-row>
-            </div>
-            <div style="margin-left: 15px;margin-top: 5px;color:#4d4f5c;font-size:12px;line-height: 1.82;"
-                *ngIf='isObj(holidays)'>No upcoming holiday</div>
         </div>
     </div>
 </div>

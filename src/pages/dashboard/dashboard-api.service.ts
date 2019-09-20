@@ -78,5 +78,15 @@ export class DashboardAPIService {
         return this.apiService.getApi('/api/employee/upcoming-holiday');
     }
 
+    /**
+     * get details of birthday
+     * @returns {Observable<any>}
+     * @memberof DashboardAPIService
+     */
+    get_birthday_details(): Observable<any> {
+        return this.apiService.getApi('/api/employee/date-of-birth');
+    }
+
+
 
 }
