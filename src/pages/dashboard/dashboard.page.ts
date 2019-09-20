@@ -7,10 +7,10 @@ export enum Category {
 }
 
 import { Component, OnInit } from '@angular/core';
-import { DatePipe } from '@angular/common';
 import { DashboardAPIService } from './dashboard-api.service';
 import * as _moment from 'moment';
 import { MenuController } from '@ionic/angular';
+import { APIService } from 'src/services/shared-service/api.service';
 const moment = _moment;
 
 /**
@@ -23,7 +23,6 @@ const moment = _moment;
     selector: 'app-dashboard',
     templateUrl: './dashboard.page.html',
     styleUrls: ['./dashboard.page.scss'],
-    providers: [DatePipe]
 })
 export class DashboardPage implements OnInit {
     /**
@@ -181,6 +180,56 @@ export class DashboardPage implements OnInit {
     public showViewLessButton: boolean = false;
 
     /**
+     * show all announcements
+     * @type {boolean}
+     * @memberof DashboardPage
+     */
+    public showallannouncement: boolean = false;
+
+    /**
+     * click to view less message 
+     * @type {boolean}
+     * @memberof DashboardPage
+     */
+    public viewLessAnnouncement: boolean = false;
+
+    /**
+     * entitlement list from endpoint
+     * @type {*}
+     * @memberof DashboardPage
+     */
+    public entitlementList: any;
+
+    /** 
+     * annual leave entitled day
+     * @type {number}
+     * @memberof DashboardPage
+     */
+    public annualVal: number;
+
+    /**
+     * medical leave entitled day
+     * @type {number}
+     * @memberof DashboardPage
+     */
+    public medicalVal: number;
+
+    /** 
+     * date of birth from personal details
+     * @type {*}
+     * @memberof DashboardPage
+     */
+    public dateOfBirth: any;
+
+    /**
+     * days remaining to next birthday
+     * @type {number}
+     * @memberof DashboardPage
+     */
+    public birtdayToGo: number;
+
+
+    /**
      * Return enum category
      * @readonly
      * @type {*}
@@ -193,20 +242,21 @@ export class DashboardPage implements OnInit {
     /**
      *Creates an instance of DashboardPage.
      * @param {DashboardAPIService} dashboardAPI
-     * @param {DatePipe} datePipe
      * @param {MenuController} menu
      * @memberof DashboardPage
      */
-    constructor(private dashboardAPI: DashboardAPIService, private datePipe: DatePipe, private menu: MenuController) { }
+    constructor(private mainAPI: APIService, private dashboardAPI: DashboardAPIService, private menu: MenuController) { }
 
     /**
      * Initial method
      * @memberof DashboardPage
      */
     ngOnInit() {
-        this.getOnleaveDetails();
+        // this.getOnleaveDetails();
         this.dashboardAPI.get_news_notification().subscribe(data => {
             this.notificationCategory(data);
+            this.row = true;
+            this.showSpinner = false;
         }, error => {
             if (error) {
                 window.location.href = '/login';
@@ -214,7 +264,56 @@ export class DashboardPage implements OnInit {
         });
         this.getHolidayList();
         this.getAnnouncementList();
+        this.getUserDetails();
     }
+
+    /**
+     * get user profile details
+     * @memberof DashboardPage
+     */
+    getUserDetails() {
+        this.mainAPI.get_user_profile().subscribe(data => {
+            this.entitlementList = data.entitlementDetail;
+            this.dateOfBirth = moment(data.personalDetail.dob).format('DD MMM')
+            this.calculateDays(data);
+            for (let i = 0; i < this.entitlementList.length; i++) {
+                if (this.entitlementList[i].leaveTypeName == 'Annual Leave') {
+                    this.annualVal = this.entitlementList[i].entitledDays;
+                }
+                if (this.entitlementList[i].leaveTypeName == 'Medical Leave') {
+                    this.medicalVal = this.entitlementList[i].entitledDays;
+                }
+            }
+        });
+    }
+
+    /**
+     * remaining days to reach birthday
+     * @param {*} data
+     * @memberof DashboardPage
+     */
+    calculateDays(data: any) {
+        let month = new Date(data.personalDetail.dob).getMonth();
+        let day = new Date(data.personalDetail.dob).getDate();
+        let myBirthday = [day, month]; // 6th of February
+        let today = new Date();
+        let bday = new Date(today.getFullYear(), myBirthday[1], myBirthday[0] + 1);
+        if (today.getTime() > bday.getTime()) {
+            bday.setFullYear(bday.getFullYear() + 1);
+        }
+        let diff = bday.getTime() - today.getTime();
+        let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        this.birtdayToGo = days;
+
+    }
+
+    /**
+     * find the type of value provided
+     * @param {*} val
+     * @returns
+     * @memberof DashboardPage
+     */
+    isObj(val) { return typeof val === 'object'; }
 
     /**
      * get holiday list from endpoint
@@ -223,9 +322,11 @@ export class DashboardPage implements OnInit {
     getHolidayList() {
         this.dashboardAPI.get_upcoming_holidays().subscribe(details => {
             this.holidays = details;
-            for (let i = 0; i < this.holidays.length; i++) {
-                this.holidays[i].day = this.getDayFromDate(new Date(this.holidays[i].start));
-                this.holidays[i].start = (moment(this.holidays[i].start).format('DD MMM YYYY'));
+            if (typeof (this.holidays) != 'object') {
+                for (let i = 0; i < this.holidays.length; i++) {
+                    this.holidays[i].day = this.getDayFromDate(new Date(this.holidays[i].start));
+                    this.holidays[i].start = (moment(this.holidays[i].start).format('DD MMM YYYY'));
+                }
             }
         })
     }
@@ -237,9 +338,12 @@ export class DashboardPage implements OnInit {
     getAnnouncementList() {
         this.dashboardAPI.get_announcement_list().subscribe(list => {
             this.announcements = list;
-            for (let i = 0; i < this.holidays.length; i++) {
+            for (let i = 0; i < this.announcements.length; i++) {
                 this.announcements[i].FROM_DATE = (moment(this.announcements[i].FROM_DATE).format('DD MMM YYYY'));
             }
+            const data = this.announcements;
+            const is_pinned = 1;
+            data.sort(function (x, y) { return x.IS_PINNED == is_pinned ? -1 : y == is_pinned ? 1 : 0; });
         })
     }
 
@@ -261,19 +365,19 @@ export class DashboardPage implements OnInit {
      * Get today onleave status(number of employee onleave, total employee) & onleave list from API
      * @memberof DashboardPage
      */
-    getOnleaveDetails() {
-        const params = { 'startdate': this.datePipe.transform(new Date(), 'yyyy-MM-dd'), 'enddate': this.datePipe.transform(new Date(), 'yyyy-MM-dd') };
-        this.dashboardAPI.get_status_onleave(params).subscribe(
-            data => {
-                this.onLeaveNumber = data;
-            })
-        this.dashboardAPI.get_onleave_list(params).subscribe(
-            data => {
-                this.row = true;
-                this.showSpinner = false;
-                this.onLeaveList = data;
-            })
-    }
+    // getOnleaveDetails() {
+    //     const params = { 'startdate': this.datePipe.transform(new Date(), 'yyyy-MM-dd'), 'enddate': this.datePipe.transform(new Date(), 'yyyy-MM-dd') };
+    //     this.dashboardAPI.get_status_onleave(params).subscribe(
+    //         data => {
+    //             this.onLeaveNumber = data;
+    //         })
+    //     this.dashboardAPI.get_onleave_list(params).subscribe(
+    //         data => {
+    //             this.row = true;
+    //             this.showSpinner = false;
+    //             this.onLeaveList = data;
+    //         })
+    // }
 
     /**
      * Show material-icon according category of notification
@@ -299,26 +403,6 @@ export class DashboardPage implements OnInit {
             //     this.notification[i].icon = 'account_box';
             // }
         }
-    }
-
-    /**
-     * toggle announcement menu
-     * @memberof DashboardPage
-     */
-    viewAnnouncement() {
-        this.menu.enable(true, 'viewAnnouncementDetails');
-        this.menu.enable(false, 'viewHolidayDetails');
-        this.menu.open('viewAnnouncementDetails');
-    }
-
-    /**
-     * toggle holiday menu
-     * @memberof DashboardPage
-     */
-    viewHoliday() {
-        this.menu.enable(true, 'viewHolidayDetails');
-        this.menu.enable(false, 'viewAnnouncementDetails');
-        this.menu.open('viewHolidayDetails');
     }
 
     /**

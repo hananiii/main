@@ -1,9 +1,104 @@
 <p style="color: #43425d;line-height: 1.53;font-size:16px;padding-left: 20px;margin-bottom: 5px;">Overview</p>
 
-<!-------------------------------- show announcement ---------------------------------->
+<!-------------------------------- show annual details menu ---------------------------------->
+<ion-menu contentId="annualMenuContent" side="end" type="overlay" menuId="viewAnnualDetails">
+    <ion-header style="background-color:#43425d; color: #fcfcfc;">
+        <img style="margin: 17px;width: 22px;height: 17px;float:left"
+            src="assets/icon/dashboard/icon All Holidays@3x.png">
+        <p style="line-height: 1.27;font-size: 11px;color: #fcfcfc;font-weight: bold;margin: 20px;">ANNUAL LEAVE</p>
+    </ion-header>
+
+    <ion-content>
+        <div style="display: block">
+            <i class="material-icons" style="font-size: 8px;margin: 16px;color: #43425d;">fiber_manual_record</i>
+            <!-- <img style="margin: 15px;width: 12px;height:12px;float:left" src="assets/icon/dashboard/arrow_right.png"> -->
+            <p style="display:inline-block;color: #4d4f5c; font-weight:bold;font-size:11px;line-height: 1.82;">
+                {{annualVal}} days balance
+                for this year </p>
+        </div>
+        <div style="display: block">
+            <i class="material-icons" style="font-size: 8px;margin: 16px;color: #43425d;">fiber_manual_record</i>
+            <!-- <img style="margin: 15px;width: 12px;height:12px;float:left" src="assets/icon/dashboard/arrow_right.png"> -->
+            <p style="display: inline-block;color: #4d4f5c; font-weight:bold;font-size:11px;line-height: 1.82;">
+                {{annualVal}} days carry
+                forward from last year</p>
+        </div>
+        <p
+            style="margin-left: 42px;opacity: 0.8;font-size: 10px;line-height: 2;color: #4d4f5c;margin-bottom: 0;margin-top: 0;">
+            Total Annual Leave
+        </p>
+        <p style="margin-left: 42px;color: #4d4f5c; font-weight:bold;font-size:11px;line-height: 1.82;margin-top: 0;
+            margin-bottom: 0;"> 17 Days</p>
+        <p style="margin-left: 42px;font-size: 11px;font-weight: bold;line-height: 1.82;color: #ff6768;"> *Expiring
+            in 30 days</p>
+        <ion-item class="divider" lines="full"></ion-item>
+
+        <div style="text-align: center;margin:30px">
+            <ion-button [routerLink]="['/main/plan-my-leave']"
+                style="font-size: 11px;height: 30px;width:124px;cursor: pointer;text-transform: none;" color="primary">
+                Plan My Leave
+            </ion-button>
+        </div>
+    </ion-content>
+</ion-menu>
+<ion-router-outlet id="annualMenuContent"></ion-router-outlet>
+
+
+<!-------------------------------- show replacement details menu---------------------------------->
+<ion-menu contentId="replacementMenuContent" side="end" type="overlay" menuId="viewReplacementDetails">
+    <ion-header style="background-color:#43425d; color: #fcfcfc;">
+        <img style="margin: 17px;width: 22px;height: 17px;float:left"
+            src="assets/icon/dashboard/icon All Holidays@3x.png">
+        <p style="line-height: 1.27;font-size: 11px;color: #fcfcfc;font-weight: bold;margin: 20px;">REPLACEMENT LEAVE
+        </p>
+    </ion-header>
+
+    <ion-content>
+        <div style="display: block">
+            <i class="material-icons" style="font-size: 8px;margin: 16px;color: #43425d;">fiber_manual_record</i>
+            <p style="display:inline-block;color: #4d4f5c; font-weight:bold;font-size:11px;line-height: 1.82;">
+                Current replacement leave </p>
+        </div>
+        <p
+            style="margin-left: 42px;opacity: 0.8;font-size: 10px;line-height: 2;color: #4d4f5c;margin-bottom: 0;margin-top: 0;">
+            Replacement Leave
+        </p>
+        <p style="margin-left: 42px;color: #4d4f5c; font-weight:bold;font-size:11px;line-height: 1.82;margin-top: 0;
+            margin-bottom: 0;"> 11 Days</p>
+        <p style="margin-left: 42px;font-size: 11px;font-weight: bold;line-height: 1.82;color: #ff6768;"> *Expiring
+            in 45 days</p>
+        <ion-item class="divider" lines="full"></ion-item>
+
+        <div style="display: block">
+            <i class="material-icons" style="font-size: 8px;margin: 16px;color: #43425d;">fiber_manual_record</i>
+            <p style="display: inline-block;color: #4d4f5c; font-weight:bold;font-size:11px;line-height: 1.82;">
+                Previous replacement leave</p>
+        </div>
+        <p
+            style="margin-left: 42px;opacity: 0.8;font-size: 10px;line-height: 2;color: #4d4f5c;margin-bottom: 0;margin-top: 0;">
+            Replacement Leave
+        </p>
+        <p style="margin-left: 42px;color: #4d4f5c; font-weight:bold;font-size:11px;line-height: 1.82;margin-top: 0;
+                margin-bottom: 0;"> 08 Days</p>
+        <p style="margin-left: 42px;font-size: 11px;font-weight: bold;line-height: 1.82;color: #ff6768;"> *Expiring
+            in 12 days</p>
+        <ion-item class="divider" lines="full"></ion-item>
+
+        <div style="text-align: center;margin:30px">
+            <ion-button [routerLink]="['/main/plan-my-leave']"
+                style="font-size: 11px;height: 30px;width:124px;cursor: pointer;text-transform: none;" color="primary">
+                Plan My Leave
+            </ion-button>
+        </div>
+    </ion-content>
+</ion-menu>
+<ion-router-outlet id="replacementMenuContent"></ion-router-outlet>
+
+
+<!-------------------------------- show announcement menu---------------------------------->
 <ion-menu contentId="announcedMenuContent" side="end" type="overlay" menuId="viewAnnouncementDetails">
     <ion-header style="background-color:#43425d; color: #fcfcfc;">
-        <img style="margin: 15px;width: 20px;height:21px;float:left"
+        <img style="margin: 17px;width: 20px;height:21px;float:left"
             src="assets/icon/dashboard/icon announcement@3x.png">
         <p style="line-height: 1.27;font-size: 11px;color: #fcfcfc;font-weight: bold;margin: 20px;">ANNOUNCEMENT</p>
     </ion-header>
@@ -13,29 +108,60 @@
             <!-- <ion-list-header>
                             Online
                         </ion-list-header> -->
-            <ion-item *ngFor="let item of announcements">
-                <ion-label>
-                    <p style="color:#4d4f5c; font-weight: bold;font-size: 11px;line-height: 1.82;">{{item.TITLE}}</p>
-                    <p style="opacity: 0.8;font-size: 9px;line-height: 2.22;color: #4d4f5c;">{{item.FROM_DATE}}</p>
-                    <p style="white-space: normal;font-size: 10px;color: #4d4f5c;line-height:1.4">{{item.MESSAGE}}
-                    </p>
-                </ion-label>
-            </ion-item>
+            <ng-container *ngFor="let item of announcements; let i =index">
+                <ion-item *ngIf="i<6 && showallannouncement===false">
+                    <ion-label>
+                        <p
+                            style="color:#4d4f5c; font-weight: bold;font-size: 11px;line-height: 1.82;white-space: normal;">
+                            {{item.TITLE}}</p>
+                        <p style="opacity: 0.8;font-size: 9px;line-height: 2.22;color: #4d4f5c;">{{item.FROM_DATE}}
+                        </p>
+                        <p
+                            style="white-space: normal;font-size: 10px;color: #4d4f5c;line-height:1.4;text-align: justify;">
+                            {{item.MESSAGE}}
+                        </p>
+                    </ion-label>
+                </ion-item>
+                <ion-item *ngIf="showallannouncement">
+                    <ion-label>
+                        <p
+                            style="color:#4d4f5c; font-weight: bold;font-size: 11px;line-height: 1.82;white-space: normal;">
+                            {{item.TITLE}}</p>
+                        <p style="opacity: 0.8;font-size: 9px;line-height: 2.22;color: #4d4f5c;">{{item.FROM_DATE}}
+                        </p>
+                        <p
+                            style="white-space: normal;font-size: 10px;color: #4d4f5c;line-height:1.4;text-align: justify;">
+                            {{item.MESSAGE}}
+                        </p>
+                    </ion-label>
+                </ion-item>
+            </ng-container>
         </ion-list>
+        <div style="text-align: center;margin:30px">
+            <ion-button *ngIf="!viewLessAnnouncement" (click)="showallannouncement = true; viewLessAnnouncement = true"
+                style="font-size: 11px;height: 30px;width:124px;cursor: pointer;text-transform: none;" color="primary">
+                View More
+            </ion-button>
+            <ion-button *ngIf="viewLessAnnouncement" (click)="showallannouncement = false; viewLessAnnouncement = false"
+                style="font-size: 11px;height: 30px;width:124px;cursor: pointer;text-transform: none;" color="primary">
+                View Less
+            </ion-button>
+        </div>
     </ion-content>
 </ion-menu>
 <ion-router-outlet id="announcedMenuContent"></ion-router-outlet>
 
-<!-------------------------------- show holiday ---------------------------------->
+
+<!-------------------------------- show holiday menu---------------------------------->
 <ion-menu contentId="holidayMenuContent" side="end" type="overlay" menuId="viewHolidayDetails">
     <ion-header style="background-color:#43425d; color: #fcfcfc;">
-        <img style="margin: 15px;width: 20px;height:21px;float:left"
+        <img style="margin: 17px;width: 22px;height: 17px;float:left"
             src="assets/icon/dashboard/icon All Holidays@3x.png">
         <p style="line-height: 1.27;font-size: 11px;color: #fcfcfc;font-weight: bold;margin: 20px;">ALL HOLIDAYS</p>
     </ion-header>
 
     <ion-content>
-        <ion-list>
+        <ion-list *ngIf='!isObj(holidays)'>
             <ng-container *ngFor="let item of holidays; let i = index;">
                 <ion-item *ngIf="i<6 && showall===false">
                     <ion-row style="width: 100%;padding-bottom: 10px;">
@@ -96,12 +222,13 @@
 <ion-router-outlet id="holidayMenuContent"></ion-router-outlet>
 
 
+<!-------------------------------- Dashboard content --------------------------------->
 <div class="row" *ngIf="row">
     <!-- <div class="column"> -->
     <div class="annual">
         <p style="color:#43425d;opacity: 0.8;font-weight: bold;line-height: 1.25;font-size: 12px">Annual Leave</p>
         <ion-label style="float: left;font-size: 35px;color: #43425d;font-weight: bold;line-height: 1.26;">
-            17</ion-label>
+            {{annualVal}}</ion-label>
         <img class="annual-icon" src="assets/icon/dashboard/icon_annual_leave@3x.png">
         <p style="font-size: 12px;opacity: 0.5;color: #43425d;line-height: 1.25;display: inline-block;
         margin-bottom: 0;width: 100%;">Days Available</p>
@@ -109,7 +236,7 @@
             style="float:left;color: #ff6768;opacity: 0.8;font-weight: bold;font-size: 11px;line-height: 1.36;margin-top: 5px;">
             Expiring in 30 days
         </p>
-        <p
+        <p (click)="menu.enable(true, 'viewAnnualDetails');menu.enable(false, 'viewReplacementDetails');menu.enable(false, 'viewAnnouncementDetails');menu.enable(false, 'viewHolidayDetails');menu.open('viewAnnualDetails');"
             style="cursor: pointer;margin-top: 5px;float: right;color:#3b86ff;opacity: 0.8;line-height: 1.36;font-size: 11px;font-weight: bold;">
             View
             Details</p>
@@ -125,7 +252,8 @@
             style="float:left;color: #ff6768;opacity: 0.8;font-weight: bold;font-size: 11px;line-height: 1.36;margin-top: 5px;">
             Expiring in 30 days
         </p>
-        <p
+
+        <p (click)="menu.enable(true, 'viewReplacementDetails');menu.enable(false, 'viewAnnualDetails');menu.enable(false, 'viewAnnouncementDetails');menu.enable(false, 'viewHolidayDetails');menu.open('viewReplacementDetails');"
             style="cursor: pointer;margin-top: 5px;float: right;color:#3b86ff;opacity: 0.8;line-height: 1.36;font-size: 11px;font-weight: bold;">
             View
             Details</p>
@@ -133,7 +261,7 @@
     <div class="medical">
         <p style="font-size: 12px;color:#43425d;opacity: 0.8;font-weight: bold;line-height: 1.25;">Medical Leave</p>
         <ion-label style="float: left;font-size: 35px;color: #43425d;font-weight: bold;line-height: 1.26;">
-            08</ion-label>
+            {{medicalVal}}</ion-label>
         <img class="medical-icon" src="assets/icon/dashboard/icon_medical@3x.png">
         <p style="font-size: 12px;opacity: 0.5;color: #43425d;line-height: 1.25;display: inline-block;
                 margin-bottom: 0;width: 100%;">Days Available</p>
@@ -141,15 +269,15 @@
     <div class="birthday">
         <p style="font-size: 12px;color:#43425d;opacity: 0.8;font-weight: bold;line-height: 1.25;">Birthday Leave</p>
         <ion-label style="float: left;font-size: 35px;color: #43425d;font-weight: bold;line-height: 1.26;">
-            27 Aug</ion-label>
+            {{dateOfBirth}}</ion-label>
         <img class="svg-icon" style="margin-right: 20px;width: 37px;height: 45px;"
             src="assets/icon/dashboard/icon_birthday@3x.png">
         <img style="position: absolute;right: 20px;top: 55px;width: 64px;height: 64px;"
-            src="assets/icon/dashboard/Path 332@3x.png">
+            src="assets/icon/dashboard/Path 332@2x.png">
         <img class="svg-icon" style="position: absolute;right: 14px;top: 58px;"
             src="assets/icon/dashboard/Happy Birthday!@3x.png">
         <p style="font-size: 12px;opacity: 0.5;color: #43425d;line-height: 1.25;display: inline-block;
-                    margin-bottom: 0;width: 100%;">4 days to go</p>
+                    margin-bottom: 0;width: 100%;">{{birtdayToGo}} days to go</p>
     </div>
     <!-- <mat-card class="leftCard" #matCard>
             <ion-button class="button1" shape="round"
@@ -243,7 +371,8 @@
         <div style="background-color: #ffffff;padding: 10px;">
             <div
                 style="font-size: 13px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
-                Latest Annoucement <p (click)="viewAnnouncement()"
+                Latest Annoucement <p
+                    (click)="menu.enable(true, 'viewAnnouncementDetails');menu.enable(false, 'viewReplacementDetails');menu.enable(false, 'viewAnnualDetails');menu.enable(false, 'viewHolidayDetails');menu.open('viewAnnouncementDetails');"
                     style="cursor: pointer;margin-top: 0px;float: right;margin-right: 5px;color:#3b86ff;opacity: 0.8;line-height: 1.36;font-size: 11px;font-weight: bold;">
                     View Details</p>
             </div>
@@ -252,7 +381,11 @@
                     <ion-col size="3" style="padding-left: 15px;color:#4d4f5c;font-size:11px;line-height: 1.82;">
                         {{item.FROM_DATE}}
                     </ion-col>
-                    <ion-col style="color:#4d4f5c;font-size:11px;line-height: 1.82;">{{item.MESSAGE}}
+                    <ion-col style="color:#4d4f5c;font-size:11px;line-height: 1.82;overflow: hidden;
+                    white-space: nowrap;text-overflow: ellipsis;">
+                        <span *ngIf="item.IS_PINNED === 1" style="font-weight: bold;color:#43425d;font-size:11px">
+                            {{item.TITLE}} <br></span>
+                        <span>{{item.MESSAGE}}</span>
                     </ion-col>
                     <ion-item *ngIf="i<2" class="divider" lines="full"></ion-item>
                 </ng-container>
@@ -263,29 +396,34 @@
         <div style="background-color: #ffffff;padding: 10px;">
             <div
                 style="font-size: 13px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
-                Upcoming Holidays <p (click)="viewHoliday()"
+                Upcoming Holidays <p (click)="menu.enable(true, 'viewHolidayDetails');menu.enable(false, 'viewReplacementDetails');menu.enable(false, 'viewAnnualDetails');
+                menu.enable(false, 'viewAnnouncementDetails');menu.open('viewHolidayDetails');"
                     style="cursor: pointer;margin-top: 0px;float: right;margin-right: 5px;color:#3b86ff;opacity: 0.8;line-height: 1.36;font-size: 11px;font-weight: bold;">
                     View Details</p>
             </div>
-            <ion-row style="width: 100%;" *ngFor="let item of holidays; let i = index;">
-                <ng-container style="padding-top: 2%;" *ngIf="i<3">
-                    <ion-col size="3" style="padding-left: 15px;color:#4d4f5c;font-size:11px;line-height: 1.82;">
-                        <ion-label>{{item.start}}</ion-label>
-                    </ion-col>
-                    <ion-col size="3">
-                        <mat-chip-list>
-                            <mat-chip>
-                                <p
-                                    style="white-space: nowrap;width: 100%;text-align: center;color: #ffffff;font-size: 9px;line-height: 2.22;">
-                                    {{item.day}}</p>
-                            </mat-chip>
-                        </mat-chip-list>
-                    </ion-col>
-                    <ion-col style="color:#4d4f5c;font-size:11px;line-height: 1.82;">{{item.title}}
-                    </ion-col>
-                    <ion-item *ngIf="i<2" class="divider" lines="full"></ion-item>
-                </ng-container>
-            </ion-row>
+            <div *ngIf='!isObj(holidays)'>
+                <ion-row style="width: 100%;" *ngFor="let item of holidays; let i = index;">
+                    <ng-container style="padding-top: 2%;" *ngIf="i<3">
+                        <ion-col size="3" style="padding-left: 15px;color:#4d4f5c;font-size:11px;line-height: 1.82;">
+                            <ion-label>{{item.start}}</ion-label>
+                        </ion-col>
+                        <ion-col size="3">
+                            <mat-chip-list>
+                                <mat-chip>
+                                    <p
+                                        style="white-space: nowrap;width: 100%;text-align: center;color: #ffffff;font-size: 9px;line-height: 2.22;">
+                                        {{item.day}}</p>
+                                </mat-chip>
+                            </mat-chip-list>
+                        </ion-col>
+                        <ion-col style="color:#4d4f5c;font-size:11px;line-height: 1.82;">{{item.title}}
+                        </ion-col>
+                        <ion-item *ngIf="i<2" class="divider" lines="full"></ion-item>
+                    </ng-container>
+                </ion-row>
+            </div>
+            <div style="margin-left: 15px;margin-top: 5px;color:#4d4f5c;font-size:12px;line-height: 1.82;"
+                *ngIf='isObj(holidays)'>No upcoming holiday</div>
         </div>
     </div>
 </div>
@@ -326,7 +464,7 @@
                                             padding-left: 0.5%;font-size: 16px;cursor: pointer;">
                             </ion-icon>
                             <p style="position: absolute;top: -5px;font-weight: bold;display: inline-block;color: #ff6768;cursor: pointer;font-size: 11px;line-height: 1.82;"
-                                (click)="addList(removeItems, contactObj)">Cancel</p>
+                                (click)="addList(removeItems, contactObj)">Reject</p>
                         </div>
                     </ion-col>
                     <ion-item *ngIf="i<notification.length-1" class="divider" lines="full"></ion-item>
