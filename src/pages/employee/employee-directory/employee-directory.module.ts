@@ -16,7 +16,7 @@ import { InlineSVGModule } from 'ng-inline-svg';
 import { SpinnerModule } from 'src/library/spinner/spinner.module';
 import { EmployeeDirectoryPage } from './employee-directory.page';
 import { EmployeeListPage } from './employee-list/employee-list.page';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 
 const routes: Routes = [
     {
@@ -40,6 +40,7 @@ const routes: Routes = [
         MatMenuModule,
         InlineSVGModule,
         SpinnerModule,
+        NgxPaginationModule,
         RouterModule.forChild(routes)
     ],
     declarations: [EmployeeDirectoryPage, EmployeeListPage]

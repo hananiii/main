@@ -98,17 +98,23 @@ app-employee-list
   > div.searchbar-input-container
   > input.searchbar-input {
   background: transparent;
-  border-radius: 30px;
-  border: 0.5px solid #bebebe;
-  height: 31px;
+  color: #43425d;
+  border: solid 1px #a5a4bf;
+  font-size: 12px;
+  box-shadow: none !important;
+  height: 40px;
+  width: 317px;
 }
 app-employee-list
   > div.connectionsContainer
   > div.topHeader
   > ion-searchbar.searchbar
   > div.searchbar-input-container
-  > ion-icon.searchbar-search-icon.sc-ion-searchbar-ios {
-  height: 88%;
+  > ion-icon.searchbar-search-icon.sc-ion-searchbar-md {
+  // height: 88%;
+  color: #bcbccb;
+  width: 16px;
+  box-shadow: none;
 }
 app-employee-list
   > div.connectionsContainer
@@ -116,9 +122,9 @@ app-employee-list
   > ion-searchbar.searchbar
   > div.searchbar-input-container
   > button
-  > ion-icon.searchbar-clear-icon.sc-ion-searchbar-ios {
+  > ion-icon.searchbar-clear-icon.sc-ion-searchbar-md {
   height: 80%;
-  margin-top: -3px;
+  // margin-top: -3px;
 }
 app-employee-list
   > div.connectionsContainer

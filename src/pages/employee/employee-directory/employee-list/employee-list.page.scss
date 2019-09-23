@@ -116,21 +116,26 @@
   }
   .listContent {
     padding: 20px;
-    height: calc(100% - 130px);
+    // height: calc(100% - 130px);
   }
   .gridContent {
     padding: 20px;
-    height: calc(100% - 130px);
+    // height: calc(100% - 130px);
   }
   ion-label {
-    color: #20291f;
-    font-weight: 500;
+    // color: #20291f;
+    // font-weight: 500;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 1.27;
+    color: #a5a4bf;
   }
   .arrow {
     font-size: 18px;
     padding-left: 10px;
     cursor: pointer;
     position: absolute;
+    color: #43425d;
   }
   .detailsRow {
     height: 55px;
@@ -190,21 +195,25 @@
     width: 95%;
   }
   .titleRow {
-    padding-bottom: 10px;
+    // padding-bottom: 10px;
+    background: #f5f6fa;
   }
   .topHeader {
-    width: 98%;
+    width: 100%;
     display: inline-block;
     padding-top: 15px;
     padding-bottom: 15px;
-    margin-left: 2%;
+    // margin-left: 2%;
     white-space: nowrap;
   }
   .searchbar {
-    width: 34%;
-    color: #7a8589;
+    // width: 34%;
+    width: 317px;
+    height: 40px;
+    color: #43425d;
     font-size: 12px;
     float: left;
+    margin-top: 4px;
   }
   .fa-bars {
     cursor: pointer;
@@ -319,5 +328,33 @@
   }
   ::ng-deep .mat-select-arrow {
     color: #7a8589;
+  }
+
+  // paginator
+  ::ng-deep .ngx-pagination .current {
+    background: #7069d8;
+    border: 1px solid #7069d8;
+    line-height: 22px;
+  }
+  ::ng-deep .ngx-pagination a {
+    color: #4d4f5c;
+    width: 31.3px;
+    height: 31.3px;
+    border-radius: 2px;
+    line-height: 22px;
+  }
+  ::ng-deep .ngx-pagination li {
+    width: 31.3px;
+    height: 31.3px;
+    text-align: center;
+    vertical-align: middle;
+    border: solid 1px #e8e9ec;
+    border-radius: 2px;
+    margin-right: 8px;
+    line-height: 22px;
+  }
+  .ngx-pagination .pagination-next a::after,
+  .ngx-pagination .pagination-next.disabled::after {
+    margin-left: 0 !important;
   }
 }

@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { APIService } from 'src/services/shared-service/api.service';
-import { Router } from '@angular/router';
 
 /**
  * Employee Directory Page

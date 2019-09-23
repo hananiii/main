@@ -55,14 +55,14 @@ export class EmployeeListPage implements OnInit {
      * @type {number}
      * @memberof EmployeeListPage
      */
-    public pageItems: number = 6;
+    public pageItems: number = 9;
 
     /**
      * This local property is used to set range for calculation
      * @type {number}
      * @memberof EmployeeListPage
      */
-    public range: number = 5;
+    public range: number = 8;
 
     /**
      * This local property is used to calculate page number
@@ -141,11 +141,11 @@ export class EmployeeListPage implements OnInit {
     public showSpinner: boolean = true;
 
     /**
-     * hide content during loading
-     * @type {boolean}
+     * page number of paginator
+     * @type {number}
      * @memberof EmployeeListPage
      */
-    public showContent: boolean = false;
+    p: number;
 
     /**
      * selection
@@ -172,7 +172,8 @@ export class EmployeeListPage implements OnInit {
      * @param {Router} router
      * @memberof EmployeeListPage
      */
-    constructor(private apiService: APIService, public router: Router) { }
+    constructor(private apiService: APIService, public router: Router) {
+    }
 
     /**
      * Inital method
@@ -184,10 +185,9 @@ export class EmployeeListPage implements OnInit {
         this.apiService.get_user_profile_list().subscribe(
             (data: any[]) => {
                 this.items = data;
-                this.pageNum = 1;
-                this.renderItems(this.pageNum);
+                // this.pageNum = 1;
+                // this.renderItems(this.pageNum);
                 this.showSpinner = false;
-                this.showContent = true;
             },
             error => {
                 if (error) {
@@ -214,7 +214,7 @@ export class EmployeeListPage implements OnInit {
         this.disablePrevButton = true;
         this.pageItems = pageItem;
         this.range = range;
-        this.renderItems(1);
+        // this.renderItems(1);
     }
 
     /**
@@ -222,24 +222,23 @@ export class EmployeeListPage implements OnInit {
      * @param {number} i
      * @memberof EmployeeListPage
      */
-    renderItems(i: number) {
-        this.pageNum = i;
-        this.totalItem = this.items.length;
-        this.totalPageNum = this.totalItem / this.pageItems;
-        this.totalPageNum = Math.ceil(this.totalPageNum);
-        const firstNum = (this.pageNum * this.pageItems) - this.range;
-        const lastNum = this.pageNum * this.pageItems;
-        const currentPageList = [];
-        for (let j = firstNum - 1; j < lastNum; j++) {
-            const itemValue = this.items[j];
-            if (itemValue !== undefined) {
-                currentPageList.push(itemValue);
-            }
-        }
-        this.currentPageItems = currentPageList;
-        this.showSpinner = false;
-        this.showContent = true;
-    }
+    // renderItems(i: number) {
+    //     this.pageNum = i;
+    //     this.totalItem = this.items.length;
+    //     this.totalPageNum = this.totalItem / this.pageItems;
+    //     this.totalPageNum = Math.ceil(this.totalPageNum);
+    //     const firstNum = (this.pageNum * this.pageItems) - this.range;
+    //     const lastNum = this.pageNum * this.pageItems;
+    //     const currentPageList = [];
+    //     for (let j = firstNum - 1; j < lastNum; j++) {
+    //         const itemValue = this.items[j];
+    //         if (itemValue !== undefined) {
+    //             currentPageList.push(itemValue);
+    //         }
+    //     }
+    //     this.currentPageItems = currentPageList;
+    //     this.showSpinner = false;
+    // }
 
     /**
      * This method is used to disable or enable next button
@@ -281,13 +280,13 @@ export class EmployeeListPage implements OnInit {
      */
     clickPageButton(index: number, nextOrPrev: string) {
         if (!(index > this.totalPageNum) && nextOrPrev === 'next') {
-            this.showSpinner = true;
-            this.renderItems(index);
+            // this.showSpinner = true;
+            // this.renderItems(index);
             this.disableEnableNextButton();
         }
         if (!(index < 1) && nextOrPrev === 'prev') {
-            this.showSpinner = true;
-            this.renderItems(index);
+            // this.showSpinner = true;
+            // this.renderItems(index);
             this.disableEnablePreviousButton();
         }
     }
@@ -300,7 +299,7 @@ export class EmployeeListPage implements OnInit {
      * @memberof EmployeeListPage
      */
     nameSorting(value: boolean, checkAsc: number, checkDes: number) {
-        this.showSpinner = true;
+        // this.showSpinner = true;
         this.arrowDownName = value;
         this.items = this.items.slice(0);
         this.items.sort(function (a: any, b: any) {
@@ -308,7 +307,7 @@ export class EmployeeListPage implements OnInit {
             const y = b.employeeName.toUpperCase();
             return x < y ? checkAsc : x > y ? checkDes : 0;
         });
-        this.renderItems(1);
+        // this.renderItems(1);
         this.disableNextButton = false;
         this.disablePrevButton = true;
     }
@@ -321,7 +320,7 @@ export class EmployeeListPage implements OnInit {
      * @memberof EmployeeListPage
      */
     IDSorting(value: boolean, ascValue: number, desValue: number) {
-        this.showSpinner = true;
+        // this.showSpinner = true;
         this.arrowDownId = value;
         this.items = this.items.slice(0);
         this.items.sort(function (x, y) {
@@ -329,7 +328,7 @@ export class EmployeeListPage implements OnInit {
             const b = y.staffNumber;
             return a < b ? ascValue : a > b ? desValue : 0;
         });
-        this.renderItems(1);
+        // this.renderItems(1);
         this.disableNextButton = false;
         this.disablePrevButton = true;
     }
@@ -344,8 +343,9 @@ export class EmployeeListPage implements OnInit {
             this.items = this.items.filter((data: any) => {
                 return (data.employeeName.toUpperCase().indexOf(char.toUpperCase()) > -1);
             })
-            this.pageNum = 1;
-            this.renderItems(this.pageNum);
+            // this.pageNum = 1;
+            // this.renderItems(this.pageNum);
+            this.showSpinner = false;
             this.disableEnableNextButton();
             this.disableEnablePreviousButton();
         }
@@ -359,8 +359,9 @@ export class EmployeeListPage implements OnInit {
         this.apiService.get_user_profile_list().subscribe(
             (data: any[]) => {
                 this.items = data;
-                this.pageNum = 1;
-                this.renderItems(this.pageNum);
+                this.showSpinner = false;
+                // this.pageNum = 1;
+                // this.renderItems(this.pageNum);
             }
         );
         this.disableNextButton = false;

@@ -1,11 +1,35 @@
-<ion-header>
+<!-- <ion-header>
     <ion-toolbar class="toolbar2">
         <ion-title style="display: inline-block;color: #20291f; font-size: 16px;">
             Employee Directory
         </ion-title>
         <!-- <div style="float: right; padding-right: 20px;">
             <div class="filter-icon" [inlineSVG]="'assets/icon/option/filter.svg'" (click)="viewMoreFilter=true;"></div>
-        </div> -->
+        </div> --
     </ion-toolbar>
-</ion-header>
-<router-outlet></router-outlet>
+</ion-header> -->
+<ion-content class="contentMenu" contentId="content">
+    <ion-list lines="none" style="background: #8b89b4;">
+        <ion-title style="display: inline-block;color: #f0f0f7;font-size: 15px;padding-bottom: 20px;
+            padding-top: 10px;">
+            Employee
+        </ion-title>
+        <ion-menu-toggle auto-hide="false">
+            <!-- *ngFor="let p of employeeSetupPage; let i=index" -->
+            <ion-item class="items" lines="none" (click)="getIndexToShowArrow(i)" [ngClass]="{
+                        'mainColor': numOfArray === i,'highlightColor': numOfArray !== i}">
+                <ion-label style="color: #ffffff;">
+                    Department
+                </ion-label>
+                <!-- <div *ngIf="numOfArray === i">
+                        <ion-icon slot="end" color="primary" name="arrow-dropright"></ion-icon>
+                    </div> -->
+            </ion-item>
+        </ion-menu-toggle>
+    </ion-list>
+</ion-content>
+
+<ion-content class="content2">
+    <ion-router-outlet></ion-router-outlet>
+</ion-content>
+<!-- <router-outlet></router-outlet> -->

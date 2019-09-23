@@ -1,6 +1,36 @@
 :host {
   top: 48px;
-  background: #f9fafc;
+  // background: #f9fafc;
+  .contentMenu {
+    width: 230px;
+    --background: #8b89b4;
+  }
+
+  .content2 {
+    position: absolute;
+    width: calc(100% - 230px);
+    right: 0;
+    left: 230px;
+  }
+
+  .mainColor {
+    --background: rgba(0, 0, 0, 0.1);
+    border-left: 2px solid #a3a0fb;
+  }
+  .highlightColor {
+    --background: #8b89b4;
+  }
+  .item:hover {
+    --background: rgba(0, 0, 0, 0.1);
+    border-left: 2px solid #a3a0fb;
+  }
+  .items {
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 14px;
+    // --background: #8b89b4;
+  }
+
   .header-md:after {
     height: 0px;
     background-image: none;
