@@ -195,8 +195,8 @@
     width: 95%;
   }
   .titleRow {
-    // padding-bottom: 10px;
     background: #f5f6fa;
+    margin-bottom: 10px;
   }
   .topHeader {
     width: 100%;
@@ -353,8 +353,9 @@
     margin-right: 8px;
     line-height: 22px;
   }
-  .ngx-pagination .pagination-next a::after,
-  .ngx-pagination .pagination-next.disabled::after {
-    margin-left: 0 !important;
-  }
+  // .ngx-pagination .pagination-next a::after,
+  // .ngx-pagination .pagination-next.disabled::after {
+  //   margin-left: 0 !important;
+  //   // content: 'url(assets/icon/option/right-chevron.svg)';
+  // }
 }

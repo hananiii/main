@@ -110,19 +110,34 @@ margin: 0 auto;">
             <ion-item class="divider" lines="full"></ion-item>
         </ion-row>
     </ion-content>
-    <div [style.display]="showSpinner ? 'none' : 'block'"
-        style="padding-left: 20px;padding-right: 20px;padding-bottom: 10px;">
-        <ion-button [disabled]="disablePrevButton" fill="outline" (click)="clickPageButton(pageNum-1, 'prev')"
+    <div [style.display]="showSpinner ? 'none' : 'block'">
+        <pagination-template #p2="paginationApi" (pageChange)="p = $event">
+            <div class="custom-pagination" style="float: left;">
+                <div class="pagination-previous" style="display: inline-block">
+                    <ion-button [disabled]="p2.isFirstPage()" fill="outline" (click)="p2.previous()"
+                        style="background: #f0f0f7;font-size: 12px;height: 30px;width: 124px;" color="primary">Prev
+                    </ion-button>
+                </div>
+                <div style="padding-left: 10px;display: inline-block;"></div>
+                <div class="pagination-next" style="display: inline-block">
+                    <ion-button (click)="p2.next()" [disabled]="p2.isLastPage()"
+                        style="font-size: 12px;height: 30px;width: 124px" color="primary">Next
+                    </ion-button>
+                </div>
+            </div>
+        </pagination-template>
+
+        <!-- <ion-button [disabled]="disablePrevButton" fill="outline" (click)="clickPageButton(p, 'prev')"
             style="background: #f0f0f7;font-size: 12px;height: 30px;width: 124px;display: inline-block;"
             color="primary">
-            <!-- <ion-icon name="arrow-back"></ion-icon> --> Prev
+            <!-- <ion-icon name="arrow-back"></ion-icon> -- Prev
         </ion-button>
         <div style="padding-left: 10px;display: inline-block;"></div>
         <ion-button [disabled]="disableNextButton"
             style="font-size: 12px;height: 30px;width: 124px;display: inline-block;" color="primary"
-            (click)="clickPageButton(pageNum+1, 'next')">Next
-            <!-- <ion-icon name="arrow-forward"></ion-icon> -->
-        </ion-button>
+            (click)="clickPageButton(p, 'next')">Next
+            <!-- <ion-icon name="arrow-forward"></ion-icon> --
+        </ion-button> -->
         <div style="font-size: 10px;margin-top: -8px;white-space: nowrap;float: right;">
             <!-- <span style="padding-right: 10px;">Page</span>
             <span style="border-radius: 1.5px;border: solid 0.5px #dfe3e6;padding-left: 7px;
@@ -215,18 +230,32 @@ margin: 0 auto;">
             </mat-grid-tile>
         </mat-grid-list>
     </ion-content>
-    <div [style.display]="showSpinner ? 'none' : 'block'" style="padding-left: 20px;padding-right: 20px;padding-top: 10px;
-    padding-bottom: 10px;">
-        <ion-button [disabled]="disablePrevButton" fill="outline" (click)="clickPageButton(pageNum-1, 'prev')"
+    <div [style.display]="showSpinner ? 'none' : 'block'" style="margin-top: 20px;">
+        <pagination-template #p2="paginationApi" (pageChange)="p = $event">
+            <div class="custom-pagination" style="float: left;">
+                <div class="pagination-previous" style="display: inline-block">
+                    <ion-button [disabled]="p2.isFirstPage()" fill="outline" (click)="p2.previous()"
+                        style="background: #f0f0f7;font-size: 12px;height: 30px;width: 124px;" color="primary">Prev
+                    </ion-button>
+                </div>
+                <div style="padding-left: 10px;display: inline-block;"></div>
+                <div class="pagination-next" style="display: inline-block">
+                    <ion-button (click)="p2.next()" [disabled]="p2.isLastPage()"
+                        style="font-size: 12px;height: 30px;width: 124px" color="primary">Next
+                    </ion-button>
+                </div>
+            </div>
+        </pagination-template>
+        <!-- <ion-button [disabled]="disablePrevButton" fill="outline" (click)="clickPageButton(pageNum-1, 'prev')"
             style="background: #f0f0f7;font-size: 12px;height: 30px;width: 124px;display: inline-block" color="primary">
-            <!-- <ion-icon name="arrow-back"></ion-icon>--> Prev
+            <!-- <ion-icon name="arrow-back"></ion-icon>-- Prev
         </ion-button>
         <div style="padding-left: 10px;display: inline-block"></div>
         <ion-button [disabled]="disableNextButton"
             style="font-size: 12px;height: 30px;width: 124px;display: inline-block" color="primary"
             (click)="clickPageButton(pageNum+1, 'next')">Next
-            <!-- <ion-icon name="arrow-forward"></ion-icon> -->
-        </ion-button>
+            <!-- <ion-icon name="arrow-forward"></ion-icon> --
+        </ion-button> -->
         <div style="font-size: 10px;margin-top: -8px;white-space: nowrap;float: right;">
             <!-- <span style="padding-right: 10px;">Page</span>
             <span style="border-radius: 1.5px;border: solid 0.5px #dfe3e6;padding-left: 7px;
