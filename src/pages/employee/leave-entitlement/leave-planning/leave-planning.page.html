@@ -1,4 +1,4 @@
-<ion-header>
+<!-- <ion-header style="width: 100%;position: absolute;">
     <ion-toolbar class="toolbar2">
         <div class="back-icon" [inlineSVG]="'assets/icon/option/arrow-pointing-to-left.svg'" (click)="backToProfile()">
         </div>
@@ -9,21 +9,47 @@
             <i class="fab fa-facebook-f"></i>
             <i class="fab fa-linkedin-in"></i>
             <i class="fab fa-instagram"></i>
-        </div> -->
+        </div> --
     </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-card class="leftCard">
-    <ion-card-content>
+    <ion-card-header style="padding: inherit;">
+        <div class="fullContainer">
+            <div class="left">
+                <ion-avatar class="avatar">
+                    <img src="assets/icon/chris.jpg">
+                </ion-avatar>
+            </div>
+            <div class="right" *ngIf="list">
+                <ion-card-subtitle style="color: #43425d;opacity: 0.8;font-weight: bold;">{{list.employeeName}}
+                </ion-card-subtitle>
+                <!-- <div style="display:block; padding-top: 5px;"> -->
+                <ion-card-subtitle class="subtitle">
+                    {{list.employeeDesignation}}</ion-card-subtitle>
+                <!-- <i class="fas fa-circle"></i> -->
+                <ion-card-subtitle class="subtitle">{{list.employeeDepartment}}
+                </ion-card-subtitle>
+                <!-- </div> -->
+                <!-- <div style="padding-top: 5px;"> -->
+                <!-- <div class="marker-icon" [inlineSVG]="'assets/icon/user_profile/pin.svg'"></div> -->
+                <ion-card-subtitle class="subtitle">
+                    {{list.employmentDetail.workLocation}}
+                </ion-card-subtitle>
+                <!-- </div> -->
+            </div>
+        </div>
+    </ion-card-header>
+    <ion-card-content style="box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);
+    background-color: #ffffff;margin: 20px;padding-top: 13px;">
         <mat-tab-group selectedIndex="0">
-            <mat-tab label="Apply Leave">
+            <mat-tab label="APPLY LEAVE">
                 <app-apply-leave></app-apply-leave>
             </mat-tab>
-            <mat-tab label="Calendar">
+            <mat-tab label="CALENDAR">
                 <app-calendar-view></app-calendar-view>
             </mat-tab>
         </mat-tab-group>
-
     </ion-card-content>
 </ion-card>
 <div style="width: 100%; height:100%; text-align: center" *ngIf="showSpinner">

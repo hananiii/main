@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { APIService } from 'src/services/shared-service/api.service';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 
 /**
  * Leave Planning Page
@@ -31,23 +30,6 @@ export class LeavePlanningPage implements OnInit {
     public showSpinner: boolean = true;
 
     /**
-     * This local property is used to set subscription
-     * @private
-     * @type {Subscription}
-     * @memberof LeavePlanningPage
-     */
-    private subscription: Subscription = new Subscription();
-
-    /**
-     * Return API content
-     * @readonly
-     * @memberof LeavePlanningPage
-     */
-    get personalList() {
-        return this.list;
-    }
-
-    /**
      *Creates an instance of LeavePlanningPage.
      * @param {APIService} apiService
      * @param {Router} router
@@ -62,7 +44,7 @@ export class LeavePlanningPage implements OnInit {
      * @memberof LeavePlanningPage
      */
     ngOnInit() {
-        this.subscription = this.apiService.get_personal_details().subscribe(
+        this.apiService.get_user_profile().subscribe(
             (data: any[]) => {
                 this.list = data;
                 this.showSpinner = false;
@@ -73,14 +55,6 @@ export class LeavePlanningPage implements OnInit {
                 }
             }
         );
-    }
-
-    /**
-     * This method is used to destroy subscription
-     * @memberof LeavePlanningPage
-     */
-    ngOnDestroy() {
-        this.subscription.unsubscribe();
     }
 
     /**

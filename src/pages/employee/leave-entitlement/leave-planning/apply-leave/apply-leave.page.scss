@@ -5,7 +5,8 @@
     // margin: 0 auto;
     max-width: 900px;
     width: 55%;
-    margin-top: 4%;
+    margin-top: 1%;
+    margin-bottom: 1%;
     display: inline-block;
   }
   ::ng-deep.fc-content-skeleton {
@@ -110,7 +111,11 @@
   ::ng-deep .fc-button-group > .fc-button:not(:last-child) {
     text-transform: capitalize;
   }
-  ::ng-deep .fc-event-container{
+  ::ng-deep .fc-event-container {
     cursor: pointer;
+  }
+  ::ng-deep .fc-toolbar h2 {
+    font-size: 18px;
+    font-weight: bold;
   }
 }

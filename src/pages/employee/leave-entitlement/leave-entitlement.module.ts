@@ -21,6 +21,7 @@ import { CalendarViewPage } from './leave-planning/calendar-view/calendar-view.p
 import { SpinnerModule } from 'src/library/spinner/spinner.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NotificationPage } from './leave-planning/apply-leave/notification/notification.page';
+import { MatChipsModule } from '@angular/material/chips';
 
 
 const routes: Routes = [
@@ -48,6 +49,7 @@ const routes: Routes = [
     MatRadioModule,
     SpinnerModule,
     MatSnackBarModule,
+    MatChipsModule,
     RouterModule.forChild(routes)
   ],
   entryComponents: [NotificationPage],

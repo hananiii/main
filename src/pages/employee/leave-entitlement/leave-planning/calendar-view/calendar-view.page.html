@@ -1,9 +1,9 @@
 <div class='app-calendar'>
     <full-calendar *ngIf="events" #calendar defaultView="dayGridMonth" [header]="{
-                          left: 'prev,next today',
-                          center: 'title',
-                          right: 'dayGridMonth,timeGridWeek, listYear'
-                        }" [plugins]="calendarPlugins" [events]="events" [eventLimit]=true
+                                          left: 'prev,next today',
+                                          center: 'title',
+                                          right: 'dayGridMonth,timeGridWeek, listYear'
+                                        }" [plugins]="calendarPlugins" [events]="events" [eventLimit]=true
         (eventClick)="text = $event.el.text; start = $event.event.start; end = $event.event.end;color = $event.event.backgroundColor; onEventClick($event)">
     </full-calendar>
     <div *ngIf="text" style="height: 30px;float: left;margin-top: 29px;width: 5px;"
@@ -17,25 +17,40 @@
 
 <div class="holidayView">
     <ion-row class="titleRow">
-        <ion-col style="display: inline-flex;">
-            <ion-label style="color: white">Day</ion-label>
+        <!-- <ion-col style="display: inline-flex;">
+                            <ion-label style="color: white">Day</ion-label>
+                        </ion-col> -->
+        <ion-col size="4">
+            <ion-label style="font-size: 13px;font-weight: bold;line-height: 1.31;color: #a3a6b4;">Date
+            </ion-label>
         </ion-col>
         <ion-col>
-            <ion-label style="color: white">Date</ion-label>
-        </ion-col>
-        <ion-col>
-            <ion-label style="color: white">Holiday</ion-label>
+            <ion-label style="font-size: 13px;font-weight: bold;line-height: 1.31;color: #a3a6b4;">Holiday
+            </ion-label>
         </ion-col>
     </ion-row>
 
-    <ion-row class="detailsRow" *ngFor="let holiday of PBList">
-        <ion-col>
-            <ion-label>{{holiday.day}}</ion-label>
-        </ion-col>
-        <ion-col class="colOfLeave">{{holiday.str}}
-        </ion-col>
-        <ion-col class="colOfLeave" style="color: #057dcd">{{holiday.title}}
-        </ion-col>
-        <ion-item class="divider" lines="full"></ion-item>
-    </ion-row>
+    <ion-list>
+        <ion-item *ngFor="let holiday of PBList" style="width: 100%;">
+            <ion-row class="detailsRow" style="width: 100%;">
+                <ion-col size="4">
+                    <mat-chip-list>
+                        <ion-label
+                            style="position: absolute;margin-top: -20px;padding: 5px;padding-bottom: 0;color:#4d4f5c; font-size:11px;line-height:2.22">
+                            {{holiday.str}}
+                        </ion-label>
+                        <mat-chip>
+                            <p
+                                style="white-space: nowrap;width: 100%;text-align: center;color: #f0f0f7;font-size: 10px;line-height: 2.22;">
+                                {{holiday.day}}</p>
+                        </mat-chip>
+                    </mat-chip-list>
+                </ion-col>
+                <ion-col class="colOfLeave" style="color: #4d4f5c;font-size: 11px;" align-self-center>
+                    {{holiday.title}}
+                </ion-col>
+                <!-- <ion-item class="divider" lines="full"></ion-item> -->
+            </ion-row>
+        </ion-item>
+    </ion-list>
 </div>
