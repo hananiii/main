@@ -87,6 +87,41 @@ export class DashboardAPIService {
         return this.apiService.getApi('/api/employee/date-of-birth');
     }
 
+    /**
+     * get long leave (>5 days) details
+     * @returns {Observable<any>}
+     * @memberof DashboardAPIService
+     */
+    get_long_leave_reminder(): Observable<any> {
+        return this.apiService.getApi('/api/employee/long-leave');
+    }
+
+    /**
+     * get annual leave balance
+     * @returns {Observable<any>}
+     * @memberof DashboardAPIService
+     */
+    get_annual_leave(): Observable<any> {
+        return this.apiService.getApi('/api/employee/dashboard-annual-leave');
+    }
+
+    /**
+     * get medical leave balance
+     * @returns {Observable<any>}
+     * @memberof DashboardAPIService
+     */
+    get_medical_leave(): Observable<any> {
+        return this.apiService.getApi('/api/employee/dashboard-medical-leave');
+    }
+
+    /**
+     * get replacement leave balance
+     * @returns {Observable<any>}
+     * @memberof DashboardAPIService
+     */
+    get_replacement_leave(): Observable<any> {
+        return this.apiService.getApi('/api/employee/dashboard-replacement-leave');
+    }
 
 
 }

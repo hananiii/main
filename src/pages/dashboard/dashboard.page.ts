@@ -10,7 +10,6 @@ import { Component, OnInit } from '@angular/core';
 import { DashboardAPIService } from './dashboard-api.service';
 import * as _moment from 'moment';
 import { MenuController } from '@ionic/angular';
-import { APIService } from 'src/services/shared-service/api.service';
 const moment = _moment;
 
 /**
@@ -201,18 +200,32 @@ export class DashboardPage implements OnInit {
     public entitlementList: any;
 
     /** 
-     * annual leave entitled day
+     * annual leave details
      * @type {number}
      * @memberof DashboardPage
      */
     public annualVal: number;
 
     /**
-     * medical leave entitled day
+     * medical leave details
      * @type {number}
      * @memberof DashboardPage
      */
-    public medicalVal: number;
+    public medicalVal: any = 0;
+
+    /**
+     * replacement leave
+     * @type {number}
+     * @memberof DashboardPage
+     */
+    public replaceVal: number = 0;
+
+    /**
+     * expiry days for replacement leave
+     * @type {number}
+     * @memberof DashboardPage
+     */
+    public RLDaysToGo: number;
 
     /** 
      * date of birth from personal details
@@ -236,6 +249,13 @@ export class DashboardPage implements OnInit {
     public birthdayDetail: any;
 
     /**
+     * long leave details
+     * @type {*}
+     * @memberof DashboardPage
+     */
+    public longLeave: any;
+
+    /**
      * Return enum category
      * @readonly
      * @type {*}
@@ -251,7 +271,7 @@ export class DashboardPage implements OnInit {
      * @param {MenuController} menu
      * @memberof DashboardPage
      */
-    constructor(private mainAPI: APIService, private dashboardAPI: DashboardAPIService, private menu: MenuController) { }
+    constructor(private dashboardAPI: DashboardAPIService, private menu: MenuController) { }
 
     /**
      * Initial method
@@ -271,28 +291,31 @@ export class DashboardPage implements OnInit {
         });
         this.getHolidayList();
         this.getAnnouncementList();
-        this.getUserDetails();
+        // this.getUserDetails();
+        this.get_annual_medical();
+        this.dashboardAPI.get_long_leave_reminder().subscribe(details => this.longLeave = details)
+        this.get_RL();
     }
 
     /**
      * get user profile details
      * @memberof DashboardPage
      */
-    getUserDetails() {
-        this.mainAPI.get_user_profile().subscribe(data => {
-            this.entitlementList = data.entitlementDetail;
-            this.dateOfBirth = moment(data.personalDetail.dob).format('DD MMM')
-            this.calculateDays(data);
-            for (let i = 0; i < this.entitlementList.length; i++) {
-                if (this.entitlementList[i].leaveTypeName == 'Annual Leave') {
-                    this.annualVal = this.entitlementList[i].entitledDays;
-                }
-                if (this.entitlementList[i].leaveTypeName == 'Medical Leave') {
-                    this.medicalVal = this.entitlementList[i].entitledDays;
-                }
-            }
-        });
-    }
+    // getUserDetails() {
+    //     this.mainAPI.get_user_profile().subscribe(data => {
+    //         this.entitlementList = data.entitlementDetail;
+    //         this.dateOfBirth = moment(data.personalDetail.dob).format('DD MMM')
+    //         this.birtdayToGo = this.calculateDays(data.personalDetail.dob);
+    //         for (let i = 0; i < this.entitlementList.length; i++) {
+    //             if (this.entitlementList[i].leaveTypeName == 'Annual Leave') {
+    //                 this.annualVal = this.entitlementList[i].entitledDays;
+    //             }
+    //             if (this.entitlementList[i].leaveTypeName == 'Medical Leave') {
+    //                 this.medicalVal = this.entitlementList[i].entitledDays;
+    //             }
+    //         }
+    //     });
+    // }
 
     /**
      * remaining days to reach birthday
@@ -300,8 +323,8 @@ export class DashboardPage implements OnInit {
      * @memberof DashboardPage
      */
     calculateDays(data: any) {
-        let month = new Date(data.personalDetail.dob).getMonth();
-        let day = new Date(data.personalDetail.dob).getDate();
+        let month = new Date(data).getMonth();
+        let day = new Date(data).getDate();
         let myBirthday = [day, month]; // 6th of February
         let today = new Date();
         let bday = new Date(today.getFullYear(), myBirthday[1], myBirthday[0] + 1);
@@ -310,8 +333,43 @@ export class DashboardPage implements OnInit {
         }
         let diff = bday.getTime() - today.getTime();
         let days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        this.birtdayToGo = days;
+        return days;
+    }
 
+    /**
+     * get annual & medical details from endpoint
+     * @memberof DashboardPage
+     */
+    get_annual_medical() {
+        this.dashboardAPI.get_annual_leave().subscribe(details => {
+            this.annualVal = details;
+        })
+        this.dashboardAPI.get_medical_leave().subscribe(details => {
+            if (details.status == undefined) {
+                this.medicalVal = details.BALANCE_DAYS;
+            }
+        })
+    }
+
+
+    /**
+     * get value from replacement leave endpoint
+     * @memberof DashboardPage
+     */
+    get_RL() {
+        this.dashboardAPI.get_replacement_leave().subscribe(details => {
+            const RL = details;
+            let date = [];
+            if (RL.status == undefined) {
+                for (let i = 0; i < RL.length; i++) {
+                    this.replaceVal += RL[i].DAYS_ADDED;
+                    date.push(RL[i].EXPIREDATE);
+                }
+                if (date.every((val, i, arr) => val === arr[0])) {
+                    this.RLDaysToGo = this.calculateDays(date[0]);
+                }
+            }
+        })
     }
 
     /**
