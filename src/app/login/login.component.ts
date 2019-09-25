@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
    * @memberof LoginComponent
    */
   getErrorMessage() {
-    return this.formGroupValidation.controls['email'].hasError('required') ? 'Please enter your email address' :
+    return this.formGroupValidation.controls['email'].hasError('required') ? 'Please enter username' :
       this.formGroupValidation.controls['email'].hasError('email') ? 'Not a valid email' : '';
   }
 
@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
    * @memberof LoginComponent
    */
   getPassErrorMessage() {
-    return this.formGroupValidation.controls['pass'].hasError('required') ? 'Please enter your password' : '';
+    return this.formGroupValidation.controls['pass'].hasError('required') ? 'Please enter password' : '';
   }
 
   /**
