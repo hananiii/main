@@ -14,24 +14,25 @@
   }
   .selection {
     padding-left: 3%;
-    margin-top: 4%;
+    margin-top: 20px;
     float: right;
     width: 45%;
   }
   .calendar-icon {
-    fill: #bebebe;
+    fill: #a5a4bf;
     cursor: pointer;
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     position: absolute;
     right: 0;
-    top: 10px;
+    top: 8px;
   }
-  ::ng-deep .mat-select-value-text {
-    color: #7a8589;
-  }
+  // ::ng-deep .mat-select-value-text {
+  //   color: #7a8589;
+  // }
   ::ng-deep .mat-select-arrow {
-    color: #7a8589;
+    color: #43425d;
+    opacity: 0.8;
   }
   .dateForm {
     display: inline;
@@ -60,29 +61,33 @@
     position: relative;
   }
   ::ng-deep .mat-radio-container {
-    height: 16px;
-    width: 16px;
+    height: 15px;
+    width: 15px;
   }
   ::ng-deep .mat-radio-outer-circle {
-    border-width: 1px;
-    height: 16px;
-    width: 16px;
+    border-width: 2px;
+    height: 15px;
+    width: 15px;
+    border-color: #a5a4bf;
   }
   ::ng-deep .mat-radio-inner-circle {
-    height: 16px;
-    width: 16px;
+    height: 15px;
+    width: 15px;
   }
   ::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
-    border-color: #057dcd;
+    border-color: #7069d8;
   }
   ::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
-    background-color: #057dcd;
+    background-color: #7069d8;
   }
   ::ng-deep .mat-radio-button.mat-radio-disabled .mat-radio-outer-circle {
     border-color: rgba(0, 0, 0, 0.2);
   }
   ::ng-deep .mat-radio-button .mat-radio-ripple {
     display: none;
+  }
+  ::ng-deep .mat-radio-label-content {
+    padding-left: 5px;
   }
   .divider {
     --min-height: none;
@@ -92,10 +97,18 @@
   ::ng-deep .mat-form-field > .mat-form-field-wrapper {
     padding-bottom: 10px;
   }
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+    font-size: 12px;
+    color: #43425d;
+    opacity: 0.8;
+  }
+  ::ng-deep .reasonBox > div.mat-form-field-wrapper > div.mat-form-field-flex {
+    height: 93px;
+  }
   .addIcon {
-    display: block;
-    color: #057dcd;
-    font-size: 22px;
+    // display: block;
+    color: #3b86ff;
+    font-size: 16px;
     cursor: pointer;
   }
   //full calendar
@@ -117,5 +130,21 @@
   ::ng-deep .fc-toolbar h2 {
     font-size: 18px;
     font-weight: bold;
+  }
+  ::ng-deep table th {
+    background: #e9e9f0;
+    color: #a3a6b4;
+    height: 48px;
+    vertical-align: middle;
+    border-color: #e8e9ec;
+  }
+  ::ng-deep table td {
+    font-size: 15px;
+    color: #43425d;
+  }
+  ::ng-deep table,
+  table td,
+  table th {
+    border-color: #e8e9ec;
   }
 }

@@ -36,6 +36,16 @@
     opacity: 0.8;
     padding-top: 5px;
   }
+  .textBalance{
+    display: block;
+    color: #43425d;
+    opacity: 0.8;
+    padding-top: 5px;
+    font-size: 11px;
+    white-space: nowrap;
+    margin: 0;
+    padding: 0;
+  }
   .back-icon {
     width: 30px;
     height: 19px;
@@ -73,6 +83,7 @@
     // left: 2%;
     height: 100%;
     margin: 0;
+    overflow: auto;
   }
 
   ////////////////////////// mat tab ///////////////////

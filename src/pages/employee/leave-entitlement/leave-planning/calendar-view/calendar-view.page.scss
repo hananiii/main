@@ -11,11 +11,11 @@
   }
   .holidayView {
     padding-left: 3%;
-    margin-top: 66px;
+    margin-top: 60px;
     float: right;
     width: 45%;
     overflow: auto;
-    max-height: 375px;
+    max-height: 380px;
   }
   .titleRow {
     padding-left: 5%;
@@ -50,31 +50,15 @@
   //full calendar
   ::ng-deep .fc-toolbar > * > :not(:first-child) {
     text-transform: capitalize;
-    // background: #a5a4bf;
-    // border-color: #a5a4bf;
   }
   ::ng-deep .fc-button-group > .fc-button:not(:last-child) {
     text-transform: capitalize;
-    // background: white;
-    // border-color: #e8e9ec;
-    // color: #a4afb7;
-    // border-radius: 2px;
-    // box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.05);
-    // border: solid 1px #e8e9ec;
   }
   ::ng-deep .fc-button-group > .fc-button:not(:first-child) {
     text-transform: capitalize;
-    // background: #a5a4bf;
-    // border-color: #a5a4bf;
   }
   ::ng-deep .fc-button-group > .fc-button:not(:last-child) {
     text-transform: capitalize;
-    // background: white;
-    // border-color: #e8e9ec;
-    // color: #a4afb7;
-    // border-radius: 2px;
-    // box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.05);
-    // border: solid 1px #e8e9ec;
   }
   ::ng-deep .fc-event-container {
     cursor: pointer;
@@ -93,5 +77,25 @@
     line-height: 3.2;
     background-color: #e9e9f0;
     color: #a3a6b4;
+  }
+  ::ng-deep .fc-event {
+    background-color: #5ee2a0;
+    border: 1px solid #5ee2a0;
+  }
+  ::ng-deep table th {
+    background: #e9e9f0;
+    color: #a3a6b4;
+    height: 48px;
+    vertical-align: middle;
+    border-color: #e8e9ec;
+  }
+  ::ng-deep table td {
+    font-size: 15px;
+    color: #43425d;
+  }
+  ::ng-deep table,
+  table td,
+  table th {
+    border-color: #e8e9ec;
   }
 }

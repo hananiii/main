@@ -48,7 +48,7 @@ export class ApplyLeavePage implements OnInit {
      * @type {string}
      * @memberof ApplyLeavePage
      */
-    public daysAvailable: string = '';
+    public daysAvailable: number = 0;
 
     /**
      * Local property for leave day applied
@@ -387,8 +387,8 @@ export class ApplyLeavePage implements OnInit {
             this.calendarEvents[i].end = moment(holiday[i].end).format('YYYY-MM-DD');
             this.calendarEvents[i].day = this.getDayName(new Date(holiday[i].start));
             this.calendarEvents[i].allDay = true;
-            this.calendarEvents[i]["backgroundColor"] = "#c2185b";
-            this.calendarEvents[i]["borderColor"] = "#c2185b";
+            this.calendarEvents[i]["backgroundColor"] = "#7069d8";
+            this.calendarEvents[i]["borderColor"] = "#7069d8";
         }
     }
 

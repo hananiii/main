@@ -31,11 +31,11 @@ export class LeavePlanningPage implements OnInit {
 
     /**
      *Creates an instance of LeavePlanningPage.
-     * @param {APIService} apiService
+     * @param {APIService} API
      * @param {Router} router
      * @memberof LeavePlanningPage
      */
-    constructor(private apiService: APIService, private router: Router
+    constructor(private API: APIService, private router: Router
     ) { }
 
     /**
@@ -44,10 +44,10 @@ export class LeavePlanningPage implements OnInit {
      * @memberof LeavePlanningPage
      */
     ngOnInit() {
-        this.apiService.get_user_profile().subscribe(
-            (data: any[]) => {
-                this.list = data;
+        this.API.get_user_profile().subscribe(
+            (list: any[]) => {
                 this.showSpinner = false;
+                this.list = list;
             },
             error => {
                 if (error) {
