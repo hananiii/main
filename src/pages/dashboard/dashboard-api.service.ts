@@ -123,5 +123,14 @@ export class DashboardAPIService {
         return this.apiService.getApi('/api/employee/dashboard-replacement-leave');
     }
 
+    /**
+     * get dashboard task to be done
+     * @returns {Observable<any>}
+     * @memberof DashboardAPIService
+     */
+    get_task_list(): Observable<any> {
+        return this.apiService.getApi('/api/employee/dashboard-my-task');
+    }
+
 
 }

@@ -256,6 +256,13 @@ export class DashboardPage implements OnInit {
     public longLeave: any;
 
     /**
+     * task list
+     * @type {*}
+     * @memberof DashboardPage
+     */
+    public tasks: any;
+
+    /**
      * Return enum category
      * @readonly
      * @type {*}
@@ -348,6 +355,10 @@ export class DashboardPage implements OnInit {
             if (details.status == undefined) {
                 this.medicalVal = details.BALANCE_DAYS;
             }
+        })
+        this.dashboardAPI.get_task_list().subscribe(data => {
+            this.tasks = data;
+            console.log(this.tasks)
         })
     }
 
