@@ -299,7 +299,7 @@ export class DashboardPage implements OnInit {
         this.getHolidayList();
         this.getAnnouncementList();
         // this.getUserDetails();
-        this.get_annual_medical();
+        this.get_annual_medical_task();
         this.dashboardAPI.get_long_leave_reminder().subscribe(details => this.longLeave = details)
         this.get_RL();
     }
@@ -347,7 +347,7 @@ export class DashboardPage implements OnInit {
      * get annual & medical details from endpoint
      * @memberof DashboardPage
      */
-    get_annual_medical() {
+    get_annual_medical_task() {
         this.dashboardAPI.get_annual_leave().subscribe(details => {
             this.annualVal = details;
         })
@@ -356,9 +356,16 @@ export class DashboardPage implements OnInit {
                 this.medicalVal = details.BALANCE_DAYS;
             }
         })
+        this.get_task_list();
+    }
+
+    /**
+     * get pending task list
+     * @memberof DashboardPage
+     */
+    get_task_list() {
         this.dashboardAPI.get_task_list().subscribe(data => {
             this.tasks = data;
-            console.log(this.tasks)
         })
     }
 
@@ -469,6 +476,32 @@ export class DashboardPage implements OnInit {
             //     this.notification[i].icon = 'account_box';
             // }
         }
+    }
+
+    /**
+     * method to approve clicked leave transaction GUID
+     * @param {string} leaveGUID
+     * @memberof DashboardPage
+     */
+    approveLeave(leaveGUID: string) {
+        console.log(leaveGUID);
+        this.dashboardAPI.post_approve_list({ "id": leaveGUID }).subscribe(response => {
+            console.log(response);
+            this.get_task_list();
+        })
+    }
+
+    /**
+     * method to reject clicked leave transaction GUID
+     * @param {*} leave_transaction_guid
+     * @memberof DashboardPage
+     */
+    rejectLeave(leave_transaction_guid) {
+        console.log(leave_transaction_guid);
+        this.dashboardAPI.post_reject_list({ "id": leave_transaction_guid }).subscribe(response => {
+            console.log(response);
+           this.get_task_list();
+        })
     }
 
     /**

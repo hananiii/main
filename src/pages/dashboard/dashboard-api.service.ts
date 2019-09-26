@@ -132,5 +132,23 @@ export class DashboardAPIService {
         return this.apiService.getApi('/api/employee/dashboard-my-task');
     }
 
+    /**
+     * superior approve task leave from dashboard
+     * @returns {Observable<any>}
+     * @memberof DashboardAPIService
+     */
+    post_approve_list(leaveTransactionGUID): Observable<any> {
+        return this.apiService.postApi(leaveTransactionGUID, '/api/leave/approved');
+    }
+
+    /**
+     * superior reject task leave from dashboard
+     * @returns {Observable<any>}
+     * @memberof DashboardAPIService
+     */
+    post_reject_list(GUID): Observable<any> {
+        return this.apiService.postApi(GUID, '/api/leave/rejected');
+    }
+
 
 }
