@@ -45,6 +45,13 @@ export class LoginComponent implements OnInit {
   public passValue: string;
 
   /**
+   * show forgot password page
+   * @type {boolean}
+   * @memberof LoginComponent
+   */
+  public forgotPass: boolean = false;
+
+  /**
    * This is local property to form group of validation for email and password
    * @memberof LoginComponent
    */
@@ -54,6 +61,12 @@ export class LoginComponent implements OnInit {
   });
 
   /**
+   * This is local property to form group of validation to reset password
+   * @memberof LoginComponent
+   */
+  public resetPassword = new FormGroup({ emailAdd: new FormControl(null, [Validators.required, Validators.email]) });
+
+  /**
    * This method is used to show error message when the form control of email is invalid
    * @returns
    * @memberof LoginComponent
@@ -61,6 +74,16 @@ export class LoginComponent implements OnInit {
   getErrorMessage() {
     return this.formGroupValidation.controls['email'].hasError('required') ? 'Please enter username' :
       this.formGroupValidation.controls['email'].hasError('email') ? 'Not a valid email' : '';
+  }
+
+  /**
+   * get validation of enter email
+   * @returns
+   * @memberof LoginComponent
+   */
+  getEmailError() {
+    return this.resetPassword.controls['emailAdd'].hasError('required') ? 'Please enter email' :
+      this.resetPassword.controls['emailAdd'].hasError('email') ? 'Not a valid email address' : '';
   }
 
   /**
@@ -125,6 +148,15 @@ export class LoginComponent implements OnInit {
         this.spinner.hide();
       }
       );
+  }
+
+  /**
+   * send email to resert password
+   * @param {string} email
+   * @memberof LoginComponent
+   */
+  sendRequest(email: string) {
+    console.log(email);
   }
 
   /**
