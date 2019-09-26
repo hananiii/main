@@ -1,18 +1,18 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from 'src/services/shared-service/guards/auth-guard.service';
 import { SideMenuNavigationComponent } from './side-menu-navigation.component';
-import { EmployeeSetupPage } from 'src/pages/employee/employee-setup.page';
+import { EmployeeSetupPage } from '../employee/employee-setup.component';
 import { PageNotFoundComponent } from '../page-not-found.component';
-import { PublicPersonalDetailsPage } from 'src/pages/employee/public-personal-details/public-personal-details.page';
-import { EmployeeDirectoryPage } from 'src/pages/employee/employee-directory/employee-directory.page';
-import { PersonalDetailsPage } from 'src/pages/employee/personal-details/personal-details.page';
-import { EmploymentDetailsPage } from 'src/pages/employee/employment-details/employment-details.page';
-import { LeaveEntitlementPage } from 'src/pages/employee/leave-entitlement/leave-entitlement.page';
-import { AccountSettingPage } from 'src/pages/employee/account-setting/account-setting.page';
-import { LeavePlanningPage } from 'src/pages/employee/leave-entitlement/leave-planning/leave-planning.page';
-import { DashboardPage } from 'src/pages/dashboard/dashboard.page';
-import { AwardCertificationPage } from 'src/pages/employee/award-certification/award-certification.page';
-import { EmployeeListPage } from 'src/pages/employee/employee-directory/employee-list/employee-list.page';
+import { PublicPersonalDetailsPage } from '../employee/public-personal-details/public-personal-details.component';
+import { EmployeeDirectoryPage } from '../employee/employee-directory/employee-directory.component';
+import { PersonalDetailsPage } from '../employee/personal-details/personal-details.component';
+import { EmploymentDetailsPage } from '../employee/employment-details/employment-details.component';
+import { LeaveEntitlementPage } from '../employee/leave-entitlement/leave-entitlement.component';
+import { AccountSettingPage } from '../employee/account-setting/account-setting.component';
+import { LeavePlanningPage } from '../employee/leave-entitlement/leave-planning/leave-planning.component';
+import { DashboardPage } from '../dashboard/dashboard.component';
+import { AwardCertificationPage } from '../employee/award-certification/award-certification.component';
+import { EmployeeListPage } from '../employee/employee-directory/employee-list/employee-list.component';
 
 export const sideMenuNavigationRoutes: Routes = [
     {
