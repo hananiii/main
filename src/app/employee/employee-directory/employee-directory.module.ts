@@ -14,14 +14,14 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { SpinnerModule } from 'src/library/spinner/spinner.module';
-import { EmployeeDirectoryPage } from './employee-directory.component';
-import { EmployeeListPage } from './employee-list/employee-list.component';
+import { EmployeeDirectoryComponent } from './employee-directory.component';
+import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 const routes: Routes = [
     {
         path: '',
-        component: EmployeeDirectoryPage
+        component: EmployeeDirectoryComponent
     }
 ];
 
@@ -43,6 +43,6 @@ const routes: Routes = [
         NgxPaginationModule,
         RouterModule.forChild(routes)
     ],
-    declarations: [EmployeeDirectoryPage, EmployeeListPage]
+    declarations: [EmployeeDirectoryComponent, EmployeeListComponent]
 })
 export class EmployeeDirectoryModule { }

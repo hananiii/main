@@ -4,7 +4,7 @@ import { MAT_SNACK_BAR_DATA } from "@angular/material/snack-bar";
 /**
  * show pop up notification
  * @export
- * @class NotificationPage
+ * @class NotificationComponent
  */
 @Component({
   selector: 'app-notification',
@@ -15,12 +15,12 @@ import { MAT_SNACK_BAR_DATA } from "@angular/material/snack-bar";
       }
     `],
 })
-export class NotificationPage {
+export class NotificationComponent {
 
   /**
-   *Creates an instance of NotificationPage.
+   *Creates an instance of NotificationComponent.
    * @param {*} data
-   * @memberof NotificationPage
+   * @memberof NotificationComponent
    */
   constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any) {
   }

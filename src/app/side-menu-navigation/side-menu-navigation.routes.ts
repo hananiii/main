@@ -1,18 +1,17 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from 'src/services/shared-service/guards/auth-guard.service';
 import { SideMenuNavigationComponent } from './side-menu-navigation.component';
-import { EmployeeSetupPage } from '../employee/employee-setup.component';
+import { EmployeeSetupComponent } from '../employee/employee-setup.component';
 import { PageNotFoundComponent } from '../page-not-found.component';
-import { PublicPersonalDetailsPage } from '../employee/public-personal-details/public-personal-details.component';
-import { EmployeeDirectoryPage } from '../employee/employee-directory/employee-directory.component';
-import { PersonalDetailsPage } from '../employee/personal-details/personal-details.component';
-import { EmploymentDetailsPage } from '../employee/employment-details/employment-details.component';
-import { LeaveEntitlementPage } from '../employee/leave-entitlement/leave-entitlement.component';
-import { AccountSettingPage } from '../employee/account-setting/account-setting.component';
-import { LeavePlanningPage } from '../employee/leave-entitlement/leave-planning/leave-planning.component';
-import { DashboardPage } from '../dashboard/dashboard.component';
-import { AwardCertificationPage } from '../employee/award-certification/award-certification.component';
-import { EmployeeListPage } from '../employee/employee-directory/employee-list/employee-list.component';
+import { PublicPersonalDetailsComponent } from '../employee/public-personal-details/public-personal-details.component';
+import { PersonalDetailsComponent } from '../employee/personal-details/personal-details.component';
+import { AccountSettingComponent } from '../employee/account-setting/account-setting.component';
+import { LeavePlanningComponent } from '../employee/leave-entitlement/leave-planning/leave-planning.component';
+import { DashboardComponent } from '../dashboard/dashboard.component';
+import { AwardCertificationComponent } from '../employee/award-certification/award-certification.component';
+import { EmployeeListComponent } from '../employee/employee-directory/employee-list/employee-list.component';
+import { EmployeeDirectoryComponent } from '../employee/employee-directory/employee-directory.component';
+import { LeaveEntitlementsComponent } from '../employee/leave-entitlement/leave-entitlement.component';
 
 export const sideMenuNavigationRoutes: Routes = [
     {
@@ -21,26 +20,26 @@ export const sideMenuNavigationRoutes: Routes = [
         canActivate: [AuthGuard],
         children: [
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-            { path: 'dashboard', component: DashboardPage },
-            { path: 'plan-my-leave', component: LeavePlanningPage },
+            { path: 'dashboard', component: DashboardComponent },
+            { path: 'plan-my-leave', component: LeavePlanningComponent },
             {
-                path: 'employee-directory', component: EmployeeDirectoryPage,
+                path: 'employee-directory', component: EmployeeDirectoryComponent,
                 children: [
                     { path: '', redirectTo: 'list', pathMatch: 'full' },
-                    { path: 'list', component: EmployeeListPage }
+                    { path: 'list', component: EmployeeListComponent }
                 ]
             },
-            { path: 'user-public-profile', component: PublicPersonalDetailsPage },
+            { path: 'user-public-profile', component: PublicPersonalDetailsComponent },
             {
-                path: 'employee-setup', component: EmployeeSetupPage,
+                path: 'employee-setup', component: EmployeeSetupComponent,
                 children: [
                     { path: '', redirectTo: 'personal-details', pathMatch: 'full' },
-                    { path: 'personal-details', component: PersonalDetailsPage },
-                    { path: 'employment-details/:id', component: EmploymentDetailsPage },
-                    { path: 'leave-entitlement', component: LeaveEntitlementPage },
-                    { path: 'awards-certification', component: AwardCertificationPage },
+                    { path: 'personal-details', component: PersonalDetailsComponent },
+                    { path: 'employment-details/:id', component: EmployeeDirectoryComponent },
+                    { path: 'leave-entitlement', component: LeaveEntitlementsComponent },
+                    { path: 'awards-certification', component: AwardCertificationComponent },
                     // { path: 'connection', component: ConnectionsPage },
-                    { path: 'account', component: AccountSettingPage }
+                    { path: 'account', component: AccountSettingComponent }
                 ]
             }
         ]

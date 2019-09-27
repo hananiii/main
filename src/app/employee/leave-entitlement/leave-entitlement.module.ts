@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
-import { LeaveEntitlementPage } from './leave-entitlement.component';
+import { LeaveEntitlementsComponent } from './leave-entitlement.component';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FullCalendarModule } from '@fullcalendar/angular'; // for FullCalendar
@@ -18,16 +18,16 @@ import { MatRadioModule } from '@angular/material/radio';
 import { SpinnerModule } from 'src/library/spinner/spinner.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatChipsModule } from '@angular/material/chips';
-import { NotificationPage } from './leave-planning/apply-leave/notification/notification.component';
-import { LeavePlanningPage } from './leave-planning/leave-planning.component';
-import { ApplyLeavePage } from './leave-planning/apply-leave/apply-leave.component';
-import { CalendarViewPage } from './leave-planning/calendar-view/calendar-view.component';
+import { NotificationComponent } from './leave-planning/apply-leave/notification/notification.component';
+import { LeavePlanningComponent } from './leave-planning/leave-planning.component';
+import { ApplyLeaveComponent } from './leave-planning/apply-leave/apply-leave.component';
+import { CalendarViewComponent } from './leave-planning/calendar-view/calendar-view.component';
 
 
 const routes: Routes = [
   {
     path: '',
-    component: LeaveEntitlementPage,
+    component: LeaveEntitlementsComponent,
   }
 ];
 
@@ -52,7 +52,7 @@ const routes: Routes = [
     MatChipsModule,
     RouterModule.forChild(routes)
   ],
-  entryComponents: [NotificationPage],
-  declarations: [LeaveEntitlementPage, LeavePlanningPage, ApplyLeavePage, CalendarViewPage, NotificationPage]
+  entryComponents: [NotificationComponent],
+  declarations: [LeaveEntitlementsComponent, LeavePlanningComponent, ApplyLeaveComponent, CalendarViewComponent, NotificationComponent]
 })
 export class LeaveEntitlementModule { }

@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 import { MatIconModule } from '@angular/material/icon';
-import { DashboardPage } from './dashboard.component';
+import { DashboardComponent } from './dashboard.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -18,7 +18,7 @@ import { MatChipsModule } from '@angular/material/chips';
 const routes: Routes = [
     {
         path: '',
-        component: DashboardPage
+        component: DashboardComponent
     }
 ];
 
@@ -37,7 +37,7 @@ const routes: Routes = [
         MatChipsModule,
         RouterModule.forChild(routes)
     ],
-    declarations: [DashboardPage]
+    declarations: [DashboardComponent]
 })
 export class DashboardModule { }
 

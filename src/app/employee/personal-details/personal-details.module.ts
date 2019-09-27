@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
-import { PersonalDetailsPage } from './personal-details.component';
+import { PersonalDetailsComponent } from './personal-details.component';
 import { MatCardModule } from '@angular/material/card';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -18,7 +18,7 @@ import { SpinnerModule } from 'src/library/spinner/spinner.module';
 const routes: Routes = [
   {
     path: '',
-    component: PersonalDetailsPage,
+    component: PersonalDetailsComponent,
   }
 ];
 
@@ -39,6 +39,6 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   providers: [],
-  declarations: [PersonalDetailsPage]
+  declarations: [PersonalDetailsComponent]
 })
 export class PersonalDetailsModule { }

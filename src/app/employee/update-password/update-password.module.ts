@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { SpinnerModule } from 'src/library/spinner/spinner.module';
-import { UpdatePasswordPage } from './update-password.component';
+import { UpdatePasswordComponent } from './update-password.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -16,7 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 const routes: Routes = [
     {
         path: '',
-        component: UpdatePasswordPage,
+        component: UpdatePasswordComponent,
     }
 ];
 
@@ -35,6 +35,6 @@ const routes: Routes = [
         RouterModule.forChild(routes)
     ],
     providers: [],
-    declarations: [UpdatePasswordPage]
+    declarations: [UpdatePasswordComponent]
 })
 export class UpdatePasswordModule { }

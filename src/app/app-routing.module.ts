@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
-import { UpdatePasswordPage } from './employee/update-password/update-password.component';
-import { EmailInvitationPage } from './employee/email-invitation/email-invitation.component';
+import { UpdatePasswordComponent } from './employee/update-password/update-password.component';
+import { EmailInvitationComponent } from './employee/email-invitation/email-invitation.component';
 
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'update-password', component: UpdatePasswordPage },
-  { path: 'email-verify', component: EmailInvitationPage },
+  { path: 'update-password', component: UpdatePasswordComponent },
+  { path: 'email-verify', component: EmailInvitationComponent },
 ];
 
 

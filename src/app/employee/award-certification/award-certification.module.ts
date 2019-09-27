@@ -12,7 +12,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { SpinnerModule } from 'src/library/spinner/spinner.module';
-import { AwardCertificationPage } from './award-certification.component';
+import { AwardCertificationComponent } from './award-certification.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 
@@ -20,7 +20,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 const routes: Routes = [
     {
         path: '',
-        component: AwardCertificationPage,
+        component: AwardCertificationComponent,
     }
 ];
 
@@ -42,6 +42,6 @@ const routes: Routes = [
         RouterModule.forChild(routes)
     ],
     providers: [],
-    declarations: [AwardCertificationPage]
+    declarations: [AwardCertificationComponent]
 })
 export class AwardCertificationModule { }

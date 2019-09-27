@@ -17,7 +17,7 @@ const moment = _moment;
 /**
  * Apply Leave Page
  * @export
- * @class ApplyLeavePage
+ * @class ApplyLeaveComponent
  * @implements {OnInit}
  */
 @Component({
@@ -28,11 +28,11 @@ const moment = _moment;
         { provide: DateAdapter, useClass: AppDateAdapter },
         { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS }]
 })
-export class ApplyLeavePage implements OnInit {
+export class ApplyLeaveComponent implements OnInit {
     /**
      * Local property for leave entitlement details
      * @type {*}
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     public entitlement: any;
 
@@ -46,83 +46,83 @@ export class ApplyLeavePage implements OnInit {
     /**
      * Local property for leave day available
      * @type {string}
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     public daysAvailable: number = 0;
 
     /**
      * Local property for leave day applied
      * @type {number}
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     public daysCount: number = 0;
 
     /**
      * Local property for show or hide Add icon
      * @type {boolean}
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     public showAddIcon: boolean = true;
 
     /**
      * This is input property for plugins of Full Calendar Component
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     public calendarPlugins = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
 
     /**
      * Property for alias Event Input of Full Calendar Component
      * @type {EventInput[]}
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     public calendarEvents: EventInput[];
 
     /**
      * Local property for min. date range
      * @type {string}
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     public minDate: string;
 
     /**
      * Local property for max. date range
      * @type {string}
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     public maxDate: string;
 
     /**
      * Local property for leave form group
      * @type {FormGroup}
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     public applyLeaveForm: any;
 
     /**
      * Local property for selected quarter hour value
      * @type {string}
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     public selectedQuarterHour: string = '';
 
     /**
      * Local property for leave type ID
      * @type {string}
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     public leaveTypeId: string;
 
     /**
      * show text in clicked calendar
      * @type {string}
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     public text: string;
 
     /**
      * date in clicked calendar
      * @type {Date}
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     public date: Date;
 
@@ -130,7 +130,7 @@ export class ApplyLeavePage implements OnInit {
      * Local private property for value get from API
      * @private
      * @type {*}
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     private _userList: any;
 
@@ -139,14 +139,14 @@ export class ApplyLeavePage implements OnInit {
      * eg: sunday-saturday is 0-6
      * @private
      * @type {number}
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     private _weekDayNumber: number[] = [];
     /**
      * Local private property for selected date array list
      * @private
      * @type {*}
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     private _dateArray: any;
 
@@ -154,7 +154,7 @@ export class ApplyLeavePage implements OnInit {
      * Local private property for start date
      * @private
      * @type {string}
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     private _reformatDateFrom: string;
 
@@ -162,7 +162,7 @@ export class ApplyLeavePage implements OnInit {
      * Local private property for end date
      * @private
      * @type {string}
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     private _reformatDateTo: string;
 
@@ -170,56 +170,56 @@ export class ApplyLeavePage implements OnInit {
      * Default index number for first day types selection
      * @private
      * @type {string}
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     private _index: string = '0';
 
     /**
      * Date selected for 1st day types selection 
      * @private
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     private _firstForm = [];
 
     /**
      * Date selected for 2nd day types selection 
      * @private
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     private _secondForm = [];
 
     /**
      * Date selected for 3rd day types selection 
      * @private
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     private _thirdForm = [];
 
     /**
      * Index number of selected date from selection list (_dateArray) for 1st day types selection
      * @private
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     private _firstFormIndex = [];
 
     /**
      * Index number of selected date from selection list (_dateArray) for 2nd day types selection
      * @private
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     private _secondFormIndex = [];
 
     /**
      * Index number of selected date from selection list (_dateArray) for 3rd day types selection
      * @private
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     private _thirdFormIndex = [];
 
     /**
      * Disable date option list (true/false)
      * @private
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     private _arrayList = [];
 
@@ -227,7 +227,7 @@ export class ApplyLeavePage implements OnInit {
      * AM/PM for 1st day types selection
      * @private
      * @type {string}
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     private _slot1: string;
 
@@ -235,7 +235,7 @@ export class ApplyLeavePage implements OnInit {
      * AM/PM for 2nd day types selection
      * @private
      * @type {string}
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     private _slot2: string;
 
@@ -243,7 +243,7 @@ export class ApplyLeavePage implements OnInit {
      * AM/PM for 3rd day types selection
      * @private
      * @type {string}
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     private _slot3: string;
 
@@ -251,35 +251,35 @@ export class ApplyLeavePage implements OnInit {
      * {startDate: "YYYY-MM-DD 00:00:00", endDate: "YYYY-MM-DD 00:00:00", dayType: number, slot: string, quarterDay: string}
      * Object for 1st day types selection
      * @private
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     private _objSlot1 = [];
 
     /**
      * Object for 2nd day types selection
      * @private
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     private _objSlot2 = [];
 
     /**
      * Object for 3rd day types selection
      * @private
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     private _objSlot3 = [];
 
     /**
      * Data collected from (_objSlot1, _objSlot2, _objSlot3) POST to apply leave API
      * @private
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     private _arrayDateSlot = [];
 
     /**
      * This is local property for Full Calendar Component
      * @type {FullCalendarComponent}
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     @ViewChild('calendar') calendarComponent: FullCalendarComponent;
 
@@ -287,18 +287,18 @@ export class ApplyLeavePage implements OnInit {
      * get return value of dayTypes array list
      * @readonly
      * @type {FormArray}
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     get dayTypes(): FormArray {
         return this.applyLeaveForm.get('dayTypes') as FormArray;
     }
 
     /**
-     * Creates an instance of ApplyLeavePage.
+     * Creates an instance of ApplyLeaveComponent.
      * @param {APIService} apiService
      * @param {ActivatedRoute} route
      * @param {LeavePlanningAPIService} leaveAPI
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     constructor(private apiService: APIService, private route: ActivatedRoute, private leaveAPI: LeavePlanningAPIService) {
         this.applyLeaveForm = this.formGroup();
@@ -315,7 +315,7 @@ export class ApplyLeavePage implements OnInit {
     /**
      * Initial method
      * Get user profile list from API
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     ngOnInit() {
         const dt = new Date();
@@ -354,7 +354,7 @@ export class ApplyLeavePage implements OnInit {
     /**
      * This method is used to form group for validation
      * @returns
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     formGroup() {
         return new FormGroup({
@@ -413,7 +413,7 @@ export class ApplyLeavePage implements OnInit {
      * This method is used to create consecutive date as an array list
      * @param {*} arrayValue
      * @returns
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     createConsecutiveDate(arrayValue) {
         let arr = arrayValue,
@@ -434,7 +434,7 @@ export class ApplyLeavePage implements OnInit {
 
     /**
      * This method is used to post data to apply leave API 
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     postData() {
         let newArray = [];
@@ -501,7 +501,7 @@ export class ApplyLeavePage implements OnInit {
 
     /**
      * This method is used to clear all form value
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     clearArrayList() {
         this.applyLeaveForm = this.formGroup();
@@ -522,7 +522,7 @@ export class ApplyLeavePage implements OnInit {
     /**
      * This method is used to patch value of selected start date & end date
      * Calculate weekdays
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     onDateChange(): void {
         if (!this.applyLeaveForm.value.firstPicker || !this.applyLeaveForm.value.secondPicker) {
@@ -539,7 +539,7 @@ export class ApplyLeavePage implements OnInit {
      * @param {Date} first
      * @param {Date} last
      * @returns
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     getWeekDays(first: Date, last: Date, dayNumber: number[]) {
         if (first > last) return -1;
@@ -561,7 +561,7 @@ export class ApplyLeavePage implements OnInit {
      * This method is used to get min. and max. date of each date array
      * @param {*} all_dates
      * @returns
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     getMinMaxDate(all_dates) {
         let max_dt = all_dates[0],
@@ -585,7 +585,7 @@ export class ApplyLeavePage implements OnInit {
      * This method is used to set min. date of datepicker start date
      * @param {MatDatepickerInputEvent<string>} event
      * @returns {string}
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     getValueFrom(event: MatDatepickerInputEvent<string>): string {
         return this.minDate = moment(event.value).format('YYYY-MM-DD');
@@ -595,7 +595,7 @@ export class ApplyLeavePage implements OnInit {
      * This method is used to set max. date of datepicker end date
      * @param {MatDatepickerInputEvent<string>} event
      * @returns {string}
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     getValueTo(event: MatDatepickerInputEvent<string>): string {
         const toDate: string = moment(event.value).format('YYYY-MM-DD');
@@ -610,7 +610,7 @@ export class ApplyLeavePage implements OnInit {
      * This method is used to detect selection change of day types
      * @param {*} event
      * @param {*} index
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     dayTypesChanged(event: any, index: any) {
         this._index = index;
@@ -625,7 +625,7 @@ export class ApplyLeavePage implements OnInit {
      * @param {number} i
      * @param {*} value
      * @param {boolean} disabled
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     patchValueFunction(i: number, value: any, disabled: boolean) {
         for (let j = 0; j < value.length; j++) {
@@ -637,7 +637,7 @@ export class ApplyLeavePage implements OnInit {
     /**
      * This method is used to detect opened change of half day dates
      * @param {number} index
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     open(index: number) {
         if (this._arrayList.length === 0) {
@@ -666,7 +666,7 @@ export class ApplyLeavePage implements OnInit {
      * This method is used to calculate days of leave apply
      * @param {*} date
      * @param {*} form
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     calculate(date: any, form: any) {
         let missing = null;
@@ -684,7 +684,7 @@ export class ApplyLeavePage implements OnInit {
      * @param {*} obj
      * @param {*} list
      * @returns
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     containsObject(obj: any, list: any) {
         for (let i = 0; i < list.length; i++) {
@@ -700,7 +700,7 @@ export class ApplyLeavePage implements OnInit {
      * @param {*} form
      * @param {*} array
      * @param {string} slot
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     postValueReformat(form: any, array: any, slot: string) {
         for (let j = 0; j < form.length; j++) {
@@ -724,7 +724,7 @@ export class ApplyLeavePage implements OnInit {
      * This method is used to calculate days when selected date options
      * @param {*} selectedDate
      * @param {number} index
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     halfDaySelectionChanged(selectedDate: any, index: number) {
         if (index == 0) {
@@ -749,7 +749,7 @@ export class ApplyLeavePage implements OnInit {
      * This method is used to assign value of selected date option
      * @param {number} i
      * @param {number} indexj
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     valueSelected(i: number, indexj: number) {
         if (i == 0) {
@@ -780,7 +780,7 @@ export class ApplyLeavePage implements OnInit {
      * This method is used to get time slot AM/PM when detect change
      * @param {*} event
      * @param {*} i
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     timeSlotChanged(event: any, i: any) {
         this._index = i;
@@ -803,7 +803,7 @@ export class ApplyLeavePage implements OnInit {
 
     /**
      * This method is used for add new form group after clicked add button
-     * @memberof ApplyLeavePage
+     * @memberof ApplyLeaveComponent
      */
     addFormField() {
         if (this.dayTypes.controls.length < Object.keys(DayType).length / 2) {

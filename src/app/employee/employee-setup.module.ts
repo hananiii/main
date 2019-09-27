@@ -11,7 +11,7 @@ import { EmploymentDetailsModule } from './employment-details/employment-details
 import { LeaveEntitlementModule } from './leave-entitlement/leave-entitlement.module';
 import { EmployeeDirectoryModule } from './employee-directory/employee-directory.module';
 import { AuthGuard } from 'src/services/shared-service/guards/auth-guard.service';
-import { EmployeeSetupPage } from './employee-setup.component';
+import { EmployeeSetupComponent } from './employee-setup.component';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { AccountSettingModule } from './account-setting/account-setting.module';
 import { PersonalDetailsService } from './personal-details/personal-details.service';
@@ -20,7 +20,7 @@ import { AwardCertificationModule } from './award-certification/award-certificat
 const routes: Routes = [
   {
     path: '',
-    component: EmployeeSetupPage,
+    component: EmployeeSetupComponent,
   }
 ];
 
@@ -41,7 +41,7 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   providers: [AuthGuard, PersonalDetailsService],
-  declarations: [EmployeeSetupPage]
+  declarations: [EmployeeSetupComponent]
 })
 export class EmployeeSetupPageModule {
 }

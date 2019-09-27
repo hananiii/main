@@ -13,13 +13,13 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { InlineSVGModule } from 'ng-inline-svg';
-import { AccountSettingPage } from './account-setting.component';
+import { AccountSettingComponent } from './account-setting.component';
 
 
 const routes: Routes = [
     {
         path: '',
-        component: AccountSettingPage
+        component: AccountSettingComponent
     }
 ];
 
@@ -38,6 +38,6 @@ const routes: Routes = [
         InlineSVGModule,
         RouterModule.forChild(routes)
     ],
-    declarations: [AccountSettingPage]
+    declarations: [AccountSettingComponent]
 })
 export class AccountSettingModule { }

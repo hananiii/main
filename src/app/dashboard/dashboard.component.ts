@@ -7,7 +7,7 @@ export enum Category {
 }
 
 import { Component, OnInit } from '@angular/core';
-import { DashboardAPIService } from './dashboard-api.service';
+import { DashboardApiService } from './dashboard-api.service';
 import * as _moment from 'moment';
 import { MenuController } from '@ionic/angular';
 const moment = _moment;
@@ -15,7 +15,7 @@ const moment = _moment;
 /**
  * Dashboard Page
  * @export
- * @class DashboardPage
+ * @class DashboardComponent
  * @implements {OnInit}
  */
 @Component({
@@ -23,109 +23,109 @@ const moment = _moment;
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardPage implements OnInit {
+export class DashboardComponent implements OnInit {
     /**
      * This is local property of button outline style 
      * @type {string}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     // public buttonOneFill: string = 'outline';
 
     /**
      * This is local property of button outline style
      * @type {string}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     // public buttonTwoFill: string = 'clear';
 
     /**
      * This is local property of button outline style
      * @type {string}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     // public buttonThreeFill: string = 'clear';
 
     /**
      * This is local property of show all updates content
      * @type {boolean}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     // public showAllUpdates: boolean = true;
 
     /**
      * This is local property of show my recent content
      * @type {boolean}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     // public showMyRecent: boolean = false;
 
     /**
      * This is local property of show announcement content
      * @type {boolean}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     // public showAnnouncement: boolean = false;
 
     /**
      * This is local property of show icon of red dot
      * @type {boolean}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     // public showDot: boolean = true;
 
     /**
      * This is local property to expand content
      * @type {boolean}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     // public showViewMore: boolean = true;
 
     /**
      * This is local property to collapse content
      * @type {boolean}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     // public showViewLess: boolean = false;
 
     /**
      * This is local property to expand who is onleave content
      * @type {boolean}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     // public seeAll: boolean = true;
 
     /**
      * This is local property to collapse who is onleave content
      * @type {boolean}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     // public seeLess: boolean = false;
 
     /**
      * This is local property to determine click on expand view more or vice versa
      * @type {boolean}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     // public clickOnViewMore: boolean;
 
     /**
      * This is local property to determine click on expand see all or vice versa
      * @type {boolean}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     // public clickOnSeeAll: boolean;
 
     /**
      * Get on leave total employee number & employee onleave number from API
      * @type {*}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     public onLeaveNumber: any;
 
     /**
      * Get on leave employee name & designation from API
      * @type {*}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     public onLeaveList: any;
 
@@ -139,126 +139,126 @@ export class DashboardPage implements OnInit {
     /**
      * Show dashboard content
      * @type {boolean}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     public row: boolean = false;
 
     /**
      * Notification update from API
      * @type {*}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     public notification: any;
 
     /**
      * upcoming holiday list
      * @type {*}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     public holidays: any;
 
     /**
      * announcements list
      * @type {*}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     public announcements: any;
 
     /**
      * show all holiday 
      * @type {boolean}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     public showall: boolean = false;
 
     /**
      * show holiday view less button
      * @type {boolean}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     public showViewLessButton: boolean = false;
 
     /**
      * show all announcements
      * @type {boolean}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     public showallannouncement: boolean = false;
 
     /**
      * click to view less message 
      * @type {boolean}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     public viewLessAnnouncement: boolean = false;
 
     /**
      * entitlement list from endpoint
      * @type {*}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     public entitlementList: any;
 
     /** 
      * annual leave details
      * @type {number}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     public annualVal: number;
 
     /**
      * medical leave details
      * @type {number}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     public medicalVal: any = 0;
 
     /**
      * replacement leave
      * @type {number}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     public replaceVal: number = 0;
 
     /**
      * expiry days for replacement leave
      * @type {number}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     public RLDaysToGo: number;
 
     /** 
      * date of birth from personal details
      * @type {*}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     public dateOfBirth: any;
 
     /**
      * days remaining to next birthday
      * @type {number}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     public birtdayToGo: number;
 
     /**
      * get birthday details from endpoint
      * @type {*}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     public birthdayDetail: any;
 
     /**
      * long leave details
      * @type {*}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     public longLeave: any;
 
     /**
      * task list
      * @type {*}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     public tasks: any;
 
@@ -266,23 +266,23 @@ export class DashboardPage implements OnInit {
      * Return enum category
      * @readonly
      * @type {*}
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     get enumCategory(): any {
         return Category;
     }
 
     /**
-     *Creates an instance of DashboardPage.
-     * @param {DashboardAPIService} dashboardAPI
+     *Creates an instance of DashboardComponent.
+     * @param {DashboardApiService} dashboardAPI
      * @param {MenuController} menu
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
-    constructor(private dashboardAPI: DashboardAPIService, private menu: MenuController) { }
+    constructor(private dashboardAPI: DashboardApiService, private menu: MenuController) { }
 
     /**
      * Initial method
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     ngOnInit() {
         // this.getOnleaveDetails();
@@ -306,7 +306,7 @@ export class DashboardPage implements OnInit {
 
     /**
      * get user profile details
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     // getUserDetails() {
     //     this.mainAPI.get_user_profile().subscribe(data => {
@@ -327,7 +327,7 @@ export class DashboardPage implements OnInit {
     /**
      * remaining days to reach birthday
      * @param {*} data
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     calculateDays(data: any) {
         let month = new Date(data).getMonth();
@@ -345,7 +345,7 @@ export class DashboardPage implements OnInit {
 
     /**
      * get annual & medical details from endpoint
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     get_annual_medical_task() {
         this.dashboardAPI.get_annual_leave().subscribe(details => {
@@ -361,7 +361,7 @@ export class DashboardPage implements OnInit {
 
     /**
      * get pending task list
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     get_task_list() {
         this.dashboardAPI.get_task_list().subscribe(data => {
@@ -372,7 +372,7 @@ export class DashboardPage implements OnInit {
 
     /**
      * get value from replacement leave endpoint
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     get_RL() {
         this.dashboardAPI.get_replacement_leave().subscribe(details => {
@@ -392,7 +392,7 @@ export class DashboardPage implements OnInit {
 
     /**
      * get holiday list from endpoint
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     getHolidayList() {
         this.dashboardAPI.get_upcoming_holidays().subscribe(details => {
@@ -406,7 +406,7 @@ export class DashboardPage implements OnInit {
 
     /**
      * get all announcement list
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     getAnnouncementList() {
         this.dashboardAPI.get_announcement_list().subscribe(list => {
@@ -424,7 +424,7 @@ export class DashboardPage implements OnInit {
      * get day of the search Date
      * @param {Date} date
      * @returns
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     getDayFromDate(date: Date) {
         const weekdays = new Array(
@@ -436,7 +436,7 @@ export class DashboardPage implements OnInit {
 
     /**
      * Get today onleave status(number of employee onleave, total employee) & onleave list from API
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     // getOnleaveDetails() {
     //     const params = { 'startdate': this.datePipe.transform(new Date(), 'yyyy-MM-dd'), 'enddate': this.datePipe.transform(new Date(), 'yyyy-MM-dd') };
@@ -455,7 +455,7 @@ export class DashboardPage implements OnInit {
     /**
      * Show material-icon according category of notification
      * @param {*} data
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     notificationCategory(data: any) {
         this.notification = data;
@@ -481,7 +481,7 @@ export class DashboardPage implements OnInit {
     /**
      * method to approve clicked leave transaction GUID
      * @param {string} leaveGUID
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     approveLeave(leaveGUID: string) {
         this.dashboardAPI.post_approve_list({ "id": leaveGUID }).subscribe(response => {
@@ -492,7 +492,7 @@ export class DashboardPage implements OnInit {
     /**
      * method to reject clicked leave transaction GUID
      * @param {*} leave_transaction_guid
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     rejectLeave(leave_transaction_guid) {
         this.dashboardAPI.post_reject_list({ "id": leave_transaction_guid }).subscribe(response => {
@@ -503,7 +503,7 @@ export class DashboardPage implements OnInit {
     /**
      * This method is used to determine the button click and button style
      * @param {number} value
-     * @memberof DashboardPage
+     * @memberof DashboardComponent
      */
     // buttonClick(value: number) {
     //     if (value === 1) {

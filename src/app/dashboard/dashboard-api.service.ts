@@ -7,18 +7,18 @@ import { map } from 'rxjs/operators';
 /**
  * ALl API for dashboard page
  * @export
- * @class DashboardAPIService
+ * @class DashboardApiService
  */
 @Injectable({
     providedIn: 'root'
 })
-export class DashboardAPIService {
+export class DashboardApiService {
 
     /**
-     *Creates an instance of DashboardAPIService.
+     *Creates an instance of DashboardApiService.
      * @param {APIService} apiService
      * @param {Http} http
-     * @memberof DashboardAPIService
+     * @memberof DashboardApiService
      */
     constructor(private apiService: APIService, public http: Http) {
     }
@@ -29,7 +29,7 @@ export class DashboardAPIService {
      * Number of employee onleave
      * @param {*} param
      * @returns {Observable<any>}
-     * @memberof DashboardAPIService
+     * @memberof DashboardApiService
      */
     get_status_onleave(param): Observable<any> {
         this.apiService.headerAuthorization();
@@ -43,7 +43,7 @@ export class DashboardAPIService {
      * Designation of employee
      * @param {*} value
      * @returns {Observable<any>}
-     * @memberof DashboardAPIService
+     * @memberof DashboardApiService
      */
     get_onleave_list(value): Observable<any> {
         this.apiService.headerAuthorization();
@@ -54,7 +54,7 @@ export class DashboardAPIService {
     /**
      * To get notification message, category
      * @returns {Observable<any>}
-     * @memberof DashboardAPIService
+     * @memberof DashboardApiService
      */
     get_news_notification(): Observable<any> {
         return this.apiService.getApi('/api/admin/notification');
@@ -63,7 +63,7 @@ export class DashboardAPIService {
     /**
      * get all announcement created from admin
      * @returns
-     * @memberof DashboardAPIService
+     * @memberof DashboardApiService
      */
     get_announcement_list() {
         return this.apiService.getApi('/api/admin/announcement');
@@ -72,7 +72,7 @@ export class DashboardAPIService {
     /**
      * get upcoming holidays from today date
      * @returns {Observable<any>}
-     * @memberof DashboardAPIService
+     * @memberof DashboardApiService
      */
     get_upcoming_holidays(): Observable<any> {
         return this.apiService.getApi('/api/employee/upcoming-holiday');
@@ -81,7 +81,7 @@ export class DashboardAPIService {
     /**
      * get details of birthday
      * @returns {Observable<any>}
-     * @memberof DashboardAPIService
+     * @memberof DashboardApiService
      */
     get_birthday_details(): Observable<any> {
         return this.apiService.getApi('/api/employee/date-of-birth');
@@ -90,7 +90,7 @@ export class DashboardAPIService {
     /**
      * get long leave (>5 days) details
      * @returns {Observable<any>}
-     * @memberof DashboardAPIService
+     * @memberof DashboardApiService
      */
     get_long_leave_reminder(): Observable<any> {
         return this.apiService.getApi('/api/employee/long-leave');
@@ -99,7 +99,7 @@ export class DashboardAPIService {
     /**
      * get annual leave balance
      * @returns {Observable<any>}
-     * @memberof DashboardAPIService
+     * @memberof DashboardApiService
      */
     get_annual_leave(): Observable<any> {
         return this.apiService.getApi('/api/employee/dashboard-annual-leave');
@@ -108,7 +108,7 @@ export class DashboardAPIService {
     /**
      * get medical leave balance
      * @returns {Observable<any>}
-     * @memberof DashboardAPIService
+     * @memberof DashboardApiService
      */
     get_medical_leave(): Observable<any> {
         return this.apiService.getApi('/api/employee/dashboard-medical-leave');
@@ -117,7 +117,7 @@ export class DashboardAPIService {
     /**
      * get replacement leave balance
      * @returns {Observable<any>}
-     * @memberof DashboardAPIService
+     * @memberof DashboardApiService
      */
     get_replacement_leave(): Observable<any> {
         return this.apiService.getApi('/api/employee/dashboard-replacement-leave');
@@ -126,7 +126,7 @@ export class DashboardAPIService {
     /**
      * get dashboard task to be done
      * @returns {Observable<any>}
-     * @memberof DashboardAPIService
+     * @memberof DashboardApiService
      */
     get_task_list(): Observable<any> {
         return this.apiService.getApi('/api/employee/dashboard-my-task');
@@ -135,7 +135,7 @@ export class DashboardAPIService {
     /**
      * superior approve task leave from dashboard
      * @returns {Observable<any>}
-     * @memberof DashboardAPIService
+     * @memberof DashboardApiService
      */
     post_approve_list(leaveTransactionGUID): Observable<any> {
         return this.apiService.postApi(leaveTransactionGUID, '/api/leave/approved');
@@ -144,7 +144,7 @@ export class DashboardAPIService {
     /**
      * superior reject task leave from dashboard
      * @returns {Observable<any>}
-     * @memberof DashboardAPIService
+     * @memberof DashboardApiService
      */
     post_reject_list(GUID): Observable<any> {
         return this.apiService.postApi(GUID, '/api/leave/rejected');

@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 import { MatCardModule } from '@angular/material/card';
-import { PublicPersonalDetailsPage } from './public-personal-details.component';
+import { PublicPersonalDetailsComponent } from './public-personal-details.component';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { SpinnerModule } from 'src/library/spinner/spinner.module';
 
@@ -13,7 +13,7 @@ import { SpinnerModule } from 'src/library/spinner/spinner.module';
 const routes: Routes = [
   {
     path: '',
-    component: PublicPersonalDetailsPage,
+    component: PublicPersonalDetailsComponent,
   }
 ];
 
@@ -28,6 +28,6 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   providers: [],
-  declarations: [PublicPersonalDetailsPage]
+  declarations: [PublicPersonalDetailsComponent]
 })
 export class PublicPersonalDetailsModule { }

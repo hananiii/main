@@ -5,7 +5,7 @@ import { PersonalDetailsService } from '../personal-details/personal-details.ser
 /**
  * Leave Entitlement Page
  * @export
- * @class LeaveEntitlementPage
+ * @class LeaveEntitlementsComponent
  * @implements {OnInit}
  */
 @Component({
@@ -13,67 +13,67 @@ import { PersonalDetailsService } from '../personal-details/personal-details.ser
     templateUrl: './leave-entitlement.component.html',
     styleUrls: ['./leave-entitlement.component.scss'],
 })
-export class LeaveEntitlementPage implements OnInit {
+export class LeaveEntitlementsComponent implements OnInit {
     /**
      * This is local property used to get user profile list from API
      * @type {*}
-     * @memberof LeaveEntitlementPage
+     * @memberof LeaveEntitlementsComponent
      */
     public personalDataList: any;
 
     /**
      * This is local property used to show header profile completeness
      * @type {boolean}
-     * @memberof LeaveEntitlementPage
+     * @memberof LeaveEntitlementsComponent
      */
     public showHeader: boolean = true;
 
     /**
      * This is local property used to show profile completeness %
      * @type {number}
-     * @memberof LeaveEntitlementPage
+     * @memberof LeaveEntitlementsComponent
      */
     // public progressPercentage: number = 80;
 
     /**
      * This is local property used to show arrow down icon
      * @type {boolean}
-     * @memberof LeaveEntitlementPage
+     * @memberof LeaveEntitlementsComponent
      */
     // public arrowDown: boolean = true;
 
     /**
      * This is local property used to get the entitlement details from API
      * @type {*}
-     * @memberof LeaveEntitlementPage
+     * @memberof LeaveEntitlementsComponent
      */
     public entitlement: any;
 
     /**
      * This is local property used to get leave types
      * @type {string}
-     * @memberof LeaveEntitlementPage
+     * @memberof LeaveEntitlementsComponent
      */
     public leaveType: string;
 
     /**
      * This is local property used to get leave balances
      * @type {string}
-     * @memberof LeaveEntitlementPage
+     * @memberof LeaveEntitlementsComponent
      */
     public leaveBalance: string;
 
     /**
      * This is local property used to show loading spinner
      * @type {boolean}
-     * @memberof LeaveEntitlementPage
+     * @memberof LeaveEntitlementsComponent
      */
     public showSpinner: boolean = true;
 
     /**
    * Local property to show or hide content during loading
    * @type {boolean}
-   * @memberof LeaveEntitlementPage
+   * @memberof LeaveEntitlementsComponent
    */
     public showContent: boolean = false;
 
@@ -81,7 +81,7 @@ export class LeaveEntitlementPage implements OnInit {
      * Return either arrow down or arrow up icon 
      * @readonly
      * @type {boolean}
-     * @memberof LeaveEntitlementPage
+     * @memberof LeaveEntitlementsComponent
      */
     // public get sortDirectionArrowDown(): boolean {
     //     return this.arrowDown;
@@ -90,17 +90,17 @@ export class LeaveEntitlementPage implements OnInit {
     /**
      * Return API content
      * @readonly
-     * @memberof LeaveEntitlementPage
+     * @memberof LeaveEntitlementsComponent
      */
     public get personalList() {
         return this.personalDataList;
     }
 
     /**
-     *Creates an instance of LeaveEntitlementPage.
+     *Creates an instance of LeaveEntitlementsComponent.
      * @param {APIService} apiService
      * @param {Router} router
-     * @memberof LeaveEntitlementPage
+     * @memberof LeaveEntitlementsComponent
      */
     constructor(private apiService: APIService, private router: Router
     ) {
@@ -112,7 +112,7 @@ export class LeaveEntitlementPage implements OnInit {
     /**
      * Initial method
      * Get user profile details from API
-     * @memberof LeaveEntitlementPage
+     * @memberof LeaveEntitlementsComponent
      */
     ngOnInit() {
         this.apiService.get_user_profile().subscribe(
@@ -137,7 +137,7 @@ export class LeaveEntitlementPage implements OnInit {
      * @param {string} leaveType
      * @param {string} leaveBalance
      * @param {string} leaveId
-     * @memberof LeaveEntitlementPage
+     * @memberof LeaveEntitlementsComponent
      */
     toPlanLeave(leaveType: string, leaveBalance: string, leaveId: string) {
         this.router.navigate(['/main/plan-my-leave'], { queryParams: { type: leaveType, balance: leaveBalance, id: leaveId } });
@@ -147,7 +147,7 @@ export class LeaveEntitlementPage implements OnInit {
 
     /**
      * This method is used to sort leave type column in ascending order
-     * @memberof LeaveEntitlementPage
+     * @memberof LeaveEntitlementsComponent
      */
     // sortAscLeaveType() {
     //     this.arrowDown = true;
@@ -161,7 +161,7 @@ export class LeaveEntitlementPage implements OnInit {
 
     /**
      * This method is used to sort leave type column in descending order
-     * @memberof LeaveEntitlementPage
+     * @memberof LeaveEntitlementsComponent
      */
     // sortDesLeaveType() {
     //     this.arrowDown = false;

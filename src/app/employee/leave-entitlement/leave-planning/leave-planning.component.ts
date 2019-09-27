@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 /**
  * Leave Planning Page
  * @export
- * @class LeavePlanningPage
+ * @class LeavePlanningComponent
  * @implements {OnInit}
  */
 @Component({
@@ -13,27 +13,27 @@ import { Router } from '@angular/router';
     templateUrl: './leave-planning.component.html',
     styleUrls: ['./leave-planning.component.scss'],
 })
-export class LeavePlanningPage implements OnInit {
+export class LeavePlanningComponent implements OnInit {
 
     /**
      * This local property is used to get personal details from API
      * @type {*}
-     * @memberof LeavePlanningPage
+     * @memberof LeavePlanningComponent
      */
     public list: any;
 
     /**
      * This local property is used to show or hide spinner
      * @type {boolean}
-     * @memberof LeavePlanningPage
+     * @memberof LeavePlanningComponent
      */
     public showSpinner: boolean = true;
 
     /**
-     *Creates an instance of LeavePlanningPage.
+     *Creates an instance of LeavePlanningComponent.
      * @param {APIService} API
      * @param {Router} router
-     * @memberof LeavePlanningPage
+     * @memberof LeavePlanningComponent
      */
     constructor(private API: APIService, private router: Router
     ) { }
@@ -41,7 +41,7 @@ export class LeavePlanningPage implements OnInit {
     /**
      * Initial method
      * Get personal details from API
-     * @memberof LeavePlanningPage
+     * @memberof LeavePlanningComponent
      */
     ngOnInit() {
         this.API.get_user_profile().subscribe(
@@ -59,7 +59,7 @@ export class LeavePlanningPage implements OnInit {
 
     /**
      * This method is used to route to the personal leave entitlement page
-     * @memberof LeavePlanningPage
+     * @memberof LeavePlanningComponent
      */
     backToProfile() {
         this.router.navigate(['/main/employee-setup/leave-entitlement']);

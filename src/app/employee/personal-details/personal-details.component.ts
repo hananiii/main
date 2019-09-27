@@ -9,7 +9,7 @@ const moment = _moment;
 /**
  * Personal Details Page
  * @export
- * @class PersonalDetailsPage
+ * @class PersonalDetailsComponent
  * @implements {OnInit}
  */
 @Component({
@@ -20,40 +20,40 @@ const moment = _moment;
         { provide: DateAdapter, useClass: AppDateAdapter },
         { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS }]
 })
-export class PersonalDetailsPage implements OnInit {
+export class PersonalDetailsComponent implements OnInit {
 
     /**
      * Local property to get value from API
      * @type {*}
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     public items: any;
 
     /**
      * Empty array to save emergency contact
      * @type {*}
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     public removeItems: any = [];
 
     /**
      * Empty array to save spouse info
      * @type {*}
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     public spouseItems: any = [];
 
     /**
      * Empty array to save child info
      * @type {*}
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     public childItems: any = [];
 
     /**
      * Empty array to save education info
      * @type {*}
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     public eduList: any = [];
 
@@ -61,132 +61,132 @@ export class PersonalDetailsPage implements OnInit {
      *
      * Local property to show or hide header of profile completeness
      * @type {boolean}
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     public showHeader: boolean = true;
 
     /**
      * Local property to show value of profile completeness in %
      * @type {number}
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     public progressPercentage: number;
 
     /** 
      * Local property to show or hide loading spinner
      * @type {boolean}
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     public showSpinner: boolean = true;
 
     /**
      * Local property to show or hide content during loading
      * @type {boolean}
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     public showContent: boolean = false;
 
     /**
      * Local property to show or hide edit profile
      * @type {boolean}
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     public showEditProfile: boolean = false;
 
     /**
      * Local property to show or hide edit contact info
      * @type {boolean[]}
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     // public showEditContact: boolean[] = [];
 
     /**
      * Local property to show or hide family info
      * @type {boolean}
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     // public showFamily: boolean = false;
 
     /**
      * Local property to show or hide education info
      * @type {boolean}
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     // public showEducation: boolean = false;
 
     /**
      * Show edit spouse form field 
      * @type {boolean[]}
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     // public displayEditSpouse: boolean[] = [];
 
     /**
      * Show edit child form field
      * @type {boolean[]}
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     // public displayEditChild: boolean[] = [];
 
     /**
      * Show edit education form field
      * @type {boolean[]}
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     // public displayEditEdu: boolean[] = [];
 
     /**
      * Object format of emergency contact
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     public contactObj = { contactName: '', contactNumber: '' };
 
     /**
      * Object format of spouse details
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     public spouseObj = { spouseName: '', spouseIdentificationNumber: '' };
 
     /**
      * Object format of child details
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     public childObj = { childName: '', childIdentificationNumber: '' };
 
     /**
      * Object format of education details
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     public educationObj = { qualificationLevel: '', major: '', university: '', year: '' };
 
     /**
      * date validation
      * @type {*}
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     public firstPicker: any;
 
     /**
      * employment details from API
      * @type {*}
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     public employ: any;
 
     /**
      * Return API content of personal details
      * @readonly
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     get personalList() {
         return this.items;
     }
 
     /**
-     *Creates an instance of PersonalDetailsPage.
+     *Creates an instance of PersonalDetailsComponent.
      * @param {APIService} apiService
      * @param {PersonalDetailsService} xservice
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     constructor(private apiService: APIService, private xservice: PersonalDetailsService) {
     }
@@ -194,7 +194,7 @@ export class PersonalDetailsPage implements OnInit {
     /**
      * Inital method
      * Get personal details from API
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     ngOnInit() {
         this.apiService.get_personal_details().subscribe(
@@ -223,7 +223,7 @@ export class PersonalDetailsPage implements OnInit {
 
     /**
      * Calculate profile completeness %
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     checkProfileComplete() {
         const value = (Object.keys(this.items.personalDetail).map(key => this.items.personalDetail[key]));
@@ -239,7 +239,7 @@ export class PersonalDetailsPage implements OnInit {
 
     /**
      * This is method used to get contact info initially
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     initContact() {
         if ((this.items.personalDetail.emergencyContact.contacts instanceof Array) && this.items.personalDetail.emergencyContact.contacts !== undefined) {
@@ -261,7 +261,7 @@ export class PersonalDetailsPage implements OnInit {
 
     /**
      * This is method used to get spouse info initially
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     initSpouse() {
         if ((this.items.personalDetail.family.spouse instanceof Array) && this.items.personalDetail.family.spouse !== undefined) {
@@ -285,7 +285,7 @@ export class PersonalDetailsPage implements OnInit {
 
     /**
      * This is method used to get child info initially
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     initChild() {
         if ((this.items.personalDetail.family.child instanceof Array) && this.items.personalDetail.family.child !== undefined) {
@@ -308,7 +308,7 @@ export class PersonalDetailsPage implements OnInit {
 
     /**
      * This is method used to get education info initially
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     initEducation() {
         if ((this.items.personalDetail.education.educationDetail instanceof Array) && this.items.personalDetail.education.educationDetail !== undefined) {
@@ -334,7 +334,7 @@ export class PersonalDetailsPage implements OnInit {
      * This is method used to create new form
      * @param {*} data
      * @param {Object} item
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     addList(data: any, item: Object) {
         if (data !== undefined) {
@@ -351,7 +351,7 @@ export class PersonalDetailsPage implements OnInit {
      * This method is used to get object format   
      * @param {*} list
      * @param {*} obj
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     getObject(list, obj) {
         if (obj === this.contactObj) { this.removeItems = list; }
@@ -364,7 +364,7 @@ export class PersonalDetailsPage implements OnInit {
      * This method is used to delete empty input form field 
      * @param {number} index
      * @param {*} list
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     removeItem(index: number, list: any) {
         list.splice(index, 1);
@@ -372,7 +372,7 @@ export class PersonalDetailsPage implements OnInit {
 
     /**
      * This method is used to patch edited value back to server API
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     patchData() {
         this.showEditProfile = false;
@@ -395,7 +395,7 @@ export class PersonalDetailsPage implements OnInit {
     /**
      * This method is used to format body according API model
      * @returns
-     * @memberof PersonalDetailsPage
+     * @memberof PersonalDetailsComponent
      */
     data() {
         return {

@@ -30,7 +30,7 @@ import { Subscription } from 'rxjs';
 /**
  * Employee Setup Page
  * @export
- * @class EmployeeSetupPage
+ * @class EmployeeSetupComponent
  * @implements {OnInit}
  */
 @Component({
@@ -38,48 +38,48 @@ import { Subscription } from 'rxjs';
   templateUrl: './employee-setup.component.html',
   styleUrls: ['./employee-setup.component.scss'],
 })
-export class EmployeeSetupPage implements OnInit {
+export class EmployeeSetupComponent implements OnInit {
   /**
    * This is local property used to get the number of index in array of employee setup page
    * @type {number}
-   * @memberof EmployeeSetupPage
+   * @memberof EmployeeSetupComponent
    */
   public numOfArray: number;
 
   /** 
    * This is local property used to get user ID from API
    * @type {string}
-   * @memberof EmployeeSetupPage
+   * @memberof EmployeeSetupComponent
    */
   public userId: string;
 
   /**
    * This is local property used to get content from personal details API
    * @type {*}
-   * @memberof EmployeeSetupPage
+   * @memberof EmployeeSetupComponent
    */
   public list: any;
 
   /**
    * This is local property used to get url 
    * @type {string}
-   * @memberof EmployeeSetupPage
+   * @memberof EmployeeSetupComponent
    */
   public url: string;
 
   /**
    * Thid is local property used to get last segment of url
    * @type {string}
-   * @memberof EmployeeSetupPage
+   * @memberof EmployeeSetupComponent
    */
   public lastSegment: string;
 
   /**
    * This is local property used to set menu title, path routing & icon name
    * @type {ISubSideMenu[]}
-   * @memberof EmployeeSetupPage
+   * @memberof EmployeeSetupComponent
    */
-  public employeeSetupPage: ISubSideMenu[] = [
+  public EmployeeSetupComponent: ISubSideMenu[] = [
     {
       title: 'Personal Details',
       url: ['/main/employee-setup/personal-details'],
@@ -116,25 +116,25 @@ export class EmployeeSetupPage implements OnInit {
    * This is local private property to set subscription
    * @private
    * @type {Subscription}
-   * @memberof EmployeeSetupPage
+   * @memberof EmployeeSetupComponent
    */
   private subscription: Subscription = new Subscription();
 
   /**
    * return value from API content 
    * @readonly
-   * @memberof EmployeeSetupPage
+   * @memberof EmployeeSetupComponent
    */
   get personalList() {
     return this.list;
   }
 
   /**
-   *Creates an instance of EmployeeSetupPage.
+   *Creates an instance of EmployeeSetupComponent.
    * @param {ActivatedRoute} route
    * @param {APIService} apiService
    * @param {Router} router
-   * @memberof EmployeeSetupPage
+   * @memberof EmployeeSetupComponent
    */
   constructor(private route: ActivatedRoute, private apiService: APIService,
     private router: Router) {
@@ -143,7 +143,7 @@ export class EmployeeSetupPage implements OnInit {
   /**
    * Initial method
    * Get personal details API content
-   * @memberof EmployeeSetupPage
+   * @memberof EmployeeSetupComponent
    */
   ngOnInit() {
     this.router.events
@@ -156,14 +156,14 @@ export class EmployeeSetupPage implements OnInit {
     this.subscription = this.apiService.get_personal_details().subscribe(data => {
       this.userId = data.id;
       this.list = data;
-      this.employeeSetupPage[1].url = ['/main/employee-setup/employment-details', this.userId];
+      this.EmployeeSetupComponent[1].url = ['/main/employee-setup/employment-details', this.userId];
     });
     this.checkUrl(this.router.url);
   }
 
   /**
    * This method is used to destroy subscription
-   * @memberof EmployeeSetupPage
+   * @memberof EmployeeSetupComponent
    */
   ngOnDestroy() {
     this.subscription.unsubscribe();
@@ -172,7 +172,7 @@ export class EmployeeSetupPage implements OnInit {
   /**
    * This method is used to check clicked current url
    * @param {string} url
-   * @memberof EmployeeSetupPage
+   * @memberof EmployeeSetupComponent
    */
   checkUrl(url: string) {
     const splitUrl = url.split('/');
@@ -181,8 +181,8 @@ export class EmployeeSetupPage implements OnInit {
     if (joinSplitUrl === '/main/employee-setup/employment-details') {
       this.getIndexToShowArrow(1);
     } else {
-      for (let i = 0; i < this.employeeSetupPage.length; i++) {
-        if (this.employeeSetupPage[i].url.includes(url)) {
+      for (let i = 0; i < this.EmployeeSetupComponent.length; i++) {
+        if (this.EmployeeSetupComponent[i].url.includes(url)) {
           this.getIndexToShowArrow(i);
         }
       }
@@ -192,18 +192,18 @@ export class EmployeeSetupPage implements OnInit {
   /**
    * This method is used to get the current url to show arrow icon
    * @param {number} index
-   * @memberof EmployeeSetupPage
+   * @memberof EmployeeSetupComponent
    */
   getIndexToShowArrow(index: number) {
     this.numOfArray = index;
-    if (this.employeeSetupPage[index].url && index !== 1) {
-      this.router.navigate(this.employeeSetupPage[index].url);
+    if (this.EmployeeSetupComponent[index].url && index !== 1) {
+      this.router.navigate(this.EmployeeSetupComponent[index].url);
     } else {
       if (this.userId === undefined) {
-        this.employeeSetupPage[1].url = ['/main/employee-setup/employment-details', this.lastSegment];
-        this.router.navigate(this.employeeSetupPage[index].url);
+        this.EmployeeSetupComponent[1].url = ['/main/employee-setup/employment-details', this.lastSegment];
+        this.router.navigate(this.EmployeeSetupComponent[index].url);
       }
-      this.router.navigate(this.employeeSetupPage[index].url);
+      this.router.navigate(this.EmployeeSetupComponent[index].url);
     }
   }
 

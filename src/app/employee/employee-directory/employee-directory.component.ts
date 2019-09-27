@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 /**
  * Employee Directory Page
  * @export
- * @class EmployeeDirectoryPage
+ * @class EmployeeDirectoryComponent
  * @implements {OnInit}
  */
 @Component({
@@ -11,11 +11,11 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './employee-directory.component.html',
     styleUrls: ['./employee-directory.component.scss'],
 })
-export class EmployeeDirectoryPage implements OnInit {
+export class EmployeeDirectoryComponent implements OnInit {
 
    /**
-    *Creates an instance of EmployeeDirectoryPage.
-    * @memberof EmployeeDirectoryPage
+    *Creates an instance of EmployeeDirectoryComponent.
+    * @memberof EmployeeDirectoryComponent
     */
    constructor() { }
 

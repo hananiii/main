@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { ActivatedRoute } from '@angular/router';
-import { UpdatePasswordAPIService } from './update-password-api.service';
+import { UpdatePasswordApiService } from './update-password-api.service';
 
 /**
  * Check error or validation
@@ -28,7 +28,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 /**
  * Update password after invited from Admin
  * @export
- * @class UpdatePasswordPage
+ * @class UpdatePasswordComponent
  * @implements {OnInit}
  */
 @Component({
@@ -36,46 +36,46 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     templateUrl: './update-password.component.html',
     styleUrls: ['./update-password.component.scss'],
 })
-export class UpdatePasswordPage implements OnInit {
+export class UpdatePasswordComponent implements OnInit {
 
     /**
      * show/hide password value 
      * @type {boolean}
-     * @memberof UpdatePasswordPage
+     * @memberof UpdatePasswordComponent
      */
     public showNewPassword: boolean = false;
 
     /**
      * show/hide confirm password value 
      * @type {boolean}
-     * @memberof UpdatePasswordPage
+     * @memberof UpdatePasswordComponent
      */
     public showConfirmPassword: boolean = false;
 
     /**
      * Validation or form control for password matcher
      * @type {*}
-     * @memberof UpdatePasswordPage
+     * @memberof UpdatePasswordComponent
      */
     public formPassValidation: any;
 
     /**
      * Check password matcher for new password & confirm password
-     * @memberof UpdatePasswordPage
+     * @memberof UpdatePasswordComponent
      */
     public matcher = new MyErrorStateMatcher();
 
     /**
      * Name value get from API to show on page
      * @type {string}
-     * @memberof UpdatePasswordPage
+     * @memberof UpdatePasswordComponent
      */
     public name: string;
 
     /**
      * Email value get from API to show on page
      * @type {string}
-     * @memberof UpdatePasswordPage
+     * @memberof UpdatePasswordComponent
      */
     public email: string;
 
@@ -83,18 +83,18 @@ export class UpdatePasswordPage implements OnInit {
      * Invitation Id get from activated route
      * @private
      * @type {string}
-     * @memberof UpdatePasswordPage
+     * @memberof UpdatePasswordComponent
      */
     private _invitationId: string;
 
     /**
-     *Creates an instance of UpdatePasswordPage.
+     *Creates an instance of UpdatePasswordComponent.
      * @param {FormBuilder} fb
-     * @param {UpdatePasswordAPIService} updatePassAPI
+     * @param {UpdatePasswordApiService} updatePassAPI
      * @param {ActivatedRoute} route
-     * @memberof UpdatePasswordPage
+     * @memberof UpdatePasswordComponent
      */
-    constructor(private fb: FormBuilder, private updatePassAPI: UpdatePasswordAPIService,
+    constructor(private fb: FormBuilder, private updatePassAPI: UpdatePasswordApiService,
         private route: ActivatedRoute) {
         route.queryParams
             .subscribe((params) => {
@@ -121,7 +121,7 @@ export class UpdatePasswordPage implements OnInit {
      * check value of new password & confirm password
      * @param {FormGroup} group
      * @returns
-     * @memberof UpdatePasswordPage
+     * @memberof UpdatePasswordComponent
      */
     checkPasswords(group: FormGroup) {
         let pass = group.controls.newPass.value;
@@ -132,7 +132,7 @@ export class UpdatePasswordPage implements OnInit {
     /**
      * Update password send to endpoint 
      * @param {*} value
-     * @memberof UpdatePasswordPage
+     * @memberof UpdatePasswordComponent
      */
     sendPassword(value) {
         const body = {

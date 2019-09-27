@@ -6,7 +6,7 @@ import { genderStatus, maritalStatus } from "../personal-details/personal-detail
 /**
  * award & certificate page
  * @export
- * @class AwardCertificationPage
+ * @class AwardCertificationComponent
  * @implements {OnInit}
  */
 @Component({
@@ -14,95 +14,95 @@ import { genderStatus, maritalStatus } from "../personal-details/personal-detail
     templateUrl: './award-certification.component.html',
     styleUrls: ['./award-certification.component.scss'],
 })
-export class AwardCertificationPage implements OnInit {
+export class AwardCertificationComponent implements OnInit {
 
     /**
      * percentage of completensss
      * @type {number}
-     * @memberof AwardCertificationPage
+     * @memberof AwardCertificationComponent
      */
     // public progressPercentage: number;
 
     /**
      * show/hide progress bar percentage
      * @type {boolean}
-     * @memberof AwardCertificationPage
+     * @memberof AwardCertificationComponent
      */
     // public showHeader: boolean = true;
 
     /**
      * show/hide content before loading complete
      * @type {boolean}
-     * @memberof AwardCertificationPage
+     * @memberof AwardCertificationComponent
      */
     public showContent: boolean = false;
 
     /**
      * data of personal details from API
      * @type {*}
-     * @memberof AwardCertificationPage
+     * @memberof AwardCertificationComponent
      */
     public items: any;
 
     /**
      * awards details
      * @type {*}
-     * @memberof AwardCertificationPage
+     * @memberof AwardCertificationComponent
      */
     public awards: any = [];
 
     /**
      * Local property to show or hide edit profile
      * @type {boolean}
-     * @memberof AwardCertificationPage
+     * @memberof AwardCertificationComponent
      */
     public showEditProfile: boolean = false;
 
     /**
      * img/pdf src url
      * @type {*}
-     * @memberof AwardCertificationPage
+     * @memberof AwardCertificationComponent
      */
     public imgURL: any;
 
     /**
      * show/hide img
      * @type {boolean}
-     * @memberof AwardCertificationPage
+     * @memberof AwardCertificationComponent
      */
     public showImg: boolean = false;
 
     /**
      * show/hide pdf
      * @type {boolean}
-     * @memberof AwardCertificationPage
+     * @memberof AwardCertificationComponent
      */
     public showPdf: boolean = false;
 
     /**
      * show.hide attachment button
      * @type {boolean}
-     * @memberof AwardCertificationPage
+     * @memberof AwardCertificationComponent
      */
     public showAttach: boolean = true;
 
     /**
      * employment details from requested Id
      * @type {*}
-     * @memberof AwardCertificationPage
+     * @memberof AwardCertificationComponent
      */
     public employ: any;
 
     /** 
      * show loading spinner during waiting requested data
      * @type {boolean}
-     * @memberof AwardCertificationPage
+     * @memberof AwardCertificationComponent
      */
     public showSpinner: boolean = false;
 
     /**
      * object of form field awards
-     * @memberof AwardCertificationPage
+     * @memberof AwardCertificationComponent
      */
     public awardObj = { certificationName: '', certificationEnrollYear: '', certificationGraduateYear: '', certificationAttachment: '' };
 
@@ -110,32 +110,32 @@ export class AwardCertificationPage implements OnInit {
      * validation group of file
      * @private
      * @type {FormGroup}
-     * @memberof AwardCertificationPage
+     * @memberof AwardCertificationComponent
      */
     private _fileform: FormGroup;
 
     /**
      * file name get from input
      * @private
-     * @memberof AwardCertificationPage
+     * @memberof AwardCertificationComponent
      */
     private _imagePath: any;
 
     /**
      * return personal details from API
      * @readonly
-     * @memberof AwardCertificationPage
+     * @memberof AwardCertificationComponent
      */
     get personalList() {
         return this.items;
     }
 
     /**
-     *Creates an instance of AwardCertificationPage.
+     *Creates an instance of AwardCertificationComponent.
      * @param {APIService} apiService
      * @param {FormBuilder} fb
      * @param {PersonalDetailsService} xservice
-     * @memberof AwardCertificationPage
+     * @memberof AwardCertificationComponent
      */
     constructor(private apiService: APIService, private fb: FormBuilder) {
 
@@ -178,7 +178,7 @@ export class AwardCertificationPage implements OnInit {
      * @param {*} files
      * @param {number} i
      * @returns
-     * @memberof AwardCertificationPage
+     * @memberof AwardCertificationComponent
      */
     preview(files: any, i: number) {
         if (files.length === 0)
@@ -202,7 +202,7 @@ export class AwardCertificationPage implements OnInit {
     /**
      * read file of attachment
      * @param {*} files
-     * @memberof AwardCertificationPage
+     * @memberof AwardCertificationComponent
      */
     readFile(files) {
         this.showImg = true;
@@ -217,7 +217,7 @@ export class AwardCertificationPage implements OnInit {
 
     /**
      * hide attached file (after clicked close icon)
-     * @memberof AwardCertificationPage
+     * @memberof AwardCertificationComponent
      */
     clickToHideAttachment() {
         this.imgURL = null;
@@ -228,7 +228,7 @@ export class AwardCertificationPage implements OnInit {
     /**
      * upload awards & certification details to API
      * @param {number} [index]
-     * @memberof AwardCertificationPage
+     * @memberof AwardCertificationComponent
      */
     updateCertificate(index?: number) {
         const body = this.items.personalDetail;
@@ -249,7 +249,7 @@ export class AwardCertificationPage implements OnInit {
     /**
      * get back patched value
      * @param {*} body
-     * @memberof AwardCertificationPage
+     * @memberof AwardCertificationComponent
      */
     getPatchedValue(body: any) {
         this.apiService.patch_personal_details(body).subscribe(response => {
@@ -265,7 +265,7 @@ export class AwardCertificationPage implements OnInit {
      * add new form field
      * @param {*} details
      * @param {Object} item
-     * @memberof AwardCertificationPage
+     * @memberof AwardCertificationComponent
      */
     addInput(details: any, item: Object) {
         if (details !== undefined) {
@@ -293,7 +293,7 @@ export class AwardCertificationPage implements OnInit {
      * delete unwanted items
      * @param {number} i
      * @param {*} awards
-     * @memberof AwardCertificationPage
+     * @memberof AwardCertificationComponent
      */
     deleteItem(i: number, awards: any) {
         this.awards.splice(i, 1);

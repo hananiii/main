@@ -8,7 +8,7 @@ const moment = _moment;
 /**
  * Employment Details Page
  * @export
- * @class EmploymentDetailsPage
+ * @class EmploymentDetailsComponent
  * @implements {OnInit}
  */
 @Component({
@@ -16,78 +16,78 @@ const moment = _moment;
     templateUrl: './employment-details.component.html',
     styleUrls: ['./employment-details.component.scss'],
 })
-export class EmploymentDetailsPage implements OnInit {
+export class EmploymentDetailsComponent implements OnInit {
 
     /**
      * This local property is used to get employment details from API
      * @type {*}
-     * @memberof EmploymentDetailsPage
+     * @memberof EmploymentDetailsComponent
      */
     public list: any;
 
     /**
      * This local property is used to show progress header
      * @type {boolean}
-     * @memberof EmploymentDetailsPage
+     * @memberof EmploymentDetailsComponent
      */
     public showHeader: boolean = true;
 
     /**
      * This local property is used to show profile completeness %
      * @type {number}
-     * @memberof EmploymentDetailsPage
+     * @memberof EmploymentDetailsComponent
      */
     public progressPercentage: number;
 
     /**
      * This local property is used to get employment details from API
      * @type {string}
-     * @memberof EmploymentDetailsPage
+     * @memberof EmploymentDetailsComponent
      */
     public userId: string;
 
     /**
      * This local property is used to show or hide loading spinner 
      * @type {boolean}
-     * @memberof EmploymentDetailsPage
+     * @memberof EmploymentDetailsComponent
      */
     public showSpinner: boolean = true;
 
     /**
      * Local property to show or hide content during loading
      * @type {boolean}
-     * @memberof EmploymentDetailsPage
+     * @memberof EmploymentDetailsComponent
      */
     public showContent: boolean = false;
 
     /**
      * details of user list from API
      * @type {*}
-     * @memberof EmploymentDetailsPage
+     * @memberof EmploymentDetailsComponent
      */
     public data: any;
 
     /**
      * get filtered superior name
      * @type {string}
-     * @memberof EmploymentDetailsPage
+     * @memberof EmploymentDetailsComponent
      */
     public reportingName: string;
 
     /**
      * return API content
      * @readonly
-     * @memberof EmploymentDetailsPage
+     * @memberof EmploymentDetailsComponent
      */
     get personalList() {
         return this.list;
     }
 
     /**
-     *Creates an instance of EmploymentDetailsPage.
+     *Creates an instance of EmploymentDetailsComponent.
      * @param {APIService} apiService
      * @param {ActivatedRoute} route
-     * @memberof EmploymentDetailsPage
+     * @memberof EmploymentDetailsComponent
      */
     constructor(private apiService: APIService,
         private route: ActivatedRoute, private xservice: PersonalDetailsService) {
@@ -102,7 +102,7 @@ export class EmploymentDetailsPage implements OnInit {
     /**
      * Initial method
      * Get employment details content from API
-     * @memberof EmploymentDetailsPage
+     * @memberof EmploymentDetailsComponent
      */
     ngOnInit() {
         this.apiService.get_employment_details(this.userId).subscribe(
@@ -129,7 +129,7 @@ export class EmploymentDetailsPage implements OnInit {
 
     /**
      * This method is used to hide header of profile completeness
-     * @memberof EmploymentDetailsPage
+     * @memberof EmploymentDetailsComponent
      */
     clickToHideHeader() {
         this.showHeader = false;
@@ -137,7 +137,7 @@ export class EmploymentDetailsPage implements OnInit {
 
     /**
      * filter superior name from user id
-     * @memberof EmploymentDetailsPage
+     * @memberof EmploymentDetailsComponent
      */
     reporting() {
         this.apiService.get_user_profile_list().subscribe(data => {

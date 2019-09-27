@@ -4,13 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
-import { EmailInvitationPage } from './email-invitation.component';
+import { EmailInvitationComponent } from './email-invitation.component';
 
 
 const routes: Routes = [
     {
         path: '',
-        component: EmailInvitationPage,
+        component: EmailInvitationComponent,
     }
 ];
 
@@ -22,6 +22,6 @@ const routes: Routes = [
         RouterModule.forChild(routes)
     ],
     providers: [],
-    declarations: [EmailInvitationPage]
+    declarations: [EmailInvitationComponent]
 })
 export class EmailInvitationModule { }

@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { LeaveEntitlementsComponent } from './leave-entitlement.component';
 
-import { LeaveEntitlementsComponent } from './leave-entitlements.component';
 
 describe('LeaveEntitlementsComponent', () => {
   let component: LeaveEntitlementsComponent;

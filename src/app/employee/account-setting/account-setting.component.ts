@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 /**
  * Account Setting Page
  * @export
- * @class AccountSettingPage
+ * @class AccountSettingComponent
  * @implements {OnInit}
  */
 @Component({
@@ -11,17 +11,17 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './account-setting.component.html',
     styleUrls: ['./account-setting.component.scss'],
 })
-export class AccountSettingPage implements OnInit {
+export class AccountSettingComponent implements OnInit {
 
     /**
-     *Creates an instance of AccountSettingPage.
-     * @memberof AccountSettingPage
+     *Creates an instance of AccountSettingComponent.
+     * @memberof AccountSettingComponent
      */
     constructor() { }
 
     /**
      * Initial method
-     * @memberof AccountSettingPage
+     * @memberof AccountSettingComponent
      */
     ngOnInit() {
 

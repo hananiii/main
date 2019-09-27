@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 /**
  * Employee List Page
  * @export
- * @class EmployeeListPage
+ * @class EmployeeListComponent
  * @implements {OnInit}
  */
 @Component({
@@ -13,143 +13,143 @@ import { Router } from '@angular/router';
     templateUrl: './employee-list.component.html',
     styleUrls: ['./employee-list.component.scss'],
 })
-export class EmployeeListPage implements OnInit {
+export class EmployeeListComponent implements OnInit {
 
     /**
      * This local property is used to get user profile list from API
      * @type {*}
-     * @memberof EmployeeListPage
+     * @memberof EmployeeListComponent
      */
     public items: any;
 
     /**
      * This local property is used to get department list from API
      * @type {*}
-     * @memberof EmployeeListPage
+     * @memberof EmployeeListComponent
      */
     public departmentList: any;
 
     /**
      * This local property is used to show types of arrow icon for name column
      * @type {boolean}
-     * @memberof EmployeeListPage
+     * @memberof EmployeeListComponent
      */
     public arrowDownName: boolean = true;
 
     /**
      * This local property is used to show types of arrow icon for ID column
      * @type {boolean}
-     * @memberof EmployeeListPage
+     * @memberof EmployeeListComponent
      */
     public arrowDownId: boolean = true;
 
     /**
      * This local property is used to get total number of user profile list
      * @type {number}
-     * @memberof EmployeeListPage
+     * @memberof EmployeeListComponent
      */
     public totalItem: number;
 
     /**
      * This local property is used to set page items
      * @type {number}
-     * @memberof EmployeeListPage
+     * @memberof EmployeeListComponent
      */
     public pageItems: number = 9;
 
     /**
      * This local property is used to set range for calculation
      * @type {number}
-     * @memberof EmployeeListPage
+     * @memberof EmployeeListComponent
      */
     public range: number = 8;
 
     /**
      * This local property is used to calculate page number
      * @type {number}
-     * @memberof EmployeeListPage
+     * @memberof EmployeeListComponent
      */
     public pageNum: number;
 
     /** 
      * This local property is used to calculate total page number
      * @type {number}
-     * @memberof EmployeeListPage
+     * @memberof EmployeeListComponent
      */
     public totalPageNum: number;
 
     /**
      * This local property is used to show current page content items
      * @type {*}
-     * @memberof EmployeeListPage
+     * @memberof EmployeeListComponent
      */
     public currentPageItems: any;
 
     /**
      * This local property is used to enable or disable next button
      * @type {boolean}
-     * @memberof EmployeeListPage
+     * @memberof EmployeeListComponent
      */
     public disableNextButton: boolean;
 
     /**
      * This local property is used to enable or disable previous button
      * @type {boolean}
-     * @memberof EmployeeListPage
+     * @memberof EmployeeListComponent
      */
     public disablePrevButton: boolean = true;
 
     /**
      * This local property is used to show list view
      * @type {boolean}
-     * @memberof EmployeeListPage
+     * @memberof EmployeeListComponent
      */
     public listView: boolean = true;
 
     /**
      * This local property is used to show grid view
      * @type {boolean}
-     * @memberof EmployeeListPage
+     * @memberof EmployeeListComponent
      */
     public gridView: boolean = false;
 
     // /**
     //  * This local property is used to save favourite name card
-    //  * @memberof EmployeeListPage
+    //  * @memberof EmployeeListComponent
     //  */
     // public setAsFavourite = [];
 
     /**
      * This local property is used to show filter details
      * @type {boolean}
-     * @memberof EmployeeListPage
+     * @memberof EmployeeListComponent
      */
     public viewMoreFilter: boolean = false;
 
     /**
      * This local property is used to show header of advertisement message
      * @type {boolean}
-     * @memberof EmployeeListPage
+     * @memberof EmployeeListComponent
      */
     public showHeader: boolean = true;
 
     /**
      * This local property is used to show loading spinner
      * @type {boolean}
-     * @memberof EmployeeListPage
+     * @memberof EmployeeListComponent
      */
     public showSpinner: boolean = true;
 
     /**
      * page number of paginator
      * @type {number}
-     * @memberof EmployeeListPage
+     * @memberof EmployeeListComponent
      */
     p: number;
 
     /**
      * selection
-     * @memberof EmployeeListPage
+     * @memberof EmployeeListComponent
      */
     foods = [
         { value: 'steak-0', viewValue: 'Steak' },
@@ -160,17 +160,17 @@ export class EmployeeListPage implements OnInit {
     /**
      * return current page users
      * @readonly
-     * @memberof EmployeeListPage
+     * @memberof EmployeeListComponent
      */
     public get personalList() {
         return this.currentPageItems;
     }
 
     /**
-     *Creates an instance of EmployeeListPage.
+     *Creates an instance of EmployeeListComponent.
      * @param {APIService} apiService
      * @param {Router} router
-     * @memberof EmployeeListPage
+     * @memberof EmployeeListComponent
      */
     constructor(private apiService: APIService, public router: Router) {
     }
@@ -179,7 +179,7 @@ export class EmployeeListPage implements OnInit {
      * Inital method
      * Get user profile list from API
      * Get department list from API
-     * @memberof EmployeeListPage
+     * @memberof EmployeeListComponent
      */
     ngOnInit() {
         this.apiService.get_user_profile_list().subscribe(
@@ -205,7 +205,7 @@ export class EmployeeListPage implements OnInit {
      * @param {boolean} showList
      * @param {number} pageItem
      * @param {number} range
-     * @memberof EmployeeListPage
+     * @memberof EmployeeListComponent
      */
     viewList(showList: boolean, pageItem: number, range: number) {
         this.listView = showList;
@@ -220,7 +220,7 @@ export class EmployeeListPage implements OnInit {
     /**
      * This method is used to calculate content of items in a page
      * @param {number} i
-     * @memberof EmployeeListPage
+     * @memberof EmployeeListComponent
      */
     // renderItems(i: number) {
     //     this.pageNum = i;
@@ -242,7 +242,7 @@ export class EmployeeListPage implements OnInit {
 
     /**
      * This method is used to disable or enable next button
-     * @memberof EmployeeListPage
+     * @memberof EmployeeListComponent
      */
     disableEnableNextButton() {
         if (this.pageNum > 0 && this.pageNum < this.totalPageNum) {
@@ -258,7 +258,7 @@ export class EmployeeListPage implements OnInit {
 
     /**
      * This method is used to disable or enable previous button
-     * @memberof EmployeeListPage
+     * @memberof EmployeeListComponent
      */
     disableEnablePreviousButton() {
         if (this.pageNum > 1 && this.pageNum === this.totalPageNum) {
@@ -276,7 +276,7 @@ export class EmployeeListPage implements OnInit {
      * This method is used to show page content when clicked on next or previous button
      * @param {number} index
      * @param {string} nextOrPrev
-     * @memberof EmployeeListPage
+     * @memberof EmployeeListComponent
      */
     clickPageButton(index: number, nextOrPrev: string) {
         if (!(index > this.totalPageNum) && nextOrPrev === 'next') {
@@ -296,7 +296,7 @@ export class EmployeeListPage implements OnInit {
      * @param {boolean} value
      * @param {number} checkAsc
      * @param {number} checkDes
-     * @memberof EmployeeListPage
+     * @memberof EmployeeListComponent
      */
     nameSorting(value: boolean, checkAsc: number, checkDes: number) {
         // this.showSpinner = true;
@@ -317,7 +317,7 @@ export class EmployeeListPage implements OnInit {
      * @param {boolean} value
      * @param {number} ascValue
      * @param {number} desValue
-     * @memberof EmployeeListPage
+     * @memberof EmployeeListComponent
      */
     IDSorting(value: boolean, ascValue: number, desValue: number) {
         // this.showSpinner = true;
@@ -336,7 +336,7 @@ export class EmployeeListPage implements OnInit {
     /**
      * This method is used to filter employee name
      * @param {*} char
-     * @memberof EmployeeListPage
+     * @memberof EmployeeListComponent
      */
     filterDetails(char: any) {
         if (char && char.trim() != '') {
@@ -353,7 +353,7 @@ export class EmployeeListPage implements OnInit {
 
     /**
      * This method is used to get content after clear value from search bar
-     * @memberof EmployeeListPage
+     * @memberof EmployeeListComponent
      */
     clearDetails() {
         this.apiService.get_user_profile_list().subscribe(
@@ -371,7 +371,7 @@ export class EmployeeListPage implements OnInit {
     /**
      * This method is used to determine the filter content when change occured
      * @param {*} text
-     * @memberof EmployeeListPage
+     * @memberof EmployeeListComponent
      */
     changeDetails(text: any) {
         this.showSpinner = true;
@@ -386,7 +386,7 @@ export class EmployeeListPage implements OnInit {
     //  * This method is used to check user ID exist or not
     //  * @param {string} ID
     //  * @returns
-    //  * @memberof EmployeeListPage
+    //  * @memberof EmployeeListComponent
     //  */
     // userIDExists(ID: string) {
     //     return this.setAsFavourite.some(function (el) {
@@ -398,7 +398,7 @@ export class EmployeeListPage implements OnInit {
     //  * This method is used to save name card as favourite list when clicked on star icon
     //  * @param {number} index
     //  * @param {*} item
-    //  * @memberof EmployeeListPage
+    //  * @memberof EmployeeListComponent
     //  */
     // clickAsFavourite(index: number, item: any) {
     //     const obj = { index: index, itemId: item.id };

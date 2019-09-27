@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 /**
  * Email Invitation Page
  * @export
- * @class EmailInvitationPage
+ * @class EmailInvitationComponent
  * @implements {OnInit}
  */
 @Component({
@@ -12,40 +12,40 @@ import { Router } from '@angular/router';
     templateUrl: './email-invitation.component.html',
     styleUrls: ['./email-invitation.component.scss'],
 })
-export class EmailInvitationPage implements OnInit {
+export class EmailInvitationComponent implements OnInit {
 
     /**
      * This is local property for data binding
      * @type {string}
-     * @memberof EmailInvitationPage
+     * @memberof EmailInvitationComponent
      */
     public application: string = 'WorkHub';
 
     /**
      * This is local property for data binding
      * @type {string}
-     * @memberof EmailInvitationPage
+     * @memberof EmailInvitationComponent
      */
     public admin: string = 'user@example.com';
 
     /**
      * This is local property for data binding
      * @type {string}
-     * @memberof EmailInvitationPage
+     * @memberof EmailInvitationComponent
      */
     public applicationDescription: string = '[include some of the product description and what it can offers to users. It must be brief and not too long]';
 
     /**
-     *Creates an instance of EmailInvitationPage.
+     *Creates an instance of EmailInvitationComponent.
      * @param {Router} router
-     * @memberof EmailInvitationPage
+     * @memberof EmailInvitationComponent
      */
     constructor(private router: Router) {
     }
 
     /**
      * Initial method
-     * @memberof EmailInvitationPage
+     * @memberof EmailInvitationComponent
      */
     ngOnInit() {
     }
@@ -53,7 +53,7 @@ export class EmailInvitationPage implements OnInit {
     /**
      * This method is used to route to first time update password page
      *
-     * @memberof EmailInvitationPage
+     * @memberof EmailInvitationComponent
      */
     routeToUpdatePassword() {
         this.router.navigate(['/update-password']);

@@ -42,7 +42,7 @@ const moment = _moment;
 /**
  * Calendar View Page
  * @export
- * @class CalendarViewPage
+ * @class CalendarViewComponent
  * @implements {OnInit}
  */
 @Component({
@@ -50,75 +50,75 @@ const moment = _moment;
     templateUrl: './calendar-view.component.html',
     styleUrls: ['./calendar-view.component.scss'],
 })
-export class CalendarViewPage implements OnInit {
+export class CalendarViewComponent implements OnInit {
 
     /**
      * This is local property for Full Calendar Component
      * @type {FullCalendarComponent}
-     * @memberof CalendarViewPage
+     * @memberof CalendarViewComponent
      */
     @ViewChild('calendar') calendar: FullCalendarComponent;
 
     /**
      * This is input property for plugins of Full Calendar Component
-     * @memberof CalendarViewPage
+     * @memberof CalendarViewComponent
      */
     public calendarPlugins = [dayGridPlugin, timeGrigPlugin, listYear];
 
     /**
      * Get data from user profile API
      * @type {*}
-     * @memberof CalendarViewPage
+     * @memberof CalendarViewComponent
      */
     public list: any;
 
     /**
      * Get calendar id from user profile API & request data from calendar API
      * @type {string}
-     * @memberof CalendarViewPage
+     * @memberof CalendarViewComponent
      */
     public calendarId: string;
 
     /** 
      * Property for alias Event Input of Full Calendar Component
      * @type {EventInput[]}
-     * @memberof CalendarViewPage
+     * @memberof CalendarViewComponent
      */
     public events: EventInput[];
 
     /**
      * public holiday list
      * @type {*}
-     * @memberof CalendarViewPage
+     * @memberof CalendarViewComponent
      */
     public PBList: any;
 
     /**
      * get end date
      * @type {string}
-     * @memberof CalendarViewPage
+     * @memberof CalendarViewComponent
      */
     public endDate: string;
 
     /**
      * get full or half day
      * @type {string}
-     * @memberof CalendarViewPage
+     * @memberof CalendarViewComponent
      */
     public timeslot: string;
 
     /**
      * show text in clicked calendar
      * @type {string}
-     * @memberof CalendarViewPage
+     * @memberof CalendarViewComponent
      */
     public text: string;
 
     /**
-     *Creates an instance of CalendarViewPage.
+     *Creates an instance of CalendarViewComponent.
      * @param {APIService} apiService
      * @param {LeavePlanningAPIService} leaveAPI
-     * @memberof CalendarViewPage
+     * @memberof CalendarViewComponent
      */
     constructor(private apiService: APIService, private leaveAPI: LeavePlanningAPIService) { }
 
@@ -139,7 +139,7 @@ export class CalendarViewPage implements OnInit {
     /**
      * format date using moment library
      * @param {*} date
-     * @memberof CalendarViewPage
+     * @memberof CalendarViewComponent
      */
     editDateFormat(date: any) {
         for (let i = 0; i < date.length; i++) {
@@ -154,7 +154,7 @@ export class CalendarViewPage implements OnInit {
     /**
      * display onleave & public holiday event in calendar
      * @param {*} list
-     * @memberof CalendarViewPage
+     * @memberof CalendarViewComponent
      */
     getEmployeeLeaveList(list: any) {
         for (let i = 0; i < list.length; i++) {
@@ -180,7 +180,7 @@ export class CalendarViewPage implements OnInit {
      * check either is all day or half day
      * @param {*} list
      * @param {number} index
-     * @memberof CalendarViewPage
+     * @memberof CalendarViewComponent
      */
     checkAllDay(list: any, index: number) {
         if (list[index].TIME_SLOT) {
@@ -194,7 +194,7 @@ export class CalendarViewPage implements OnInit {
      * Method to get day of the week from a given date
      * @param {*} date
      * @returns
-     * @memberof CalendarViewPage
+     * @memberof CalendarViewComponent
      */
     getWeekDay(date) {
         //Create an array containing each day, starting with Sunday.
@@ -211,7 +211,7 @@ export class CalendarViewPage implements OnInit {
      * when event is clicked
      * show 'All Day' || 'Half Day'
      * @param {*} clicked
-     * @memberof CalendarViewPage
+     * @memberof CalendarViewComponent
      */
     onEventClick(clicked: any) {
         if (clicked.event.end) {
