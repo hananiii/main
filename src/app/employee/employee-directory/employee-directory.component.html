@@ -16,7 +16,8 @@
         </ion-title>
         <ion-menu-toggle auto-hide="false">
             <!-- *ngFor="let p of employeeSetupPage; let i=index" -->
-            <ion-item class="items" lines="none" (click)="getIndexToShowArrow(i)" [ngClass]="{
+            <!-- (click)="getIndexToShowArrow(i)" -->
+            <ion-item class="items" lines="none" [ngClass]="{
                         'mainColor': numOfArray === i,'highlightColor': numOfArray !== i}">
                 <ion-label style="color: #ffffff;">
                     Department

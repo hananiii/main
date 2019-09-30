@@ -13,10 +13,8 @@ margin: 0 auto;">
 <div class="connectionsContainer" *ngIf="listView">
     <!-- [style.display]="showSpinner ? 'none' : 'block'" -->
     <div class="topHeader">
-        <ion-button *ngIf="items"
-            style="float: left;font-size: 12px;height: 40px;width:142px;cursor: pointer;text-transform: none;"
-            color="primary">
-            <p style="color: white">{{items.length}} people</p>
+        <ion-button class="people" *ngIf="items" color="primary" [style.pointerEvents]="'none'">
+            <p style="color: white">{{items.length}} Peoples</p>
         </ion-button>
         <!-- <p class="numOfPeople" *ngIf="items">
                 {{items.length}}
@@ -91,8 +89,9 @@ margin: 0 auto;">
                 </ion-label>
             </ion-col>
             <ion-col class="colOfLeave" size="4"
-                style="opacity: 0.8;color: #43425d;font-weight: bold; font-size: 12px;cursor: pointer;"
-                (click)="router.navigate(['/main/user-public-profile'], { queryParams: { GUID: item.userId, name: item.employeeName } });">
+                style="opacity: 0.8;color: #43425d;font-weight: bold; font-size: 12px;">
+                <!-- (click)="router.navigate(['/main/user-public-profile'], { queryParams: { GUID: item.userId, name:
+                item.employeeName } });" -->
                 {{item.employeeName}}
             </ion-col>
             <ion-col class="colOfLeave" size="3" style="color:#808495; font-size: 12px;">{{item.designation}}
@@ -158,10 +157,8 @@ margin: 0 auto;">
 
 <div class="connectionsContainer" *ngIf="gridView">
     <div class="topHeader">
-        <ion-button *ngIf="items"
-            style="float: left;font-size: 12px;height: 40px;width:142px;cursor: pointer;text-transform: none;"
-            color="primary">
-            <p style="color: white">{{items.length}} people</p>
+        <ion-button class="people" *ngIf="items" color="primary" [style.pointerEvents]="'none'">
+            <p style="color: white">{{items.length}} Peoples</p>
         </ion-button>
         <!-- <p class="numOfPeople">
             {{items.length}}

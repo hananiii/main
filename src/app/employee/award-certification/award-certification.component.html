@@ -145,22 +145,24 @@
                             style="text-decoration: underline;cursor: pointer;">{{item.certificationAttachment}}</span>
                         <!-- (click)="showImg=true;showPdf=true" --
                     </ion-col> -->
-                    <ion-col style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;text-align: right">
+                    <ion-col style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;text-align: center;padding-top: 20px;">
                         <!-- <ion-button *ngIf="showAttach" shape="round" fill="outline" float-right style="margin-right: 7%; margin-top: -0.2%;font-size: 10px;
                                 height: 27px;width: 115px" (click)="file.click();">
                             Attachment
                         </ion-button> -->
-                        <ion-button fill="outline" (click)="file.click();"
+                        <ion-button *ngIf="showEditProfile" fill="outline" (click)="file.click();"
                             style="background: #f0f0f7;font-size: 12px;margin-top: 12px;height: 30px;width: 124px;display: inline-block; text-transform: capitalize"
                             color="primary">Attachment
                         </ion-button>
+                        <span *ngIf="!showEditProfile"
+                            style="text-decoration: underline;cursor: pointer;">{{item.certificationAttachment}}</span>
                         <!-- <ion-button *ngIf="!showAttach" shape="round" fill="outline" float-right style="margin-right: 7%; margin-top: -0.2%;font-size: 10px;
                                 height: 27px;"
                             (click)="showAttach=true;updateCertificate(i);showImg=false;showPdf=false;">
                             Upload
                         </ion-button> -->
                     </ion-col>
-                    <ion-col size="0.5" *ngIf="showEditProfile">
+                    <ion-col size="0.5" *ngIf="showEditProfile" style="padding-top: 20px">
                         <div class="education-delete-icon" [inlineSVG]="'assets/icon/option/trash.svg'"
                             (click)="deleteItem(i, awards)">
                         </div>
