@@ -430,13 +430,13 @@
 </div>
 
 <div class="row" *ngIf="row">
-    <div class="tasks" *ngIf="tasks" [style.max-width.%]="longLeave.status != undefined ? '100' : '72' ">
+    <div class="tasks" [style.max-width.%]="longLeave.status != undefined ? '100' : '72' ">
         <div style="background-color: #ffffff;padding: 10px;">
             <div
                 style="font-size: 13px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
                 Your Tasks
             </div>
-            <ng-container *ngIf="tasks.status == undefined">
+            <ng-container *ngIf="tasks && tasks.status == undefined">
                 <ion-list>
                     <ion-item *ngFor="let item of tasks; let i = index;">
                         <ion-row style="width: 100%;">
@@ -480,7 +480,7 @@
                     </ion-item>
                 </ion-list>
             </ng-container>
-            <ng-container *ngIf="tasks.status != undefined">
+            <ng-container *ngIf="tasks && tasks.status != undefined">
                 <p style="padding-left: 15px;color: rgb(77, 79, 92);font-size: 11px;line-height: 1.82;">
                     No task assigned to you</p>
             </ng-container>
