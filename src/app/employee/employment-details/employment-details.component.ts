@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { APIService } from 'src/services/shared-service/api.service';
 import { ActivatedRoute } from '@angular/router';
-import { PersonalDetailsService } from '../personal-details/personal-details.service';
 import * as _moment from 'moment';
 const moment = _moment;
 
@@ -89,14 +88,13 @@ export class EmploymentDetailsComponent implements OnInit {
      * @param {ActivatedRoute} route
      * @memberof EmploymentDetailsComponent
      */
-    constructor(private apiService: APIService,
-        private route: ActivatedRoute, private xservice: PersonalDetailsService) {
+    constructor(private apiService: APIService, private route: ActivatedRoute) {
         route.params.subscribe(params => {
             this.userId = params.id;
         });
-        xservice.percentChanged.subscribe(value => {
-            this.progressPercentage = value;
-        })
+        // xservice.percentChanged.subscribe(value => {
+        //     this.progressPercentage = value;
+        // })
     }
 
     /**
@@ -127,13 +125,13 @@ export class EmploymentDetailsComponent implements OnInit {
         )
     }
 
-    /**
-     * This method is used to hide header of profile completeness
-     * @memberof EmploymentDetailsComponent
-     */
-    clickToHideHeader() {
-        this.showHeader = false;
-    }
+    // /**
+    //  * This method is used to hide header of profile completeness
+    //  * @memberof EmploymentDetailsComponent
+    //  */
+    // clickToHideHeader() {
+    //     this.showHeader = false;
+    // }
 
     /**
      * filter superior name from user id

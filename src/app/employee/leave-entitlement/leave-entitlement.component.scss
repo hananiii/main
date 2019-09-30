@@ -132,6 +132,8 @@
     display: flex;
     flex-wrap: nowrap;
     padding: 0 10px;
+    padding-bottom: 20px;
+    width: 100%;
   }
   .column1 {
     flex: 30%;
@@ -142,8 +144,10 @@
   }
   .column2 {
     flex: 30%;
-    max-width: 30%;
-    padding: 0 10px;
+    max-width: 33%;
+    padding: 20px 15px;
+    background: white;
+    margin-right: 20px;
   }
   .column3 {
     flex: 30%;

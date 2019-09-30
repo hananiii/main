@@ -25,7 +25,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { APIService } from 'src/services/shared-service/api.service';
 import { filter } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
 
 /**
  * Employee Setup Page
@@ -79,7 +78,7 @@ export class EmployeeSetupComponent implements OnInit {
    * @type {ISubSideMenu[]}
    * @memberof EmployeeSetupComponent
    */
-  public EmployeeSetupComponent: ISubSideMenu[] = [
+  public employeeSetupPage: ISubSideMenu[] = [
     {
       title: 'Personal Details',
       url: ['/main/employee-setup/personal-details'],
@@ -111,14 +110,6 @@ export class EmployeeSetupComponent implements OnInit {
       icon: 'icon_setting@3x.png',
     }
   ];
-
-  /**
-   * This is local private property to set subscription
-   * @private
-   * @type {Subscription}
-   * @memberof EmployeeSetupComponent
-   */
-  private subscription: Subscription = new Subscription();
 
   /**
    * return value from API content 
@@ -153,20 +144,12 @@ export class EmployeeSetupComponent implements OnInit {
         this.checkUrl(this.url);
       });
 
-    this.subscription = this.apiService.get_personal_details().subscribe(data => {
+    this.apiService.get_personal_details().subscribe(data => {
       this.userId = data.id;
       this.list = data;
-      this.EmployeeSetupComponent[1].url = ['/main/employee-setup/employment-details', this.userId];
+      this.employeeSetupPage[1].url = ['/main/employee-setup/employment-details', this.userId];
     });
     this.checkUrl(this.router.url);
-  }
-
-  /**
-   * This method is used to destroy subscription
-   * @memberof EmployeeSetupComponent
-   */
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 
   /**
@@ -181,8 +164,8 @@ export class EmployeeSetupComponent implements OnInit {
     if (joinSplitUrl === '/main/employee-setup/employment-details') {
       this.getIndexToShowArrow(1);
     } else {
-      for (let i = 0; i < this.EmployeeSetupComponent.length; i++) {
-        if (this.EmployeeSetupComponent[i].url.includes(url)) {
+      for (let i = 0; i < this.employeeSetupPage.length; i++) {
+        if (this.employeeSetupPage[i].url.includes(url)) {
           this.getIndexToShowArrow(i);
         }
       }
@@ -196,14 +179,14 @@ export class EmployeeSetupComponent implements OnInit {
    */
   getIndexToShowArrow(index: number) {
     this.numOfArray = index;
-    if (this.EmployeeSetupComponent[index].url && index !== 1) {
-      this.router.navigate(this.EmployeeSetupComponent[index].url);
+    if (this.employeeSetupPage[index].url && index !== 1) {
+      this.router.navigate(this.employeeSetupPage[index].url);
     } else {
       if (this.userId === undefined) {
-        this.EmployeeSetupComponent[1].url = ['/main/employee-setup/employment-details', this.lastSegment];
-        this.router.navigate(this.EmployeeSetupComponent[index].url);
+        this.employeeSetupPage[1].url = ['/main/employee-setup/employment-details', this.lastSegment];
+        this.router.navigate(this.employeeSetupPage[index].url);
       }
-      this.router.navigate(this.EmployeeSetupComponent[index].url);
+      this.router.navigate(this.employeeSetupPage[index].url);
     }
   }
 

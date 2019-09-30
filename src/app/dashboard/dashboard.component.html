@@ -29,7 +29,7 @@
         </p>
         <p style="margin-left: 42px;color: #4d4f5c; font-weight:bold;font-size:11px;line-height: 1.82;margin-top: 0;
             margin-bottom: 0;"> {{annualVal.BALANCE_DAYS + annualVal.BALANCE_DAYS}} Days</p>
-        <p style="margin-left: 42px;font-size: 11px;font-weight: bold;line-height: 1.82;color: #ff6768;"> *Expiring
+        <p style="margin-left: 42px;font-size: 11px;font-weight: bold;line-height: 1.82;color: #ff6768;"> *{{annualVal.BALANCE_DAYS + annualVal.BALANCE_DAYS}} Expiring
             in 30 days</p>
         <ion-item class="divider" lines="full"></ion-item>
 
@@ -66,7 +66,7 @@
         <p style="margin-left: 42px;color: #4d4f5c; font-weight:bold;font-size:11px;line-height: 1.82;margin-top: 0;
             margin-bottom: 0;"> {{replaceVal}} Days</p>
         <p *ngIf="replaceVal != 0"
-            style="margin-left: 42px;font-size: 11px;font-weight: bold;line-height: 1.82;color: #ff6768;"> *Expiring
+            style="margin-left: 42px;font-size: 11px;font-weight: bold;line-height: 1.82;color: #ff6768;"> *{{replaceVal}} Expiring
             in {{RLDaysToGo}} days</p>
         <ion-item class="divider" lines="full"></ion-item>
 
@@ -82,7 +82,7 @@
         <p style="margin-left: 42px;color: #4d4f5c; font-weight:bold;font-size:11px;line-height: 1.82;margin-top: 0;
                 margin-bottom: 0;"> 0 Days</p>
         <p *ngIf="replaceVal != 0"
-            style="margin-left: 42px;font-size: 11px;font-weight: bold;line-height: 1.82;color: #ff6768;"> *Expiring
+            style="margin-left: 42px;font-size: 11px;font-weight: bold;line-height: 1.82;color: #ff6768;"> *0 Expiring
             in 12 days</p>
         <ion-item class="divider" lines="full"></ion-item>
 
@@ -237,7 +237,7 @@
         margin-bottom: 0;width: 100%;">Days Available</p>
         <p
             style="float:left;color: #ff6768;opacity: 0.8;font-weight: bold;font-size: 11px;line-height: 1.36;margin-top: 5px;">
-            Expiring in 30 days
+             {{annualVal.BALANCE_DAYS}} Expiring in 30 days
         </p>
         <p (click)="menu.enable(true, 'viewAnnualDetails');menu.enable(false, 'viewReplacementDetails');menu.enable(false, 'viewAnnouncementDetails');menu.enable(false, 'viewHolidayDetails');menu.open('viewAnnualDetails');"
             style="cursor: pointer;margin-top: 5px;float: right;color:#3b86ff;opacity: 0.8;line-height: 1.36;font-size: 11px;font-weight: bold;">
@@ -254,7 +254,7 @@
             margin-bottom: 0;width: 100%;">Days Available</p>
         <p *ngIf="replaceVal != 0"
             style="float:left;color: #ff6768;opacity: 0.8;font-weight: bold;font-size: 11px;line-height: 1.36;margin-top: 5px;">
-            Expiring in {{RLDaysToGo}} days
+            {{replaceVal}} Expiring in {{RLDaysToGo}} days
         </p>
 
         <p (click)="menu.enable(true, 'viewReplacementDetails');menu.enable(false, 'viewAnnualDetails');menu.enable(false, 'viewAnnouncementDetails');menu.enable(false, 'viewHolidayDetails');menu.open('viewReplacementDetails');"

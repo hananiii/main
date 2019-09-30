@@ -12,6 +12,7 @@ import { AwardCertificationComponent } from '../employee/award-certification/awa
 import { EmployeeListComponent } from '../employee/employee-directory/employee-list/employee-list.component';
 import { EmployeeDirectoryComponent } from '../employee/employee-directory/employee-directory.component';
 import { LeaveEntitlementsComponent } from '../employee/leave-entitlement/leave-entitlement.component';
+import { EmploymentDetailsComponent } from '../employee/employment-details/employment-details.component';
 
 export const sideMenuNavigationRoutes: Routes = [
     {
@@ -35,7 +36,7 @@ export const sideMenuNavigationRoutes: Routes = [
                 children: [
                     { path: '', redirectTo: 'personal-details', pathMatch: 'full' },
                     { path: 'personal-details', component: PersonalDetailsComponent },
-                    { path: 'employment-details/:id', component: EmployeeDirectoryComponent },
+                    { path: 'employment-details/:id', component: EmploymentDetailsComponent },
                     { path: 'leave-entitlement', component: LeaveEntitlementsComponent },
                     { path: 'awards-certification', component: AwardCertificationComponent },
                     // { path: 'connection', component: ConnectionsPage },
