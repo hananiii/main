@@ -220,6 +220,15 @@
                             </mat-form-field>
                         </ion-col>
                         <ion-col>
+                            <ion-label *ngIf="index === 0" style="padding-bottom: 5px;">Relationship</ion-label>
+                            <p *ngIf="!showEditProfile" style="display: inline">
+                                {{item.contactRelationship}}</p>
+                            <mat-form-field *ngIf="showEditProfile">
+                                <input matInput placeholder="Contact Relationship"
+                                    [(ngModel)]="removeItems[index].contactRelationship">
+                            </mat-form-field>
+                        </ion-col>
+                        <ion-col>
                             <ion-label *ngIf="index === 0" style="padding-bottom: 5px;">Phone Number</ion-label>
                             <p *ngIf="!showEditProfile" style="display: inline;right: 50%;">
                                 {{item.contactNumber}}</p>
@@ -227,9 +236,9 @@
                                 <input matInput placeholder="Contact Number"
                                     [(ngModel)]="removeItems[index].contactNumber">
                             </mat-form-field>
-                            <div class="delete-icon" *ngIf="showEditProfile"
+                            <!-- <div class="delete-icon" *ngIf="showEditProfile"
                                 [inlineSVG]="'assets/icon/option/trash.svg'" (click)="removeItem(index, removeItems)">
-                            </div>
+                            </div> -->
                             <!-- <div class="edit-pencil-icon" *ngIf="!showEditContact[index]"
                                 [inlineSVG]="'assets/icon/option/pencil.svg'" (click)="editContact(index, true)">
                             </div> -->
@@ -247,6 +256,11 @@
                                     Save
                                 </ion-button>
                             </div> -->
+                        </ion-col>
+                        <ion-col>
+                            <div class="delete-icon" *ngIf="showEditProfile"
+                                [inlineSVG]="'assets/icon/option/trash.svg'" (click)="removeItem(index, removeItems)">
+                            </div>
                         </ion-col>
                     </ion-row>
                     <ion-row class="detailsRow" *ngIf="showEditProfile">
@@ -286,9 +300,9 @@
                                 <input matInput placeholder="Identity card Number"
                                     [(ngModel)]="spouseItems[index].spouseIdentificationNumber">
                             </mat-form-field>
-                            <div class="delete-icon" *ngIf="showEditProfile"
+                            <!-- <div class="delete-icon" *ngIf="showEditProfile"
                                 [inlineSVG]="'assets/icon/option/trash.svg'" (click)="removeItem(index, spouseItems)">
-                            </div>
+                            </div> -->
                             <!-- <div class="edit-pencil-icon" *ngIf="!displayEditSpouse[index]"
                                 [inlineSVG]="'assets/icon/option/pencil.svg'" (click)="editSpouse(index, true)">
                             </div> -->
@@ -305,6 +319,12 @@
                                     Save
                                 </ion-button>
                             </div> -->
+                        </ion-col>
+                        <ion-col></ion-col>
+                        <ion-col>
+                            <div class="delete-icon" *ngIf="showEditProfile"
+                                [inlineSVG]="'assets/icon/option/trash.svg'" (click)="removeItem(index, spouseItems)">
+                            </div>
                         </ion-col>
                     </ion-row>
                     <ion-row class="detailsRow" *ngIf="showEditProfile">
@@ -333,9 +353,9 @@
                                 <input matInput placeholder="Identity card Number"
                                     [(ngModel)]="childItems[index].childIdentificationNumber">
                             </mat-form-field>
-                            <div class="delete-icon" *ngIf="showEditProfile"
+                            <!-- <div class="delete-icon" *ngIf="showEditProfile"
                                 [inlineSVG]="'assets/icon/option/trash.svg'" (click)="removeItem(index, childItems)">
-                            </div>
+                            </div> -->
                             <!-- <div class="edit-pencil-icon" *ngIf="!displayEditChild[index]"
                                 [inlineSVG]="'assets/icon/option/pencil.svg'" (click)="editChild(index, true)">
                             </div> -->
@@ -352,6 +372,12 @@
                                     Save
                                 </ion-button>
                             </div> -->
+                        </ion-col>
+                        <ion-col></ion-col>
+                        <ion-col>
+                            <div class="delete-icon" *ngIf="showEditProfile"
+                                [inlineSVG]="'assets/icon/option/trash.svg'" (click)="removeItem(index, childItems)">
+                            </div>
                         </ion-col>
                     </ion-row>
                     <ion-row class="detailsRow" *ngIf="showEditProfile">

@@ -139,7 +139,7 @@ export class PersonalDetailsComponent implements OnInit {
      * Object format of emergency contact
      * @memberof PersonalDetailsComponent
      */
-    public contactObj = { contactName: '', contactNumber: '' };
+    public contactObj = { contactName: '', contactRelationship: '', contactNumber: '' };
 
     /**
      * Object format of spouse details
