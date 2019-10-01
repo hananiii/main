@@ -61,8 +61,11 @@
         <br>
 
         <ion-button fill="solid" style="margin: 0 auto;display: block;font-size: 12px;width: 124px;text-transform: capitalize;color: white;--background: #43425d;
-    height: 34px;" (click)="sendRequest(emailValue.value); forgotPass=false" [disabled]="!resetPassword.valid">
+    height: 34px;" (click)="sendRequest(emailValue.value)" [disabled]="!resetPassword.valid">
           Send Request</ion-button>
+        <div style="position: absolute;margin-top: -32px;margin-left: 222px;" *ngIf="showSmallSpinner">
+          <ion-spinner name="lines-small" color="primary"></ion-spinner>
+        </div>
       </form>
     </div>
 

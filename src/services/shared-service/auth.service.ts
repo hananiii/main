@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import decode from 'jwt-decode';
 import { HttpClient } from '@angular/common/http';
+import { Http } from '@angular/http';
 
 /**
  * authenticate service
@@ -26,7 +27,7 @@ export class AuthService {
      * @param {HttpClient} httpClient
      * @memberof AuthService
      */
-    constructor(private _router: Router, private httpClient: HttpClient) { }
+    constructor(private _router: Router, private httpClient: HttpClient, public http: Http) { }
 
     /**
      * this is used to clear anything that needs to be removed
@@ -88,7 +89,6 @@ export class AuthService {
     public get loggedIn(): boolean {
         return (localStorage.getItem('access_token') !== null);
     }
-
 
     /**
      * this is used to clear local storage and also the route to login

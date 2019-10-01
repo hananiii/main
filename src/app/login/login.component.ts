@@ -3,6 +3,7 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/services/shared-service/auth.service';
 import { NgxSpinnerService } from "ngx-spinner";
+import {  Headers } from '@angular/http';
 
 /**
  * Login component
@@ -66,6 +67,19 @@ export class LoginComponent implements OnInit {
    */
   public resetPassword = new FormGroup({ emailAdd: new FormControl(null, [Validators.required, Validators.email]) });
 
+  /** 
+   * header for the request API
+   * @memberof LoginComponent
+   */
+  public headers = new Headers();
+
+  /**
+   * loading spinner to send request to email
+   * @type {boolean}
+   * @memberof LoginComponent
+   */
+  public showSmallSpinner: boolean = false;
+
   /**
    * This method is used to show error message when the form control of email is invalid
    * @returns
@@ -101,7 +115,8 @@ export class LoginComponent implements OnInit {
    * @param {Router} router
    * @memberof LoginComponent
    */
-  constructor(private _auth: AuthService, private router: Router, private spinner: NgxSpinnerService) { }
+  constructor(private _auth: AuthService, private router: Router, private spinner: NgxSpinnerService,
+  ) { }
 
   /**
    * This method is used to get initial value of email and password
@@ -156,7 +171,15 @@ export class LoginComponent implements OnInit {
    * @memberof LoginComponent
    */
   sendRequest(email: string) {
-    console.log(email);
+    this.showSmallSpinner = true;
+    return this._auth.http.post(this._auth.baseUrl + '/api/forgot-password/' + email, { headers: this.headers })
+      .subscribe((res) => {
+        if (res.status === 200) {
+          this.showSmallSpinner = false;
+          this.forgotPass = false;
+          this.resetPassword.reset();
+        }
+      })
   }
 
   /**
