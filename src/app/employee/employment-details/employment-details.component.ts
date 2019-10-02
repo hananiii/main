@@ -74,6 +74,13 @@ export class EmploymentDetailsComponent implements OnInit {
     public reportingName: string;
 
     /**
+     * show edit profile 
+     * @type {boolean}
+     * @memberof EmploymentDetailsComponent
+     */
+    public showEditProfile: boolean = false;
+
+    /**
      * return API content
      * @readonly
      * @memberof EmploymentDetailsComponent
@@ -145,6 +152,24 @@ export class EmploymentDetailsComponent implements OnInit {
                     this.reportingName = this.data[i].employeeName;
                 }
             }
+        })
+    }
+
+    /**
+     * patch employment details
+     * @memberof EmploymentDetailsComponent
+     */
+    patchEmployment() {
+        const body = this.list.employmentDetail;
+        body["id"] = this.list.id;
+        body.employmentStatus = Number(body.employmentStatus);
+        body.dateOfConfirmation = moment(body.dateOfConfirmation).format('YYYY-MM-DD');
+        body.dateOfJoin = moment(body.dateOfJoin).format('YYYY-MM-DD');
+        body.dateOfResign = moment(body.dateOfResign).format('YYYY-MM-DD');
+        console.log(body);
+        this.apiService.patch_employement_details(body).subscribe(res => {
+            console.log(res);
+            this.showEditProfile = false;
         })
     }
 

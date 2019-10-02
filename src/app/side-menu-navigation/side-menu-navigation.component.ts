@@ -87,7 +87,7 @@ export class SideMenuNavigationComponent implements OnInit {
       icon: 'my_leave.svg'
     },
     {
-      title: 'Employee',
+      title: 'Employee Directory',
       url: '/main/employee-directory',
       icon: 'employee.svg'
     }

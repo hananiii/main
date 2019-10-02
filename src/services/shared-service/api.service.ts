@@ -134,6 +134,16 @@ export class APIService {
     }
 
     /**
+     * update employement details 
+     * @param {*} data
+     * @returns {Observable<any>}
+     * @memberof APIService
+     */
+    patch_employement_details(data): Observable<any> {
+        return this.getApiWithId('/api/userprofile/employment-detail', data);
+    }
+
+    /**
      * This method is used to get user profile information
      * Personal, employment, leave entitlement, education details
      * @returns {Observable<any>}

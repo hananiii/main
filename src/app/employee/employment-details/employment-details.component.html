@@ -9,6 +9,25 @@
         <app-spinner></app-spinner>
     </div>
     <ion-card-header *ngIf="showContent">
+        <div *ngIf="!showEditProfile" style="right: 25px; position: absolute;" (click)="showEditProfile = true;">
+            <ion-button
+                style="font-size: 12px;margin-top: 12px;height: 30px;width: 124px;display: inline-block; text-transform: capitalize"
+                color="primary" [ngx-scroll-to]="'destination'">Edit
+                Profile
+            </ion-button>
+        </div>
+        <div style="right: 25px;top: 25px;position: absolute;" *ngIf="showEditProfile">
+            <ion-button fill="outline" (click)="showEditProfile = false"
+                style="background: #f0f0f7;font-size: 12px;height: 30px;width:124px;cursor: pointer;text-transform: none;"
+                color="primary">
+                Cancel
+            </ion-button>
+            <div style="display: inline-block"></div>
+            <ion-button (click)="patchEmployment()"
+                style="font-size: 12px;height: 30px;width:124px;cursor: pointer;text-transform: none;" color="primary">
+                Save
+            </ion-button>
+        </div>
         <div class="fullContainer">
             <div class="left">
                 <ion-avatar class="avatar">
@@ -139,28 +158,40 @@
 
             <!-- <ion-item class="divider"></ion-item> -->
             <div style="background-color: #ffffff;padding: 10px;padding-bottom: 20px;margin-bottom: 20px;">
-                <div
+                <div id="destination"
                     style="font-size: 13px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
                     BANK & EPF DETAILS</div>
                 <ion-row class="detailsRow">
                     <ion-col>
                         <ion-label>Bank Account Name</ion-label>
-                        <p>{{personalList.employmentDetail.bankAccountName}}</p>
+                        <p *ngIf="!showEditProfile">{{personalList.employmentDetail.bankAccountName}}</p>
+                        <mat-form-field *ngIf="showEditProfile">
+                            <input matInput [(ngModel)]="list.employmentDetail.bankAccountName">
+                        </mat-form-field>
                     </ion-col>
                     <ion-col>
                         <ion-label>Bank Account No</ion-label>
-                        <p>{{personalList.employmentDetail.bankAccountNumber}}</p>
+                        <p *ngIf="!showEditProfile">{{personalList.employmentDetail.bankAccountNumber}}</p>
+                        <mat-form-field *ngIf="showEditProfile">
+                            <input matInput [(ngModel)]="list.employmentDetail.bankAccountNumber">
+                        </mat-form-field>
                     </ion-col>
                     <ion-col>
                         <ion-label>EPF No</ion-label>
-                        <p>{{personalList.employmentDetail.epfNumber}}</p>
+                        <p *ngIf="!showEditProfile">{{personalList.employmentDetail.epfNumber}}</p>
+                        <mat-form-field *ngIf="showEditProfile">
+                            <input matInput [(ngModel)]="list.employmentDetail.epfNumber">
+                        </mat-form-field>
                     </ion-col>
                     <ion-col></ion-col>
                 </ion-row>
                 <ion-row class="detailsRow">
                     <ion-col>
                         <ion-label>Income Tax No</ion-label>
-                        <p>{{personalList.employmentDetail.incomeTaxNumber}}</p>
+                        <p *ngIf="!showEditProfile">{{personalList.employmentDetail.incomeTaxNumber}}</p>
+                        <mat-form-field *ngIf="showEditProfile">
+                            <input matInput [(ngModel)]="list.employmentDetail.incomeTaxNumber">
+                        </mat-form-field>
                     </ion-col>
                     <ion-col>
                     </ion-col>
