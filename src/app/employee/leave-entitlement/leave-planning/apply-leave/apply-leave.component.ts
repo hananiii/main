@@ -467,12 +467,12 @@ export class ApplyLeaveComponent implements OnInit {
         this.leaveAPI.post_user_apply_leave(applyLeaveData).subscribe(
             (val) => {
                 console.log("PATCH call successful value returned in body", val);
-                this.clearArrayList();
+                this.clearArrayList(true);
                 this.leaveAPI.openSnackBar('success');
             },
             response => {
                 console.log("PATCH call in error", response);
-                this.clearArrayList();
+                this.clearArrayList(true);
                 this.leaveAPI.openSnackBar('fail');
                 if (response.status === 401) {
                     window.location.href = '/login';
@@ -484,8 +484,10 @@ export class ApplyLeaveComponent implements OnInit {
      * This method is used to clear all form value
      * @memberof ApplyLeaveComponent
      */
-    clearArrayList() {
-        this.applyLeaveForm = this.formGroup();
+    clearArrayList(clearForm: boolean) {
+        if (clearForm) {
+            this.applyLeaveForm = this.formGroup();
+        }
         this._arrayList = [];
         this._firstForm = [];
         this._secondForm = [];
@@ -509,6 +511,8 @@ export class ApplyLeaveComponent implements OnInit {
             this._reformatDateTo = moment(this.applyLeaveForm.value.secondPicker).format('YYYY-MM-DD HH:mm:ss');
             this.getWeekDays(this.applyLeaveForm.value.firstPicker, this.applyLeaveForm.value.secondPicker, this._weekDayNumber);
             this.dayTypes.patchValue([{ selectArray: [this._dateArray] }]);
+            this.dayTypes.controls.splice(1, 1);
+            this.clearArrayList(false);
             if (this._dateArray.length === 1) {
                 this.showAddIcon = false;
             } else { this.showAddIcon = true; }
@@ -622,10 +626,12 @@ export class ApplyLeaveComponent implements OnInit {
         }
         if (event.value == '2') {
             this.showAddIcon = false;
-            if (this.dateRealCount === 1) {
+            if (this.dateRealCount === 1 && this.daysCount !== 1) {
                 this._objSlot1 = [];
                 this._slot1 = '';
                 this.halfDaySelectionChanged([], 0);
+                // this.open(0);
+                // this._firstFormIndex = [];
             }
         }
     }
@@ -816,6 +822,7 @@ export class ApplyLeaveComponent implements OnInit {
         this._slot2 = '';
         this.halfDaySelectionChanged([], 1);
         this.open(1);
+        this._secondFormIndex = [];
         this.dayTypes.controls.splice(1, 1);
     }
 
