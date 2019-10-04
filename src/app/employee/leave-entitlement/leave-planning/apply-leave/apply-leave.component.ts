@@ -127,6 +127,13 @@ export class ApplyLeaveComponent implements OnInit {
     public date: Date;
 
     /**
+     * real number of day between start & end date
+     * @type {number}
+     * @memberof ApplyLeaveComponent
+     */
+    public dateRealCount: number;
+
+    /**
      * Local private property for value get from API
      * @private
      * @type {*}
@@ -189,13 +196,6 @@ export class ApplyLeaveComponent implements OnInit {
     private _secondForm = [];
 
     /**
-     * Date selected for 3rd day types selection 
-     * @private
-     * @memberof ApplyLeaveComponent
-     */
-    private _thirdForm = [];
-
-    /**
      * Index number of selected date from selection list (_dateArray) for 1st day types selection
      * @private
      * @memberof ApplyLeaveComponent
@@ -208,13 +208,6 @@ export class ApplyLeaveComponent implements OnInit {
      * @memberof ApplyLeaveComponent
      */
     private _secondFormIndex = [];
-
-    /**
-     * Index number of selected date from selection list (_dateArray) for 3rd day types selection
-     * @private
-     * @memberof ApplyLeaveComponent
-     */
-    private _thirdFormIndex = [];
 
     /**
      * Disable date option list (true/false)
@@ -240,14 +233,6 @@ export class ApplyLeaveComponent implements OnInit {
     private _slot2: string;
 
     /**
-     * AM/PM for 3rd day types selection
-     * @private
-     * @type {string}
-     * @memberof ApplyLeaveComponent
-     */
-    private _slot3: string;
-
-    /**
      * {startDate: "YYYY-MM-DD 00:00:00", endDate: "YYYY-MM-DD 00:00:00", dayType: number, slot: string, quarterDay: string}
      * Object for 1st day types selection
      * @private
@@ -263,14 +248,7 @@ export class ApplyLeaveComponent implements OnInit {
     private _objSlot2 = [];
 
     /**
-     * Object for 3rd day types selection
-     * @private
-     * @memberof ApplyLeaveComponent
-     */
-    private _objSlot3 = [];
-
-    /**
-     * Data collected from (_objSlot1, _objSlot2, _objSlot3) POST to apply leave API
+     * Data collected from (_objSlot1, _objSlot2) POST to apply leave API
      * @private
      * @memberof ApplyLeaveComponent
      */
@@ -441,9 +419,7 @@ export class ApplyLeaveComponent implements OnInit {
         newArray = this._dateArray;
         newArray = newArray.filter(val => !this._firstForm.includes(val));
         newArray = newArray.filter(val => !this._secondForm.includes(val));
-        newArray = newArray.filter(val => !this._thirdForm.includes(val));
-
-        if (this.dayTypes.value[0].name !== 2) {
+        if (Number(this.dayTypes.value[0].name) !== 2) {
             let result = this.createConsecutiveDate(newArray);
             for (let i = 0; i < result.length; i++) {
                 if (result[i] !== undefined) {
@@ -459,7 +435,7 @@ export class ApplyLeaveComponent implements OnInit {
                 }
             }
         }
-        if (this.dayTypes.value[0].name == 2) {
+        if (Number(this.dayTypes.value[0].name) === 2) {
             let result = this.createConsecutiveDate(newArray);
             for (let i = 0; i < result.length; i++) {
                 if (result[i] !== undefined) {
@@ -472,6 +448,11 @@ export class ApplyLeaveComponent implements OnInit {
                         "quarterDay": this.selectedQuarterHour
                     }
                     this._arrayDateSlot.push(remainingFullDay);
+                    this._arrayDateSlot.forEach((element, index) => {
+                        if (this._arrayDateSlot[index].dayType != 2) {
+                            this._arrayDateSlot.splice(index, 1);
+                        }
+                    });
                 }
             }
         }
@@ -508,13 +489,10 @@ export class ApplyLeaveComponent implements OnInit {
         this._arrayList = [];
         this._firstForm = [];
         this._secondForm = [];
-        this._thirdForm = [];
         this._firstFormIndex = [];
         this._secondFormIndex = [];
-        this._thirdFormIndex = [];
         this._objSlot1 = [];
         this._objSlot2 = [];
-        this._objSlot3 = [];
         this._arrayDateSlot = [];
         this.selectedQuarterHour = '';
     }
@@ -531,6 +509,9 @@ export class ApplyLeaveComponent implements OnInit {
             this._reformatDateTo = moment(this.applyLeaveForm.value.secondPicker).format('YYYY-MM-DD HH:mm:ss');
             this.getWeekDays(this.applyLeaveForm.value.firstPicker, this.applyLeaveForm.value.secondPicker, this._weekDayNumber);
             this.dayTypes.patchValue([{ selectArray: [this._dateArray] }]);
+            if (this._dateArray.length === 1) {
+                this.showAddIcon = false;
+            } else { this.showAddIcon = true; }
         }
     }
 
@@ -546,15 +527,29 @@ export class ApplyLeaveComponent implements OnInit {
         var start = new Date(first.getTime());
         var end = new Date(last.getTime());
         this.daysCount = 0;
+        this.dateRealCount = 0;
         this._dateArray = [];
         while (start <= end) {
             if (!dayNumber.includes(start.getDay())) {
                 this.daysCount++;
+                this.dateRealCount++;
                 this._dateArray.push(new Date(start));
             }
             start.setDate(start.getDate() + 1);
         }
-        return [this.daysCount, this._dateArray];
+        return [this.dateRealCount, this.daysCount, this._dateArray];
+    }
+
+    /**
+     * quarter day calculation
+     * @param {*} event
+     * @memberof ApplyLeaveComponent
+     */
+    quarterDay(event: any) {
+        if (this.selectedQuarterHour == '') {
+            this.daysCount -= 0.75;
+        }
+        this.selectedQuarterHour = event.value;
     }
 
     /**
@@ -617,6 +612,21 @@ export class ApplyLeaveComponent implements OnInit {
         this.showAddIcon = true;
         if (event.value == '1') {
             this.open(index);
+            if (this.selectedQuarterHour != '') {
+                this.daysCount += 0.75;
+                this.selectedQuarterHour = '';
+            }
+            if (this.dateRealCount === 1) {
+                this.showAddIcon = false;
+            }
+        }
+        if (event.value == '2') {
+            this.showAddIcon = false;
+            if (this.dateRealCount === 1) {
+                this._objSlot1 = [];
+                this._slot1 = '';
+                this.halfDaySelectionChanged([], 0);
+            }
         }
     }
 
@@ -650,15 +660,9 @@ export class ApplyLeaveComponent implements OnInit {
         if (index == 0) {
             this.patchValueFunction(index, this._firstFormIndex, false);
             this.patchValueFunction(index, this._secondFormIndex, true);
-            this.patchValueFunction(index, this._thirdFormIndex, true);
         } if (index == 1) {
             this.patchValueFunction(index, this._firstFormIndex, true);
             this.patchValueFunction(index, this._secondFormIndex, false);
-            this.patchValueFunction(index, this._thirdFormIndex, true);
-        } if (index == 2) {
-            this.patchValueFunction(index, this._firstFormIndex, true);
-            this.patchValueFunction(index, this._secondFormIndex, true);
-            this.patchValueFunction(index, this._thirdFormIndex, false);
         }
     }
 
@@ -676,7 +680,9 @@ export class ApplyLeaveComponent implements OnInit {
                 this.daysCount = this.daysCount + 0.5;
             }
         }
-        if (!missing) { this.daysCount = this.daysCount - 0.5; }
+        if (!missing) {
+            this.daysCount = this.daysCount - 0.5;
+        }
     }
 
     /**
@@ -737,12 +743,7 @@ export class ApplyLeaveComponent implements OnInit {
             this._secondForm = selectedDate;
             this.postValueReformat(this._secondForm, this._objSlot2, this._slot2);
         }
-        if (index == 2) {
-            this.calculate(selectedDate, this._thirdForm);
-            this._thirdForm = selectedDate;
-            this.postValueReformat(this._thirdForm, this._objSlot3, this._slot3);
-        }
-        this._arrayDateSlot = this._objSlot1.concat(this._objSlot2).concat(this._objSlot3);
+        this._arrayDateSlot = this._objSlot1.concat(this._objSlot2);
     }
 
     /**
@@ -766,13 +767,6 @@ export class ApplyLeaveComponent implements OnInit {
             } else {
                 this._secondFormIndex.push(indexj);
             }
-        } if (i == 2) {
-            const index = this._thirdFormIndex.findIndex(item => item === indexj);
-            if (index > -1) {
-                this._thirdFormIndex.splice(index, 1);
-            } else {
-                this._thirdFormIndex.push(indexj);
-            }
         }
     }
 
@@ -794,11 +788,7 @@ export class ApplyLeaveComponent implements OnInit {
             this._slot2 = event.value;
             this.postValueReformat(this._secondForm, this._objSlot2, this._slot2);
         }
-        if (i === 2) {
-            this._slot3 = event.value;
-            this.postValueReformat(this._thirdForm, this._objSlot3, this._slot3);
-        }
-        this._arrayDateSlot = this._objSlot1.concat(this._objSlot2).concat(this._objSlot3);
+        this._arrayDateSlot = this._objSlot1.concat(this._objSlot2);
     }
 
     /**
@@ -806,18 +796,28 @@ export class ApplyLeaveComponent implements OnInit {
      * @memberof ApplyLeaveComponent
      */
     addFormField() {
-        if (this.dayTypes.controls.length < Object.keys(DayType).length / 2) {
+        if (this.dayTypes.controls.length < 2) {
             this.dayTypes.push(new FormGroup({
                 name: new FormControl(0),
                 selectArray: new FormArray([new FormControl(this._dateArray), new FormControl('')]),
                 status: new FormControl([false])
             }));
         } else {
-            this.showAddIcon = false;
             alert("No other option");
         }
     }
 
+    /**
+     * click to remove day types form
+     * @memberof ApplyLeaveComponent
+     */
+    removeItem() {
+        this._objSlot2 = [];
+        this._slot2 = '';
+        this.halfDaySelectionChanged([], 1);
+        this.open(1);
+        this.dayTypes.controls.splice(1, 1);
+    }
 
 
 }

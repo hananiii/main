@@ -105,6 +105,15 @@
   ::ng-deep .reasonBox > div.mat-form-field-wrapper > div.mat-form-field-flex {
     height: 93px;
   }
+  .delete-icon {
+    width: 13px;
+    height: 13px;
+    fill: #43425d;
+    opacity: 0.8;
+    cursor: pointer;
+    float: right;
+    margin-top: -44px;
+  }
   .addIcon {
     // display: block;
     color: #3b86ff;
