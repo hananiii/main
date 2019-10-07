@@ -3,7 +3,7 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/services/shared-service/auth.service';
 import { NgxSpinnerService } from "ngx-spinner";
-import {  Headers } from '@angular/http';
+import { Headers } from '@angular/http';
 
 /**
  * Login component
@@ -158,9 +158,11 @@ export class LoginComponent implements OnInit {
     this.spinner.show();
     this._auth.login(email, pass)
       .subscribe(data => {
-        console.log(data);
         this.router.navigate(['main'])
         this.spinner.hide();
+      }, error => {
+        this.spinner.hide();
+        alert(error.message);
       }
       );
   }

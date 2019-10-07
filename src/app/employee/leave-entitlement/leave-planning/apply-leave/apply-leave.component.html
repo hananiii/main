@@ -85,7 +85,7 @@
                     <mat-select class="selectLeave" formControlName="name"
                         (selectionChange)="dayTypesChanged($event, i)">
                         <!-- <mat-option value=0> Full Day</mat-option> -->
-                        <mat-option> None</mat-option>
+                        <!-- <mat-option> None</mat-option> -->
                         <mat-option value=1> Half Day</mat-option>
                         <mat-option value=2 *ngIf="dateRealCount === 1"> Quarter Day</mat-option>
                     </mat-select>
