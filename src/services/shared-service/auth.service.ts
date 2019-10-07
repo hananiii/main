@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
-import decode from 'jwt-decode';
+import { LocalStorageService, SessionStorageService, LocalStorage, SessionStorage } from 'angular-web-storage';
 import { HttpClient } from '@angular/common/http';
-import { Http } from '@angular/http';
 
 /**
  * authenticate service
@@ -21,19 +19,21 @@ export class AuthService {
      * @memberof AuthService
      */
     public baseUrl: string = "http://zencore.zen.com.my:3000";
+
     /**
      *Creates an instance of AuthService.
-     * @param {Router} _router
+     * @param {SessionStorageService} session
+     * @param {LocalStorageService} local
      * @param {HttpClient} httpClient
      * @memberof AuthService
      */
-    constructor(private _router: Router, private httpClient: HttpClient, public http: Http) { }
+    constructor(public session: SessionStorageService, public local: LocalStorageService, private httpClient: HttpClient) { }
 
     /**
      * this is used to clear anything that needs to be removed
      */
     clear(): void {
-        localStorage.clear();
+        this.local.clear();
     }
 
     /**
@@ -41,7 +41,7 @@ export class AuthService {
      * @return {boolean}
      */
     isAuthenticated(): boolean {
-        return localStorage.getItem('access_token') != null && !this.isTokenExpired();
+        return this.local.get('access_token') != null && !this.isTokenExpired();
     }
 
     // simulate jwt token is valid
@@ -54,12 +54,6 @@ export class AuthService {
     isTokenExpired(): boolean {
         return false;
     }
-
-    // loginAdmin(): void {
-    //     localStorage.setItem('access_token', `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE1MzMyNzM5NjksImV4cCI6MTU2NDgxMDAwNSwiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoiVGVzdCBHdWFyZCIsIkdpdmVuTmFtZSI6IkpvaG5ueSIsIlN1cm5hbWUiOiJSb2NrZXQiLCJFbWFpbCI6Impyb2NrZXRAZXhhbXBsZS5jb20iLCJyb2xlIjoiQWRtaW4ifQ.rEkg53_IeCLzGHlmaHTEO8KF5BNfl6NEJ8w-VEq2PkE`);
-
-    //     this._router.navigate(['/dashboard']);
-    // }
 
     /**
      * login to post to endpoint
@@ -74,7 +68,7 @@ export class AuthService {
                 // login successful if there's a jwt token in the response
                 if (user && user.access_token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('access_token', JSON.stringify(user.access_token));
+                    this.local.set('access_token', JSON.stringify(user.access_token));
                 }
                 return user;
             }));
@@ -87,22 +81,13 @@ export class AuthService {
      * @memberof AuthService
      */
     public get loggedIn(): boolean {
-        return (localStorage.getItem('access_token') !== null);
+        return (this.local.get('access_token') !== null);
     }
 
     /**
      * this is used to clear local storage and also the route to login
      */
     logout(): void {
-        localStorage.removeItem('access_token');
-    }
-
-    /**
-     * read access token
-     * @returns
-     * @memberof AuthService
-     */
-    decode() {
-        return decode(localStorage.getItem('access_token'));
+        this.local.remove('access_token');
     }
 }

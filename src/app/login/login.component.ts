@@ -3,7 +3,7 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/services/shared-service/auth.service';
 import { NgxSpinnerService } from "ngx-spinner";
-import { Headers } from '@angular/http';
+import { Headers, Http } from '@angular/http';
 
 /**
  * Login component
@@ -115,7 +115,7 @@ export class LoginComponent implements OnInit {
    * @param {Router} router
    * @memberof LoginComponent
    */
-  constructor(private _auth: AuthService, private router: Router, private spinner: NgxSpinnerService,
+  constructor(private _auth: AuthService, private router: Router, private spinner: NgxSpinnerService, private http: Http
   ) { }
 
   /**
@@ -123,10 +123,17 @@ export class LoginComponent implements OnInit {
    * @memberof LoginComponent
    */
   ngOnInit() {
-    if ((localStorage.getItem('user_email') !== null) && (localStorage.getItem('user_pass') !== null)) {
+    // if ((localStorage.getItem('user_email') !== null) && (localStorage.getItem('user_pass') !== null)) {
+    //   this.valueOfCheck = true;
+    //   this.emailValue = localStorage.getItem('user_email');
+    //   this.passValue = localStorage.getItem('user_pass');
+    //   this.formGroupValidation.get('email').setValue(this.emailValue);
+    //   this.formGroupValidation.get('pass').setValue(this.passValue);
+    // }
+    if ((this._auth.session.get('val1') !== null) && (this._auth.session.get('val2') !== null)) {
       this.valueOfCheck = true;
-      this.emailValue = localStorage.getItem('user_email');
-      this.passValue = localStorage.getItem('user_pass');
+      this.emailValue = window.atob(this._auth.session.get('val1'));
+      this.passValue = window.atob(this._auth.session.get('val2'));
       this.formGroupValidation.get('email').setValue(this.emailValue);
       this.formGroupValidation.get('pass').setValue(this.passValue);
     }
@@ -160,6 +167,8 @@ export class LoginComponent implements OnInit {
       .subscribe(data => {
         this.router.navigate(['main'])
         this.spinner.hide();
+        this._auth.session.set('response', window.btoa(data), data.expires_in, 's');
+        console.log('logged in', this._auth.session);
       }, error => {
         this.spinner.hide();
         alert(error.message);
@@ -174,7 +183,7 @@ export class LoginComponent implements OnInit {
    */
   sendRequest(email: string) {
     this.showSmallSpinner = true;
-    return this._auth.http.post(this._auth.baseUrl + '/api/forgot-password/' + email, { headers: this.headers })
+    return this.http.post(this._auth.baseUrl + '/api/forgot-password/' + email, { headers: this.headers })
       .subscribe((res) => {
         if (res.status === 200) {
           this.showSmallSpinner = false;
@@ -193,12 +202,19 @@ export class LoginComponent implements OnInit {
    */
   rememberMe(event: any, email: string, pass: string) {
     if (email !== "" || pass !== "") {
-      localStorage.setItem('user_email', email);
-      localStorage.setItem('user_pass', pass);
+      // localStorage.setItem('user_email', email);
+      // localStorage.setItem('user_pass', pass);
+      this._auth.session.set('val1', window.btoa(email));
+      this._auth.session.set('val2', window.btoa(pass));
+      console.log('remember', this._auth.session);
+
     }
     if (event.detail.checked === false) {
-      localStorage.removeItem('user_email');
-      localStorage.removeItem('user_pass');
+      // localStorage.removeItem('user_email');
+      // localStorage.removeItem('user_pass');
+      this._auth.session.remove('val1');
+      this._auth.session.remove('val2');
+
     }
   }
 
