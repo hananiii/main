@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { LocalStorageService } from 'angular-web-storage';
+import { AuthService } from './auth.service';
 
 /**
  * Store all API used in employee folder
@@ -31,7 +33,7 @@ export class APIService {
      * @param {Http} http
      * @memberof APIService
      */
-    constructor(public http: Http) {
+    constructor(public http: Http, public local: LocalStorageService, private auth: AuthService) {
     }
 
     /**
@@ -39,8 +41,8 @@ export class APIService {
      * @memberof APIService
      */
     headerAuthorization() {
-        if (this.headers["_headers"].size != 1) {
-            this.headers.append('Authorization', 'JWT ' + JSON.parse(localStorage.getItem('access_token')));
+        if (this.headers["_headers"].size != 1 && this.auth.isAuthenticated) {
+            this.headers.append('Authorization', 'JWT ' + JSON.parse(this.local.get('access_token')));
         }
     }
 
@@ -119,7 +121,7 @@ export class APIService {
      * @memberof APIService
      */
     patch_personal_details(updateData): Observable<any[]> {
-        this.headerAuthorization();
+        // this.headerAuthorization();
         return this.patchApi(updateData, '/api/userprofile/personal-detail');
     }
 
@@ -150,7 +152,7 @@ export class APIService {
      * @memberof APIService
      */
     get_user_profile(): Observable<any> {
-        this.headerAuthorization();
+        // this.headerAuthorization();
         return this.getApi('/api/userprofile');
     }
 
@@ -161,7 +163,7 @@ export class APIService {
      * @memberof APIService
      */
     get_user_profile_list(): Observable<any> {
-        this.headerAuthorization();
+        // this.headerAuthorization();
         return this.getApi('/api/users/employee');
     }
 
@@ -184,7 +186,7 @@ export class APIService {
      * @memberof APIService
      */
     get_master_list(item): Observable<any> {
-        this.headerAuthorization();
+        // this.headerAuthorization();
         return this.getApiWithId('/api/admin/master/', item);
     }
 

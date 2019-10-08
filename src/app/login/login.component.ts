@@ -137,7 +137,6 @@ export class LoginComponent implements OnInit {
       this.formGroupValidation.get('email').setValue(this.emailValue);
       this.formGroupValidation.get('pass').setValue(this.passValue);
     }
-    this._auth.logout();
   }
 
   /**
@@ -167,8 +166,6 @@ export class LoginComponent implements OnInit {
       .subscribe(data => {
         this.router.navigate(['main'])
         this.spinner.hide();
-        this._auth.session.set('response', window.btoa(data), data.expires_in, 's');
-        console.log('logged in', this._auth.session);
       }, error => {
         this.spinner.hide();
         alert(error.message);
