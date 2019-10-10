@@ -385,7 +385,8 @@
             </div>
             <ion-row style="width: 100%;" *ngFor="let item of announcements; let i = index;">
                 <ng-container style="padding-top: 2%;" *ngIf="i<3">
-                    <ion-col size="3" style="padding-left: 15px;color:#4d4f5c;font-size:11px;line-height: 1.82;">
+                    <ion-col align-self-center size="3"
+                        style="padding-left: 15px;color:#4d4f5c;font-size:11px;line-height: 1.82;">
                         {{item.FROM_DATE}}
                     </ion-col>
                     <ion-col style="color:#4d4f5c;font-size:11px;line-height: 1.82;overflow: hidden;

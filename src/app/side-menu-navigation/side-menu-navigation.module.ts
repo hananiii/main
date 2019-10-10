@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -15,7 +15,16 @@ import { PublicPersonalDetailsModule } from '../employee/public-personal-details
 import { UpdatePasswordModule } from '../employee/update-password/update-password.module';
 import { EmailInvitationModule } from '../employee/email-invitation/email-invitation.module';
 import { DashboardModule } from '../dashboard/dashboard.module';
+import bugsnag from '@bugsnag/js'
+import { BugsnagErrorHandler } from '@bugsnag/plugin-angular'
 
+const bugsnagClient = bugsnag('a856baea01e03638403f09253bc830a2')
+
+export function errorHandlerFactory() {
+  return new BugsnagErrorHandler(bugsnagClient)
+}
+
+bugsnagClient.notify(new Error('Test error'))
 @NgModule({
     imports: [
         CommonModule,
@@ -31,7 +40,7 @@ import { DashboardModule } from '../dashboard/dashboard.module';
         DashboardModule,
         RouterModule.forChild(sideMenuNavigationRoutes)
     ],
-    providers: [AuthGuard],
+    providers: [AuthGuard, { provide: ErrorHandler, useFactory: errorHandlerFactory }],
     declarations: [SideMenuNavigationComponent]
 })
 export class SideMenuNavigationModule { }

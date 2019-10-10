@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler  } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -17,6 +17,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { PageNotFoundComponent } from './page-not-found.component';
 import { SideMenuNavigationModule } from './side-menu-navigation/side-menu-navigation.module';
 import { LoginModule } from './login/login.module';
+import bugsnag from '@bugsnag/js'
+import { BugsnagErrorHandler } from '@bugsnag/plugin-angular'
+
+const bugsnagClient = bugsnag('a856baea01e03638403f09253bc830a2')
+
+export function errorHandlerFactory() {
+  return new BugsnagErrorHandler(bugsnagClient)
+}
+
+bugsnagClient.notify(new Error('Test error'))
 
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent],
@@ -36,7 +46,8 @@ import { LoginModule } from './login/login.module';
     StatusBar,
     SplashScreen,
     XmlJson,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: ErrorHandler, useFactory: errorHandlerFactory }
   ],
   bootstrap: [AppComponent]
 })

@@ -138,7 +138,8 @@ export class DashboardApiService {
      * @memberof DashboardApiService
      */
     post_approve_list(leaveTransactionGUID): Observable<any> {
-        return this.apiService.postApi(leaveTransactionGUID, '/api/leave/approved');
+        return this.http.post(this.apiService.baseUrl + '/api/leave/approved', leaveTransactionGUID, { headers: this.apiService.headers })
+            .pipe(map((res: Response) => res.text()))
     }
 
     /**
@@ -147,7 +148,8 @@ export class DashboardApiService {
      * @memberof DashboardApiService
      */
     post_reject_list(GUID): Observable<any> {
-        return this.apiService.postApi(GUID, '/api/leave/rejected');
+        return this.http.post(this.apiService.baseUrl + '/api/leave/rejected', GUID, { headers: this.apiService.headers })
+            .pipe(map((res: Response) => res.text()))
     }
 
 
