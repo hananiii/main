@@ -286,16 +286,20 @@ export class DashboardComponent implements OnInit {
      */
     ngOnInit() {
         // this.getOnleaveDetails();
-        this.dashboardAPI.get_birthday_details().subscribe(data => this.birthdayDetail = data);
-        this.dashboardAPI.get_news_notification().subscribe(data => {
-            this.notificationCategory(data);
+        this.dashboardAPI.get_birthday_details().subscribe(data => {
+            this.birthdayDetail = data;
             this.row = true;
             this.showSpinner = false;
-        }, error => {
-            if (error) {
-                window.location.href = '/login';
-            }
         });
+        // this.dashboardAPI.get_news_notification().subscribe(data => {
+        //     this.notificationCategory(data);
+        //     this.row = true;
+        //     this.showSpinner = false;
+        // }, error => {
+        //     if (error) {
+        //         window.location.href = '/login';
+        //     }
+        // });
         this.getHolidayList();
         this.getAnnouncementList();
         // this.getUserDetails();

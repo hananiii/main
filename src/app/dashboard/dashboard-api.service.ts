@@ -56,9 +56,9 @@ export class DashboardApiService {
      * @returns {Observable<any>}
      * @memberof DashboardApiService
      */
-    get_news_notification(): Observable<any> {
-        return this.apiService.getApi('/api/admin/notification');
-    }
+    // get_news_notification(): Observable<any> {
+    //     return this.apiService.getApi('/api/admin/notification');
+    // }
 
     /**
      * get all announcement created from admin
