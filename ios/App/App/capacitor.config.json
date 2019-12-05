@@ -3,5 +3,8 @@
   "appName": "leave",
   "bundledWebRuntime": false,
   "webDir": "www",
-  "npmClient": "npm"
+  "npmClient": "npm",
+  "server": {
+    "url": "http://172.16.1.140:8103"
+  }
 }
