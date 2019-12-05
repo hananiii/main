@@ -18,7 +18,7 @@
           </mat-form-field>
           <br>
           <br>
-          <mat-form-field>
+          <mat-form-field class="std-screen-width">
             <input matInput placeholder="Password" #passwordInput [type]="showPassword ? 'text' : 'password'" formControlName="pass"
               required>
             <mat-error *ngIf="formGroupValidation.controls['pass'].invalid">{{getPassErrorMessage()}}</mat-error>
@@ -38,7 +38,7 @@
             <p style="font-size: 11px;color: #43425d;text-align: right;margin-top: -24px;cursor: pointer;" (click)="forgotPass=true">Forgot Password
             </p>
           </div>
-          <ion-button fill="solid" style="margin: 0 auto;display: block;font-size: 12px;width: 124px;text-transform: capitalize;color: white;--background: #43425d;
+          <ion-button fill="solid" style="margin: 0 auto;display: block;font-size: 9px;width: 124px;text-transform: capitalize;color: white;--background: #43425d;
         height: 34px;" (click)="signIn(emailInput.value, passwordInput.value)" [disabled]="!formGroupValidation.valid">
             Login</ion-button>
         </form>
@@ -86,7 +86,7 @@
             </mat-form-field>
             <br>
             <br>
-            <mat-form-field>
+            <mat-form-field class="min-screen-width">
               <input matInput placeholder="Password" #passwordInput [type]="showPassword ? 'text' : 'password'" formControlName="pass"
                 required>
               <mat-error *ngIf="formGroupValidation.controls['pass'].invalid">{{getPassErrorMessage()}}</mat-error>
