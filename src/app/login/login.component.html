@@ -38,7 +38,7 @@
             <p style="font-size: 11px;color: #43425d;text-align: right;margin-top: -24px;cursor: pointer;" (click)="forgotPass=true">Forgot Password
             </p>
           </div>
-          <ion-button fill="solid" style="margin: 0 auto;display: block;font-size: 9px;width: 124px;text-transform: capitalize;color: white;--background: #43425d;
+          <ion-button fill="solid" style="margin: 0 auto;display: block;font-size: 12px;width: 124px;text-transform: capitalize;color: white;--background: #43425d;
         height: 34px;" (click)="signIn(emailInput.value, passwordInput.value)" [disabled]="!formGroupValidation.valid">
             Login</ion-button>
         </form>
@@ -105,12 +105,35 @@
                 Remember me</p>
               <p style="font-size: 11px;;text-align: right;margin-top: -24px;cursor: pointer;" (click)="forgotPass=true">Forgot Password </p>
             </div>
-            <ion-button fill="solid" style="margin: 0 auto;display: block;font-size: 9px;width: 124px;text-transform: capitalize;--background: var(--ion-color-light);
+            <ion-button fill="solid" style="margin: 0 auto;display: block;font-size: 12px;width: 124px;text-transform: capitalize;--background: var(--ion-color-light);
               color: #43425d;height: 34px;" (click)="signIn(emailInput.value, passwordInput.value)" [disabled]="!formGroupValidation.valid">
               Login</ion-button>
           </form>
+        </div>
 
-
+        <!----------------------------------- Forgot Password -------------------------------->
+        <div *ngIf="forgotPass" style="display: flex; position: relative;align-items: center;justify-content: center;flex-direction: column;width: 100%;min-height: 80%;align-items: center;">
+          <img style="width: 110px;height: 39px;" src="assets/icon/ZEN_logo.png">
+          <br>
+          <p style="opacity: 0.5;font-size: 13px;line-height: 0.62;text-align: center;color: var(--ion-color-light);margin: 0px 50px;">
+            Enter your email and we send you a password reset link</p>
+          <br>
+          <form [formGroup]="resetPassword" style="max-width: 300px; width: -webkit-fill-available; margin: 0px 55px; color:var(--ion-color-light);">
+            <mat-form-field>
+              <input matInput #emailValue placeholder="Email" formControlName="emailAdd" required>
+              <mat-error *ngIf="resetPassword.controls['emailAdd'].invalid">{{getEmailError()}}</mat-error>
+            </mat-form-field>
+            <br>
+            <br>
+    
+            <ion-button fill="solid" style="margin: 0 auto;display: block;font-size: 12px;width: 124px;text-transform: 
+               capitalize;color: #43425d;--background: var(--ion-color-light);
+              height: 34px;" (click)="sendRequest(emailValue.value)" [disabled]="!resetPassword.valid">
+              Send Request</ion-button>
+            <div style="position: absolute;margin-top: -32px;margin-left: 222px;" *ngIf="showSmallSpinner">
+              <ion-spinner name="lines-small" color="primary"></ion-spinner>
+            </div>
+          </form>
         </div>
   </div>
 </div>
