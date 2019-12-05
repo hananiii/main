@@ -52,15 +52,6 @@ export class DashboardApiService {
     }
 
     /**
-     * To get notification message, category
-     * @returns {Observable<any>}
-     * @memberof DashboardApiService
-     */
-    // get_news_notification(): Observable<any> {
-    //     return this.apiService.getApi('/api/admin/notification');
-    // }
-
-    /**
      * get all announcement created from admin
      * @returns
      * @memberof DashboardApiService
@@ -93,7 +84,7 @@ export class DashboardApiService {
      * @memberof DashboardApiService
      */
     get_long_leave_reminder(): Observable<any> {
-        return this.apiService.getApi('/api/employee/long-leave');
+        return this.apiService.getApi('/api/employee/long-leave/employee');
     }
 
     /**

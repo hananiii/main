@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { APIService } from 'src/services/shared-service/api.service';
 import { Router } from '@angular/router';
+import { LeavePlanningAPIService } from './leave-planning-api.service';
 
 /**
  * Leave Planning Page
@@ -23,6 +24,13 @@ export class LeavePlanningComponent implements OnInit {
     public list: any;
 
     /**
+     * get entitlement details
+     * @type {*}
+     * @memberof LeavePlanningComponent
+     */
+    public entitlementDetails: any;
+
+    /**
      * This local property is used to show or hide spinner
      * @type {boolean}
      * @memberof LeavePlanningComponent
@@ -35,7 +43,7 @@ export class LeavePlanningComponent implements OnInit {
      * @param {Router} router
      * @memberof LeavePlanningComponent
      */
-    constructor(private API: APIService, private router: Router
+    constructor(private API: APIService, private leaveApi: LeavePlanningAPIService, private router: Router
     ) { }
 
     /**
@@ -48,13 +56,10 @@ export class LeavePlanningComponent implements OnInit {
             (list: any[]) => {
                 this.showSpinner = false;
                 this.list = list;
-            },
-            error => {
-                if (error) {
-                    window.location.href = '/login';
-                }
-            }
-        );
+            });
+        this.leaveApi.get_entilement_details().subscribe(list => {
+            this.entitlementDetails = list;
+        })
     }
 
     /**

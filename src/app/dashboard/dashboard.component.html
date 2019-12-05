@@ -237,7 +237,7 @@
         <img class="annual-icon" src="assets/icon/dashboard/icon_annual_leave@3x.png">
         <p style="font-size: 12px;opacity: 0.5;color: #43425d;line-height: 1.25;display: inline-block;
         margin-bottom: 0;width: 100%;">Days Available</p>
-        <p
+        <p *ngIf="annualVal"
             style="float:left;color: #ff6768;opacity: 0.8;font-weight: bold;font-size: 11px;line-height: 1.36;margin-top: 5px;">
             {{annualVal.BALANCE_DAYS}} Expiring in 30 days
         </p>
@@ -433,13 +433,13 @@
 </div>
 
 <div class="row" *ngIf="row">
-    <div class="tasks" [style.max-width.%]="longLeave.status != undefined ? '100' : '72' ">
+    <div class="tasks" [style.max-width.%]="longLeave != undefined ? '100' : '72' ">
         <div style="background-color: #ffffff;padding: 10px;">
             <div
                 style="font-size: 13px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
                 Your Tasks
             </div>
-            <ng-container *ngIf="tasks && tasks.status == undefined">
+            <ng-container *ngIf="tasks == undefined">
                 <ion-list>
                     <ion-item *ngFor="let item of tasks; let i = index;">
                         <ion-row style="width: 100%;">
@@ -484,13 +484,13 @@
                     </ion-item>
                 </ion-list>
             </ng-container>
-            <ng-container *ngIf="tasks && tasks.status != undefined">
+            <ng-container *ngIf="tasks != undefined">
                 <p style="padding-left: 15px;color: rgb(77, 79, 92);font-size: 11px;line-height: 1.82;">
                     No task assigned to you</p>
             </ng-container>
         </div>
     </div>
-    <div class="reminder" *ngIf="longLeave.status == undefined">
+    <div class="reminder" *ngIf="longLeave == undefined">
         <p style="color:#f0f0f7;font-weight: bold;line-height: 1.07;font-size: 14px;margin-bottom: 10px;">Long Leave
             Reminder</p>
         <img style="width: 27px;height:27px;" src="assets/icon/dashboard/icon_long_reminder@3x.png">

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { APIService } from 'src/services/shared-service/api.service';
 import { Router } from '@angular/router';
 import { PersonalDetailsService } from '../personal-details/personal-details.service';
+import { LeavePlanningAPIService } from './leave-planning/leave-planning-api.service';
 /**
  * Leave Entitlement Page
  * @export
@@ -102,7 +103,7 @@ export class LeaveEntitlementsComponent implements OnInit {
      * @param {Router} router
      * @memberof LeaveEntitlementsComponent
      */
-    constructor(private apiService: APIService, private router: Router
+    constructor(private apiService: APIService, private apiLeave: LeavePlanningAPIService, private router: Router
     ) {
         // xservice.percentChanged.subscribe(value => {
         //     this.progressPercentage = value;
@@ -118,17 +119,12 @@ export class LeaveEntitlementsComponent implements OnInit {
         this.apiService.get_user_profile().subscribe(
             (data: any[]) => {
                 this.personalDataList = data;
-                this.entitlement = this.personalDataList.entitlementDetail;
                 this.showSpinner = false;
                 this.showContent = true;
-                // this.setTwoDigit();
-            },
-            error => {
-                if (error) {
-                    window.location.href = '/login';
-                }
-            }
-        );
+            });
+        this.apiLeave.get_entilement_details().subscribe(data => {
+            this.entitlement = data;
+        })
     }
 
 

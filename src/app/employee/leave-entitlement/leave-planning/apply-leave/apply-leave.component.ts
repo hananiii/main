@@ -295,34 +295,26 @@ export class ApplyLeaveComponent implements OnInit {
      * Get user profile list from API
      * @memberof ApplyLeaveComponent
      */
-    ngOnInit() {
+    async ngOnInit() {
         const dt = new Date();
         const yr = dt.getFullYear();
-        this.apiService.get_user_profile().subscribe(
-            (data: any[]) => {
-                this._userList = data;
-                this.entitlement = this._userList.entitlementDetail;
-                this.calendarId = this._userList.calendarId;
-            },
-            error => {
-                if (error) {
-                    window.location.href = '/login';
+        let data = await this.apiService.get_user_profile().toPromise();
+        this._userList = data;
+        this.calendarId = this._userList.calendarId;
+        this.leaveAPI.get_personal_holiday_calendar(this.calendarId, yr).subscribe(
+            data => {
+                this.formatDate(data.holiday);
+                for (let i = 0; i < data.rest.length; i++) {
+                    const weekdays = new Array(
+                        "SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"
+                    );
+                    this._weekDayNumber.push(weekdays.indexOf(data.rest[i].fullname));
                 }
-            },
-            () => {
-                this.leaveAPI.get_personal_holiday_calendar(this.calendarId, yr).subscribe(
-                    data => {
-                        this.formatDate(data.holiday);
-                        for (let i = 0; i < data.rest.length; i++) {
-                            const weekdays = new Array(
-                                "SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"
-                            );
-                            this._weekDayNumber.push(weekdays.indexOf(data.rest[i].fullname));
-                        }
-                    }
-                );
             }
         );
+        this.leaveAPI.get_entilement_details().subscribe(list => {
+            this.entitlement = list;
+        })
         setTimeout(() => {
             let calendarApi = this.calendarComponent.getApi();
             calendarApi.render();

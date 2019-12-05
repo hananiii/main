@@ -70,7 +70,7 @@ export class PersonalDetailsComponent implements OnInit {
      * @type {number}
      * @memberof PersonalDetailsComponent
      */
-    public progressPercentage: number;
+    // public progressPercentage: number;
 
     /** 
      * Local property to show or hide loading spinner
@@ -200,7 +200,7 @@ export class PersonalDetailsComponent implements OnInit {
         this.apiService.get_personal_details().subscribe(
             (data: any[]) => {
                 this.items = data;
-                this.checkProfileComplete();
+                // this.checkProfileComplete();
                 this.showSpinner = false;
                 this.showContent = true;
                 this.firstPicker = new FormControl((this.items.personalDetail.dob), Validators.required);
@@ -225,17 +225,17 @@ export class PersonalDetailsComponent implements OnInit {
      * Calculate profile completeness %
      * @memberof PersonalDetailsComponent
      */
-    checkProfileComplete() {
-        const value = (Object.keys(this.items.personalDetail).map(key => this.items.personalDetail[key]));
-        const array = [];
-        for (let i = 0; i < value.length; i++) {
-            if (value[i] === "" || value[i] === null) {
-                array.push(i);
-            }
-        }
-        this.progressPercentage = Math.floor(((value.length - array.length) / value.length) * 100);
-        this.xservice.percentChanged.next(this.progressPercentage);
-    }
+    // checkProfileComplete() {
+    //     const value = (Object.keys(this.items.personalDetail).map(key => this.items.personalDetail[key]));
+    //     const array = [];
+    //     for (let i = 0; i < value.length; i++) {
+    //         if (value[i] === "" || value[i] === null) {
+    //             array.push(i);
+    //         }
+    //     }
+    //     this.progressPercentage = Math.floor(((value.length - array.length) / value.length) * 100);
+    //     this.xservice.percentChanged.next(this.progressPercentage);
+    // }
 
     /**
      * This is method used to get contact info initially

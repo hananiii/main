@@ -3,7 +3,6 @@ import { AuthGuard } from 'src/services/shared-service/guards/auth-guard.service
 import { SideMenuNavigationComponent } from './side-menu-navigation.component';
 import { EmployeeSetupComponent } from '../employee/employee-setup.component';
 import { PageNotFoundComponent } from '../page-not-found.component';
-import { PublicPersonalDetailsComponent } from '../employee/public-personal-details/public-personal-details.component';
 import { PersonalDetailsComponent } from '../employee/personal-details/personal-details.component';
 import { AccountSettingComponent } from '../employee/account-setting/account-setting.component';
 import { LeavePlanningComponent } from '../employee/leave-entitlement/leave-planning/leave-planning.component';
@@ -30,7 +29,6 @@ export const sideMenuNavigationRoutes: Routes = [
                     { path: 'list', component: EmployeeListComponent }
                 ]
             },
-            { path: 'user-public-profile', component: PublicPersonalDetailsComponent },
             {
                 path: 'employee-setup', component: EmployeeSetupComponent,
                 children: [

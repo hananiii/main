@@ -22,9 +22,9 @@
             <mat-form-field appearance="outline" style="width: 74%;">
                 <mat-label>Leave types</mat-label>
                 <mat-select class="selectLeave" name="leave" formControlName="leaveTypes" required>
-                    <mat-option *ngFor="let leave of entitlement; let i=index" [value]="leave.leaveTypeName"
-                        (click)="daysAvailable = leave.balanceDays;leaveTypeId = leave.leaveTypeId;">
-                        {{leave.leaveTypeName}}</mat-option>
+                    <mat-option *ngFor="let leave of entitlement; let i=index" [value]="leave.LEAVE_CODE"
+                        (click)="daysAvailable = leave.BALANCE_DAYS;leaveTypeId = leave.LEAVE_TYPE_GUID;">
+                        {{leave.LEAVE_CODE}}</mat-option>
                 </mat-select>
                 <mat-error *ngIf="!applyLeaveForm.leaveTypes" style="padding: 5px;padding-left: 0;">
                     Please select one leave type</mat-error>

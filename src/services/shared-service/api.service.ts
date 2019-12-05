@@ -110,9 +110,9 @@ export class APIService {
      * @returns {Observable<any>}
      * @memberof APIService
      */
-    get_user_personal_details(guid): Observable<any> {
-        return this.getApiWithId('/api/userprofile/personal-detail/', guid);
-    }
+    // get_user_personal_details(guid): Observable<any> {
+    //     return this.getApiWithId('/api/userprofile/personal-detail/', guid);
+    // }
 
     /**
      * This method is used to update personal details

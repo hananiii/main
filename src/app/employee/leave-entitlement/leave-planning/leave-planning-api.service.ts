@@ -61,6 +61,18 @@ export class LeavePlanningAPIService {
     }
 
     /**
+     * get requested user's entitlement details
+     * leave type, entitled day, balance, pending, taken
+     * @param {*} id
+     * @returns {Observable<any>}
+     * @memberof LeavePlanningAPIService
+     */
+    get_entilement_details(): Observable<any> {
+        this.api.headerAuthorization();
+        return this.api.getApi('/api/leave-entitlement/');
+    }
+
+    /**
      * Show message of pass or fail after post data
      * @param {string} message
      * @memberof LeavePlanningAPIService

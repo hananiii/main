@@ -11,7 +11,6 @@ import { sideMenuNavigationRoutes } from './side-menu-navigation.routes';
 import { EmployeeSetupPageModule } from 'src/app/employee/employee-setup.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MatMenuModule } from '@angular/material/menu';
-import { PublicPersonalDetailsModule } from '../employee/public-personal-details/public-personal-details.module';
 import { UpdatePasswordModule } from '../employee/update-password/update-password.module';
 import { EmailInvitationModule } from '../employee/email-invitation/email-invitation.module';
 import { DashboardModule } from '../dashboard/dashboard.module';
@@ -33,7 +32,6 @@ bugsnagClient.notify(new Error('Test error'))
         InlineSVGModule.forRoot(),
         HttpClientModule,
         EmployeeSetupPageModule,
-        PublicPersonalDetailsModule,
         MatMenuModule,
         UpdatePasswordModule,
         EmailInvitationModule,
