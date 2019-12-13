@@ -35,7 +35,8 @@
             </ion-checkbox>
             <p style="margin-top: -16px;padding-left: 20px; font-size: 11px;color:#43425d">
               Remember me</p>
-            <p style="font-size: 11px;color: #43425d;text-align: right;margin-top: -24px;cursor: pointer;" (click)="forgotPass=true">Forgot Password
+            <!-- <p style="font-size: 11px;color: #43425d;text-align: right;margin-top: -24px;cursor: pointer;" (click)="forgotPass=true">Forgot Password -->
+            <p style="font-size: 11px;color: #43425d;text-align: right;margin-top: -24px;cursor: pointer;" (click)="toForgotPasswordPage()">Forgot Password
             </p>
           </div>
           <ion-button fill="solid" style="margin: 0 auto;display: block;font-size: 12px;width: 124px;text-transform: capitalize;color: white;--background: #43425d;
@@ -103,7 +104,7 @@
               </ion-checkbox>
               <p style="margin-top: -16px;padding-left: 20px; font-size: 11px;">
                 Remember me</p>
-              <p style="font-size: 11px;;text-align: right;margin-top: -24px;cursor: pointer;" (click)="forgotPass=true">Forgot Password </p>
+              <p style="font-size: 11px;;text-align: right;margin-top: -24px;cursor: pointer;" (click)="toForgotPasswordPage()">Forgot Password </p>
             </div>
             <ion-button fill="solid" style="margin: 0 auto;display: block;font-size: 12px;width: 124px;text-transform: capitalize;--background: var(--ion-color-light);
               color: #43425d;height: 34px;" (click)="signIn(emailInput.value, passwordInput.value)" [disabled]="!formGroupValidation.valid">

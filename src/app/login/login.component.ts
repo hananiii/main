@@ -215,4 +215,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  toForgotPasswordPage() {
+    return window.location.href = 'http://zencore.zen.com.my:8104/#/forgot-password/user';
+  }
 }
