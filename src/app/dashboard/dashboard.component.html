@@ -229,16 +229,6 @@
 <!-------------------------------- Dashboard content --------------------------------->
 <div class="row" *ngIf="row">
     <!-- <div class="column"> -->
-    <div class="annual">
-        <p style="color:#43425d;opacity: 0.8;font-weight: bold;line-height: 1.25;font-size: 12px">Annual Leave</p>
-        <ion-label *ngIf="annualVal"
-            style="float: left;font-size: 35px;color: #43425d;font-weight: bold;line-height: 1.26;">
-            {{annualVal.BALANCE_DAYS}}</ion-label>
-        <img class="annual-icon" src="assets/icon/dashboard/icon_annual_leave@3x.png">
-        <p style="font-size: 12px;opacity: 0.5;color: #43425d;line-height: 1.25;display: inline-block;
-        margin-bottom: 0;width: 100%;">Days Available</p>
-        <p *ngIf="annualVal"
-            style="float:left;color: #ff6768;opacity: 0.8;font-weight: bold;font-size: 11px;line-height: 1.36;margin-top: 5px;">
     <span style="display: flex; flex-flow: wrap; flex: 1;">
         <div class="annual">
             <p style="color:#43425d;opacity: 0.8;font-weight: bold;line-height: 1.25;font-size: 12px">Annual Leave</p>
@@ -292,12 +282,10 @@
                 {{birthdayDetail.day}} {{birthdayDetail.month}}</ion-label>
             <img class="svg-icon" style="margin-right: 20px;width: 37px;height: 45px;"
                 src="assets/icon/dashboard/icon_birthday@3x.png">
-            <!-- <ion-item-group> -->
                 <img style="position: absolute;right: 0px;top: 0px;width: 64px;height: 64px;"
                     src="assets/icon/dashboard/Path 332@2x.png">
                 <img class="svg-icon" style="position: absolute;right: 0px;top: 0px;"
                     src="assets/icon/dashboard/Happy Birthday!@3x.png">
-            <!-- </ion-item-group> -->
             <p style="font-size: 12px;opacity: 0.5;color: #43425d;line-height: 1.25;display: inline-block;
                         margin-bottom: 0;width: 100%;">{{birthdayDetail.remainingDays}} </p>
         </div>
@@ -389,7 +377,7 @@
     </span>
 </div>
 
-<div class="row" *ngIf="row">
+<div class="row" *ngIf="row" style="flex: 1; display: flex;">
     <div class="annoucement">
         <div style="background-color: #ffffff;padding: 10px;">
             <div

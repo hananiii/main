@@ -31,12 +31,14 @@
   }
   .annoucement,
   .holiday {
-    flex: 48%;
-    max-width: 48%;
+    // flex: 48%;
+    // max-width: 48%;
     background: #ffffff;
     margin: 1%;
     border-radius: 2px;
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);
+    flex: 1;
+    min-width: 300px;
   }
   .tasks {
     flex: 72%;
