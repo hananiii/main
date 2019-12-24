@@ -19,8 +19,10 @@
   .replacement,
   .medical,
   .birthday {
-    flex: 23%;
-    max-width: 23%;
+    // flex: 23%;
+    // max-width: 23%;
+    flex: 1;
+    min-width: 202px;
     padding: 0 15px;
     background: #ffffff;
     margin: 1%;

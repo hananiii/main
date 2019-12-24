@@ -239,138 +239,154 @@
         margin-bottom: 0;width: 100%;">Days Available</p>
         <p *ngIf="annualVal"
             style="float:left;color: #ff6768;opacity: 0.8;font-weight: bold;font-size: 11px;line-height: 1.36;margin-top: 5px;">
-            {{annualVal.BALANCE_DAYS}} Expiring in 30 days
-        </p>
-        <p (click)="menu.enable(true, 'viewAnnualDetails');menu.enable(false, 'viewReplacementDetails');menu.enable(false, 'viewAnnouncementDetails');menu.enable(false, 'viewHolidayDetails');menu.open('viewAnnualDetails');"
-            style="cursor: pointer;margin-top: 5px;float: right;color:#3b86ff;opacity: 0.8;line-height: 1.36;font-size: 11px;font-weight: bold;">
-            View
-            Details</p>
-    </div>
-    <div class="replacement">
-        <p style="color:#43425d;opacity: 0.8;font-weight: bold;line-height: 1.25;font-size: 12px">Replacement Leave</p>
-        <ion-label *ngIf="replaceVal>-1"
-            style="float: left;font-size: 35px;color: #43425d;font-weight: bold;line-height: 1.26;">
-            {{replaceVal}}</ion-label>
-        <img class="replace-icon" src="assets/icon/dashboard/icon_replacement_leave@3x.png">
-        <p style="font-size: 12px;opacity: 0.5;color: #43425d;line-height: 1.25;display: inline-block;
+    <span style="display: flex; flex-flow: wrap; flex: 1;">
+        <div class="annual">
+            <p style="color:#43425d;opacity: 0.8;font-weight: bold;line-height: 1.25;font-size: 12px">Annual Leave</p>
+            <span style="display: flex; justify-content: space-between; min-width: auto;">
+                <ion-label *ngIf="annualVal"
+                    style="float: left;font-size: 35px;color: #43425d;font-weight: bold;line-height: 1.26;">
+                    {{annualVal.BALANCE_DAYS}}</ion-label>
+                <img class="annual-icon" src="assets/icon/dashboard/icon_annual_leave@3x.png">
+            </span>
+            <p style="font-size: 12px;opacity: 0.5;color: #43425d;line-height: 1.25;display: inline-block;
             margin-bottom: 0;width: 100%;">Days Available</p>
-        <p *ngIf="replaceVal != 0"
-            style="float:left;color: #ff6768;opacity: 0.8;font-weight: bold;font-size: 11px;line-height: 1.36;margin-top: 5px;">
-            {{replaceVal}} Expiring in {{RLDaysToGo}} days
-        </p>
-
-        <p (click)="menu.enable(true, 'viewReplacementDetails');menu.enable(false, 'viewAnnualDetails');menu.enable(false, 'viewAnnouncementDetails');menu.enable(false, 'viewHolidayDetails');menu.open('viewReplacementDetails');"
-            style="cursor: pointer;margin-top: 5px;float: right;color:#3b86ff;opacity: 0.8;line-height: 1.36;font-size: 11px;font-weight: bold;">
-            View
-            Details</p>
-    </div>
-    <div class="medical">
-        <p style="font-size: 12px;color:#43425d;opacity: 0.8;font-weight: bold;line-height: 1.25;">Medical Leave</p>
-        <ion-label *ngIf="medicalVal>-1"
-            style="float: left;font-size: 35px;color: #43425d;font-weight: bold;line-height: 1.26;">
-            {{medicalVal}}</ion-label>
-        <img class="medical-icon" src="assets/icon/dashboard/icon_medical@3x.png">
-        <p style="font-size: 12px;opacity: 0.5;color: #43425d;line-height: 1.25;display: inline-block;
+            <p *ngIf="annualVal"
+                style="float:left;color: #ff6768;opacity: 0.8;font-weight: bold;font-size: 11px;line-height: 1.36;margin-top: 5px;">
+                {{annualVal.BALANCE_DAYS}} Expiring in 30 days
+            </p>
+            <p (click)="menu.enable(true, 'viewAnnualDetails');menu.enable(false, 'viewReplacementDetails');menu.enable(false, 'viewAnnouncementDetails');menu.enable(false, 'viewHolidayDetails');menu.open('viewAnnualDetails');"
+                style="cursor: pointer;margin-top: 5px;float: right;color:#3b86ff;opacity: 0.8;line-height: 1.36;font-size: 11px;font-weight: bold;">
+                View
+                Details</p>
+        </div>
+        <div class="replacement">
+            <p style="color:#43425d;opacity: 0.8;font-weight: bold;line-height: 1.25;font-size: 12px">Replacement Leave</p>
+            <ion-label *ngIf="replaceVal>-1"
+                style="float: left;font-size: 35px;color: #43425d;font-weight: bold;line-height: 1.26;">
+                {{replaceVal}}</ion-label>
+            <img class="replace-icon" src="assets/icon/dashboard/icon_replacement_leave@3x.png">
+            <p style="font-size: 12px;opacity: 0.5;color: #43425d;line-height: 1.25;display: inline-block;
                 margin-bottom: 0;width: 100%;">Days Available</p>
-    </div>
-    <div class="birthday">
-        <p style="font-size: 12px;color:#43425d;opacity: 0.8;font-weight: bold;line-height: 1.25;">Birthday Leave</p>
-        <ion-label style="float: left;font-size: 35px;color: #43425d;font-weight: bold;line-height: 1.26;">
-            {{birthdayDetail.day}} {{birthdayDetail.month}}</ion-label>
-        <img class="svg-icon" style="margin-right: 20px;width: 37px;height: 45px;"
-            src="assets/icon/dashboard/icon_birthday@3x.png">
-        <img style="position: absolute;right: 20px;top: 55px;width: 64px;height: 64px;"
-            src="assets/icon/dashboard/Path 332@2x.png">
-        <img class="svg-icon" style="position: absolute;right: 14px;top: 58px;"
-            src="assets/icon/dashboard/Happy Birthday!@3x.png">
-        <p style="font-size: 12px;opacity: 0.5;color: #43425d;line-height: 1.25;display: inline-block;
-                    margin-bottom: 0;width: 100%;">{{birthdayDetail.remainingDays}} </p>
-    </div>
-    <!-- <mat-card class="leftCard" #matCard>
-            <ion-button class="button1" shape="round"
-                [style.color]="buttonOneFill === 'outline' ? '#057dcd' : '#7a8589'" [fill]="buttonOneFill"
-                (click)="buttonClick(1)">
-                <span style="padding-left: 5px">All updates</span>
-            </ion-button>
-            <ion-button class="button2" shape="round"
-                [style.color]="buttonTwoFill === 'outline' ? '#057dcd' : '#7a8589'" [fill]="buttonTwoFill"
-                (click)="buttonClick(2)">
-                <span style="padding-left: 5px">My recent</span>
-            </ion-button>
-            <ion-button class="button3" shape="round"
-                [style.color]="buttonThreeFill === 'outline' ? '#057dcd' : '#7a8589'" [fill]="buttonThreeFill"
-                (click)="buttonClick(3)">
-                <span style="padding-left: 5px">Announcements
-                    <i class="fas fa-circle" style="color:#f63c41;font-size: 5px;position: absolute;
-                                    padding-left: 2px;" *ngIf="showDot"></i>
-                </span>
-            </ion-button>
-            <!----------------- All updates --------------------------
-            <mat-list *ngIf="showAllUpdates" #matList [style.overflow]="clickOnViewMore == true ? 'auto' : 'hidden'"
-                [style.max-height]="clickOnViewMore == true ? '300px' : '160px'">
-                <mat-list-item *ngFor="let item of notification">
-                    <mat-icon mat-list-icon style="font-size: 19px;color: #7a8589;">
-                        <i class="material-icons" style="font-size: 16px;">{{item.icon}}</i>
-                    </mat-icon>
-                    <p mat-line [matTooltip]=item.MESSAGE *ngIf="item.CATEGORY !== enumCategory[0]">{{item.MESSAGE}}
-                    </p>
-                    <p mat-line [matTooltip]=item.MESSAGE *ngIf="item.CATEGORY === enumCategory[0]">
-                        {{item.MESSAGE}}
-                        <span style="font-size: 12px;color:#057dcd; text-decoration:underline; cursor: pointer;"
-                            (click)="buttonClick(3)">View</span></p>
-                </mat-list-item>
-            </mat-list>
+            <p *ngIf="replaceVal != 0"
+                style="float:left;color: #ff6768;opacity: 0.8;font-weight: bold;font-size: 11px;line-height: 1.36;margin-top: 5px;">
+                {{replaceVal}} Expiring in {{RLDaysToGo}} days
+            </p>
 
-            <!----------------- My recent --------------------------
-            <mat-list *ngIf="showMyRecent" #matList [style.overflow]="clickOnViewMore == true ? 'auto' : 'hidden'"
-                [style.max-height]="clickOnViewMore == true ? '300px' : '160px'">
-                <span *ngFor="let item of notification">
-                    <mat-list-item *ngIf="item.CATEGORY === enumCategory[3]">
+            <p (click)="menu.enable(true, 'viewReplacementDetails');menu.enable(false, 'viewAnnualDetails');menu.enable(false, 'viewAnnouncementDetails');menu.enable(false, 'viewHolidayDetails');menu.open('viewReplacementDetails');"
+                style="cursor: pointer;margin-top: 5px;float: right;color:#3b86ff;opacity: 0.8;line-height: 1.36;font-size: 11px;font-weight: bold;">
+                View
+                Details</p>
+        </div>
+        <div class="medical">
+            <p style="font-size: 12px;color:#43425d;opacity: 0.8;font-weight: bold;line-height: 1.25;">Medical Leave</p>
+            <ion-label *ngIf="medicalVal>-1"
+                style="float: left;font-size: 35px;color: #43425d;font-weight: bold;line-height: 1.26;">
+                {{medicalVal}}</ion-label>
+            <img class="medical-icon" src="assets/icon/dashboard/icon_medical@3x.png">
+            <p style="font-size: 12px;opacity: 0.5;color: #43425d;line-height: 1.25;display: inline-block;
+                    margin-bottom: 0;width: 100%;">Days Available</p>
+        </div>
+        <div class="birthday" style="position: relative;">
+            <p style="font-size: 12px;color:#43425d;opacity: 0.8;font-weight: bold;line-height: 1.25;">Birthday Leave</p>
+            <ion-label style="float: left;font-size: 35px;color: #43425d;font-weight: bold;line-height: 1.26;">
+                {{birthdayDetail.day}} {{birthdayDetail.month}}</ion-label>
+            <img class="svg-icon" style="margin-right: 20px;width: 37px;height: 45px;"
+                src="assets/icon/dashboard/icon_birthday@3x.png">
+            <!-- <ion-item-group> -->
+                <img style="position: absolute;right: 0px;top: 0px;width: 64px;height: 64px;"
+                    src="assets/icon/dashboard/Path 332@2x.png">
+                <img class="svg-icon" style="position: absolute;right: 0px;top: 0px;"
+                    src="assets/icon/dashboard/Happy Birthday!@3x.png">
+            <!-- </ion-item-group> -->
+            <p style="font-size: 12px;opacity: 0.5;color: #43425d;line-height: 1.25;display: inline-block;
+                        margin-bottom: 0;width: 100%;">{{birthdayDetail.remainingDays}} </p>
+        </div>
+        <!-- <mat-card class="leftCard" #matCard>
+                <ion-button class="button1" shape="round"
+                    [style.color]="buttonOneFill === 'outline' ? '#057dcd' : '#7a8589'" [fill]="buttonOneFill"
+                    (click)="buttonClick(1)">
+                    <span style="padding-left: 5px">All updates</span>
+                </ion-button>
+                <ion-button class="button2" shape="round"
+                    [style.color]="buttonTwoFill === 'outline' ? '#057dcd' : '#7a8589'" [fill]="buttonTwoFill"
+                    (click)="buttonClick(2)">
+                    <span style="padding-left: 5px">My recent</span>
+                </ion-button>
+                <ion-button class="button3" shape="round"
+                    [style.color]="buttonThreeFill === 'outline' ? '#057dcd' : '#7a8589'" [fill]="buttonThreeFill"
+                    (click)="buttonClick(3)">
+                    <span style="padding-left: 5px">Announcements
+                        <i class="fas fa-circle" style="color:#f63c41;font-size: 5px;position: absolute;
+                                        padding-left: 2px;" *ngIf="showDot"></i>
+                    </span>
+                </ion-button>
+                <!----------------- All updates --------------------------
+                <mat-list *ngIf="showAllUpdates" #matList [style.overflow]="clickOnViewMore == true ? 'auto' : 'hidden'"
+                    [style.max-height]="clickOnViewMore == true ? '300px' : '160px'">
+                    <mat-list-item *ngFor="let item of notification">
                         <mat-icon mat-list-icon style="font-size: 19px;color: #7a8589;">
                             <i class="material-icons" style="font-size: 16px;">{{item.icon}}</i>
                         </mat-icon>
-                        <p mat-line [matTooltip]=item.MESSAGE>{{item.MESSAGE}}</p>
+                        <p mat-line [matTooltip]=item.MESSAGE *ngIf="item.CATEGORY !== enumCategory[0]">{{item.MESSAGE}}
+                        </p>
+                        <p mat-line [matTooltip]=item.MESSAGE *ngIf="item.CATEGORY === enumCategory[0]">
+                            {{item.MESSAGE}}
+                            <span style="font-size: 12px;color:#057dcd; text-decoration:underline; cursor: pointer;"
+                                (click)="buttonClick(3)">View</span></p>
                     </mat-list-item>
-                </span>
-            </mat-list>
+                </mat-list>
 
-            <!----------------- Announcement --------------------------
-            <mat-list *ngIf="showAnnouncement" #matList [style.overflow]="clickOnViewMore == true ? 'auto' : 'hidden'"
-                [style.max-height]="clickOnViewMore == true ? '300px' : '160px'">
-                <span *ngFor="let item of notification">
-                    <mat-list-item *ngIf="item.CATEGORY === enumCategory[0]">
-                        <mat-icon mat-list-icon style="font-size: 19px;color: #7a8589;">
-                            <i class="material-icons" style="font-size: 16px;">sms</i>
+                <!----------------- My recent --------------------------
+                <mat-list *ngIf="showMyRecent" #matList [style.overflow]="clickOnViewMore == true ? 'auto' : 'hidden'"
+                    [style.max-height]="clickOnViewMore == true ? '300px' : '160px'">
+                    <span *ngFor="let item of notification">
+                        <mat-list-item *ngIf="item.CATEGORY === enumCategory[3]">
+                            <mat-icon mat-list-icon style="font-size: 19px;color: #7a8589;">
+                                <i class="material-icons" style="font-size: 16px;">{{item.icon}}</i>
+                            </mat-icon>
+                            <p mat-line [matTooltip]=item.MESSAGE>{{item.MESSAGE}}</p>
+                        </mat-list-item>
+                    </span>
+                </mat-list>
+
+                <!----------------- Announcement --------------------------
+                <mat-list *ngIf="showAnnouncement" #matList [style.overflow]="clickOnViewMore == true ? 'auto' : 'hidden'"
+                    [style.max-height]="clickOnViewMore == true ? '300px' : '160px'">
+                    <span *ngFor="let item of notification">
+                        <mat-list-item *ngIf="item.CATEGORY === enumCategory[0]">
+                            <mat-icon mat-list-icon style="font-size: 19px;color: #7a8589;">
+                                <i class="material-icons" style="font-size: 16px;">sms</i>
+                            </mat-icon>
+                            <p mat-line [matTooltip]=item.MESSAGE>{{item.MESSAGE}}</p>
+                        </mat-list-item>
+                    </span>
+                </mat-list>
+                <mat-card-actions style="text-align: center" *ngIf="showViewMore">
+                    <button mat-button style="background: transparent;">
+                        <span style="color: #057dcd; cursor: pointer;"
+                            (click)="clickOnViewMore = true;showViewMore= false; showViewLess= true">See more</span>
+                        <mat-icon style="position: absolute;margin-top: -7px;padding-left: 3px;">
+                            <i class="material-icons" style="color: #057dcd; cursor: pointer;font-size: 20px;"
+                                (click)="clickOnViewMore = true;showViewMore= false; showViewLess= true">expand_more</i>
                         </mat-icon>
-                        <p mat-line [matTooltip]=item.MESSAGE>{{item.MESSAGE}}</p>
-                    </mat-list-item>
-                </span>
-            </mat-list>
-            <mat-card-actions style="text-align: center" *ngIf="showViewMore">
-                <button mat-button style="background: transparent;">
-                    <span style="color: #057dcd; cursor: pointer;"
-                        (click)="clickOnViewMore = true;showViewMore= false; showViewLess= true">See more</span>
-                    <mat-icon style="position: absolute;margin-top: -7px;padding-left: 3px;">
-                        <i class="material-icons" style="color: #057dcd; cursor: pointer;font-size: 20px;"
-                            (click)="clickOnViewMore = true;showViewMore= false; showViewLess= true">expand_more</i>
-                    </mat-icon>
-                </button>
-            </mat-card-actions>
-            <mat-card-actions style="text-align: center" *ngIf="showViewLess">
-                <button mat-button style="background: transparent;">
-                    <span style="color: #057dcd; cursor: pointer;"
-                        (click)="clickOnViewMore = false;showViewMore= true; showViewLess= false">See less</span>
-                    <mat-icon style="position: absolute;margin-top: -7px;padding-left: 3px;">
-                        <i class="material-icons" style="color: #057dcd; cursor: pointer;font-size: 20px;"
-                            (click)="clickOnViewMore = false;showViewMore= true; showViewLess= false">expand_less</i>
-                    </mat-icon>
-                </button>
-            </mat-card-actions>
-        </mat-card>
-        <mat-card class="googleCart">
-            <app-google-chart></app-google-chart>
-        </mat-card> -->
-    <!-- </div> -->
+                    </button>
+                </mat-card-actions>
+                <mat-card-actions style="text-align: center" *ngIf="showViewLess">
+                    <button mat-button style="background: transparent;">
+                        <span style="color: #057dcd; cursor: pointer;"
+                            (click)="clickOnViewMore = false;showViewMore= true; showViewLess= false">See less</span>
+                        <mat-icon style="position: absolute;margin-top: -7px;padding-left: 3px;">
+                            <i class="material-icons" style="color: #057dcd; cursor: pointer;font-size: 20px;"
+                                (click)="clickOnViewMore = false;showViewMore= true; showViewLess= false">expand_less</i>
+                        </mat-icon>
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+            <mat-card class="googleCart">
+                <app-google-chart></app-google-chart>
+            </mat-card> -->
+        <!-- </div> -->
+    </span>
 </div>
 
 <div class="row" *ngIf="row">
