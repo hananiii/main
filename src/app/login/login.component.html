@@ -75,7 +75,7 @@
   <div class="row">
       <img style="min-width: -webkit-fill-available; min-height: -webkit-fill-available; object-fit: cover; position: absolute;" src="assets/Group 244@3x.png">
       <!-- <div> -->
-        <div *ngIf="!forgotPass" style="margin: auto; color: var(--ion-color-light); position: relative; text-align: center;">
+        <div *ngIf="!forgotPass" style="margin: 35% auto auto auto; color: var(--ion-color-light); position: relative; text-align: center;">
           <img style="width: 110px;height: 39px;" src="assets/icon/ZEN_logo.png"> 
           <!-- <br> -->
           <p style="opacity: 0.5; font-size: 13px; line-height: 0.62; text-align: center; margin: 25px 25px 60px;">Please login to your account</p>
@@ -118,9 +118,9 @@
           <br>
           <p style="opacity: 0.5;font-size: 13px;line-height: 0.62;text-align: center;color: var(--ion-color-light);margin: 0px 50px;">
             Enter your email and we send you a password reset link</p>
-          <br>
+          <br> 
           <form [formGroup]="resetPassword" style="max-width: 300px; width: -webkit-fill-available; margin: 0px 55px; color:var(--ion-color-light);">
-            <mat-form-field>
+            <mat-form-field [color]="primary">
               <input matInput #emailValue placeholder="Email" formControlName="emailAdd" required>
               <mat-error *ngIf="resetPassword.controls['emailAdd'].invalid">{{getEmailError()}}</mat-error>
             </mat-form-field>
