@@ -135,6 +135,16 @@ export class APIService {
         return this.getApiWithId('/api/userprofile/employment-detail/', userId);
     }
 
+
+    /**
+     * This method is used to get employment details based on user info
+     * @returns {Observable<any>}
+     * @memberof APIService
+     */
+    get_user_info_employment_details(): Observable<any> {
+        return this.getApi('/api/admin/user-info-details/employment-detail/');
+    }
+
     /**
      * update employement details 
      * @param {*} data

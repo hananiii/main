@@ -113,16 +113,39 @@ export class EmploymentDetailsComponent implements OnInit {
         this.apiService.get_employment_details(this.userId).subscribe(
             data => {
                 this.list = data;
-                this.list.employmentDetail.dateOfJoin = moment(this.list.employmentDetail.dateOfJoin).format('DD-MM-YYYY');
-                this.list.employmentDetail.dateOfConfirmation = moment(this.list.employmentDetail.dateOfConfirmation).format('DD-MM-YYYY');
-                if (this.list.employmentDetail.dateOfResign === null) {
-                    this.list.employmentDetail.dateOfResign = 'NA';
-                } else {
-                    this.list.employmentDetail.dateOfResign = moment(this.list.employmentDetail.dateOfResign).format('DD-MM-YYYY');
-                }
-                this.showSpinner = false;
-                this.showContent = true;
-                this.reporting();
+                this.apiService.get_user_info_employment_details().subscribe(
+                    dataUserDtls => {
+                        if (this.list.id === dataUserDtls.id) {
+                            Object.assign(this.list, dataUserDtls);
+
+                            this.list.employmentDetail.dateOfJoin = moment(this.list.employmentDetail.dateOfJoin).format('DD-MM-YYYY');
+                            this.list.employmentDetail.dateOfConfirmation = moment(this.list.employmentDetail.dateOfConfirmation).format('DD-MM-YYYY');
+                            if (this.list.employmentDetail.dateOfResign === null) {
+                                this.list.employmentDetail.dateOfResign = 'NA';
+                            } else {
+                                this.list.employmentDetail.dateOfResign = moment(this.list.employmentDetail.dateOfResign).format('DD-MM-YYYY');
+                            }
+                            this.showSpinner = false;
+                            this.showContent = true;
+                            this.reporting();
+                        }
+                    },
+                    error => {
+                        if (error) {
+                            window.location.href = '/login';
+                        }
+                    }
+                )
+                // this.list.employmentDetail.dateOfJoin = moment(this.list.employmentDetail.dateOfJoin).format('DD-MM-YYYY');
+                // this.list.employmentDetail.dateOfConfirmation = moment(this.list.employmentDetail.dateOfConfirmation).format('DD-MM-YYYY');
+                // if (this.list.employmentDetail.dateOfResign === null) {
+                //     this.list.employmentDetail.dateOfResign = 'NA';
+                // } else {
+                //     this.list.employmentDetail.dateOfResign = moment(this.list.employmentDetail.dateOfResign).format('DD-MM-YYYY');
+                // }
+                // this.showSpinner = false;
+                // this.showContent = true;
+                // this.reporting();
             },
             error => {
                 if (error) {
