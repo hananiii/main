@@ -23,6 +23,12 @@ export class LeaveEntitlementsComponent implements OnInit {
     public personalDataList: any;
 
     /**
+     * This is local property used to get user details from API
+     * @memberof LeaveEntitlementsComponent
+     */
+    public employeeDetails;
+    
+    /**
      * This is local property used to show header profile completeness
      * @type {boolean}
      * @memberof LeaveEntitlementsComponent
@@ -119,16 +125,15 @@ export class LeaveEntitlementsComponent implements OnInit {
         this.apiService.get_user_profile().subscribe(
             (data: any[]) => {
                 this.personalDataList = data;
-                this.apiService.get_user_info_employment_details().subscribe(
-                    dataUserDtls => {
-                        if(this.personalDataList.id === dataUserDtls.id) {
-                            Object.assign(this.personalDataList, dataUserDtls)
-                        }
-                    }
-                )
                 this.showSpinner = false;
                 this.showContent = true;
             });
+
+        this.apiService.get_user_info_employment_details().subscribe(
+            dataUserDtls => {
+                this.employeeDetails =  dataUserDtls;
+            }
+        )
         this.apiLeave.get_entilement_details().subscribe(data => {
             this.entitlement = data;
         })

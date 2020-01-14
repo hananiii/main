@@ -93,6 +93,12 @@ export class AwardCertificationComponent implements OnInit {
      */
     public employ: any;
 
+    /**
+     * employment details from logged user
+     * @memberof AwardCertificationComponent
+     */
+    public employDetails;
+    
     /** 
      * show loading spinner during waiting requested data
      * @type {boolean}
@@ -154,14 +160,19 @@ export class AwardCertificationComponent implements OnInit {
                 this.apiService.get_employment_details(this.items.id).subscribe(
                     data => {
                         this.employ = data;
-                    })
+                    });
+                this.apiService.get_user_info_employment_details().subscribe(
+                    dataUserDtls => {
+                        this.employDetails = dataUserDtls;
+                    }
+                )
                 this.showContent = true;
                 const award = this.items.personalDetail.certification;
                 if (award != undefined) {
-                    if (award.certificationDetail instanceof Array) {
-                        this.awards = award.certificationDetail;
+                    if (award instanceof Array) {
+                        this.awards = award;
                     } else {
-                        this.awards.push(award.certificationDetail);
+                        this.awards.push(award);
                     }
                 } else {
                     this.awards = [];
