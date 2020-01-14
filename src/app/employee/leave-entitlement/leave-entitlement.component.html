@@ -24,7 +24,7 @@
                 <ion-card-subtitle class="subtitle">{{personalList.employeeDepartment}}
                 </ion-card-subtitle>
                 <ion-card-subtitle class="subtitle">
-                    {{personalList.employmentDetail.workLocation}}
+                    {{personalList.employmentDetail.branch}}
                 </ion-card-subtitle>
             </div>
             <!-- <div class="left">
@@ -69,9 +69,9 @@
                                 <img class="svg-icon" *ngIf="leaveDetail.LEAVE_CODE == 'Annual Leave'"
                                     src="assets/icon/user_profile/icon_annual_leave@3x.png">
                                 <img class="svg-icon" *ngIf="leaveDetail.LEAVE_CODE == 'Hospitalization Leave'"
-                                    src="assets/icon/user_profile/icon_hospitalization@3x.png">
+                                    src="assets/icon/user_profile/icon_annual_leave@3x.png">
                                 <img class="svg-icon" *ngIf="leaveDetail.LEAVE_CODE == 'Medical Leave'"
-                                    src="assets/icon/user_profile/icon_medical@3x.png">
+                                    src="assets/icon/user_profile/icon_annual_leave@3x.png">
                                 <!-- <img class="svg-icon" *ngIf="leaveDetail.LEAVE_CODE == 'Replacement Leave'"
                                     src="assets/icon/user_profile/icon_replacement_leave@3x.png"> -->
                             </div>
@@ -152,7 +152,7 @@
                                     style="float: left;font-size: 18px;color: #43425d;font-weight: bold;width: 130px;line-height: 1;">
                                     {{leaveDetail.LEAVE_CODE}}</ion-label>
                                 <img class="svg-icon" *ngIf="leaveDetail.LEAVE_CODE == 'Replacement Leave'"
-                                    src="assets/icon/user_profile/icon_replacement_leave@3x.png">
+                                    src="assets/icon/user_profile/icon_annual_leave@3x.png">
                             </div>
                             <ion-progress-bar *ngIf="leaveDetail.LEAVE_CODE == 'Replacement Leave'"
                                 [value]="(leaveDetail.TOTAL_APPROVED/leaveDetail.ENTITLED_DAYS)" color="primary"

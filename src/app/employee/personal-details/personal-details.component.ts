@@ -212,6 +212,19 @@ export class PersonalDetailsComponent implements OnInit {
                 this.apiService.get_employment_details(this.items.id).subscribe(
                     data => {
                         this.employ = data;
+                        console.log('this.employ');
+                        this.apiService.get_user_info_employment_details().subscribe(
+                            dataUsrDtls => {
+                                if (this.employ.id === dataUsrDtls.id) {
+                                    Object.assign(this.employ, dataUsrDtls);
+                                }
+                            },
+                            error => {
+                                if (error.status === 401) {
+                                    window.location.href = '/login';
+                                }
+                            }
+                        )
                     })
             },
             error => {
