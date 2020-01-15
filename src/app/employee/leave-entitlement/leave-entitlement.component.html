@@ -61,16 +61,20 @@
             <div>
                 <div class="row">
                     <ng-container *ngFor="let leaveDetail of entitlement">
-                        <div class="column1" *ngIf="leaveDetail.LEAVE_CODE != 'Replacement Leave'">
-                            <div>
+                        <!-- <div class="column1" *ngIf="leaveDetail.LEAVE_CODE != 'Replacement Leave'"> -->
+                        <div class="column1">
+                            <div style="display: flex; flex-wrap: nowrap; justify-content: space-between;">
                                 <ion-label
-                                    style="float: left;font-size: 18px;color: #43425d;font-weight: bold;width: 130px;line-height: 1;">
+                                    style="float: left;font-size: 18px;color: #43425d;font-weight: bold;width: 130px;line-height: 1; height: 40px; padding-right: 5px;
+                                    overflow-wrap: normal;">
                                     {{leaveDetail.LEAVE_CODE}}</ion-label>
                                 <img class="svg-icon" *ngIf="leaveDetail.LEAVE_CODE == 'Annual Leave'"
                                     src="assets/icon/user_profile/icon_annual_leave@3x.png">
                                 <img class="svg-icon" *ngIf="leaveDetail.LEAVE_CODE == 'Hospitalization Leave'"
                                     src="assets/icon/user_profile/icon_annual_leave@3x.png">
                                 <img class="svg-icon" *ngIf="leaveDetail.LEAVE_CODE == 'Medical Leave'"
+                                    src="assets/icon/user_profile/icon_annual_leave@3x.png">
+                                <img class="svg-icon" *ngIf="leaveDetail.LEAVE_CODE == 'Replacement Leave'"
                                     src="assets/icon/user_profile/icon_annual_leave@3x.png">
                                 <!-- <img class="svg-icon" *ngIf="leaveDetail.LEAVE_CODE == 'Replacement Leave'"
                                     src="assets/icon/user_profile/icon_replacement_leave@3x.png"> -->
@@ -80,36 +84,41 @@
                                 style="display:inline-block; width:100%;border-radius: 5px;height: 10px;margin-top: 20px; ">
                             </ion-progress-bar>
                             <ion-progress-bar *ngIf="leaveDetail.LEAVE_CODE == 'Hospitalization Leave'"
-                                [value]="(leaveDetail.TOTAL_APPROVED/leaveDetail.ENTITLED_DAYS)" color="secondary"
+                                [value]="(leaveDetail.TOTAL_APPROVED/leaveDetail.ENTITLED_DAYS)" color="primary"
                                 style="display:inline-block; width:100%;border-radius: 5px;height: 10px;margin-top: 20px; ">
                             </ion-progress-bar>
                             <ion-progress-bar *ngIf="leaveDetail.LEAVE_CODE == 'Medical Leave'"
-                                [value]="(leaveDetail.TOTAL_APPROVED/leaveDetail.ENTITLED_DAYS)" color="tertiary"
+                                [value]="(leaveDetail.TOTAL_APPROVED/leaveDetail.ENTITLED_DAYS)" color="primary"
+                                style="display:inline-block; width:100%;border-radius: 5px;height: 10px;margin-top: 20px; ">
+                            </ion-progress-bar>
+                            <ion-progress-bar *ngIf="leaveDetail.LEAVE_CODE == 'Replacement Leave'"
+                                [value]="(leaveDetail.TOTAL_APPROVED/leaveDetail.ENTITLED_DAYS)" color="primary"
                                 style="display:inline-block; width:100%;border-radius: 5px;height: 10px;margin-top: 20px; ">
                             </ion-progress-bar>
                             <!-- <ion-progress-bar *ngIf="leaveDetail.leaveTypeName == 'Replacement Leave'"
                                 [value]="(leaveDetail.takenDays/leaveDetail.entitledDays)" color="primary"
                                 style="display:inline-block; width:100%;border-radius: 5px;height: 10px;margin-top: 20px; ">
                             </ion-progress-bar> -->
-                            <div *ngIf="leaveDetail.LEAVE_CODE != 'Replacement Leave'">
-                                <ion-row>
+                            <!-- <div *ngIf="leaveDetail.LEAVE_CODE != 'Replacement Leave'"> -->
+                            <div>
+                                <ion-row style="min-width: max-content;">
                                     <ion-col class="colOfLeave" style="font-size: 13px">
                                         {{leaveDetail.ENTITLED_DAYS}}
                                     </ion-col>
                                     <ion-col class="colTitle">Entitled Days</ion-col>
                                 </ion-row>
-                                <ion-row>
+                                <ion-row style="min-width: max-content;">
                                     <ion-col class="colOfLeave" style="font-size: 13px">
                                         {{leaveDetail.TOTAL_APPROVED}}
                                     </ion-col>
                                     <ion-col class="colTitle">Day(s) Taken</ion-col>
                                 </ion-row>
-                                <ion-row>
+                                <ion-row style="min-width: max-content;">
                                     <ion-col class="colOfLeave" style="font-size: 13px">{{leaveDetail.TOTAL_PENDING}}
                                     </ion-col>
                                     <ion-col class="colTitle">Day(s) Pending</ion-col>
                                 </ion-row>
-                                <ion-row>
+                                <ion-row style="min-width: max-content;">
                                     <ion-col class="colOfLeave" style="font-size: 13px">{{leaveDetail.BALANCE_DAYS}}
                                     </ion-col>
                                     <ion-col class="colTitle">Day(s) Balance</ion-col>
@@ -119,20 +128,30 @@
                                 <ion-button
                                     (click)="toPlanLeave(leaveDetail.LEAVE_CODE, leaveDetail.BALANCE_DAYS, leaveDetail.LEAVE_TYPE_GUID)"
                                     *ngIf="leaveDetail.LEAVE_CODE == 'Annual Leave'"
-                                    style="font-size: 12px;margin-top: 20px;height: 30px;width: 124px;display: inline-block; text-transform: capitalize"
-                                    color="primary">Apply
+                                    style="font-size: 11px;margin-top: 20px;height: 30px;width: 124px;display: inline-block; text-transform: capitalize; border-radius: 2px;
+                                    background: #43425d;"
+                                    color="applybutton">Apply
                                 </ion-button>
                                 <ion-button
                                     (click)="toPlanLeave(leaveDetail.LEAVE_CODE, leaveDetail.BALANCE_DAYS, leaveDetail.LEAVE_TYPE_GUID)"
                                     *ngIf="leaveDetail.LEAVE_CODE == 'Hospitalization Leave'"
-                                    style="font-size: 12px;margin-top: 20px;height: 30px;width: 124px;display: inline-block; text-transform: capitalize"
-                                    color="secondary">Apply
+                                    style="font-size: 11px;margin-top: 20px;height: 30px;width: 124px;display: inline-block; text-transform: capitalize; border-radius: 2px;
+                                    background: #43425d;"
+                                     color="applybutton">Apply
                                 </ion-button>
                                 <ion-button
                                     (click)="toPlanLeave(leaveDetail.LEAVE_CODE, leaveDetail.BALANCE_DAYS, leaveDetail.LEAVE_TYPE_GUID)"
                                     *ngIf="leaveDetail.LEAVE_CODE == 'Medical Leave'"
-                                    style="font-size: 12px;margin-top: 20px;height: 30px;width: 124px;display: inline-block; text-transform: capitalize"
-                                    color="tertiary">Apply
+                                    style="font-size: 11px;margin-top: 20px;height: 30px;width: 124px;display: inline-block; text-transform: capitalize; border-radius: 2px;
+                                    background: #43425d;"
+                                    color="applybutton">Apply
+                                </ion-button>
+                                <ion-button
+                                    (click)="toPlanLeave(leaveDetail.LEAVE_CODE, leaveDetail.BALANCE_DAYS, leaveDetail.LEAVE_TYPE_GUID)"
+                                    *ngIf="leaveDetail.LEAVE_CODE == 'Replacement Leave'"
+                                    style="font-size: 11px;margin-top: 20px;height: 30px;width: 124px;display: inline-block; text-transform: capitalize; border-radius: 2px;
+                                    background: #43425d;"
+                                    color="applybutton">Apply
                                 </ion-button>
                                 <!-- <ion-button
                                     (click)="toPlanLeave(leaveDetail.leaveTypeName, leaveDetail.balanceDays, leaveDetail.leaveTypeId)"
@@ -144,12 +163,13 @@
                         </div>
                     </ng-container>
                 </div>
-                <div class="row">
+                <!-- <div class="row">
                     <ng-container *ngFor="let leaveDetail of entitlement">
                         <div  style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);" class="column2" *ngIf="leaveDetail.LEAVE_CODE == 'Replacement Leave'">
-                            <div *ngIf="leaveDetail.LEAVE_CODE == 'Replacement Leave'">
+                            <div *ngIf="leaveDetail.LEAVE_CODE == 'Replacement Leave'" style="display: flex; flex-wrap: nowrap; justify-content: space-between;"> 
                                 <ion-label
-                                    style="float: left;font-size: 18px;color: #43425d;font-weight: bold;width: 130px;line-height: 1;">
+                                    style="float: left;font-size: 18px;color: #43425d;font-weight: bold;width: 130px;line-height: 1; padding-right: 5px;
+                                    overflow-wrap: normal;">
                                     {{leaveDetail.LEAVE_CODE}}</ion-label>
                                 <img class="svg-icon" *ngIf="leaveDetail.LEAVE_CODE == 'Replacement Leave'"
                                     src="assets/icon/user_profile/icon_annual_leave@3x.png">
@@ -159,24 +179,24 @@
                                 style="display:inline-block; width:100%;border-radius: 5px;height: 10px;margin-top: 20px; ">
                             </ion-progress-bar>
                             <div *ngIf="leaveDetail.LEAVE_CODE == 'Replacement Leave'">
-                                <ion-row>
+                                <ion-row style="min-width: max-content;">
                                     <ion-col class="colOfLeave" style="font-size: 13px">
                                         {{leaveDetail.ENTITLED_DAYS}}
                                     </ion-col>
                                     <ion-col class="colTitle">Entitled Days</ion-col>
                                 </ion-row>
-                                <ion-row>
+                                <ion-row style="min-width: max-content;">
                                     <ion-col class="colOfLeave" style="font-size: 13px">
                                         {{leaveDetail.TOTAL_APPROVED}}
                                     </ion-col>
                                     <ion-col class="colTitle">Day(s) Taken</ion-col>
                                 </ion-row>
-                                <ion-row>
+                                <ion-row style="min-width: max-content;">
                                     <ion-col class="colOfLeave" style="font-size: 13px">{{leaveDetail.TOTAL_PENDING}}
                                     </ion-col>
                                     <ion-col class="colTitle">Day(s) Pending</ion-col>
                                 </ion-row>
-                                <ion-row>
+                                <ion-row style="min-width: max-content;">
                                     <ion-col class="colOfLeave" style="font-size: 13px">{{leaveDetail.BALANCE_DAYS}}
                                     </ion-col>
                                     <ion-col class="colTitle">Day(s) Balance</ion-col>
@@ -186,8 +206,9 @@
                                 <ion-button
                                     (click)="toPlanLeave(leaveDetail.LEAVE_CODE, leaveDetail.BALANCE_DAYS, leaveDetail.LEAVE_TYPE_GUID)"
                                     *ngIf="leaveDetail.LEAVE_CODE == 'Replacement Leave'"
-                                    style="font-size: 12px;margin-top: 20px;height: 30px;width: 124px;display: inline-block; text-transform: capitalize"
-                                    color="primary">Apply
+                                    style="font-size: 11px;margin-top: 20px;height: 30px;width: 124px;display: inline-block; text-transform: capitalize; border-radius: 2px;
+                                    background: #43425d;"
+                                    color="applybutton">Apply
                                 </ion-button>
                             </div>
                         </div>
@@ -196,7 +217,7 @@
                         <div class="column2" style="background: transparent;"
                             *ngIf="leaveDetail.LEAVE_CODE == 'Replacement Leave'"></div>
                     </ng-container>
-                </div>
+                </div> -->
                 <!-- <ion-row class="titleRow">
                     <ion-col size="2.5">
                         <ion-label style="font-size: 12px">LEAVE TYPES</ion-label>

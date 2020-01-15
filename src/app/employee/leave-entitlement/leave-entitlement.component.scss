@@ -103,7 +103,7 @@
   }
   .colTitle {
     text-align: right;
-    overflow: hidden;
+    overflow: visible;
     white-space: nowrap;
     text-overflow: ellipsis;
     color: #43425d;
@@ -124,32 +124,46 @@
     position: absolute;
   }
   .svg-icon {
-    width: 35px;
-    height: 32px;
-    float: right;
+    width: 31.2px;
+    height: 30.2px;
+    // float: right;
+  }
+  .apply-button {
+    .button-solid.ion-color {
+      background: #43425d;
+      color: var(--ion-color-contrast);
+    }
   }
   .row {
     display: flex;
-    flex-wrap: nowrap;
+    // flex-wrap: nowrap;
     padding: 0 10px;
-    padding-bottom: 20px;
+    // padding-bottom: 20px;
     width: 100%;
+    flex-flow: wrap;
   }
   .column1 {
-    flex: 30%;
-    max-width: 33%;
+    // flex: 30%;
+    flex: 3 1 230px;
+    min-width: max-content;
+    // max-width: 33%;
     padding: 20px 15px;
     background: white;
-    margin-right: 20px;
+    // margin-right: 20px;
+    // margin-bottom: 20px; 
+    margin: 14px 10px;
     border-radius: 2px;
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);
   }
   .column2 {
     flex: 30%;
-    max-width: 33%;
+    min-width: max-content;
+    // max-width: 33%;
     padding: 20px 15px;
     background: white;
-    margin-right: 20px;
+    // margin-right: 20px;
+    // margin-bottom: 20px;
+    margin: 14px 10px;
   }
   .column3 {
     flex: 30%;
