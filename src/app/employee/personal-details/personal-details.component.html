@@ -63,11 +63,11 @@
     <!-- <ion-item *ngIf="showContent" lines="full" class="mainDivider"></ion-item> -->
     <div class="cardContent" *ngIf="personalList && showContent">
         <ion-card-content>
-            <div style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);background-color: #ffffff;padding: 10px;padding-bottom: 20px;margin-bottom: 20px;">
+            <div style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);background-color: #ffffff;padding: 10px;padding-bottom: 20px;margin-bottom: 20px; min-width: min-content;">
                 <div
                     style="font-size: 13px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
                     GENERAL</div>
-                <ion-row class="detailsRow">
+                <ion-row class="detailsRow" style="min-width: 220px;">
                     <ion-col>
                         <ion-label>Birthdate</ion-label>
                         <p>{{personalList.personalDetail.dob}}</p>
@@ -104,7 +104,7 @@
                         <p>{{personalList.personalDetail.nationality}}</p>
                     </ion-col>
                 </ion-row>
-                <ion-row class="detailsRow">
+                <ion-row class="detailsRow" style="min-width: 220px;">
                     <ion-col>
                         <ion-label>Race</ion-label>
                         <p>{{personalList.personalDetail.race}}</p>
@@ -145,10 +145,10 @@
 
                     </ion-col>
                 </ion-row>
-                <ion-row class="detailsRow">
+                <ion-row class="detailsRow" style="min-width: 220px;">
                     <ion-col>
                         <ion-label>Work Email Address</ion-label>
-                        <p *ngIf="!showEditProfile">{{personalList.personalDetail.workEmailAddress}}</p>
+                        <p *ngIf="!showEditProfile" style="white-space: nowrap;">{{personalList.personalDetail.workEmailAddress}}</p>
                         <mat-form-field *ngIf="showEditProfile">
                             <input matInput [(ngModel)]="items.personalDetail.workEmailAddress">
                         </mat-form-field>
@@ -156,14 +156,14 @@
                     </ion-col>
                     <ion-col>
                         <ion-label>Personal Phone Number</ion-label>
-                        <p *ngIf="!showEditProfile">{{personalList.personalDetail.phoneNumber}}</p>
+                        <p *ngIf="!showEditProfile" style="white-space: nowrap;">{{personalList.personalDetail.phoneNumber}}</p>
                         <mat-form-field *ngIf="showEditProfile">
                             <input matInput [(ngModel)]="items.personalDetail.phoneNumber">
                         </mat-form-field>
                     </ion-col>
                     <ion-col>
                         <ion-label>Work Phone Number</ion-label>
-                        <p *ngIf="!showEditProfile">{{personalList.personalDetail.workPhoneNumber}}</p>
+                        <p *ngIf="!showEditProfile" style="white-space: nowrap;">{{personalList.personalDetail.workPhoneNumber}}</p>
                         <mat-form-field *ngIf="showEditProfile">
                             <input matInput [(ngModel)]="items.personalDetail.workPhoneNumber">
                         </mat-form-field>
@@ -176,7 +176,7 @@
                     <ion-col></ion-col>
                 </ion-row>
             </div>
-            <div style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);background-color: #ffffff;padding: 10px;padding-bottom: 20px;margin-bottom: 20px;">
+            <div style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);background-color: #ffffff;padding: 10px;padding-bottom: 20px;margin-bottom: 20px; min-width: 240px;">
                 <div
                     style="font-size: 13px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
                     RESIDENTIAL ADDRESS</div>
@@ -220,65 +220,111 @@
             </div>
 
             <!---------------------------------------- Emergency Contact -------------------------------------->
-            <div style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);background-color: #ffffff;padding: 10px;padding-bottom: 20px;margin-bottom: 20px;">
+            <div style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);background-color: #ffffff;padding: 10px;padding-bottom: 20px;margin-bottom: 20px; min-width: 240px;">
                 <div
                     style="font-size: 13px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
                     EMERGENCY CONTACT(S)
                 </div>
                 <div>
-                    <ion-row class="detailsRow" *ngFor="let item of removeItems; let index = index">
+                    <ion-grid [class]="'hide-lg-down'">
+                        <ion-row class="detailsRow" *ngFor="let item of removeItems; let index = index">
+                            <ion-col>
+                                <ion-label *ngIf="index === 0" style="padding-bottom: 5px;">Contact Person</ion-label>
+                                <p *ngIf="!showEditProfile" style="display: inline">
+                                    {{item.contactName}}</p>
+                                <mat-form-field *ngIf="showEditProfile">
+                                    <input matInput placeholder="Contact Name" [(ngModel)]="removeItems[index].contactName">
+                                </mat-form-field>
+                            </ion-col>
+                            <ion-col>
+                                <ion-label *ngIf="index === 0" style="padding-bottom: 5px;">Relationship</ion-label>
+                                <p *ngIf="!showEditProfile" style="display: inline">
+                                    {{item.contactRelationship}}</p>
+                                <mat-form-field *ngIf="showEditProfile">
+                                    <input matInput placeholder="Contact Relationship"
+                                        [(ngModel)]="removeItems[index].contactRelationship">
+                                </mat-form-field>
+                            </ion-col>
+                            <ion-col>
+                                <ion-label *ngIf="index === 0" style="padding-bottom: 5px;">Phone Number</ion-label>
+                                <p *ngIf="!showEditProfile" style="display: inline;right: 50%; white-space: nowrap;">
+                                    {{item.contactNumber}}</p>
+                                <mat-form-field *ngIf="showEditProfile">
+                                    <input matInput placeholder="Contact Number"
+                                        [(ngModel)]="removeItems[index].contactNumber">
+                                </mat-form-field>
+                                <!-- <div class="delete-icon" *ngIf="showEditProfile"
+                                    [inlineSVG]="'assets/icon/option/trash.svg'" (click)="removeItem(index, removeItems)">
+                                </div> -->
+                                <!-- <div class="edit-pencil-icon" *ngIf="!showEditContact[index]"
+                                    [inlineSVG]="'assets/icon/option/pencil.svg'" (click)="editContact(index, true)">
+                                </div> -->
+                                <!-- <div style="float: right;" *ngIf="showEditContact[index]">
+                                    <ion-button fill="clear" (click)="editContact(index, false)"
+                                        style="font-size: 12px;height: 30px;cursor: pointer;text-transform: none;"
+                                        color="primary">
+                                        Cancel
+                                    </ion-button>
+                                    <div style="display: inline-block"></div>
+                                    <ion-button shape="round" fill="outline"
+                                        (click)="patchData(); editContact(index, false)"
+                                        style="font-size: 12px;height: 23px;width: 55px;cursor: pointer;text-transform: none;"
+                                        color="primary">
+                                        Save
+                                    </ion-button>
+                                </div> -->
+                            </ion-col>
+                            <ion-col>
+                                <div class="delete-icon" *ngIf="showEditProfile"
+                                    [inlineSVG]="'assets/icon/option/trash.svg'" (click)="removeItem(index, removeItems)">
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                    <ion-grid [class]="'hide-lg-up'" *ngFor="let item of removeItems; let index = index" style="display: flex;">
                         <ion-col>
-                            <ion-label *ngIf="index === 0" style="padding-bottom: 5px;">Contact Person</ion-label>
-                            <p *ngIf="!showEditProfile" style="display: inline">
-                                {{item.contactName}}</p>
-                            <mat-form-field *ngIf="showEditProfile">
-                                <input matInput placeholder="Contact Name" [(ngModel)]="removeItems[index].contactName">
-                            </mat-form-field>
+                            <ion-row>
+                                <ion-col *ngIf="!showEditProfile" size="3.5" style="font-weight: bold; padding: 0px 5px; height: fit-content; white-space: nowrap; min-width: fit-content;">
+                                    Contact Person
+                                </ion-col>
+                                <ion-col *ngIf="!showEditProfile" style="padding: 0px 5px; height: fit-content;">: {{item.contactName}}</ion-col>
+                                <ion-col *ngIf="showEditProfile">
+                                    <mat-form-field style="width: 100%;">
+                                        <input matInput placeholder="Contact Name" [(ngModel)]="removeItems[index].contactName">
+                                    </mat-form-field>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col *ngIf="!showEditProfile" size="3.5" style="font-weight: bold; padding: 0px 5px; height: fit-content; white-space: nowrap; min-width: fit-content;">
+                                    Relationship
+                                </ion-col>
+                                <ion-col *ngIf="!showEditProfile" style="padding: 0px 5px; height: fit-content;">: {{item.contactRelationship}}</ion-col>
+                                <ion-col *ngIf="showEditProfile">
+                                    <mat-form-field *ngIf="showEditProfile" style="width: 100%;">
+                                        <input matInput placeholder="Contact Relationship"
+                                            [(ngModel)]="removeItems[index].contactRelationship">
+                                    </mat-form-field>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col *ngIf="!showEditProfile" size="3.5" style="font-weight: bold; padding: 0px 5px; height: fit-content; white-space: nowrap; min-width: fit-content;">
+                                    Phone Number
+                                </ion-col>
+                                <ion-col *ngIf="!showEditProfile" style="padding: 0px 5px; height: fit-content;">: {{item.contactNumber}}</ion-col>
+                                <ion-col *ngIf="showEditProfile">
+                                    <mat-form-field *ngIf="showEditProfile" style="width: 100%;">
+                                        <input matInput placeholder="Contact Number"
+                                            [(ngModel)]="removeItems[index].contactNumber">
+                                    </mat-form-field>
+                                </ion-col>
+                            </ion-row>
                         </ion-col>
-                        <ion-col>
-                            <ion-label *ngIf="index === 0" style="padding-bottom: 5px;">Relationship</ion-label>
-                            <p *ngIf="!showEditProfile" style="display: inline">
-                                {{item.contactRelationship}}</p>
-                            <mat-form-field *ngIf="showEditProfile">
-                                <input matInput placeholder="Contact Relationship"
-                                    [(ngModel)]="removeItems[index].contactRelationship">
-                            </mat-form-field>
-                        </ion-col>
-                        <ion-col>
-                            <ion-label *ngIf="index === 0" style="padding-bottom: 5px;">Phone Number</ion-label>
-                            <p *ngIf="!showEditProfile" style="display: inline;right: 50%;">
-                                {{item.contactNumber}}</p>
-                            <mat-form-field *ngIf="showEditProfile">
-                                <input matInput placeholder="Contact Number"
-                                    [(ngModel)]="removeItems[index].contactNumber">
-                            </mat-form-field>
-                            <!-- <div class="delete-icon" *ngIf="showEditProfile"
-                                [inlineSVG]="'assets/icon/option/trash.svg'" (click)="removeItem(index, removeItems)">
-                            </div> -->
-                            <!-- <div class="edit-pencil-icon" *ngIf="!showEditContact[index]"
-                                [inlineSVG]="'assets/icon/option/pencil.svg'" (click)="editContact(index, true)">
-                            </div> -->
-                            <!-- <div style="float: right;" *ngIf="showEditContact[index]">
-                                <ion-button fill="clear" (click)="editContact(index, false)"
-                                    style="font-size: 12px;height: 30px;cursor: pointer;text-transform: none;"
-                                    color="primary">
-                                    Cancel
-                                </ion-button>
-                                <div style="display: inline-block"></div>
-                                <ion-button shape="round" fill="outline"
-                                    (click)="patchData(); editContact(index, false)"
-                                    style="font-size: 12px;height: 23px;width: 55px;cursor: pointer;text-transform: none;"
-                                    color="primary">
-                                    Save
-                                </ion-button>
-                            </div> -->
-                        </ion-col>
-                        <ion-col>
-                            <div class="delete-icon" *ngIf="showEditProfile"
+                        <ion-col *ngIf="showEditProfile" size="1" style="align-self: center;">
+                            <div class="delete-icon"
                                 [inlineSVG]="'assets/icon/option/trash.svg'" (click)="removeItem(index, removeItems)">
                             </div>
                         </ion-col>
-                    </ion-row>
+                    </ion-grid>
                     <ion-row class="detailsRow" *ngIf="showEditProfile">
                         <ion-icon name="add-circle-outline" style="color: #3b86ff;padding-top: 2px;padding-right: 10px;
                     padding-left: 0.5%;font-size: 16px;cursor: pointer;"></ion-icon>
@@ -406,25 +452,25 @@
             </div>
 
             <!------------------------------------- Add education qualification ------------------------------>
-            <div style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);">
+            <div [class]="'hide-lg-down'" style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);">
                 <div style="background-color: #ffffff;padding: 10px;padding-bottom: 20px;margin-bottom: 20px;">
                     <div
                         style="font-size: 13px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
                         EDUCATION QUALIFICATION</div>
                     <!-- <ion-label style="display: block; padding-left: 5.6%;padding-top: 5px;">EDUCATION QUALIFICATION(S)
                 </ion-label> -->
-                    <ion-row class="detailsRow">
+                    <ion-row class="detailsRow" style="flex-flow: nowrap">
                         <ion-col size="3">
-                            <ion-label>Level</ion-label>
+                            <ion-label style="white-space: nowrap;">Level</ion-label>
                         </ion-col>
                         <ion-col size="3">
-                            <ion-label>Major</ion-label>
+                            <ion-label style="white-space: nowrap;">Major</ion-label>
                         </ion-col>
                         <ion-col size="3">
-                            <ion-label>University</ion-label>
+                            <ion-label style="white-space: nowrap;">University</ion-label>
                         </ion-col>
                         <ion-col size="2">
-                            <ion-label>Year</ion-label>
+                            <ion-label style="white-space: nowrap;">Year</ion-label>
                         </ion-col>
                         <ion-col size="1"></ion-col>
                     </ion-row>
@@ -484,7 +530,68 @@
                         <ion-icon name="add-circle-outline" style="color: #3b86ff;padding-top: 2px;padding-right: 10px;
         padding-left: 0.5%;font-size: 16px;cursor: pointer;"></ion-icon>
                         <span style="color:#3b86ff; cursor: pointer;" (click)="addList(eduList, educationObj)">
-                            Add eduation qualification</span>
+                            Add education qualification</span>
+                    </ion-row>
+                </div>
+            </div>
+
+            <div [class]="'hide-lg-up'" style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);">
+                <div style="background-color: #ffffff;padding: 10px;padding-bottom: 20px;margin-bottom: 20px;">
+                    <div style="font-size: 13px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px; margin-bottom: 5px; color: #a3a6b4;font-weight: bold;">
+                        EDUCATION QUALIFICATION
+                    </div>
+                    <ion-grid style="display: flex; padding: 10px;" *ngFor="let item of eduList; let index = index">
+                        <ion-col>
+                            <ion-row>
+                                <ion-col *ngIf="!showEditProfile" size="3" style="font-weight: bold; padding: 0px 5px; height: fit-content;">Level</ion-col>
+                                <ion-col *ngIf="!showEditProfile" style="padding: 0px 5px; height: fit-content;">: {{item.qualificationLevel}}</ion-col>
+                                <ion-col *ngIf="showEditProfile">
+                                    <mat-form-field style="width: 100%;">
+                                        <input matInput placeholder="Education Level" [(ngModel)]="eduList[index].qualificationLevel">
+                                    </mat-form-field>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col *ngIf="!showEditProfile" size="3" style="font-weight: bold; padding: 0px 5px; height: fit-content;">Major</ion-col>
+                                <ion-col *ngIf="!showEditProfile" style="padding: 0px 5px; height: fit-content;">: {{item.major}}</ion-col>
+                                <ion-col *ngIf="showEditProfile">
+                                    <mat-form-field style="width: 100%;">
+                                        <input matInput placeholder="Major" [(ngModel)]="eduList[index].major">
+                                    </mat-form-field>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col *ngIf="!showEditProfile" size="3" style="font-weight: bold; padding: 0px 5px; height: fit-content;">University</ion-col>
+                                <ion-col *ngIf="!showEditProfile" style="padding: 0px 5px; height: fit-content;">: {{item.university}}</ion-col>
+                                <ion-col *ngIf="showEditProfile">
+                                    <mat-form-field style="width: 100%;">
+                                        <input matInput placeholder="University" [(ngModel)]="eduList[index].university">
+                                    </mat-form-field>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col *ngIf="!showEditProfile" size="3" style="font-weight: bold; padding: 0px 5px; height: fit-content;">Year</ion-col>
+                                <ion-col *ngIf="!showEditProfile" style="padding: 0px 5px; height: fit-content;">: {{item.year}}</ion-col>
+                                <ion-col *ngIf="showEditProfile">
+                                    <mat-form-field style="width: 100%;">
+                                        <input matInput placeholder="Year" [(ngModel)]="eduList[index].year">
+                                    </mat-form-field>
+                                </ion-col>
+                            </ion-row>
+                        </ion-col>
+                        <ion-col  *ngIf="showEditProfile" size="1" style="align-self: center;">
+                            <div class="education-delete-icon"
+                                [inlineSVG]="'assets/icon/option/trash.svg'" (click)="removeItem(index, eduList)">
+                            </div>
+                        </ion-col>
+                        
+                    </ion-grid>
+
+                    <ion-row class="detailsRow" *ngIf="showEditProfile">
+                        <ion-icon name="add-circle-outline" style="color: #3b86ff;padding-top: 2px;padding-right: 10px;
+                            padding-left: 0.5%;font-size: 16px;cursor: pointer;"></ion-icon>
+                        <span style="color:#3b86ff; cursor: pointer;" (click)="addList(eduList, educationObj)">
+                            Add education qualification</span>
                     </ion-row>
                 </div>
             </div>
@@ -516,3 +623,4 @@
         </ion-card-content>
     </div>
 </ion-card>
+
