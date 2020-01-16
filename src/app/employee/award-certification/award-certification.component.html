@@ -89,7 +89,7 @@
         </div> -->
     </ion-card-header>
     <div class="cardContent" *ngIf="personalList && showContent">
-        <ion-card-content>
+        <ion-card-content [class]="'hide-lg-down'">
             <!-- <div style="margin-top: 3%"> -->
             <div style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);background-color: #ffffff;padding: 10px;padding-bottom: 20px;margin-bottom: 20px;">
                 <div
@@ -116,7 +116,8 @@
 
                 <ion-row class="detailsRow" *ngFor="let item of awards; let i = index">
                     <ion-col size="4"
-                        style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;padding-top: 20px;">
+                        style="text-overflow: ellipsis;white-space: pre-wrap;overflow: hidden;padding-top: 20px;">
+                        <!-- style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;padding-top: 20px;"> -->
                         <span *ngIf="!showEditProfile">{{item.certificationName}}</span>
                         <mat-form-field *ngIf="showEditProfile" style="width: 100%;">
                             <input matInput placeholder="Certification Name" [(ngModel)]="item.certificationName">
@@ -198,6 +199,54 @@
                 </div>
                 <!-- <span style="margin-left: 2%;" *ngIf="!showPdf && !showImg">{{filename}}</span> -->
             </div>
+        </ion-card-content>
+        <ion-card-content [class]="'hide-lg-up'">
+            <ion-card style="background: #ffffff; box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04); padding: 15px; margin: 10px;"
+             *ngFor="let item of awards; let i = index">
+                <ion-card-content>
+                    <ion-item-group style="margin: 0px 0px 15px auto;">
+                        <div style="font-weight: bold; color: #a3a6b4; background: #f5f6fa; margin-bottom: 10px; height: 42px; padding-top: 10px; padding-left: 15px;">
+                            CERTIFICATE NAME</div>
+                        <div *ngIf="!showEditProfile" style="padding: 0px 15px;">{{item.certificationName}}</div>
+                        <mat-form-field *ngIf="showEditProfile" style="width: 100%; padding: 0px 15px;">
+                            <input matInput placeholder="Certification Name" [(ngModel)]="item.certificationName">
+                        </mat-form-field>
+                    </ion-item-group>
+                    <ion-item-group style="margin: 0px 0px 15px auto;">
+                        <div style="font-weight: bold; color: #a3a6b4; background: #f5f6fa; margin-bottom: 10px; height: 42px; padding-top: 10px; padding-left: 15px;">ENROLL YEAR</div>
+                        <div *ngIf="!showEditProfile" style="padding: 0px 15px;">{{item.certificationEnrollYear}}</div>
+                        <mat-form-field *ngIf="showEditProfile" style="width: 100%; padding: 0px 15px;">
+                            <input matInput placeholder="Certification enroll year"
+                                [(ngModel)]="item.certificationEnrollYear">
+                        </mat-form-field>
+                    </ion-item-group>
+                    <ion-item-group style="margin: 0px 0px 15px auto;">
+                        <div style="font-weight: bold; color: #a3a6b4; background: #f5f6fa; margin-bottom: 10px; height: 42px; padding-top: 10px; padding-left: 15px;">GRADUATE YEAR</div>
+                        <div *ngIf="!showEditProfile" style="padding: 0px 15px;">{{item.certificationGraduateYear}}</div>
+                        <mat-form-field *ngIf="showEditProfile" style="width: 100%; padding: 0px 15px;">
+                            <input matInput placeholder="Certification graduate year"
+                                [(ngModel)]="item.certificationGraduateYear">
+                        </mat-form-field>
+                    </ion-item-group>
+                    <ion-item-group style="float: right; margin-right: 15px; margin-bottom: 15px;display: flex;">
+                        <div *ngIf="!showEditProfile" style="margin: 10px auto; text-decoration: underline;cursor: pointer; text-align: end;">
+                            {{item.certificationAttachment}}
+                        </div>
+                        <ion-button *ngIf="showEditProfile" fill="outline" (click)="file.click();"
+                            style="background: #f0f0f7;font-size: 12px; height: 30px;width: 124px;display: inline-block; text-transform: capitalize"
+                            color="primary">Attachment
+                        </ion-button>
+                        <div *ngIf="showEditProfile" class="education-delete-icon" style="margin: auto 15px;" [inlineSVG]="'assets/icon/option/trash.svg'" (click)="deleteItem(i, awards)">
+                        </div>
+                    </ion-item-group>
+                </ion-card-content>
+            </ion-card>
+            <ion-row class="detailsRow" style="margin-left: 15px;" *ngIf="showEditProfile">
+                <ion-icon name="add-circle-outline" style="color: #3b86ff;padding-top: 2px;padding-right: 10px;
+                    padding-left: 0.5%;font-size: 16px;cursor: pointer;"></ion-icon>
+                <span style="color:#3b86ff; cursor: pointer;" (click)="addInput(awards, awardObj); showEditProfile=true">
+                    Add award or certification</span>
+            </ion-row>
         </ion-card-content>
     </div>
 </ion-card>
