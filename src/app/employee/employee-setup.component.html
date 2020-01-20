@@ -9,7 +9,7 @@
         </div> --
     </ion-toolbar>
 </ion-header> -->
-<ion-content class="contentMenu" contentId="content">
+<ion-content [class]="'hide-md-down'" contentId="content" style="width: 230px; --background: #8b89b4;" >
     <ion-list lines="none" style="background: #8b89b4;">
         <ion-title style="font-weight: bold;display: inline-block;color: #f0f0f7;font-size: 15px;padding-bottom: 20px;
         padding-top: 10px;">
@@ -31,6 +31,28 @@
     </ion-list>
 </ion-content>
 
-<ion-content class="content2">
+<div [class]="'hide-md-up'" contentId="content" style="width: -webkit-fill-available;">
+    <ion-list lines="none" style="background: #f5f6fa;">
+        <ion-title style="font-weight: bold;display: inline-block;color: #a3a6b4;font-size: 15px;padding-bottom: 20px;
+                padding-top: 10px;">
+            My Profile
+        </ion-title>
+        <mat-select placeholder="My Profile" [(value)]="numOfArray" class="dropdownList">
+            <mat-option *ngFor="let p of employeeSetupPage; let i=index" [value]="i" (click)="getIndexToShowArrow(i)">
+            <!-- <mat-option *ngFor="let p of employeeSetupPage; let i=index" [(value)]="numOfArray" (click)="getIndexToShowArrow(i)"> -->
+                <!-- <img class="my-icon" style="width: 20px;" src="assets/icon/user_sidebar/{{p.icon}} "> -->
+                <ion-label style="padding-left: 15px;">
+                    {{p.title}}
+                </ion-label>
+            </mat-option>
+        </mat-select>
+    </ion-list>
+
+</div>
+<ion-content [class]="'hide-md-down'" style="position: absolute; left: 230px; width: calc(100% - 230px); right: 0;">
+<!-- <ion-content class="content2"> -->
+    <ion-router-outlet></ion-router-outlet>
+</ion-content>
+<ion-content [class]="'hide-md-up'">
     <ion-router-outlet></ion-router-outlet>
 </ion-content>

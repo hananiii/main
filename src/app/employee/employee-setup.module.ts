@@ -16,6 +16,7 @@ import { InlineSVGModule } from 'ng-inline-svg';
 import { AccountSettingModule } from './account-setting/account-setting.module';
 import { PersonalDetailsService } from './personal-details/personal-details.service';
 import { AwardCertificationModule } from './award-certification/award-certification.module';
+import { MatSelectModule } from '@angular/material/select';
 
 const routes: Routes = [
   {
@@ -37,6 +38,7 @@ const routes: Routes = [
     EmployeeDirectoryModule,
     AccountSettingModule,
     AwardCertificationModule,
+    MatSelectModule,
     InlineSVGModule,
     RouterModule.forChild(routes)
   ],
