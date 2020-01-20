@@ -172,6 +172,10 @@ export class SideMenuNavigationComponent implements OnInit {
   openAtBeginning() {
     if (this.displayFullMenu === true) {
       this.menu.open('first');
+
+      if(window.innerWidth < 768) {
+        this.collapseMenu();
+      }
     }
   }
 
