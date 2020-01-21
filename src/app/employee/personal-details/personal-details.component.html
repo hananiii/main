@@ -178,7 +178,7 @@
 
                     </ion-grid>
                     <ion-grid [class]="'hide-md-up'">
-                        <ion-row class="detailsRow">
+                        <ion-row class="detailsRow" style="flex-flow: nowrap;">
                             <ion-col>
                                 <ion-label>Birthdate</ion-label>
                                 <p>{{personalList.personalDetail.dob}}</p>
@@ -188,7 +188,7 @@
                                 <p>{{personalList.personalDetail.gender}}</p>
                             </ion-col>
                         </ion-row>
-                        <ion-row class="detailsRow">
+                        <ion-row class="detailsRow" style="flex-flow: nowrap;">
                             <ion-col>
                                 <ion-label>NRIC</ion-label>
                                 <p>{{personalList.personalDetail.nric}}</p>
@@ -198,7 +198,7 @@
                                 <p>{{personalList.personalDetail.nationality}}</p>
                             </ion-col>
                         </ion-row>
-                        <ion-row class="detailsRow">
+                        <ion-row class="detailsRow" style="flex-flow: nowrap;">
                             <ion-col>
                                 <ion-label>Race</ion-label>
                                 <p>{{personalList.personalDetail.race}}</p>
@@ -211,7 +211,7 @@
                                 </mat-form-field>
                             </ion-col>
                         </ion-row>
-                        <ion-row class="detailsRow">
+                        <ion-row class="detailsRow" style="flex-flow: nowrap;">
                             <ion-col>
                                 <ion-label>Marital Status</ion-label>
                                 <p *ngIf="!showEditProfile">{{personalList.personalDetail.maritalStatus}}</p>
@@ -230,7 +230,7 @@
                                 </mat-form-field>
                             </ion-col>
                         </ion-row>
-                        <ion-row class="detailsRow">
+                        <ion-row class="detailsRow" style="flex-flow: nowrap;">
                             <ion-col>
                                 <ion-label>Work Email Address</ion-label>
                                 <p *ngIf="!showEditProfile" style="white-space: nowrap;">{{personalList.personalDetail.workEmailAddress}}</p>
@@ -246,7 +246,7 @@
                                 </mat-form-field>
                             </ion-col>
                         </ion-row>
-                        <ion-row class="detailsRow">
+                        <ion-row class="detailsRow" style="flex-flow: nowrap;">
                             <ion-col>
                                 <ion-label>Work Phone Number</ion-label>
                                 <p *ngIf="!showEditProfile" style="white-space: nowrap;">{{personalList.personalDetail.workPhoneNumber}}</p>
