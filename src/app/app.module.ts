@@ -35,7 +35,7 @@ bugsnagClient.notify(new Error('Test error'))
     BrowserModule,
     BrowserAnimationsModule,
     HttpModule,
-    IonicModule.forRoot(),
+    IonicModule.forRoot({ mode: 'md' }),
     AppRoutingModule,
     LoginModule,
     SideMenuNavigationModule,
