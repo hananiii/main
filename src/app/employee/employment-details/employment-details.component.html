@@ -80,56 +80,114 @@
                 <div
                     style="font-size: 13px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
                     GENERAL</div>
-                <ion-row class="detailsRow">
-                    <ion-col>
-                        <ion-label>Employee Number</ion-label>
-                        <p>{{personalList.employmentDetail.employeeId}}</p>
-                    </ion-col>
-                    <ion-col>
-                        <ion-label>Designation</ion-label>
-                        <p>{{personalList.employmentDetail.designation}}</p>
-                    </ion-col>
-                    <ion-col>
-                        <ion-label style="display: block;">Reporting To</ion-label>
-                        <ion-avatar style="width: 24px; height: 24px; display: inline-block; margin-top: 3px">
-                            <img src="assets/icon/chris.jpg">
-                        </ion-avatar>
-                        <p style="display: inline;position: absolute;top: 31px;left: 37px;">
-                            {{reportingName}}
-                        </p>
-                    </ion-col>
-                    <ion-col></ion-col>
-                </ion-row>
-                <ion-row class="detailsRow">
-                    <ion-col>
-                        <ion-label>Department</ion-label>
-                        <p>{{personalList.employmentDetail.department}}</p>
-                    </ion-col>
-                    <ion-col>
-                        <ion-label>Branch</ion-label>
-                        <p>{{personalList.employmentDetail.branch}}</p>
-                    </ion-col>
-                    <ion-col>
-                        <ion-label>Date Of Join</ion-label>
-                        <p style="white-space: nowrap;">{{personalList.employmentDetail.dateOfJoin}}</p>
-                    </ion-col>
-                    <ion-col></ion-col>
-                </ion-row>
-                <ion-row class="detailsRow">
-                    <ion-col>
-                        <ion-label>Confirmation Date</ion-label>
-                        <p>{{personalList.employmentDetail.dateOfConfirmation}}</p>
-                    </ion-col>
-                    <ion-col>
-                        <ion-label>Resignation Date</ion-label>
-                        <p>{{personalList.employmentDetail.dateOfResign}}</p>
-                    </ion-col>
-                    <ion-col>
-                        <ion-label>Year Of Service</ion-label>
-                        <p>{{personalList.employmentDetail.yearOfService}}</p>
-                    </ion-col>
-                    <ion-col></ion-col>
-                </ion-row>
+                <ion-grid [class]="'hide-md-down'">
+                    <ion-row class="detailsRow">
+                        <ion-col>
+                            <ion-label>Employee Number</ion-label>
+                            <p>{{personalList.employmentDetail.employeeId}}</p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Designation</ion-label>
+                            <p>{{personalList.employmentDetail.designation}}</p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label style="display: block;">Reporting To</ion-label>
+                            <ion-avatar style="width: 24px; height: 24px; display: inline-block; margin-top: 3px">
+                                <img src="assets/icon/chris.jpg">
+                            </ion-avatar>
+                            <p style="display: inline;position: absolute;top: 31px;left: 37px;">
+                                {{reportingName}}
+                            </p>
+                        </ion-col>
+                        <ion-col></ion-col>
+                    </ion-row>
+                    <ion-row class="detailsRow">
+                        <ion-col>
+                            <ion-label>Department</ion-label>
+                            <p>{{personalList.employmentDetail.department}}</p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Branch</ion-label>
+                            <p>{{personalList.employmentDetail.branch}}</p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Date Of Join</ion-label>
+                            <p style="white-space: nowrap;">{{personalList.employmentDetail.dateOfJoin}}</p>
+                        </ion-col>
+                        <ion-col></ion-col>
+                    </ion-row>
+                    <ion-row class="detailsRow">
+                        <ion-col>
+                            <ion-label>Confirmation Date</ion-label>
+                            <p>{{personalList.employmentDetail.dateOfConfirmation}}</p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Resignation Date</ion-label>
+                            <p>{{personalList.employmentDetail.dateOfResign}}</p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Year Of Service</ion-label>
+                            <p>{{personalList.employmentDetail.yearOfService}}</p>
+                        </ion-col>
+                        <ion-col></ion-col>
+                    </ion-row>
+                </ion-grid>
+                <ion-grid [class]="'hide-md-up'">
+                    <ion-row>
+                        <ion-col>
+                            <ion-label>Employee Number</ion-label>
+                            <p>{{personalList.employmentDetail.employeeId}}</p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Designation</ion-label>
+                            <p>{{personalList.employmentDetail.designation}}</p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <ion-label style="display: block;">Reporting To</ion-label>
+                            <ion-avatar style="width: 24px; height: 24px; display: inline-block; margin-top: 3px">
+                                <img src="assets/icon/chris.jpg">
+                            </ion-avatar>
+                            <p style="display: inline;position: absolute;top: 31px;left: 37px;">
+                                {{reportingName}}
+                            </p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Department</ion-label>
+                            <p>{{personalList.employmentDetail.department}}</p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <ion-label>Branch</ion-label>
+                            <p>{{personalList.employmentDetail.branch}}</p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Date Of Join</ion-label>
+                            <p style="white-space: nowrap;">{{personalList.employmentDetail.dateOfJoin}}</p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <ion-label>Confirmation Date</ion-label>
+                            <p>{{personalList.employmentDetail.dateOfConfirmation}}</p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Resignation Date</ion-label>
+                            <p>{{personalList.employmentDetail.dateOfResign}}</p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <ion-label>Year Of Service</ion-label>
+                            <p>{{personalList.employmentDetail.yearOfService}}</p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+
+                    </ion-row>
+                </ion-grid>
             </div>
 
             <!-- <ion-item class="divider"></ion-item> -->
@@ -137,22 +195,42 @@
                 <div
                     style="font-size: 13px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
                     EMPLOYMENT TYPE</div>
-                <ion-row class="detailsRow">
-                    <ion-col>
-                        <ion-label>Employment Type</ion-label>
-                        <p>{{personalList.employmentDetail.employmentType}}</p>
-                    </ion-col>
-                    <ion-col>
-                        <ion-label>Status</ion-label>
-                        <!-- <p>{{status}}</p> -->
-                        <p>{{personalList.employmentDetail.employmentStatus}}</p>
-                    </ion-col>
-                    <ion-col>
-                        <ion-label>User Role</ion-label>
-                        <p>{{personalList.employmentDetail.userRole}}</p>
-                    </ion-col>
-                    <ion-col></ion-col>
-                </ion-row>
+                <ion-grid [class]="'hide-md-down'">
+                    <ion-row class="detailsRow">
+                        <ion-col>
+                            <ion-label>Employment Type</ion-label>
+                            <p>{{personalList.employmentDetail.employmentType}}</p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Status</ion-label>
+                            <!-- <p>{{status}}</p> -->
+                            <p>{{personalList.employmentDetail.employmentStatus}}</p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>User Role</ion-label>
+                            <p>{{personalList.employmentDetail.userRole}}</p>
+                        </ion-col>
+                        <ion-col></ion-col>
+                    </ion-row>
+                </ion-grid>
+                <ion-grid [class]="'hide-md-up'">
+                    <ion-row>
+                        <ion-col>
+                            <ion-label>Employment Type</ion-label>
+                            <p>{{personalList.employmentDetail.employmentType}}</p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Status</ion-label>
+                            <p>{{personalList.employmentDetail.employmentStatus}}</p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <ion-label>User Role</ion-label>
+                            <p>{{personalList.employmentDetail.userRole}}</p>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
             </div>
 
             <!-- <ion-item class="divider"></ion-item> -->
@@ -160,44 +238,80 @@
                 <div id="destination"
                     style="font-size: 13px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
                     BANK & EPF DETAILS</div>
-                <ion-row class="detailsRow">
-                    <ion-col>
-                        <ion-label>Bank Account Name</ion-label>
-                        <p *ngIf="!showEditProfile">{{personalList.employmentDetail.bankAccountName}}</p>
-                        <mat-form-field *ngIf="showEditProfile">
-                            <input matInput [(ngModel)]="list.employmentDetail.bankAccountName">
-                        </mat-form-field>
-                    </ion-col>
-                    <ion-col>
-                        <ion-label>Bank Account No</ion-label>
-                        <p *ngIf="!showEditProfile">{{personalList.employmentDetail.bankAccountNumber}}</p>
-                        <mat-form-field *ngIf="showEditProfile">
-                            <input matInput [(ngModel)]="list.employmentDetail.bankAccountNumber">
-                        </mat-form-field>
-                    </ion-col>
-                    <ion-col>
-                        <ion-label>EPF No</ion-label>
-                        <p *ngIf="!showEditProfile">{{personalList.employmentDetail.epfNumber}}</p>
-                        <mat-form-field *ngIf="showEditProfile">
-                            <input matInput [(ngModel)]="list.employmentDetail.epfNumber">
-                        </mat-form-field>
-                    </ion-col>
-                    <ion-col></ion-col>
-                </ion-row>
-                <ion-row class="detailsRow">
-                    <ion-col>
-                        <ion-label>Income Tax No</ion-label>
-                        <p *ngIf="!showEditProfile">{{personalList.employmentDetail.incomeTaxNumber}}</p>
-                        <mat-form-field *ngIf="showEditProfile">
-                            <input matInput [(ngModel)]="list.employmentDetail.incomeTaxNumber">
-                        </mat-form-field>
-                    </ion-col>
-                    <ion-col>
-                    </ion-col>
-                    <ion-col>
-                    </ion-col>
-                    <ion-col></ion-col>
-                </ion-row>
+                <ion-grid [class]="'hide-md-down'">
+                    <ion-row class="detailsRow">
+                        <ion-col>
+                            <ion-label>Bank Account Name</ion-label>
+                            <p *ngIf="!showEditProfile">{{personalList.employmentDetail.bankAccountName}}</p>
+                            <mat-form-field *ngIf="showEditProfile">
+                                <input matInput [(ngModel)]="list.employmentDetail.bankAccountName">
+                            </mat-form-field>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Bank Account No</ion-label>
+                            <p *ngIf="!showEditProfile">{{personalList.employmentDetail.bankAccountNumber}}</p>
+                            <mat-form-field *ngIf="showEditProfile">
+                                <input matInput [(ngModel)]="list.employmentDetail.bankAccountNumber">
+                            </mat-form-field>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>EPF No</ion-label>
+                            <p *ngIf="!showEditProfile">{{personalList.employmentDetail.epfNumber}}</p>
+                            <mat-form-field *ngIf="showEditProfile">
+                                <input matInput [(ngModel)]="list.employmentDetail.epfNumber">
+                            </mat-form-field>
+                        </ion-col>
+                        <ion-col></ion-col>
+                    </ion-row>
+                    <ion-row class="detailsRow">
+                        <ion-col>
+                            <ion-label>Income Tax No</ion-label>
+                            <p *ngIf="!showEditProfile">{{personalList.employmentDetail.incomeTaxNumber}}</p>
+                            <mat-form-field *ngIf="showEditProfile">
+                                <input matInput [(ngModel)]="list.employmentDetail.incomeTaxNumber">
+                            </mat-form-field>
+                        </ion-col>
+                        <ion-col>
+                        </ion-col>
+                        <ion-col>
+                        </ion-col>
+                        <ion-col></ion-col>
+                    </ion-row>
+                </ion-grid>
+                <ion-grid [class]="'hide-md-up'">
+                    <ion-row>
+                        <ion-col>
+                            <ion-label>Bank Account Name</ion-label>
+                            <p *ngIf="!showEditProfile">{{personalList.employmentDetail.bankAccountName}}</p>
+                            <mat-form-field *ngIf="showEditProfile">
+                                <input matInput [(ngModel)]="list.employmentDetail.bankAccountName">
+                            </mat-form-field>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Bank Account No</ion-label>
+                            <p *ngIf="!showEditProfile">{{personalList.employmentDetail.bankAccountNumber}}</p>
+                            <mat-form-field *ngIf="showEditProfile">
+                                <input matInput [(ngModel)]="list.employmentDetail.bankAccountNumber">
+                            </mat-form-field>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <ion-label>EPF No</ion-label>
+                            <p *ngIf="!showEditProfile">{{personalList.employmentDetail.epfNumber}}</p>
+                            <mat-form-field *ngIf="showEditProfile">
+                                <input matInput [(ngModel)]="list.employmentDetail.epfNumber">
+                            </mat-form-field>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Income Tax No</ion-label>
+                            <p *ngIf="!showEditProfile">{{personalList.employmentDetail.incomeTaxNumber}}</p>
+                            <mat-form-field *ngIf="showEditProfile">
+                                <input matInput [(ngModel)]="list.employmentDetail.incomeTaxNumber">
+                            </mat-form-field>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
             </div>
         </ion-card-content>
     </div>
