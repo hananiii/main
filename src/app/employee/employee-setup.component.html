@@ -10,7 +10,9 @@
     </ion-toolbar>
 </ion-header> -->
 <ion-content [class]="'hide-md-down'" contentId="content" style="width: 230px; --background: #8b89b4;" >
-    <ion-list lines="none" style="background: #8b89b4;">
+    <ion-list lines="none" style="background: #8b89b4;
+    display: flex;
+    align-items: center;">
         <ion-title style="font-weight: bold;display: inline-block;color: #f0f0f7;font-size: 15px;padding-bottom: 20px;
         padding-top: 10px;">
             My Profile
@@ -32,11 +34,11 @@
 </ion-content>
 
 <div [class]="'hide-md-up'" contentId="content" style="width: -webkit-fill-available;">
-    <ion-list lines="none" style="background: #f5f6fa;">
-        <ion-title style="font-weight: bold;display: inline-block;color: #a3a6b4;font-size: 15px;padding-bottom: 20px;
-                padding-top: 10px;">
+    <ion-list lines="none" style="background: #f5f6fa; display: flex; align-items: center;">
+        <ion-title style="font-weight: bold;display: inline-block;color: #a3a6b4;font-size: 15px;padding-right:0px; cursor: default;">
             My Profile
         </ion-title>
+        <ion-title style="font-weight: bold;display: inline-block;color: #a3a6b4;cursor: default;">/</ion-title>
         <mat-select placeholder="My Profile" [(value)]="numOfArray" class="dropdownList">
             <mat-option *ngFor="let p of employeeSetupPage; let i=index" [value]="i" (click)="getIndexToShowArrow(i)">
             <!-- <mat-option *ngFor="let p of employeeSetupPage; let i=index" [(value)]="numOfArray" (click)="getIndexToShowArrow(i)"> -->
