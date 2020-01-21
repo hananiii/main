@@ -67,114 +67,195 @@
                 <div
                     style="font-size: 13px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
                     GENERAL</div>
-                <ion-row class="detailsRow" style="min-width: 220px;">
-                    <ion-col>
-                        <ion-label>Birthdate</ion-label>
-                        <p>{{personalList.personalDetail.dob}}</p>
-                        <!-- <mat-form-field *ngIf="showEditProfile" disabled>
-                            <input matInput [matDatepicker]="picker1" [formControl]="firstPicker" required disabled>
-                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                            <mat-datepicker #picker1></mat-datepicker>
-                        </mat-form-field> -->
-                    </ion-col>
-                    <ion-col>
-                        <ion-label>Gender</ion-label>
-                        <p>{{personalList.personalDetail.gender}}</p>
-                        <!-- <mat-form-field *ngIf="showEditProfile" disabled>
-                            <mat-select [(value)]="items.personalDetail.gender">
-                                <mat-option value="Female">Female</mat-option>
-                                <mat-option value="Male">Male</mat-option>
-                            </mat-select>
-                        </mat-form-field> -->
-                    </ion-col>
-                    <ion-col>
-                        <ion-label>NRIC</ion-label>
-                        <p>{{personalList.personalDetail.nric}}</p>
-                        <!-- <ion-label>Marital Status</ion-label>
-                        <p *ngIf="!showEditProfile">{{personalList.personalDetail.maritalStatus}}</p>
-                        <mat-form-field *ngIf="showEditProfile">
-                            <mat-select [(value)]="items.personalDetail.maritalStatus">
-                                <mat-option value="Single">Single</mat-option>
-                                <mat-option value="Married">Married</mat-option>
-                            </mat-select>
-                        </mat-form-field> -->
-                    </ion-col>
-                    <ion-col>
-                        <ion-label>Nationality</ion-label>
-                        <p>{{personalList.personalDetail.nationality}}</p>
-                    </ion-col>
-                </ion-row>
-                <ion-row class="detailsRow" style="min-width: 220px;">
-                    <ion-col>
-                        <ion-label>Race</ion-label>
-                        <p>{{personalList.personalDetail.race}}</p>
-                        <!-- <mat-form-field *ngIf="showEditProfile">
-                            <input matInput [(ngModel)]="items.personalDetail.race">
-                        </mat-form-field> -->
-                    </ion-col>
-                    <ion-col>
+                    <ion-grid [class]="'hide-md-down'">
+                        <ion-row class="detailsRow" style="min-width: 220px;">
+                            <ion-col>
+                                <ion-label>Birthdate</ion-label>
+                                <p>{{personalList.personalDetail.dob}}</p>
+                                <!-- <mat-form-field *ngIf="showEditProfile" disabled>
+                                    <input matInput [matDatepicker]="picker1" [formControl]="firstPicker" required disabled>
+                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1></mat-datepicker>
+                                </mat-form-field> -->
+                            </ion-col>
+                            <ion-col>
+                                <ion-label>Gender</ion-label>
+                                <p>{{personalList.personalDetail.gender}}</p>
+                                <!-- <mat-form-field *ngIf="showEditProfile" disabled>
+                                    <mat-select [(value)]="items.personalDetail.gender">
+                                        <mat-option value="Female">Female</mat-option>
+                                        <mat-option value="Male">Male</mat-option>
+                                    </mat-select>
+                                </mat-form-field> -->
+                            </ion-col>
+                            <ion-col>
+                                <ion-label>NRIC</ion-label>
+                                <p>{{personalList.personalDetail.nric}}</p>
+                                <!-- <ion-label>Marital Status</ion-label>
+                                <p *ngIf="!showEditProfile">{{personalList.personalDetail.maritalStatus}}</p>
+                                <mat-form-field *ngIf="showEditProfile">
+                                    <mat-select [(value)]="items.personalDetail.maritalStatus">
+                                        <mat-option value="Single">Single</mat-option>
+                                        <mat-option value="Married">Married</mat-option>
+                                    </mat-select>
+                                </mat-form-field> -->
+                            </ion-col>
+                            <ion-col>
+                                <ion-label>Nationality</ion-label>
+                                <p>{{personalList.personalDetail.nationality}}</p>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="detailsRow" style="min-width: 220px;">
+                            <ion-col>
+                                <ion-label>Race</ion-label>
+                                <p>{{personalList.personalDetail.race}}</p>
+                                <!-- <mat-form-field *ngIf="showEditProfile">
+                                    <input matInput [(ngModel)]="items.personalDetail.race">
+                                </mat-form-field> -->
+                            </ion-col>
+                            <ion-col>
+                                <ion-label>Religion</ion-label>
+                                <p *ngIf="!showEditProfile">{{personalList.personalDetail.religion}}</p>
+                                <mat-form-field *ngIf="showEditProfile">
+                                    <input matInput [(ngModel)]="items.personalDetail.religion">
+                                </mat-form-field>
+                            </ion-col>
+                            <ion-col>
+                                <ion-label>Marital Status</ion-label>
+                                <p *ngIf="!showEditProfile">{{personalList.personalDetail.maritalStatus}}</p>
+                                <mat-form-field *ngIf="showEditProfile">
+                                    <mat-select [(value)]="items.personalDetail.maritalStatus">
+                                        <mat-option value="Single">Single</mat-option>
+                                        <mat-option value="Married">Married</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
 
-                        <ion-label>Religion</ion-label>
-                        <p *ngIf="!showEditProfile">{{personalList.personalDetail.religion}}</p>
-                        <mat-form-field *ngIf="showEditProfile">
-                            <input matInput [(ngModel)]="items.personalDetail.religion">
-                        </mat-form-field>
-                    </ion-col>
-                    <ion-col>
-                        <ion-label>Marital Status</ion-label>
-                        <p *ngIf="!showEditProfile">{{personalList.personalDetail.maritalStatus}}</p>
-                        <mat-form-field *ngIf="showEditProfile">
-                            <mat-select [(value)]="items.personalDetail.maritalStatus">
-                                <mat-option value="Single">Single</mat-option>
-                                <mat-option value="Married">Married</mat-option>
-                            </mat-select>
-                        </mat-form-field>
+                                <!-- <ion-label>Nationality</ion-label>
+                                <p>{{personalList.personalDetail.nationality}}</p> -->
+                                <!-- <mat-form-field *ngIf="showEditProfile">
+                                    <input matInput [(ngModel)]="items.personalDetail.nationality">
+                                </mat-form-field> -->
+                            </ion-col>
+                            <ion-col>
+                                <ion-label>Personal Email Address</ion-label>
+                                <p *ngIf="!showEditProfile">{{personalList.personalDetail.emailAddress}}</p>
+                                <mat-form-field *ngIf="showEditProfile">
+                                    <input matInput [(ngModel)]="items.personalDetail.emailAddress">
+                                </mat-form-field>
 
-                        <!-- <ion-label>Nationality</ion-label>
-                        <p>{{personalList.personalDetail.nationality}}</p> -->
-                        <!-- <mat-form-field *ngIf="showEditProfile">
-                            <input matInput [(ngModel)]="items.personalDetail.nationality">
-                        </mat-form-field> -->
-                    </ion-col>
-                    <ion-col>
-                        <ion-label>Personal Email Address</ion-label>
-                        <p *ngIf="!showEditProfile">{{personalList.personalDetail.emailAddress}}</p>
-                        <mat-form-field *ngIf="showEditProfile">
-                            <input matInput [(ngModel)]="items.personalDetail.emailAddress">
-                        </mat-form-field>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="detailsRow" style="min-width: 220px;">
+                            <ion-col>
+                                <ion-label>Work Email Address</ion-label>
+                                <p *ngIf="!showEditProfile" style="white-space: nowrap;">{{personalList.personalDetail.workEmailAddress}}</p>
+                                <mat-form-field *ngIf="showEditProfile">
+                                    <input matInput [(ngModel)]="items.personalDetail.workEmailAddress">
+                                </mat-form-field>
 
-                    </ion-col>
-                </ion-row>
-                <ion-row class="detailsRow" style="min-width: 220px;">
-                    <ion-col>
-                        <ion-label>Work Email Address</ion-label>
-                        <p *ngIf="!showEditProfile" style="white-space: nowrap;">{{personalList.personalDetail.workEmailAddress}}</p>
-                        <mat-form-field *ngIf="showEditProfile">
-                            <input matInput [(ngModel)]="items.personalDetail.workEmailAddress">
-                        </mat-form-field>
+                            </ion-col>
+                            <ion-col>
+                                <ion-label>Personal Phone Number</ion-label>
+                                <p *ngIf="!showEditProfile" style="white-space: nowrap;">{{personalList.personalDetail.phoneNumber}}</p>
+                                <mat-form-field *ngIf="showEditProfile">
+                                    <input matInput [(ngModel)]="items.personalDetail.phoneNumber">
+                                </mat-form-field>
+                            </ion-col>
+                            <ion-col>
+                                <ion-label>Work Phone Number</ion-label>
+                                <p *ngIf="!showEditProfile" style="white-space: nowrap;">{{personalList.personalDetail.workPhoneNumber}}</p>
+                                <mat-form-field *ngIf="showEditProfile">
+                                    <input matInput [(ngModel)]="items.personalDetail.workPhoneNumber">
+                                </mat-form-field>
+                                <!-- <ion-label>NRIC</ion-label>
+                                <p >{{personalList.personalDetail.nric}}</p> -->
+                                <!-- <mat-form-field *ngIf="showEditProfile">
+                                    <input matInput [(ngModel)]="items.personalDetail.nric">
+                                </mat-form-field> -->
+                            </ion-col>
+                            <ion-col></ion-col>
+                        </ion-row>
 
-                    </ion-col>
-                    <ion-col>
-                        <ion-label>Personal Phone Number</ion-label>
-                        <p *ngIf="!showEditProfile" style="white-space: nowrap;">{{personalList.personalDetail.phoneNumber}}</p>
-                        <mat-form-field *ngIf="showEditProfile">
-                            <input matInput [(ngModel)]="items.personalDetail.phoneNumber">
-                        </mat-form-field>
-                    </ion-col>
-                    <ion-col>
-                        <ion-label>Work Phone Number</ion-label>
-                        <p *ngIf="!showEditProfile" style="white-space: nowrap;">{{personalList.personalDetail.workPhoneNumber}}</p>
-                        <mat-form-field *ngIf="showEditProfile">
-                            <input matInput [(ngModel)]="items.personalDetail.workPhoneNumber">
-                        </mat-form-field>
-                        <!-- <ion-label>NRIC</ion-label>
-                        <p >{{personalList.personalDetail.nric}}</p> -->
-                        <!-- <mat-form-field *ngIf="showEditProfile">
-                            <input matInput [(ngModel)]="items.personalDetail.nric">
-                        </mat-form-field> -->
-                    </ion-col>
-                    <ion-col></ion-col>
-                </ion-row>
+                    </ion-grid>
+                    <ion-grid [class]="'hide-md-up'">
+                        <ion-row class="detailsRow">
+                            <ion-col>
+                                <ion-label>Birthdate</ion-label>
+                                <p>{{personalList.personalDetail.dob}}</p>
+                            </ion-col>
+                            <ion-col>
+                                <ion-label>Gender</ion-label>
+                                <p>{{personalList.personalDetail.gender}}</p>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="detailsRow">
+                            <ion-col>
+                                <ion-label>NRIC</ion-label>
+                                <p>{{personalList.personalDetail.nric}}</p>
+                            </ion-col>
+                            <ion-col>
+                                <ion-label>Nationality</ion-label>
+                                <p>{{personalList.personalDetail.nationality}}</p>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="detailsRow">
+                            <ion-col>
+                                <ion-label>Race</ion-label>
+                                <p>{{personalList.personalDetail.race}}</p>
+                            </ion-col>
+                            <ion-col>
+                                <ion-label>Religion</ion-label>
+                                <p *ngIf="!showEditProfile">{{personalList.personalDetail.religion}}</p>
+                                <mat-form-field *ngIf="showEditProfile">
+                                    <input matInput [(ngModel)]="items.personalDetail.religion">
+                                </mat-form-field>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="detailsRow">
+                            <ion-col>
+                                <ion-label>Marital Status</ion-label>
+                                <p *ngIf="!showEditProfile">{{personalList.personalDetail.maritalStatus}}</p>
+                                <mat-form-field *ngIf="showEditProfile">
+                                    <mat-select [(value)]="items.personalDetail.maritalStatus">
+                                        <mat-option value="Single">Single</mat-option>
+                                        <mat-option value="Married">Married</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </ion-col>
+                            <ion-col>
+                                <ion-label>Personal Email Address</ion-label>
+                                <p *ngIf="!showEditProfile">{{personalList.personalDetail.emailAddress}}</p>
+                                <mat-form-field *ngIf="showEditProfile">
+                                    <input matInput [(ngModel)]="items.personalDetail.emailAddress">
+                                </mat-form-field>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="detailsRow">
+                            <ion-col>
+                                <ion-label>Work Email Address</ion-label>
+                                <p *ngIf="!showEditProfile" style="white-space: nowrap;">{{personalList.personalDetail.workEmailAddress}}</p>
+                                <mat-form-field *ngIf="showEditProfile">
+                                    <input matInput [(ngModel)]="items.personalDetail.workEmailAddress">
+                                </mat-form-field>
+                            </ion-col>
+                            <ion-col>
+                                <ion-label>Personal Phone Number</ion-label>
+                                <p *ngIf="!showEditProfile" style="white-space: nowrap;">{{personalList.personalDetail.phoneNumber}}</p>
+                                <mat-form-field *ngIf="showEditProfile">
+                                    <input matInput [(ngModel)]="items.personalDetail.phoneNumber">
+                                </mat-form-field>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="detailsRow">
+                            <ion-col>
+                                <ion-label>Work Phone Number</ion-label>
+                                <p *ngIf="!showEditProfile" style="white-space: nowrap;">{{personalList.personalDetail.workPhoneNumber}}</p>
+                                <mat-form-field *ngIf="showEditProfile">
+                                    <input matInput [(ngModel)]="items.personalDetail.workPhoneNumber">
+                                </mat-form-field>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
             </div>
             <div style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);background-color: #ffffff;padding: 10px;padding-bottom: 20px;margin-bottom: 20px; min-width: 240px;">
                 <div
