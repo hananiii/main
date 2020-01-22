@@ -216,7 +216,6 @@ $screen-breakpoints: (
         @media screen and (min-width: $valueSize) {
             display: none;
         }
-	}
 	
     .show-flex-#{$keySize}-down {
         @media screen and (max-width: $valueSize) {
@@ -229,6 +228,15 @@ $screen-breakpoints: (
             display: flex;
         }
   }
+  
+    .myprofile-sidemenu {
+       @media screen and (min-width: 768px)  {
+         position: absolute;
+         left: 230px;
+         width: calc(100% - 230px);
+         right: 0;
+       }
+    }
 }
 
 
