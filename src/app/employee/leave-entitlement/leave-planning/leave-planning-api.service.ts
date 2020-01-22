@@ -69,7 +69,7 @@ export class LeavePlanningAPIService {
      */
     get_entilement_details(): Observable<any> {
         this.api.headerAuthorization();
-        return this.api.getApi('/api/leave-entitlement/');
+        return this.api.getApi('/api/leave-entitlement');
     }
 
     /**
