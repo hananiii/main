@@ -8,7 +8,7 @@
     <div style="width: 100%; height:100%; text-align: center;margin-top: -30px" *ngIf="showSpinner">
         <app-spinner></app-spinner>
     </div>
-    <ion-card-header *ngIf="showContent" style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);">
+    <ion-card-header *ngIf="showContent" [class]="'hide-sm-down'" style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);">
         <div class="fullContainer">
             <div class="left">
                 <ion-avatar class="avatar">
@@ -53,6 +53,27 @@
                     </ion-card-subtitle>
                 </div>
             </div> -->
+        </div>
+    </ion-card-header>
+    <ion-card-header *ngIf="showContent" [class]="'hide-sm-up'" style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);display: flex;">
+        <div class="fullContainer" style="flex-flow: inherit;">
+            <div class="left">
+                <ion-avatar class="avatar">
+                    <img src="assets/icon/chris.jpg">
+                </ion-avatar>
+            </div>
+            <div class="right" *ngIf="personalList">
+                <ion-card-subtitle style="color: #43425d;opacity: 0.8;font-weight: bold;">
+                    {{personalList.employeeName}}
+                </ion-card-subtitle>
+                <ion-card-subtitle class="subtitle">
+                    {{personalList.employeeDesignation}}</ion-card-subtitle>
+                <ion-card-subtitle class="subtitle">{{personalList.employeeDepartment}}
+                </ion-card-subtitle>
+                <ion-card-subtitle class="subtitle">
+                    {{employeeDetails.employmentDetail.branch}}
+                </ion-card-subtitle>
+            </div>
         </div>
     </ion-card-header>
     <div class="cardContent" *ngIf="showContent">
