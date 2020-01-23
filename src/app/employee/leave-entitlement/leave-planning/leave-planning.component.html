@@ -38,7 +38,7 @@
                 </ion-card-subtitle>
                 <!-- </div> -->
             </div>
-            <div *ngIf="list" style="max-width: 400px;width: 400px;">
+            <!-- <div *ngIf="list" style="max-width: 400px;width: 400px;">
                 <ng-container *ngFor="let leaveDetail of entitlementDetails">
                     <div style="display: inline-block;padding: 10px;padding-right: 50px;min-width: 205px;"
                         *ngIf="leaveDetail.LEAVE_CODE == 'Annual Leave'">
@@ -63,8 +63,6 @@
                     <div style="float: left;padding: 10px; margin-right: 40px;  min-width: 170px;" *ngIf="leaveDetail.LEAVE_CODE == 'Replacement Leave'">
                         <img style=" width: 33px;height: 30px;float: left;"
                             src="assets/icon/user_profile/icon_replacement_leave@3x.png">
-                        <!-- <div style="padding-left: 10px;display: inline-block;position: absolute;
-                        margin-top: 4px;"> -->
                         <div style="padding-left: 10px;display: block; float: right;">
                             <p class="textBalance" style="font-weight: bold;padding-bottom: 3px;">Replacement Leave</p>
                             <p class="textBalance">{{leaveDetail.BALANCE_DAYS}} Days available</p>
@@ -79,18 +77,32 @@
                         </div>
                     </div>
                 </ng-container>
-            </div>
+            </div> -->
         </div>
     </ion-card-header>
-    <ion-card-content style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);
+    <ion-card-content [class]="'hide-sm-down'" style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);
     background-color: #ffffff;margin: 20px;padding-top: 13px;">
         <mat-tab-group selectedIndex="0">
-            <mat-tab label="APPLY LEAVE">
-                <app-apply-leave></app-apply-leave>
-            </mat-tab>
-            <mat-tab label="CALENDAR">
-                <app-calendar-view></app-calendar-view>
-            </mat-tab>
+            <!-- <mat-tab-header style="width: fit-content; border-radius: 4px;"> -->
+                <mat-tab label="Apply Leave">
+                    <app-apply-leave></app-apply-leave>
+                </mat-tab>
+                <mat-tab label="View Calendar">
+                    <app-calendar-view></app-calendar-view>
+                </mat-tab>
+
+            <!-- </mat-tab-header> -->
+        </mat-tab-group>
+    </ion-card-content>
+    <ion-card-content [class]="'hide-sm-up'" style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);
+    background-color: #ffffff;margin: 20px;padding-top: 13px;">
+        <mat-tab-group selectedIndex="0" class="mobileView-tab">
+                <mat-tab label="Apply Leave">
+                    <app-apply-leave></app-apply-leave>
+                </mat-tab>
+                <mat-tab label="View Calendar">
+                    <app-calendar-view></app-calendar-view>
+                </mat-tab>
         </mat-tab-group>
     </ion-card-content>
 </ion-card>

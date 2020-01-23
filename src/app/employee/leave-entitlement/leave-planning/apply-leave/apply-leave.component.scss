@@ -13,10 +13,7 @@
     min-height: 20px;
   }
   .selection {
-    padding-left: 3%;
     margin-top: 20px;
-    float: right;
-    width: 45%;
   }
   .calendar-icon {
     fill: #a5a4bf;
@@ -55,6 +52,20 @@
     height: 20px;
     --border-color: rgba(122, 102, 102, 0.12);
     margin: 0;
+  }
+  .apply-leave-header {
+    font-size: 13px;
+    font-weight: bold;
+    color: #a5a4bf;
+    height: 42px;
+    background-color: #f5f6fa;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    margin-bottom: 25px;
+  }
+  .apply-leave-form {
+    padding-left: 5px;
   }
   mat-radio-button {
     top: -5.5px;
@@ -119,6 +130,10 @@
     color: #3b86ff;
     font-size: 16px;
     cursor: pointer;
+  }
+  .leave-card-list {
+    background: #7069d8;
+    color: #fff;
   }
   //full calendar
   ::ng-deep .fc-toolbar > * > :not(:first-child) {
