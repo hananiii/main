@@ -157,6 +157,8 @@ export class EmployeeListComponent implements OnInit {
         { value: 'tacos-2', viewValue: 'Tacos' }
     ];
 
+    public hideViewOption;
+
     /**
      * return current page users
      * @readonly
@@ -182,6 +184,8 @@ export class EmployeeListComponent implements OnInit {
      * @memberof EmployeeListComponent
      */
     ngOnInit() {
+        (window.innerWidth < 992) ? this.viewList(false, 9, 8) : this.viewList(true, 9, 8);
+
         this.apiService.get_user_profile_list().subscribe(
             (data: any[]) => {
                 this.items = data;

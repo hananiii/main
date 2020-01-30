@@ -214,6 +214,19 @@
     font-size: 12px;
     float: left;
     margin-top: 4px;
+
+    ion-icon {
+      color: #bcbccb;
+      width: 16px;
+      box-shadow: none;
+    }
+  }
+  .searchbar-sm {
+    height: 40px;
+    color: #43425d;
+    font-size: 12px;
+    float: left;
+    margin-top: 4px;
   }
   .fa-bars {
     cursor: pointer;
@@ -239,6 +252,14 @@
     font-size: 12px;
     height: 40px;
     width: 142px;
+    text-transform: none;
+  }
+  .people-sm {
+    width: -webkit-fill-available;
+    padding: 3px;
+    float: left;
+    font-size: 12px;
+    height: 40px;
     text-transform: none;
   }
   .crossIcon {
@@ -359,6 +380,19 @@
     border-radius: 2px;
     margin-right: 8px;
     line-height: 22px;
+  }
+
+  ::ng-deep .searchbar-search-icon {
+    color: #bcbccb;
+    width: 16px;
+    box-shadow: none;
+
+  }
+
+  ::ng-deep .searchbar-input {
+    color: #43425d;
+    font-size: 12px;
+    float: left;
   }
   // .ngx-pagination .pagination-next a::after,
   // .ngx-pagination .pagination-next.disabled::after {

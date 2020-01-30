@@ -8,9 +8,10 @@
 
   .content2 {
     position: absolute;
-    width: calc(100% - 230px);
-    right: 0;
-    left: 230px;
+    // width: calc(100% - 230px);
+    // right: 0;
+    // left: 230px;
+    width: -webkit-fill-available;
   }
 
   .mainColor {
