@@ -228,14 +228,14 @@ $screen-breakpoints: (
         display: flex;
       }
     }
+  }
 
-    .myprofile-sidemenu {
-      @media screen and (min-width: 768px) {
-        position: absolute;
-        left: 230px;
-        width: calc(100% - 230px);
-        right: 0;
-      }
+  .myprofile-sidemenu {
+    @media screen and (min-width: 768px) {
+      position: absolute;
+      left: 230px;
+      width: calc(100% - 230px);
+      right: 0;
     }
   }
 }
