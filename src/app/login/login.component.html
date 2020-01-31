@@ -39,8 +39,9 @@
             <p style="font-size: 11px;color: #43425d;text-align: right;margin-top: -24px;cursor: pointer;" (click)="toForgotPasswordPage()">Forgot Password
             </p>
           </div>
-          <ion-button fill="solid" style="margin: 0 auto;display: block;font-size: 12px;width: 124px;text-transform: capitalize;color: white;--background: #43425d;
-        height: 34px;" (click)="signIn(emailInput.value, passwordInput.value)" [disabled]="!formGroupValidation.valid">
+          <ion-button fill="clear" style="display: block; font-size: 11px; width: 124px; text-transform: capitalize; --background: #43425d; height: 34px;
+            margin: auto; object-fit: contain; border-radius: 2px; background-color: #43425d; color: #ffffff;" 
+            (click)="signIn(emailInput.value, passwordInput.value)" [disabled]="!formGroupValidation.valid">
             Login</ion-button>
         </form>
       </div>
@@ -106,8 +107,9 @@
                 Remember me</p>
               <p style="font-size: 11px;;text-align: right;margin-top: -24px;cursor: pointer;" (click)="toForgotPasswordPage()">Forgot Password </p>
             </div>
-            <ion-button fill="solid" style="margin: 0 auto;display: block;font-size: 12px;width: 124px;text-transform: capitalize;--background: var(--ion-color-light);
-              color: #43425d;height: 34px;" (click)="signIn(emailInput.value, passwordInput.value)" [disabled]="!formGroupValidation.valid">
+            <ion-button fill="clear" style="display: block; font-size: 11px; width: 124px; text-transform: capitalize; --background: #43425d; height: 34px;
+            margin: auto; object-fit: contain; border-radius: 2px; background-color: #43425d; color: #ffffff;" 
+            (click)="signIn(emailInput.value, passwordInput.value)" [disabled]="!formGroupValidation.valid">
               Login</ion-button>
           </form>
         </div>
