@@ -1,6 +1,6 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "leave",
+  "appId": "com.ionic.eleave",
+  "appName": "eLeave",
   "bundledWebRuntime": false,
   "webDir": "www",
   "npmClient": "npm"
