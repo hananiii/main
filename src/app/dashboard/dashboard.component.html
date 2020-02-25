@@ -1,7 +1,8 @@
 <!-- <p style="color: #43425d;line-height: 1.53;font-size:16px;padding-left: 20px;margin-bottom: 5px;">Overview</p> -->
 
 <!-------------------------------- show annual details menu ---------------------------------->
-<ion-menu contentId="annualMenuContent" side="end" type="overlay" menuId="viewAnnualDetails" style="position: sticky; min-height: 100%;">
+<ion-menu contentId="annualMenuContent" side="end" type="overlay" menuId="viewAnnualDetails"
+    style="position: sticky; min-height: 100%;">
     <ion-header style="background-color:#43425d; color: #fcfcfc;">
         <img style="margin: 17px;width: 22px;height: 17px;float:left"
             src="assets/icon/dashboard/icon All Holidays@3x.png">
@@ -46,7 +47,8 @@
 
 
 <!-------------------------------- show replacement details menu---------------------------------->
-<ion-menu contentId="replacementMenuContent" side="end" type="overlay" menuId="viewReplacementDetails" style="position: sticky; min-height: 100%;">
+<ion-menu contentId="replacementMenuContent" side="end" type="overlay" menuId="viewReplacementDetails"
+    style="position: sticky; min-height: 100%;">
     <ion-header style="background-color:#43425d; color: #fcfcfc;">
         <img style="margin: 17px;width: 22px;height: 17px;float:left"
             src="assets/icon/dashboard/icon All Holidays@3x.png">
@@ -100,7 +102,8 @@
 
 
 <!-------------------------------- show announcement menu---------------------------------->
-<ion-menu contentId="announcedMenuContent" side="end" type="overlay" menuId="viewAnnouncementDetails" style="position: sticky; min-height: 100%;">
+<ion-menu contentId="announcedMenuContent" side="end" type="overlay" menuId="viewAnnouncementDetails"
+    style="position: sticky; min-height: 100%;">
     <ion-header style="background-color:#43425d; color: #fcfcfc;">
         <img style="margin: 17px;width: 20px;height:21px;float:left"
             src="assets/icon/dashboard/icon announcement@3x.png">
@@ -118,11 +121,16 @@
                         <p
                             style="color:#4d4f5c; font-weight: bold;font-size: 11px;line-height: 1.82;white-space: normal;">
                             {{item.TITLE}}</p>
-                        <p style="opacity: 0.8;font-size: 9px;line-height: 2.22;color: #4d4f5c;">{{item.FROM_DATE}}
+                        <p style="opacity: 0.8;font-size: 9px;line-height: 2.22;color: #4d4f5c;">
+                            {{item.CREATION_TS | date:'d MMM yyyy'}}
                         </p>
-                        <p
+                        <!-- <p
                             style="white-space: normal;font-size: 10px;color: #4d4f5c;line-height:1.4;text-align: justify;">
                             {{item.MESSAGE}}
+                        </p> -->
+                        <p class="innerText"
+                            style="white-space: normal;font-size: 10px;color: #4d4f5c;line-height:1.4;text-align: justify;"
+                            [innerHTML]="item.MESSAGE">
                         </p>
                     </ion-label>
                 </ion-item>
@@ -131,17 +139,24 @@
                         <p
                             style="color:#4d4f5c; font-weight: bold;font-size: 11px;line-height: 1.82;white-space: normal;">
                             {{item.TITLE}}</p>
-                        <p style="opacity: 0.8;font-size: 9px;line-height: 2.22;color: #4d4f5c;">{{item.FROM_DATE}}
+                        <p style="opacity: 0.8;font-size: 9px;line-height: 2.22;color: #4d4f5c;">
+                            {{item.CREATION_TS | date:'d MMM yyyy'}}
                         </p>
-                        <p
+                        <!-- <p
                             style="white-space: normal;font-size: 10px;color: #4d4f5c;line-height:1.4;text-align: justify;">
                             {{item.MESSAGE}}
+                        </p> -->
+                        <p [innerHTML]="item.MESSAGE" class="listInnerText" style="white-space: normal;
+                        font-size: 10px;
+                        color: #4d4f5c;
+                        line-height: 1.4;
+                        text-align: justify;">
                         </p>
                     </ion-label>
                 </ion-item>
             </ng-container>
         </ion-list>
-        <div style="text-align: center;margin:30px">
+        <div style="text-align: center;margin:30px" *ngIf="announcements && announcements.length > 6">
             <ion-button *ngIf="!viewLessAnnouncement" (click)="showallannouncement = true; viewLessAnnouncement = true"
                 style="font-size: 11px;height: 30px;width:124px;cursor: pointer;text-transform: none;" color="primary">
                 View More
@@ -157,7 +172,8 @@
 
 
 <!-------------------------------- show holiday menu---------------------------------->
-<ion-menu contentId="holidayMenuContent" side="end" type="overlay" menuId="viewHolidayDetails" style="position: sticky; min-height: 100%;">
+<ion-menu contentId="holidayMenuContent" side="end" type="overlay" menuId="viewHolidayDetails"
+    style="position: sticky; min-height: 100%;">
     <ion-header style="background-color:#43425d; color: #fcfcfc;">
         <img style="margin: 17px;width: 22px;height: 17px;float:left"
             src="assets/icon/dashboard/icon All Holidays@3x.png">
@@ -211,7 +227,7 @@
             </ng-container>
         </ion-list>
 
-        <div style="text-align: center;margin:30px">
+        <div style="text-align: center;margin:30px" *ngIf="holidays && holidays.length > 6">
             <ion-button *ngIf="!showViewLessButton" (click)="showall = true; showViewLessButton = true"
                 style="font-size: 11px;height: 30px;width:124px;cursor: pointer;text-transform: none;" color="primary">
                 View More
@@ -227,11 +243,11 @@
 
 
 <!-- ------------------------------ Dashboard content ------------------------------- -->
-<p style="color: #43425d;line-height: 1.53;font-size:16px;padding-left: 20px;margin-bottom: 5px;">Overview</p>
+<!-- <p style="color: #43425d;line-height: 1.53;font-size:16px;padding-left: 20px;margin-bottom: 5px;">Overview</p> -->
 
 <div class="row" *ngIf="row">
     <!-- <div class="column"> -->
-    <span style="display: flex; flex-flow: wrap; flex: 1;">
+    <span style="display: flex; flex-flow: wrap; flex: 1;margin-top: 20px;">
         <div class="annual">
             <p style="color:#43425d;opacity: 0.8;font-weight: bold;line-height: 1.25;font-size: 12px">Annual Leave</p>
             <span style="display: flex; justify-content: space-between; min-width: auto;">
@@ -252,7 +268,8 @@
                 Details</p>
         </div>
         <div class="replacement">
-            <p style="color:#43425d;opacity: 0.8;font-weight: bold;line-height: 1.25;font-size: 12px">Replacement Leave</p>
+            <p style="color:#43425d;opacity: 0.8;font-weight: bold;line-height: 1.25;font-size: 12px">Replacement Leave
+            </p>
             <ion-label *ngIf="replaceVal>-1"
                 style="float: left;font-size: 35px;color: #43425d;font-weight: bold;line-height: 1.26;">
                 {{replaceVal}}</ion-label>
@@ -281,16 +298,17 @@
                     margin-bottom: 0;width: 100%;">Days Available</p>
         </div>
         <div class="birthday" style="position: relative;">
-            <p style="font-size: 12px;color:#43425d;opacity: 0.8;font-weight: bold;line-height: 1.25;">Birthday Leave</p>
+            <p style="font-size: 12px;color:#43425d;opacity: 0.8;font-weight: bold;line-height: 1.25;">Birthday Leave
+            </p>
             <ion-label style="float: left;font-size: 35px;color: #43425d;font-weight: bold;line-height: 1.26;">
                 {{birthdayDetail.day}} {{birthdayDetail.month}}</ion-label>
             <img class="annual-icon" style="margin-right: 20px;" src="assets/icon/dashboard/icon_annual_leave@3x.png">
             <!-- <img class="svg-icon" style="margin-right: 20px;width: 37px;height: 45px;"
                 src="assets/icon/dashboard/icon_birthday@3x.png"> -->
-                <img style="position: absolute;right: 0px;top: 0px;width: 64px;height: 64px;"
-                    src="assets/icon/dashboard/Path 332@2x.png">
-                <img class="svg-icon" style="position: absolute;right: 0px;top: 0px;"
-                    src="assets/icon/dashboard/Happy Birthday!@3x.png">
+            <!-- <img style="position: absolute;right: 0px;top: 0px;width: 64px;height: 64px;"
+                src="assets/icon/dashboard/Path 332@2x.png">
+            <img class="svg-icon" style="position: absolute;right: 0px;top: 0px;"
+                src="assets/icon/dashboard/Happy Birthday!@3x.png"> -->
             <p style="font-size: 12px;opacity: 0.5;color: #43425d;line-height: 1.25;display: inline-block;
                         margin-bottom: 0;width: 100%;">{{birthdayDetail.remainingDays}} </p>
         </div>
@@ -386,8 +404,8 @@
     <div class="annoucement">
         <div style="background-color: #ffffff;padding: 10px;">
             <div
-                style="font-size: 13px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
-                Latest Annoucement <p
+                style="font-size: 12px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
+                LATEST ANNOUNCEMENT<p
                     (click)="menu.enable(true, 'viewAnnouncementDetails');menu.enable(false, 'viewReplacementDetails');menu.enable(false, 'viewAnnualDetails');menu.enable(false, 'viewHolidayDetails');menu.open('viewAnnouncementDetails');"
                     style="cursor: pointer;margin-top: 0px;float: right;margin-right: 5px;color:#3b86ff;opacity: 0.8;line-height: 1.36;font-size: 11px;font-weight: bold;">
                     View Details</p>
@@ -396,13 +414,14 @@
                 <ng-container style="padding-top: 2%;" *ngIf="i<3">
                     <ion-col align-self-center size="3"
                         style="padding-left: 15px;color:#4d4f5c;font-size:11px;line-height: 1.82;">
-                        {{item.FROM_DATE}}
+                        {{item.CREATION_TS | date:'d MMM yyyy'}}
                     </ion-col>
                     <ion-col style="color:#4d4f5c;font-size:11px;line-height: 1.82;overflow: hidden;
                     white-space: nowrap;text-overflow: ellipsis;">
                         <span *ngIf="item.IS_PINNED === 1" style="font-weight: bold;color:#43425d;font-size:11px">
                             {{item.TITLE}} <br></span>
-                        <span>{{item.MESSAGE}}</span>
+                        <p class="mainInnerText" [innerHTML]="item.MESSAGE"
+                            style="margin-bottom: 0; margin-top: 0;white-space: pre-wrap;"></p>
                     </ion-col>
                     <ion-item *ngIf="i<2" class="divider" lines="full"></ion-item>
                 </ng-container>
@@ -412,8 +431,8 @@
     <div class="holiday">
         <div style="background-color: #ffffff;padding: 10px;">
             <div
-                style="font-size: 13px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
-                Upcoming Holidays <p (click)="menu.enable(true, 'viewHolidayDetails');menu.enable(false, 'viewReplacementDetails');menu.enable(false, 'viewAnnualDetails');
+                style="font-size: 12px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
+                UPCOMING HOLIDAYS<p (click)="menu.enable(true, 'viewHolidayDetails');menu.enable(false, 'viewReplacementDetails');menu.enable(false, 'viewAnnualDetails');
                 menu.enable(false, 'viewAnnouncementDetails');menu.open('viewHolidayDetails');"
                     style="cursor: pointer;margin-top: 0px;float: right;margin-right: 5px;color:#3b86ff;opacity: 0.8;line-height: 1.36;font-size: 11px;font-weight: bold;">
                     View Details</p>
@@ -443,12 +462,12 @@
 
 <div class="row" *ngIf="row" style="margin-bottom: 30px;">
     <div class="tasks" [style.max-width.%]="longLeave != undefined ? '100' : '72' ">
-        <div style="background-color: #ffffff;padding: 10px;">
+        <div style="background-color: #ffffff;padding: 10px;" *ngIf="tasks">
             <div
-                style="font-size: 13px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
-                Your Tasks
+                style="font-size: 12px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
+                MY TASKS
             </div>
-            <ng-container *ngIf="tasks != undefined">
+            <ng-container *ngIf="tasks.status !== 'Not available'">
                 <ion-list>
                     <ion-item *ngFor="let item of tasks; let i = index;">
                         <ion-row style="display: flex; flex: 1;">
@@ -492,20 +511,20 @@
                                     </ion-col>
                                     <!-- <ion-item *ngIf="i<notification.length-1" class="divider" lines="full"></ion-item> -->
 
-                                    </ion-item-group>
+                                </ion-item-group>
                             </ng-container>
                         </ion-row>
                     </ion-item>
                 </ion-list>
             </ng-container>
-            <ng-container *ngIf="tasks == undefined">
+            <ng-container *ngIf="tasks.status === 'Not available'">
                 <p style="padding-left: 15px;color: rgb(77, 79, 92);font-size: 11px;line-height: 1.82;">
                     No task assigned to you</p>
             </ng-container>
         </div>
     </div>
     <!-- <div class="reminder" *ngIf="longLeave.status == 'Not available'" style="min-width: 180px; max-width: -webkit-fill-available;"> -->
-    <div class="reminder" *ngIf="longLeave == undefined"  style="min-width: 180px; max-width: -webkit-fill-available;">
+    <div class="reminder" *ngIf="longLeave == undefined" style="min-width: 180px; max-width: -webkit-fill-available;">
         <p style="color:#f0f0f7;font-weight: bold;line-height: 1.07;font-size: 14px;margin-bottom: 10px;">Long Leave
             Reminder</p>
         <img style="width: 27px;height:27px;" src="assets/icon/dashboard/icon_long_reminder@3x.png">

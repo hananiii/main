@@ -78,7 +78,7 @@
     min-width: 69px;
   }
   .mat-chip.mat-standard-chip {
-    background-color: #5ee2a0;
+    background-color: #46cdcf;
   }
   .annual-icon {
     width: 46px;
@@ -183,4 +183,22 @@
   .labelText {
     margin: 0;
   }
+  p.innerText::ng-deep p {
+    white-space: normal;
+    font-size: 10px;
+    color: #4d4f5c;
+    line-height: 1.4;
+    text-align: justify;
+}
+p.listInnerText::ng-deep p {
+    white-space: normal;
+    font-size: 10px;
+    color: #4d4f5c;
+    line-height: 1.4;
+    text-align: justify;
+}
+  p.mainInnerText::ng-deep p {
+    margin-bottom: 0;
+    margin-top: 0;
+}
 }

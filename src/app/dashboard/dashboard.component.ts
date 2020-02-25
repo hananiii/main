@@ -367,10 +367,9 @@ export class DashboardComponent implements OnInit {
      * get pending task list
      * @memberof DashboardComponent
      */
-    get_task_list() {
-        this.dashboardAPI.get_task_list().subscribe(data => {
-            this.tasks = data;
-        })
+    async get_task_list() {
+        let data = await this.dashboardAPI.get_task_list().toPromise();
+        this.tasks = data;
     }
 
 
