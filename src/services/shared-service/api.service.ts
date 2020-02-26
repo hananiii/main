@@ -145,6 +145,10 @@ export class APIService {
         return this.getApi('/api/admin/user-info-details/employment-detail/');
     }
 
+    patch_user_info_personal_id(data: any, id: string): Observable<any> {
+        return this.patchApi(data, '/api/admin/user-info-details/personal/' + id);
+    }
+
     /**
      * update employement details 
      * @param {*} data

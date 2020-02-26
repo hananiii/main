@@ -8,18 +8,28 @@
     <div style="width: 100%; height:100%; text-align: center; margin-top: -30px" *ngIf="showSpinner">
         <app-spinner></app-spinner>
     </div>
-    <ion-card-header *ngIf="showContent" [class]="'hide-sm-down'" style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);">
-        <div *ngIf="!showEditProfile" style="right: 25px; position: absolute;" (click)="showEditProfile = true;">
-            <!-- <div class="edit-profile-icon" [inlineSVG]="'assets/icon/option/edit.svg'"></div> -->
-            <!-- <p style="color: #057dcd; display: inline;cursor: pointer;padding-left: 10px">Edit
-                Profile</p> -->
-            <ion-button
+    <ion-card-header *ngIf="showContent" [class]="'hide-sm-down'"
+        style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);">
+        <div style="right: 75px;top: 25px;position: absolute;">
+            <p
+                style="margin-top: 16px;opacity: 0.8;font-size: 12px;font-weight: bold;color: #43425d;display: inline-block;padding-right: 10px;">
+                Edit
+                Mode: {{modeValue}}</p>
+            <div style="display: inline-block;position: absolute;margin-top: 12px;">
+                <ion-toggle style="zoom:0.70;--background: #a5a4bf;" mode="ios" color="secondary"
+                    (ionChange)="toggleEvent($event)">
+                </ion-toggle>
+            </div>
+        </div>
+        <!-- <div *ngIf="!showEditProfile" style="right: 25px; position: absolute;" (click)="showEditProfile = true;">
+             <ion-button
                 style="font-size: 12px;margin-top: 12px;height: 30px;width: 124px;display: inline-block; text-transform: capitalize"
                 color="primary">Edit
                 Profile
-            </ion-button>
-        </div>
-        <div style="right: 25px;top: 25px;position: absolute;" *ngIf="showEditProfile">
+            </ion-button> 
+            
+        </div> -->
+        <!-- <div style="right: 25px;top: 25px;position: absolute;" *ngIf="showEditProfile">
             <ion-button fill="outline" (click)="showEditProfile = false"
                 style="background: #f0f0f7;font-size: 12px;height: 30px;width:124px;cursor: pointer;text-transform: none;"
                 color="primary">
@@ -30,7 +40,7 @@
                 style="font-size: 12px;height: 30px;width:124px;cursor: pointer;text-transform: none;" color="primary">
                 Save
             </ion-button>
-        </div>
+        </div> -->
         <div class="fullContainer">
             <div class="left">
                 <ion-avatar class="avatar">
@@ -90,59 +100,76 @@
                 <!-- </div> -->
             </div>
         </div>
-        <div *ngIf="!showEditProfile" style="right: 25px;  position: static; display: flex; justify-content: flex-end;" (click)="showEditProfile = true;">
+        <div style="right: 75px;top: 25px;position: absolute;">
+            <p
+                style="margin-top: 16px;opacity: 0.8;font-size: 12px;font-weight: bold;color: #43425d;display: inline-block;padding-right: 10px;">
+                Edit
+                Mode: {{modeValue}}</p>
+            <div style="display: inline-block;position: absolute;margin-top: 12px;">
+                <ion-toggle style="zoom:0.70;--background: #a5a4bf;" mode="ios" color="secondary"
+                    (ionChange)="toggleEvent($event)">
+                </ion-toggle>
+            </div>
+        </div>
+        <!-- <div *ngIf="modeValue === 'OFF'"
+            style="right: 25px;  position: static; display: flex; justify-content: flex-end;"
+            (click)="showEditProfile = true;">
             <!-- <div class="edit-profile-icon" [inlineSVG]="'assets/icon/option/edit.svg'"></div> -->
-            <!-- <p style="color: #057dcd; display: inline;cursor: pointer;padding-left: 10px">Edit
-                    Profile</p> -->
-            <ion-button style="font-size: 12px;margin-top: 12px;height: 30px;width: 124px;display: inline-block; text-transform: capitalize"
+        <!-- <p style="color: #057dcd; display: inline;cursor: pointer;padding-left: 10px">Edit
+                    Profile</p> --
+            <ion-button
+                style="font-size: 12px;margin-top: 12px;height: 30px;width: 124px;display: inline-block; text-transform: capitalize"
                 color="primary">Edit Profile
             </ion-button>
-        </div>
-        <div style="right: 25px;top: 25px; position: static; margin-top: 7px;display: flex; justify-content: flex-end;" *ngIf="showEditProfile">
-            <ion-button fill="outline" (click)="showEditProfile = false" style="background: #f0f0f7;font-size: 12px;height: 30px;width:124px;cursor: pointer;text-transform: none;"
+        </div> -->
+        <!-- <div style="right: 25px;top: 25px; position: static; margin-top: 7px;display: flex; justify-content: flex-end;"
+            *ngIf="modeValue === 'ON'">
+            <ion-button fill="outline" (click)="showEditProfile = false"
+                style="background: #f0f0f7;font-size: 12px;height: 30px;width:124px;cursor: pointer;text-transform: none;"
                 color="primary">
                 Cancel
             </ion-button>
             <div style="display: inline-block"></div>
-            <ion-button (click)="patchData()" style="font-size: 12px;height: 30px;width:124px;cursor: pointer;text-transform: none;"
-                color="primary">
+            <ion-button (click)="patchData()"
+                style="font-size: 12px;height: 30px;width:124px;cursor: pointer;text-transform: none;" color="primary">
                 Save
             </ion-button>
-        </div>
-    
+        </div> -->
+
     </ion-card-header>
     <!-- <ion-item *ngIf="showContent" lines="full" class="mainDivider"></ion-item> -->
     <div class="cardContent" *ngIf="personalList && showContent">
         <ion-card-content>
-            <div style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);background-color: #ffffff;padding: 10px;padding-bottom: 20px;margin-bottom: 20px; min-width: min-content;">
+            <div
+                style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);background-color: #ffffff;padding: 10px;padding-bottom: 20px;margin-bottom: 20px; min-width: min-content;">
                 <div
                     style="font-size: 13px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
                     GENERAL</div>
-                    <ion-grid [class]="'hide-md-down'">
-                        <ion-row class="detailsRow" style="min-width: 220px;">
-                            <ion-col>
-                                <ion-label>Birthdate</ion-label>
-                                <p>{{personalList.personalDetail.dob}}</p>
-                                <!-- <mat-form-field *ngIf="showEditProfile" disabled>
+                <ion-grid [class]="'hide-md-down'">
+                    <ion-row class="detailsRow" style="min-width: 220px;">
+                        <ion-col>
+                            <ion-label>Birthdate</ion-label>
+                            <p>{{personalList.personalDetail.dob}}</p>
+                            <!-- <mat-form-field *ngIf="showEditProfile" disabled>
                                     <input matInput [matDatepicker]="picker1" [formControl]="firstPicker" required disabled>
                                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                     <mat-datepicker #picker1></mat-datepicker>
                                 </mat-form-field> -->
-                            </ion-col>
-                            <ion-col>
-                                <ion-label>Gender</ion-label>
-                                <p>{{personalList.personalDetail.gender}}</p>
-                                <!-- <mat-form-field *ngIf="showEditProfile" disabled>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Gender</ion-label>
+                            <p>{{personalList.personalDetail.gender}}</p>
+                            <!-- <mat-form-field *ngIf="showEditProfile" disabled>
                                     <mat-select [(value)]="items.personalDetail.gender">
                                         <mat-option value="Female">Female</mat-option>
                                         <mat-option value="Male">Male</mat-option>
                                     </mat-select>
                                 </mat-form-field> -->
-                            </ion-col>
-                            <ion-col>
-                                <ion-label>NRIC</ion-label>
-                                <p>{{personalList.personalDetail.nric}}</p>
-                                <!-- <ion-label>Marital Status</ion-label>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>NRIC</ion-label>
+                            <p>{{personalList.personalDetail.nric}}</p>
+                            <!-- <ion-label>Marital Status</ion-label>
                                 <p *ngIf="!showEditProfile">{{personalList.personalDetail.maritalStatus}}</p>
                                 <mat-form-field *ngIf="showEditProfile">
                                     <mat-select [(value)]="items.personalDetail.maritalStatus">
@@ -150,198 +177,207 @@
                                         <mat-option value="Married">Married</mat-option>
                                     </mat-select>
                                 </mat-form-field> -->
-                            </ion-col>
-                            <ion-col>
-                                <ion-label>Nationality</ion-label>
-                                <p>{{personalList.personalDetail.nationality}}</p>
-                            </ion-col>
-                        </ion-row>
-                        <ion-row class="detailsRow" style="min-width: 220px;">
-                            <ion-col>
-                                <ion-label>Race</ion-label>
-                                <p>{{personalList.personalDetail.race}}</p>
-                                <!-- <mat-form-field *ngIf="showEditProfile">
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Nationality</ion-label>
+                            <p>{{personalList.personalDetail.nationality}}</p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="detailsRow" style="min-width: 220px;">
+                        <ion-col>
+                            <ion-label>Race</ion-label>
+                            <p>{{personalList.personalDetail.race}}</p>
+                            <!-- <mat-form-field *ngIf="showEditProfile">
                                     <input matInput [(ngModel)]="items.personalDetail.race">
                                 </mat-form-field> -->
-                            </ion-col>
-                            <ion-col>
-                                <ion-label>Religion</ion-label>
-                                <p *ngIf="!showEditProfile">{{personalList.personalDetail.religion}}</p>
-                                <mat-form-field *ngIf="showEditProfile">
-                                    <input matInput [(ngModel)]="items.personalDetail.religion">
-                                </mat-form-field>
-                            </ion-col>
-                            <ion-col>
-                                <ion-label>Marital Status</ion-label>
-                                <p *ngIf="!showEditProfile">{{personalList.personalDetail.maritalStatus}}</p>
-                                <mat-form-field *ngIf="showEditProfile">
-                                    <mat-select [(value)]="items.personalDetail.maritalStatus">
-                                        <mat-option value="Single">Single</mat-option>
-                                        <mat-option value="Married">Married</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Religion</ion-label>
+                            <p *ngIf="modeValue === 'OFF'">{{personalList.personalDetail.religion}}</p>
+                            <mat-form-field *ngIf="modeValue === 'ON'">
+                                <input matInput [(ngModel)]="items.personalDetail.religion">
+                            </mat-form-field>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Marital Status</ion-label>
+                            <p *ngIf="modeValue === 'OFF'">{{personalList.personalDetail.maritalStatus}}</p>
+                            <mat-form-field *ngIf="modeValue === 'ON'">
+                                <mat-select [(value)]="items.personalDetail.maritalStatus">
+                                    <mat-option value="Single">Single</mat-option>
+                                    <mat-option value="Married">Married</mat-option>
+                                </mat-select>
+                            </mat-form-field>
 
-                                <!-- <ion-label>Nationality</ion-label>
+                            <!-- <ion-label>Nationality</ion-label>
                                 <p>{{personalList.personalDetail.nationality}}</p> -->
-                                <!-- <mat-form-field *ngIf="showEditProfile">
+                            <!-- <mat-form-field *ngIf="showEditProfile">
                                     <input matInput [(ngModel)]="items.personalDetail.nationality">
                                 </mat-form-field> -->
-                            </ion-col>
-                            <ion-col>
-                                <ion-label>Personal Email Address</ion-label>
-                                <p *ngIf="!showEditProfile">{{personalList.personalDetail.emailAddress}}</p>
-                                <mat-form-field *ngIf="showEditProfile">
-                                    <input matInput [(ngModel)]="items.personalDetail.emailAddress">
-                                </mat-form-field>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Personal Email Address</ion-label>
+                            <p *ngIf="modeValue === 'OFF'">{{personalList.personalDetail.emailAddress}}</p>
+                            <mat-form-field *ngIf="modeValue === 'ON'">
+                                <input matInput [(ngModel)]="items.personalDetail.emailAddress">
+                            </mat-form-field>
 
-                            </ion-col>
-                        </ion-row>
-                        <ion-row class="detailsRow" style="min-width: 220px;">
-                            <ion-col>
-                                <ion-label>Work Email Address</ion-label>
-                                <p *ngIf="!showEditProfile" style="white-space: nowrap;">{{personalList.personalDetail.workEmailAddress}}</p>
-                                <mat-form-field *ngIf="showEditProfile">
-                                    <input matInput [(ngModel)]="items.personalDetail.workEmailAddress">
-                                </mat-form-field>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="detailsRow" style="min-width: 220px;">
+                        <ion-col>
+                            <ion-label>Work Email Address</ion-label>
+                            <p *ngIf="modeValue === 'OFF'" style="white-space: nowrap;">
+                                {{personalList.personalDetail.workEmailAddress}}</p>
+                            <mat-form-field *ngIf="modeValue === 'ON'">
+                                <input matInput [(ngModel)]="items.personalDetail.workEmailAddress">
+                            </mat-form-field>
 
-                            </ion-col>
-                            <ion-col>
-                                <ion-label>Personal Phone Number</ion-label>
-                                <p *ngIf="!showEditProfile" style="white-space: nowrap;">{{personalList.personalDetail.phoneNumber}}</p>
-                                <mat-form-field *ngIf="showEditProfile">
-                                    <input matInput [(ngModel)]="items.personalDetail.phoneNumber">
-                                </mat-form-field>
-                            </ion-col>
-                            <ion-col>
-                                <ion-label>Work Phone Number</ion-label>
-                                <p *ngIf="!showEditProfile" style="white-space: nowrap;">{{personalList.personalDetail.workPhoneNumber}}</p>
-                                <mat-form-field *ngIf="showEditProfile">
-                                    <input matInput [(ngModel)]="items.personalDetail.workPhoneNumber">
-                                </mat-form-field>
-                                <!-- <ion-label>NRIC</ion-label>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Personal Phone Number</ion-label>
+                            <p *ngIf="modeValue === 'OFF'" style="white-space: nowrap;">
+                                {{personalList.personalDetail.phoneNumber}}</p>
+                            <mat-form-field *ngIf="modeValue === 'ON'">
+                                <input matInput [(ngModel)]="items.personalDetail.phoneNumber">
+                            </mat-form-field>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Work Phone Number</ion-label>
+                            <p *ngIf="modeValue === 'OFF'" style="white-space: nowrap;">
+                                {{personalList.personalDetail.workPhoneNumber}}</p>
+                            <mat-form-field *ngIf="modeValue === 'ON'">
+                                <input matInput [(ngModel)]="items.personalDetail.workPhoneNumber">
+                            </mat-form-field>
+                            <!-- <ion-label>NRIC</ion-label>
                                 <p >{{personalList.personalDetail.nric}}</p> -->
-                                <!-- <mat-form-field *ngIf="showEditProfile">
+                            <!-- <mat-form-field *ngIf="showEditProfile">
                                     <input matInput [(ngModel)]="items.personalDetail.nric">
                                 </mat-form-field> -->
-                            </ion-col>
-                            <ion-col></ion-col>
-                        </ion-row>
+                        </ion-col>
+                        <ion-col></ion-col>
+                    </ion-row>
 
-                    </ion-grid>
-                    <ion-grid [class]="'hide-md-up'">
-                        <ion-row class="detailsRow" style="flex-flow: nowrap;">
-                            <ion-col>
-                                <ion-label>Birthdate</ion-label>
-                                <p>{{personalList.personalDetail.dob}}</p>
-                            </ion-col>
-                            <ion-col>
-                                <ion-label>Gender</ion-label>
-                                <p>{{personalList.personalDetail.gender}}</p>
-                            </ion-col>
-                        </ion-row>
-                        <ion-row class="detailsRow" style="flex-flow: nowrap;">
-                            <ion-col>
-                                <ion-label>NRIC</ion-label>
-                                <p>{{personalList.personalDetail.nric}}</p>
-                            </ion-col>
-                            <ion-col>
-                                <ion-label>Nationality</ion-label>
-                                <p>{{personalList.personalDetail.nationality}}</p>
-                            </ion-col>
-                        </ion-row>
-                        <ion-row class="detailsRow" style="flex-flow: nowrap;">
-                            <ion-col>
-                                <ion-label>Race</ion-label>
-                                <p>{{personalList.personalDetail.race}}</p>
-                            </ion-col>
-                            <ion-col>
-                                <ion-label>Religion</ion-label>
-                                <p *ngIf="!showEditProfile">{{personalList.personalDetail.religion}}</p>
-                            </ion-col>
-                        </ion-row>
-                        <ion-row class="detailsRow" style="flex-flow: nowrap;">
-                            <ion-col>
-                                <ion-label>Marital Status</ion-label>
-                                <p *ngIf="!showEditProfile">{{personalList.personalDetail.maritalStatus}}</p>
-                                <mat-form-field *ngIf="showEditProfile">
-                                    <mat-select [(value)]="items.personalDetail.maritalStatus">
-                                        <mat-option value="Single">Single</mat-option>
-                                        <mat-option value="Married">Married</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </ion-col>
-                            <ion-col>
-                                <ion-label>Personal Email Address</ion-label>
-                                <p *ngIf="!showEditProfile">{{personalList.personalDetail.emailAddress}}</p>
-                                <mat-form-field *ngIf="showEditProfile">
-                                    <input matInput [(ngModel)]="items.personalDetail.emailAddress">
-                                </mat-form-field>
-                            </ion-col>
-                        </ion-row>
-                        <ion-row class="detailsRow" style="flex-flow: nowrap;">
-                            <ion-col>
-                                <ion-label>Work Email Address</ion-label>
-                                <p *ngIf="!showEditProfile" style="white-space: nowrap;">{{personalList.personalDetail.workEmailAddress}}</p>
-                                <mat-form-field *ngIf="showEditProfile">
-                                    <input matInput [(ngModel)]="items.personalDetail.workEmailAddress">
-                                </mat-form-field>
-                            </ion-col>
-                            <ion-col>
-                                <ion-label>Personal Phone Number</ion-label>
-                                <p *ngIf="!showEditProfile" style="white-space: nowrap;">{{personalList.personalDetail.phoneNumber}}</p>
-                                <mat-form-field *ngIf="showEditProfile">
-                                    <input matInput [(ngModel)]="items.personalDetail.phoneNumber">
-                                </mat-form-field>
-                            </ion-col>
-                        </ion-row>
-                        <ion-row class="detailsRow" style="flex-flow: nowrap;">
-                            <ion-col>
-                                <ion-label>Work Phone Number</ion-label>
-                                <p *ngIf="!showEditProfile" style="white-space: nowrap;">{{personalList.personalDetail.workPhoneNumber}}</p>
-                                <mat-form-field *ngIf="showEditProfile">
-                                    <input matInput [(ngModel)]="items.personalDetail.workPhoneNumber">
-                                </mat-form-field>
-                            </ion-col>
-                        </ion-row>
-                    </ion-grid>
+                </ion-grid>
+                <ion-grid [class]="'hide-md-up'">
+                    <ion-row class="detailsRow" style="flex-flow: nowrap;">
+                        <ion-col>
+                            <ion-label>Birthdate</ion-label>
+                            <p>{{personalList.personalDetail.dob}}</p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Gender</ion-label>
+                            <p>{{personalList.personalDetail.gender}}</p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="detailsRow" style="flex-flow: nowrap;">
+                        <ion-col>
+                            <ion-label>NRIC</ion-label>
+                            <p>{{personalList.personalDetail.nric}}</p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Nationality</ion-label>
+                            <p>{{personalList.personalDetail.nationality}}</p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="detailsRow" style="flex-flow: nowrap;">
+                        <ion-col>
+                            <ion-label>Race</ion-label>
+                            <p>{{personalList.personalDetail.race}}</p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Religion</ion-label>
+                            <p *ngIf="modeValue === 'OFF'">{{personalList.personalDetail.religion}}</p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="detailsRow" style="flex-flow: nowrap;">
+                        <ion-col>
+                            <ion-label>Marital Status</ion-label>
+                            <p *ngIf="modeValue === 'OFF'">{{personalList.personalDetail.maritalStatus}}</p>
+                            <mat-form-field *ngIf="modeValue === 'ON'">
+                                <mat-select [(value)]="items.personalDetail.maritalStatus">
+                                    <mat-option value="Single">Single</mat-option>
+                                    <mat-option value="Married">Married</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Personal Email Address</ion-label>
+                            <p *ngIf="modeValue === 'OFF'">{{personalList.personalDetail.emailAddress}}</p>
+                            <mat-form-field *ngIf="modeValue === 'ON'">
+                                <input matInput [(ngModel)]="items.personalDetail.emailAddress">
+                            </mat-form-field>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="detailsRow" style="flex-flow: nowrap;">
+                        <ion-col>
+                            <ion-label>Work Email Address</ion-label>
+                            <p *ngIf="modeValue === 'OFF'" style="white-space: nowrap;">
+                                {{personalList.personalDetail.workEmailAddress}}</p>
+                            <mat-form-field *ngIf="modeValue === 'ON'">
+                                <input matInput [(ngModel)]="items.personalDetail.workEmailAddress">
+                            </mat-form-field>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Personal Phone Number</ion-label>
+                            <p *ngIf="modeValue === 'OFF'" style="white-space: nowrap;">
+                                {{personalList.personalDetail.phoneNumber}}</p>
+                            <mat-form-field *ngIf="modeValue === 'ON'">
+                                <input matInput [(ngModel)]="items.personalDetail.phoneNumber">
+                            </mat-form-field>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="detailsRow" style="flex-flow: nowrap;">
+                        <ion-col>
+                            <ion-label>Work Phone Number</ion-label>
+                            <p *ngIf="modeValue === 'OFF'" style="white-space: nowrap;">
+                                {{personalList.personalDetail.workPhoneNumber}}</p>
+                            <mat-form-field *ngIf="modeValue === 'ON'">
+                                <input matInput [(ngModel)]="items.personalDetail.workPhoneNumber">
+                            </mat-form-field>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
             </div>
-            <div style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);background-color: #ffffff;padding: 10px;padding-bottom: 20px;margin-bottom: 20px; min-width: 240px;">
+            <div
+                style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);background-color: #ffffff;padding: 10px;padding-bottom: 20px;margin-bottom: 20px; min-width: 240px;">
                 <div
                     style="font-size: 13px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
                     RESIDENTIAL ADDRESS</div>
                 <ion-row class="detailsRow">
                     <ion-col>
                         <!-- <ion-label>RESIDENTIAL ADDRESS</ion-label> -->
-                        <p *ngIf="!showEditProfile" style="display: inline">
+                        <p *ngIf="modeValue === 'OFF'" style="display: inline">
                             {{personalList.personalDetail.address1}},</p>
-                        <mat-form-field *ngIf="showEditProfile">
+                        <mat-form-field *ngIf="modeValue === 'ON'">
                             <input matInput placeholder="Address line 1" [(ngModel)]="items.personalDetail.address1">
                         </mat-form-field>
                         &nbsp;
-                        <p *ngIf="!showEditProfile" style="display: inline">
+                        <p *ngIf="modeValue === 'OFF'" style="display: inline">
                             {{personalList.personalDetail.address2}},</p>
-                        <mat-form-field *ngIf="showEditProfile">
+                        <mat-form-field *ngIf="modeValue === 'ON'">
                             <input matInput placeholder="Address line 2" [(ngModel)]="items.personalDetail.address2">
                         </mat-form-field>
                         &nbsp;
-                        <p *ngIf="!showEditProfile" style="display: inline">{{personalList.personalDetail.postcode}},
+                        <p *ngIf="modeValue === 'OFF'" style="display: inline">{{personalList.personalDetail.postcode}},
                         </p>
-                        <mat-form-field *ngIf="showEditProfile">
+                        <mat-form-field *ngIf="modeValue === 'ON'">
                             <input matInput placeholder="Postcode" [(ngModel)]="items.personalDetail.postcode">
                         </mat-form-field>
                         &nbsp;
-                        <p *ngIf="!showEditProfile" style="display: inline">{{personalList.personalDetail.city}},</p>
-                        <mat-form-field *ngIf="showEditProfile">
+                        <p *ngIf="modeValue === 'OFF'" style="display: inline">{{personalList.personalDetail.city}},</p>
+                        <mat-form-field *ngIf="modeValue === 'ON'">
                             <input matInput placeholder="City" [(ngModel)]="items.personalDetail.city">
                         </mat-form-field>
                         &nbsp;
-                        <p *ngIf="!showEditProfile" style="display: inline">{{personalList.personalDetail.state}},</p>
-                        <mat-form-field *ngIf="showEditProfile">
+                        <p *ngIf="modeValue === 'OFF'" style="display: inline">{{personalList.personalDetail.state}},
+                        </p>
+                        <mat-form-field *ngIf="modeValue === 'ON'">
                             <input matInput placeholder="State" [(ngModel)]="items.personalDetail.state">
                         </mat-form-field>
                         &nbsp;
-                        <p *ngIf="!showEditProfile" style="display: inline">{{personalList.personalDetail.country}}.</p>
-                        <mat-form-field *ngIf="showEditProfile">
+                        <p *ngIf="modeValue === 'OFF'" style="display: inline">{{personalList.personalDetail.country}}.
+                        </p>
+                        <mat-form-field *ngIf="modeValue === 'ON'">
                             <input matInput placeholder="Country" [(ngModel)]="items.personalDetail.country">
                         </mat-form-field>
                     </ion-col>
@@ -349,7 +385,8 @@
             </div>
 
             <!---------------------------------------- Emergency Contact -------------------------------------->
-            <div style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);background-color: #ffffff;padding: 10px;padding-bottom: 20px;margin-bottom: 20px; min-width: 240px;">
+            <div
+                style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);background-color: #ffffff;padding: 10px;padding-bottom: 20px;margin-bottom: 20px; min-width: 240px;">
                 <div
                     style="font-size: 13px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
                     EMERGENCY CONTACT(S)
@@ -359,26 +396,27 @@
                         <ion-row class="detailsRow" *ngFor="let item of removeItems; let index = index">
                             <ion-col>
                                 <ion-label *ngIf="index === 0" style="padding-bottom: 5px;">Contact Person</ion-label>
-                                <p *ngIf="!showEditProfile" style="display: inline">
+                                <p *ngIf="modeValue === 'OFF'" style="display: inline">
                                     {{item.contactName}}</p>
-                                <mat-form-field *ngIf="showEditProfile">
-                                    <input matInput placeholder="Contact Name" [(ngModel)]="removeItems[index].contactName">
+                                <mat-form-field *ngIf="modeValue === 'ON'">
+                                    <input matInput placeholder="Contact Name"
+                                        [(ngModel)]="removeItems[index].contactName">
                                 </mat-form-field>
                             </ion-col>
                             <ion-col>
                                 <ion-label *ngIf="index === 0" style="padding-bottom: 5px;">Relationship</ion-label>
-                                <p *ngIf="!showEditProfile" style="display: inline">
+                                <p *ngIf="modeValue === 'OFF'" style="display: inline">
                                     {{item.contactRelationship}}</p>
-                                <mat-form-field *ngIf="showEditProfile">
+                                <mat-form-field *ngIf="modeValue === 'ON'">
                                     <input matInput placeholder="Contact Relationship"
                                         [(ngModel)]="removeItems[index].contactRelationship">
                                 </mat-form-field>
                             </ion-col>
                             <ion-col>
                                 <ion-label *ngIf="index === 0" style="padding-bottom: 5px;">Phone Number</ion-label>
-                                <p *ngIf="!showEditProfile" style="display: inline;right: 50%; white-space: nowrap;">
+                                <p *ngIf="modeValue === 'OFF'" style="display: inline;right: 50%; white-space: nowrap;">
                                     {{item.contactNumber}}</p>
-                                <mat-form-field *ngIf="showEditProfile">
+                                <mat-form-field *ngIf="modeValue === 'ON'">
                                     <input matInput placeholder="Contact Number"
                                         [(ngModel)]="removeItems[index].contactNumber">
                                 </mat-form-field>
@@ -404,60 +442,70 @@
                                 </div> -->
                             </ion-col>
                             <ion-col>
-                                <div class="delete-icon" *ngIf="showEditProfile"
-                                    [inlineSVG]="'assets/icon/option/trash.svg'" (click)="removeItem(index, removeItems)">
+                                <div class="delete-icon" *ngIf="modeValue === 'ON'"
+                                    [inlineSVG]="'assets/icon/option/trash.svg'"
+                                    (click)="removeItem(index, removeItems)">
                                 </div>
                             </ion-col>
                         </ion-row>
                     </ion-grid>
-                    <ion-grid [class]="'hide-lg-up'" *ngFor="let item of removeItems; let index = index" style="display: flex;">
+                    <ion-grid [class]="'hide-lg-up'" *ngFor="let item of removeItems; let index = index"
+                        style="display: flex;">
                         <ion-col>
                             <ion-row>
-                                <ion-col *ngIf="!showEditProfile" size="3.5" style="font-weight: bold; padding: 0px 5px; height: fit-content; white-space: nowrap; min-width: fit-content;">
+                                <ion-col *ngIf="modeValue === 'OFF'" size="3.5"
+                                    style="font-weight: bold; padding: 0px 5px; height: fit-content; white-space: nowrap; min-width: fit-content;">
                                     Contact Person
                                 </ion-col>
-                                <ion-col *ngIf="!showEditProfile" style="padding: 0px 5px; height: fit-content;">: {{item.contactName}}</ion-col>
-                                <ion-col *ngIf="showEditProfile">
+                                <ion-col *ngIf="modeValue === 'OFF'" style="padding: 0px 5px; height: fit-content;">:
+                                    {{item.contactName}}</ion-col>
+                                <ion-col *ngIf="modeValue === 'ON'">
                                     <mat-form-field style="width: 100%;">
-                                        <input matInput placeholder="Contact Name" [(ngModel)]="removeItems[index].contactName">
+                                        <input matInput placeholder="Contact Name"
+                                            [(ngModel)]="removeItems[index].contactName">
                                     </mat-form-field>
                                 </ion-col>
                             </ion-row>
                             <ion-row>
-                                <ion-col *ngIf="!showEditProfile" size="3.5" style="font-weight: bold; padding: 0px 5px; height: fit-content; white-space: nowrap; min-width: fit-content;">
+                                <ion-col *ngIf="modeValue === 'OFF'" size="3.5"
+                                    style="font-weight: bold; padding: 0px 5px; height: fit-content; white-space: nowrap; min-width: fit-content;">
                                     Relationship
                                 </ion-col>
-                                <ion-col *ngIf="!showEditProfile" style="padding: 0px 5px; height: fit-content;">: {{item.contactRelationship}}</ion-col>
-                                <ion-col *ngIf="showEditProfile">
-                                    <mat-form-field *ngIf="showEditProfile" style="width: 100%;">
+                                <ion-col *ngIf="modeValue === 'OFF'" style="padding: 0px 5px; height: fit-content;">:
+                                    {{item.contactRelationship}}</ion-col>
+                                <ion-col *ngIf="modeValue === 'ON'">
+                                    <mat-form-field *ngIf="modeValue === 'ON'" style="width: 100%;">
                                         <input matInput placeholder="Contact Relationship"
                                             [(ngModel)]="removeItems[index].contactRelationship">
                                     </mat-form-field>
                                 </ion-col>
                             </ion-row>
                             <ion-row>
-                                <ion-col *ngIf="!showEditProfile" size="3.5" style="font-weight: bold; padding: 0px 5px; height: fit-content; white-space: nowrap; min-width: fit-content;">
+                                <ion-col *ngIf="modeValue === 'OFF'" size="3.5"
+                                    style="font-weight: bold; padding: 0px 5px; height: fit-content; white-space: nowrap; min-width: fit-content;">
                                     Phone Number
                                 </ion-col>
-                                <ion-col *ngIf="!showEditProfile" style="padding: 0px 5px; height: fit-content;">: {{item.contactNumber}}</ion-col>
-                                <ion-col *ngIf="showEditProfile">
-                                    <mat-form-field *ngIf="showEditProfile" style="width: 100%;">
+                                <ion-col *ngIf="modeValue === 'OFF'" style="padding: 0px 5px; height: fit-content;">:
+                                    {{item.contactNumber}}</ion-col>
+                                <ion-col *ngIf="modeValue === 'ON'">
+                                    <mat-form-field *ngIf="modeValue === 'ON'" style="width: 100%;">
                                         <input matInput placeholder="Contact Number"
                                             [(ngModel)]="removeItems[index].contactNumber">
                                     </mat-form-field>
                                 </ion-col>
                             </ion-row>
                         </ion-col>
-                        <ion-col *ngIf="showEditProfile" size="1" style="align-self: center;">
-                            <div class="delete-icon"
-                                [inlineSVG]="'assets/icon/option/trash.svg'" (click)="removeItem(index, removeItems)">
+                        <ion-col *ngIf="modeValue === 'ON'" size="1" style="align-self: center;">
+                            <div class="delete-icon" [inlineSVG]="'assets/icon/option/trash.svg'"
+                                (click)="removeItem(index, removeItems)">
                             </div>
                         </ion-col>
                     </ion-grid>
-                    <ion-row class="detailsRow" *ngIf="showEditProfile">
+                    <ion-row class="detailsRow" *ngIf="modeValue === 'ON'">
                         <ion-icon name="add-circle-outline" style="color: #3b86ff;padding-top: 2px;padding-right: 10px;
-                    padding-left: 0.5%;font-size: 16px;cursor: pointer;"></ion-icon>
-                        <span style="color:#3b86ff; cursor: pointer;" (click)="addList(removeItems, contactObj)">Add
+                    padding-left: 0.5%;font-size: 16px;cursor: pointer;" (click)="addList(removeItems, contactObj)">
+                        </ion-icon>
+                        <span style="color:#3b86ff;">Add
                             emergency contact</span>
                     </ion-row>
                 </div>
@@ -477,17 +525,17 @@
                     <ion-row class="detailsRow" *ngFor="let item of spouseItems; let index = index">
                         <ion-col>
                             <ion-label style="padding-bottom: 5px;" *ngIf="index === 0">Spouse</ion-label>
-                            <p *ngIf="!showEditProfile" style="display: inline">
+                            <p *ngIf="modeValue === 'OFF'" style="display: inline">
                                 {{item.spouseName}}</p>
-                            <mat-form-field *ngIf="showEditProfile">
+                            <mat-form-field *ngIf="modeValue === 'ON'">
                                 <input matInput placeholder="Spouse Name" [(ngModel)]="spouseItems[index].spouseName">
                             </mat-form-field>
                         </ion-col>
                         <ion-col>
                             <ion-label style="padding-bottom: 5px;" *ngIf="index === 0">NRIC</ion-label>
-                            <p *ngIf="!showEditProfile" style="display: inline; right: 40%;">
+                            <p *ngIf="modeValue === 'OFF'" style="display: inline; right: 40%;">
                                 {{item.spouseIdentificationNumber}}</p>
-                            <mat-form-field *ngIf="showEditProfile">
+                            <mat-form-field *ngIf="modeValue === 'ON'">
                                 <input matInput placeholder="Identity card Number"
                                     [(ngModel)]="spouseItems[index].spouseIdentificationNumber">
                             </mat-form-field>
@@ -513,15 +561,16 @@
                         </ion-col>
                         <ion-col></ion-col>
                         <ion-col>
-                            <div class="delete-icon" *ngIf="showEditProfile"
+                            <div class="delete-icon" *ngIf="modeValue === 'ON'"
                                 [inlineSVG]="'assets/icon/option/trash.svg'" (click)="removeItem(index, spouseItems)">
                             </div>
                         </ion-col>
                     </ion-row>
-                    <ion-row class="detailsRow" *ngIf="showEditProfile">
+                    <ion-row class="detailsRow" *ngIf="modeValue === 'ON'">
                         <ion-icon name="add-circle-outline" style="color: #3b86ff;padding-top: 2px;padding-right: 10px;
-                padding-left: 0.5%;font-size: 16px;cursor: pointer;"></ion-icon>
-                        <span style="color:#3b86ff; cursor: pointer;" (click)="addList(spouseItems, spouseObj)">Add
+                padding-left: 0.5%;font-size: 16px;cursor: pointer;" (click)="addList(spouseItems, spouseObj)">
+                        </ion-icon>
+                        <span style="color:#3b86ff;">Add
                             spouse</span>
                     </ion-row>
                     <!-- child -->
@@ -530,17 +579,17 @@
                     <ion-row class="detailsRow" *ngFor="let item of childItems; let index = index">
                         <ion-col>
                             <ion-label style="padding-bottom: 5px;" *ngIf="index === 0">Child</ion-label>
-                            <p *ngIf="!showEditProfile" style="display: inline">
+                            <p *ngIf="modeValue === 'OFF'" style="display: inline">
                                 {{item.childName}}</p>
-                            <mat-form-field *ngIf="showEditProfile">
+                            <mat-form-field *ngIf="modeValue === 'ON'">
                                 <input matInput placeholder="Child Name" [(ngModel)]="childItems[index].childName">
                             </mat-form-field>
                         </ion-col>
                         <ion-col>
                             <ion-label style="padding-bottom: 5px;" *ngIf="index === 0">NRIC</ion-label>
-                            <p *ngIf="!showEditProfile" style="display: inline;right: 40%;">
+                            <p *ngIf="modeValue === 'OFF'" style="display: inline;right: 40%;">
                                 {{item.childIdentificationNumber}}</p>
-                            <mat-form-field *ngIf="showEditProfile">
+                            <mat-form-field *ngIf="modeValue === 'ON'">
                                 <input matInput placeholder="Identity card Number"
                                     [(ngModel)]="childItems[index].childIdentificationNumber">
                             </mat-form-field>
@@ -566,15 +615,16 @@
                         </ion-col>
                         <ion-col></ion-col>
                         <ion-col>
-                            <div class="delete-icon" *ngIf="showEditProfile"
+                            <div class="delete-icon" *ngIf="modeValue === 'ON'"
                                 [inlineSVG]="'assets/icon/option/trash.svg'" (click)="removeItem(index, childItems)">
                             </div>
                         </ion-col>
                     </ion-row>
-                    <ion-row class="detailsRow" *ngIf="showEditProfile">
+                    <ion-row class="detailsRow" *ngIf="modeValue === 'ON'">
                         <ion-icon name="add-circle-outline" style="color: #3b86ff;padding-top: 2px;padding-right: 10px;
-                    padding-left: 0.5%;font-size: 16px;cursor: pointer;"></ion-icon>
-                        <span style="color:#3b86ff; cursor: pointer;" (click)="addList(childItems, childObj)">Add
+                    padding-left: 0.5%;font-size: 16px;cursor: pointer;" (click)="addList(childItems, childObj)">
+                        </ion-icon>
+                        <span style="color:#3b86ff;">Add
                             child</span>
                     </ion-row>
                 </div>
@@ -605,36 +655,36 @@
                     </ion-row>
                     <ion-row class="detailsRow" *ngFor="let item of eduList; let index = index">
                         <ion-col size="3">
-                            <p *ngIf="!showEditProfile">
+                            <p *ngIf="modeValue === 'OFF'">
                                 {{item.qualificationLevel}}</p>
-                            <mat-form-field *ngIf="showEditProfile" style="width: 100%;">
+                            <mat-form-field *ngIf="modeValue === 'ON'" style="width: 100%;">
                                 <input matInput placeholder="Education Level"
                                     [(ngModel)]="eduList[index].qualificationLevel">
                             </mat-form-field>
                         </ion-col>
                         <ion-col size="3">
-                            <p *ngIf="!showEditProfile">
+                            <p *ngIf="modeValue === 'OFF'">
                                 {{item.major}}</p>
-                            <mat-form-field *ngIf="showEditProfile" style="width: 100%;">
+                            <mat-form-field *ngIf="modeValue === 'ON'" style="width: 100%;">
                                 <input matInput placeholder="Major" [(ngModel)]="eduList[index].major">
                             </mat-form-field>
                         </ion-col>
                         <ion-col size="3">
-                            <p *ngIf="!showEditProfile">
+                            <p *ngIf="modeValue === 'OFF'">
                                 {{item.university}}</p>
-                            <mat-form-field *ngIf="showEditProfile" style="width: 100%;">
+                            <mat-form-field *ngIf="modeValue === 'ON'" style="width: 100%;">
                                 <input matInput placeholder="University" [(ngModel)]="eduList[index].university">
                             </mat-form-field>
                         </ion-col>
                         <ion-col size="2">
-                            <p *ngIf="!showEditProfile">
+                            <p *ngIf="modeValue === 'OFF'">
                                 {{item.year}}</p>
-                            <mat-form-field *ngIf="showEditProfile" style="width: 100%;">
+                            <mat-form-field *ngIf="modeValue === 'ON'" style="width: 100%;">
                                 <input matInput placeholder="Year" [(ngModel)]="eduList[index].year">
                             </mat-form-field>
                         </ion-col>
                         <ion-col size="1">
-                            <div class="education-delete-icon" *ngIf="showEditProfile"
+                            <div class="education-delete-icon" *ngIf="modeValue === 'ON'"
                                 [inlineSVG]="'assets/icon/option/trash.svg'" (click)="removeItem(index, eduList)">
                             </div>
                             <!-- <div class="education-edit-pencil-icon" *ngIf="!displayEditEdu[index]"
@@ -655,10 +705,10 @@
                             </ion-button>
                         </div> -->
                     </ion-row>
-                    <ion-row class="detailsRow" *ngIf="showEditProfile">
+                    <ion-row class="detailsRow" *ngIf="modeValue === 'ON'">
                         <ion-icon name="add-circle-outline" style="color: #3b86ff;padding-top: 2px;padding-right: 10px;
-        padding-left: 0.5%;font-size: 16px;cursor: pointer;"></ion-icon>
-                        <span style="color:#3b86ff; cursor: pointer;" (click)="addList(eduList, educationObj)">
+        padding-left: 0.5%;font-size: 16px;cursor: pointer;" (click)="addList(eduList, educationObj)"></ion-icon>
+                        <span style="color:#3b86ff;">
                             Add education qualification</span>
                     </ion-row>
                 </div>
@@ -666,60 +716,73 @@
 
             <div [class]="'hide-lg-up'" style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);">
                 <div style="background-color: #ffffff;padding: 10px;padding-bottom: 20px;margin-bottom: 20px;">
-                    <div style="font-size: 13px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px; margin-bottom: 5px; color: #a3a6b4;font-weight: bold;">
+                    <div
+                        style="font-size: 13px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px; margin-bottom: 5px; color: #a3a6b4;font-weight: bold;">
                         EDUCATION QUALIFICATION
                     </div>
                     <ion-grid style="display: flex; padding: 10px;" *ngFor="let item of eduList; let index = index">
                         <ion-col>
                             <ion-row>
-                                <ion-col *ngIf="!showEditProfile" size="3" style="font-weight: bold; padding: 0px 5px; height: fit-content;">Level</ion-col>
-                                <ion-col *ngIf="!showEditProfile" style="padding: 0px 5px; height: fit-content;">: {{item.qualificationLevel}}</ion-col>
-                                <ion-col *ngIf="showEditProfile">
+                                <ion-col *ngIf="modeValue === 'OFF'" size="3"
+                                    style="font-weight: bold; padding: 0px 5px; height: fit-content;">Level</ion-col>
+                                <ion-col *ngIf="modeValue === 'OFF'" style="padding: 0px 5px; height: fit-content;">:
+                                    {{item.qualificationLevel}}</ion-col>
+                                <ion-col *ngIf="modeValue === 'ON'">
                                     <mat-form-field style="width: 100%;">
-                                        <input matInput placeholder="Education Level" [(ngModel)]="eduList[index].qualificationLevel">
+                                        <input matInput placeholder="Education Level"
+                                            [(ngModel)]="eduList[index].qualificationLevel">
                                     </mat-form-field>
                                 </ion-col>
                             </ion-row>
                             <ion-row>
-                                <ion-col *ngIf="!showEditProfile" size="3" style="font-weight: bold; padding: 0px 5px; height: fit-content;">Major</ion-col>
-                                <ion-col *ngIf="!showEditProfile" style="padding: 0px 5px; height: fit-content;">: {{item.major}}</ion-col>
-                                <ion-col *ngIf="showEditProfile">
+                                <ion-col *ngIf="modeValue === 'OFF'" size="3"
+                                    style="font-weight: bold; padding: 0px 5px; height: fit-content;">Major</ion-col>
+                                <ion-col *ngIf="modeValue === 'OFF'" style="padding: 0px 5px; height: fit-content;">:
+                                    {{item.major}}</ion-col>
+                                <ion-col *ngIf="modeValue === 'ON'">
                                     <mat-form-field style="width: 100%;">
                                         <input matInput placeholder="Major" [(ngModel)]="eduList[index].major">
                                     </mat-form-field>
                                 </ion-col>
                             </ion-row>
                             <ion-row>
-                                <ion-col *ngIf="!showEditProfile" size="3" style="font-weight: bold; padding: 0px 5px; height: fit-content;">University</ion-col>
-                                <ion-col *ngIf="!showEditProfile" style="padding: 0px 5px; height: fit-content;">: {{item.university}}</ion-col>
-                                <ion-col *ngIf="showEditProfile">
+                                <ion-col *ngIf="modeValue === 'OFF'" size="3"
+                                    style="font-weight: bold; padding: 0px 5px; height: fit-content;">University
+                                </ion-col>
+                                <ion-col *ngIf="modeValue === 'OFF'" style="padding: 0px 5px; height: fit-content;">:
+                                    {{item.university}}</ion-col>
+                                <ion-col *ngIf="modeValue === 'ON'">
                                     <mat-form-field style="width: 100%;">
-                                        <input matInput placeholder="University" [(ngModel)]="eduList[index].university">
+                                        <input matInput placeholder="University"
+                                            [(ngModel)]="eduList[index].university">
                                     </mat-form-field>
                                 </ion-col>
                             </ion-row>
                             <ion-row>
-                                <ion-col *ngIf="!showEditProfile" size="3" style="font-weight: bold; padding: 0px 5px; height: fit-content;">Year</ion-col>
-                                <ion-col *ngIf="!showEditProfile" style="padding: 0px 5px; height: fit-content;">: {{item.year}}</ion-col>
-                                <ion-col *ngIf="showEditProfile">
+                                <ion-col *ngIf="modeValue === 'OFF'" size="3"
+                                    style="font-weight: bold; padding: 0px 5px; height: fit-content;">Year</ion-col>
+                                <ion-col *ngIf="modeValue === 'OFF'" style="padding: 0px 5px; height: fit-content;">:
+                                    {{item.year}}</ion-col>
+                                <ion-col *ngIf="modeValue === 'ON'">
                                     <mat-form-field style="width: 100%;">
                                         <input matInput placeholder="Year" [(ngModel)]="eduList[index].year">
                                     </mat-form-field>
                                 </ion-col>
                             </ion-row>
                         </ion-col>
-                        <ion-col  *ngIf="showEditProfile" size="1" style="align-self: center;">
-                            <div class="education-delete-icon"
-                                [inlineSVG]="'assets/icon/option/trash.svg'" (click)="removeItem(index, eduList)">
+                        <ion-col *ngIf="modeValue === 'ON'" size="1" style="align-self: center;">
+                            <div class="education-delete-icon" [inlineSVG]="'assets/icon/option/trash.svg'"
+                                (click)="removeItem(index, eduList)">
                             </div>
                         </ion-col>
-                        
+
                     </ion-grid>
 
-                    <ion-row class="detailsRow" *ngIf="showEditProfile">
+                    <ion-row class="detailsRow" *ngIf="modeValue === 'ON'">
                         <ion-icon name="add-circle-outline" style="color: #3b86ff;padding-top: 2px;padding-right: 10px;
-                            padding-left: 0.5%;font-size: 16px;cursor: pointer;"></ion-icon>
-                        <span style="color:#3b86ff; cursor: pointer;" (click)="addList(eduList, educationObj)">
+                            padding-left: 0.5%;font-size: 16px;cursor: pointer;"
+                            (click)="addList(eduList, educationObj)"></ion-icon>
+                        <span style="color:#3b86ff;">
                             Add education qualification</span>
                     </ion-row>
                 </div>
@@ -752,4 +815,3 @@
         </ion-card-content>
     </div>
 </ion-card>
-

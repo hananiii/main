@@ -13,6 +13,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { SpinnerModule } from 'src/library/spinner/spinner.module';
+import { EditModeDialogComponent } from '../edit-mode-dialog/edit-mode-dialog.component';
 
 
 const routes: Routes = [
@@ -39,6 +40,7 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   providers: [],
-  declarations: [PersonalDetailsComponent]
+  declarations: [PersonalDetailsComponent, EditModeDialogComponent],
+  entryComponents: [EditModeDialogComponent]
 })
 export class PersonalDetailsModule { }

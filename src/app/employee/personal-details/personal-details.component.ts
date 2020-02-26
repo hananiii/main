@@ -3,8 +3,9 @@ import { APIService } from 'src/services/shared-service/api.service';
 import { Validators, FormControl } from '@angular/forms';
 import * as _moment from 'moment';
 import { genderStatus, maritalStatus, PersonalDetailsService } from './personal-details.service';
-import { MAT_DATE_FORMATS, DateAdapter } from '@angular/material';
+import { MAT_DATE_FORMATS, DateAdapter, MatDialog } from '@angular/material';
 import { APP_DATE_FORMATS, AppDateAdapter } from '../date.adapter';
+import { EditModeDialogComponent } from '../edit-mode-dialog/edit-mode-dialog.component';
 const moment = _moment;
 /**
  * Personal Details Page
@@ -174,6 +175,13 @@ export class PersonalDetailsComponent implements OnInit {
     public employ: any;
 
     public employDetails: any;
+
+    /**
+     * toggle button value
+     * @type {string}
+     * @memberof PersonalDetailsComponent
+     */
+    public modeValue: string = 'OFF';
     /**
      * Return API content of personal details
      * @readonly
@@ -186,10 +194,10 @@ export class PersonalDetailsComponent implements OnInit {
     /**
      *Creates an instance of PersonalDetailsComponent.
      * @param {APIService} apiService
-     * @param {PersonalDetailsService} xservice
+     * @param {MatDialog} dialog
      * @memberof PersonalDetailsComponent
      */
-    constructor(private apiService: APIService, private xservice: PersonalDetailsService) {
+    constructor(private apiService: APIService, private dialog: MatDialog) {
     }
 
     /**
@@ -224,6 +232,26 @@ export class PersonalDetailsComponent implements OnInit {
                     window.location.href = '/login';
                 }
             });
+    }
+
+    /**
+     * toggle on/off of edit mode
+     * @param {*} event
+     * @memberof PersonalDetailsComponent
+     */
+    toggleEvent(event) {
+        if (event.detail.checked === true) {
+            this.modeValue = 'ON';
+            this.dialog.open(EditModeDialogComponent, {
+                data: 'personal',
+                height: "343.3px",
+                width: "383px"
+            });
+        } else {
+            this.modeValue = 'OFF'
+            this.patchData();
+        }
+        // this.sharedService.emitChange(this.modeValue);
     }
 
     /**
@@ -381,7 +409,7 @@ export class PersonalDetailsComponent implements OnInit {
      */
     patchData() {
         this.showEditProfile = false;
-        this.apiService.patch_personal_details(this.data()).subscribe(
+        this.apiService.patch_user_info_personal_id(this.data(), this.items.id).subscribe(
             (val) => {
                 this.apiService.get_personal_details().subscribe(
                     (data: any[]) => {
@@ -404,12 +432,13 @@ export class PersonalDetailsComponent implements OnInit {
      */
     data() {
         return {
-            "id": this.items.id,
-            "nickname": 'wantan',
+            // "id": this.items.id,
+            "fullname": this.items.personalDetail.fullname,
+            "nickname": this.items.personalDetail.nickname,
             "nric": this.items.personalDetail.nric.toString(),
             "dob": moment(this.firstPicker.value).format('YYYY-MM-DD'),
-            "gender": genderStatus[this.items.personalDetail.gender],
-            "maritalStatus": maritalStatus[this.items.personalDetail.maritalStatus],
+            "gender": this.items.personalDetail.gender,
+            "maritalStatus": this.items.personalDetail.maritalStatus,
             "race": this.items.personalDetail.race,
             "religion": this.items.personalDetail.religion,
             "nationality": this.items.personalDetail.nationality,
@@ -419,11 +448,12 @@ export class PersonalDetailsComponent implements OnInit {
             "workEmailAddress": this.items.personalDetail.workEmailAddress,
             "address1": this.items.personalDetail.address1.toString(),
             "address2": this.items.personalDetail.address2.toString(),
-            "postcode": this.items.personalDetail.postcode.toString(),
+            "postcode": this.items.personalDetail.postcode,
             "city": this.items.personalDetail.city,
             "state": this.items.personalDetail.state,
             "country": this.items.personalDetail.country,
             "emergencyContact": { "contacts": this.removeItems },
+            "certification": this.items.personalDetail.certification,
             "education": { "educationDetail": this.eduList },
             "family": {
                 "spouse": this.spouseItems,
