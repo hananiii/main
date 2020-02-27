@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { APIService } from 'src/services/shared-service/api.service';
 import { Router } from '@angular/router';
-import { PersonalDetailsService } from '../personal-details/personal-details.service';
 import { LeavePlanningAPIService } from './leave-planning/leave-planning-api.service';
 /**
  * Leave Entitlement Page
@@ -27,27 +26,13 @@ export class LeaveEntitlementsComponent implements OnInit {
      * @memberof LeaveEntitlementsComponent
      */
     public employeeDetails;
-    
+
     /**
      * This is local property used to show header profile completeness
      * @type {boolean}
      * @memberof LeaveEntitlementsComponent
      */
     public showHeader: boolean = true;
-
-    /**
-     * This is local property used to show profile completeness %
-     * @type {number}
-     * @memberof LeaveEntitlementsComponent
-     */
-    // public progressPercentage: number = 80;
-
-    /**
-     * This is local property used to show arrow down icon
-     * @type {boolean}
-     * @memberof LeaveEntitlementsComponent
-     */
-    // public arrowDown: boolean = true;
 
     /**
      * This is local property used to get the entitlement details from API
@@ -83,16 +68,6 @@ export class LeaveEntitlementsComponent implements OnInit {
    * @memberof LeaveEntitlementsComponent
    */
     public showContent: boolean = false;
-
-    /**
-     * Return either arrow down or arrow up icon 
-     * @readonly
-     * @type {boolean}
-     * @memberof LeaveEntitlementsComponent
-     */
-    // public get sortDirectionArrowDown(): boolean {
-    //     return this.arrowDown;
-    // }
 
     /**
      * Return API content
@@ -131,7 +106,7 @@ export class LeaveEntitlementsComponent implements OnInit {
 
         this.apiService.get_user_info_employment_details().subscribe(
             dataUserDtls => {
-                this.employeeDetails =  dataUserDtls;
+                this.employeeDetails = dataUserDtls;
             }
         )
         this.apiLeave.get_entilement_details().subscribe(data => {
@@ -152,34 +127,6 @@ export class LeaveEntitlementsComponent implements OnInit {
         this.leaveType = leaveType;
         this.leaveBalance = leaveBalance;
     }
-
-    /**
-     * This method is used to sort leave type column in ascending order
-     * @memberof LeaveEntitlementsComponent
-     */
-    // sortAscLeaveType() {
-    //     this.arrowDown = true;
-    //     this.entitlement = this.entitlement.slice(0);
-    //     this.entitlement.sort(function (a, b) {
-    //         const nameX = a.leaveTypeName.toLowerCase();
-    //         const nameY = b.leaveTypeName.toLowerCase();
-    //         return nameX < nameY ? -1 : nameX > nameY ? 1 : 0;
-    //     });
-    // }
-
-    /**
-     * This method is used to sort leave type column in descending order
-     * @memberof LeaveEntitlementsComponent
-     */
-    // sortDesLeaveType() {
-    //     this.arrowDown = false;
-    //     this.entitlement = this.entitlement.slice(0);
-    //     this.entitlement.sort(function (a, b) {
-    //         const nameX = a.leaveTypeName.toLowerCase();
-    //         const nameY = b.leaveTypeName.toLowerCase();
-    //         return nameX < nameY ? 1 : nameX > nameY ? -1 : 0;
-    //     });
-    // }
 }
 
 
