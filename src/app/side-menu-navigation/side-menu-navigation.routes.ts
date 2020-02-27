@@ -30,14 +30,13 @@ export const sideMenuNavigationRoutes: Routes = [
                 ]
             },
             {
-                path: 'employee-setup', component: EmployeeSetupComponent,
+                path: 'profile', component: EmployeeSetupComponent,
                 children: [
                     { path: '', redirectTo: 'personal-details', pathMatch: 'full' },
                     { path: 'personal-details', component: PersonalDetailsComponent },
                     { path: 'employment-details/:id', component: EmploymentDetailsComponent },
                     { path: 'leave-entitlement', component: LeaveEntitlementsComponent },
                     { path: 'awards-certification', component: AwardCertificationComponent },
-                    // { path: 'connection', component: ConnectionsPage },
                     { path: 'account', component: AccountSettingComponent }
                 ]
             }

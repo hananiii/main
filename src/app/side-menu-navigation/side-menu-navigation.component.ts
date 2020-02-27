@@ -78,7 +78,7 @@ export class SideMenuNavigationComponent implements OnInit {
     },
     {
       title: 'Profile',
-      url: '/main/employee-setup',
+      url: '/main/profile',
       icon: 'profile.svg'
     },
     {

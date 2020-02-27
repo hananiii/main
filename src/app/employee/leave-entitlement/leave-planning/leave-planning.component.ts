@@ -67,6 +67,6 @@ export class LeavePlanningComponent implements OnInit {
      * @memberof LeavePlanningComponent
      */
     backToProfile() {
-        this.router.navigate(['/main/employee-setup/leave-entitlement']);
+        this.router.navigate(['/main/profile/leave-entitlement']);
     }
 }

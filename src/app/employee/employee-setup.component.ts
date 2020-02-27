@@ -81,32 +81,27 @@ export class EmployeeSetupComponent implements OnInit {
   public employeeSetupPage: ISubSideMenu[] = [
     {
       title: 'Personal Details',
-      url: ['/main/employee-setup/personal-details'],
+      url: ['/main/profile/personal-details'],
       icon: 'icon_user@3x.png',
     },
     {
       title: 'Employment Details',
-      url: ['/main/employee-setup/employment-details', this.userId],
+      url: ['/main/profile/employment-details', this.userId],
       icon: 'icon_org_profile@3x.png',
     },
     {
       title: 'Leave Entitlement',
-      url: ['/main/employee-setup/leave-entitlement'],
+      url: ['/main/profile/leave-entitlement'],
       icon: 'icon_calendar@3x.png',
     },
     {
       title: 'Awards & Certification',
-      url: ['/main/employee-setup/awards-certification'],
+      url: ['/main/profile/awards-certification'],
       icon: 'icon_users_roles@3x.png',
     },
-    // {
-    //   title: 'My Connections',
-    //   url: ['/main/employee-setup/connection'],
-    //   icon: 'people',
-    // },
     {
       title: 'Account Settings',
-      url: ['/main/employee-setup/account'],
+      url: ['/main/profile/account'],
       icon: 'icon_setting@3x.png',
     }
   ];
@@ -147,7 +142,7 @@ export class EmployeeSetupComponent implements OnInit {
     this.apiService.get_personal_details().subscribe(data => {
       this.userId = data.id;
       this.list = data;
-      this.employeeSetupPage[1].url = ['/main/employee-setup/employment-details', this.userId];
+      this.employeeSetupPage[1].url = ['/main/profile/employment-details', this.userId];
     });
     this.checkUrl(this.router.url);
   }
@@ -161,7 +156,7 @@ export class EmployeeSetupComponent implements OnInit {
     const splitUrl = url.split('/');
     this.lastSegment = splitUrl.pop();
     const joinSplitUrl = splitUrl.join('/');
-    if (joinSplitUrl === '/main/employee-setup/employment-details') {
+    if (joinSplitUrl === '/main/profile/employment-details') {
       this.getIndexToShowArrow(1);
     } else {
       for (let i = 0; i < this.employeeSetupPage.length; i++) {
@@ -183,7 +178,7 @@ export class EmployeeSetupComponent implements OnInit {
       this.router.navigate(this.employeeSetupPage[index].url);
     } else {
       if (this.userId === undefined) {
-        this.employeeSetupPage[1].url = ['/main/employee-setup/employment-details', this.lastSegment];
+        this.employeeSetupPage[1].url = ['/main/profile/employment-details', this.lastSegment];
         this.router.navigate(this.employeeSetupPage[index].url);
       }
       this.router.navigate(this.employeeSetupPage[index].url);
