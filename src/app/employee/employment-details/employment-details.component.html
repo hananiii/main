@@ -8,8 +8,9 @@
     <div style="width: 100%; height:100%; text-align: center; margin-top: -30px" *ngIf="showSpinner">
         <app-spinner></app-spinner>
     </div>
-    <ion-card-header *ngIf="showContent" [class]="'hide-sm-down'" style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);">
-        <div *ngIf="!showEditProfile" style="right: 25px; position: absolute;" (click)="showEditProfile = true;">
+    <ion-card-header *ngIf="showContent" [class]="'hide-sm-down'"
+        style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);">
+        <!-- <div *ngIf="!showEditProfile" style="right: 25px; position: absolute;" (click)="showEditProfile = true;">
             <ion-button
                 style="font-size: 12px;margin-top: 12px;height: 30px;width: 124px;display: inline-block; text-transform: capitalize"
                 color="primary" [ngx-scroll-to]="'destination'">Edit
@@ -27,6 +28,17 @@
                 style="font-size: 12px;height: 30px;width:124px;cursor: pointer;text-transform: none;" color="primary">
                 Save
             </ion-button>
+        </div> -->
+        <div style="right: 75px;top: 25px;position: absolute;">
+            <p
+                style="margin-top: 16px;opacity: 0.8;font-size: 12px;font-weight: bold;color: #43425d;display: inline-block;padding-right: 10px;">
+                Edit
+                Mode: {{modeValue}}</p>
+            <div style="display: inline-block;position: absolute;margin-top: 12px;">
+                <ion-toggle style="zoom:0.70;--background: #a5a4bf;" mode="ios" color="secondary"
+                    (ionChange)="mainToggle($event)">
+                </ion-toggle>
+            </div>
         </div>
         <div class="fullContainer">
             <div class="left">
@@ -34,16 +46,16 @@
                     <img src="assets/icon/chris.jpg">
                 </ion-avatar>
             </div>
-            <div class="right" *ngIf="personalList">
+            <div class="right" *ngIf="personalList && personalDetail">
                 <ion-card-subtitle style="color: #43425d;opacity: 0.8;font-weight: bold;">
                     {{personalList.employeeName}}
                 </ion-card-subtitle>
                 <ion-card-subtitle class="subtitle">
-                    {{personalList.employeeDesignation}}</ion-card-subtitle>
-                <ion-card-subtitle class="subtitle">{{personalList.employeeDepartment}}
+                    {{personalDetail.employeeDesignation}}</ion-card-subtitle>
+                <ion-card-subtitle class="subtitle">{{personalDetail.employeeDepartment}}
                 </ion-card-subtitle>
                 <ion-card-subtitle class="subtitle">
-                    {{personalList.employmentDetail.workLocation}}
+                    {{personalDetail.employeeLocation}}
                 </ion-card-subtitle>
             </div>
             <!-- <div class="left">
@@ -74,27 +86,39 @@
             </div> -->
         </div>
     </ion-card-header>
-    <ion-card-header *ngIf="showContent" [class]="'hide-sm-up'" style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04); flex-flow: column-reverse;">
+    <ion-card-header *ngIf="showContent" [class]="'hide-sm-up'"
+        style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04); flex-flow: column-reverse;">
         <div class="fullContainer" style="flex-flow: inherit;">
             <div class="left">
                 <ion-avatar class="avatar">
                     <img src="assets/icon/chris.jpg">
                 </ion-avatar>
             </div>
-            <div class="right" *ngIf="personalList">
+            <div class="right" *ngIf="personalList && personalDetail">
                 <ion-card-subtitle style="color: #43425d;opacity: 0.8;font-weight: bold;">
                     {{personalList.employeeName}}
                 </ion-card-subtitle>
                 <ion-card-subtitle class="subtitle">
-                    {{personalList.employeeDesignation}}</ion-card-subtitle>
-                <ion-card-subtitle class="subtitle">{{personalList.employeeDepartment}}
+                    {{personalDetail.employeeDesignation}}</ion-card-subtitle>
+                <ion-card-subtitle class="subtitle">{{personalDetail.employeeDepartment}}
                 </ion-card-subtitle>
                 <ion-card-subtitle class="subtitle">
-                    {{personalList.employmentDetail.workLocation}}
+                    {{personalDetail.employeeLocation}}
                 </ion-card-subtitle>
             </div>
         </div>
-        <div *ngIf="!showEditProfile" style="right: 25px;  position: static; display: flex; justify-content: flex-end;" (click)="showEditProfile = true;">
+        <div style="right: 75px;top: 25px;position: absolute;">
+            <p
+                style="margin-top: 16px;opacity: 0.8;font-size: 12px;font-weight: bold;color: #43425d;display: inline-block;padding-right: 10px;">
+                Edit
+                Mode: {{modeValue}}</p>
+            <div style="display: inline-block;position: absolute;margin-top: 12px;">
+                <ion-toggle style="zoom:0.70;--background: #a5a4bf;" mode="ios" color="secondary"
+                    (ionChange)="mainToggle($event)">
+                </ion-toggle>
+            </div>
+        </div>
+        <!-- <div *ngIf="!showEditProfile" style="right: 25px;  position: static; display: flex; justify-content: flex-end;" (click)="showEditProfile = true;">
             <ion-button
                 style="font-size: 12px;margin-top: 12px;height: 30px;width: 124px;display: inline-block; text-transform: capitalize; position: static; align-self: flex-end;"
                 color="primary" [ngx-scroll-to]="'destination'">Edit
@@ -112,11 +136,12 @@
                 style="font-size: 12px;height: 30px;width:124px;cursor: pointer;text-transform: none;" color="primary">
                 Save
             </ion-button>
-        </div>
+        </div> -->
     </ion-card-header>
     <div class="cardContent" *ngIf="personalList && showContent">
         <ion-card-content>
-            <div style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);background-color: #ffffff;padding: 10px;padding-bottom: 20px;margin-bottom: 20px;">
+            <div
+                style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);background-color: #ffffff;padding: 10px;padding-bottom: 20px;margin-bottom: 20px;">
                 <div
                     style="font-size: 13px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
                     GENERAL</div>
@@ -152,18 +177,19 @@
                         </ion-col>
                         <ion-col>
                             <ion-label>Date Of Join</ion-label>
-                            <p style="white-space: nowrap;">{{personalList.employmentDetail.dateOfJoin}}</p>
+                            <p style="white-space: nowrap;">
+                                {{personalList.employmentDetail.dateOfJoin | date: 'dd-MM-yyyy'}}</p>
                         </ion-col>
                         <ion-col></ion-col>
                     </ion-row>
                     <ion-row class="detailsRow">
                         <ion-col>
                             <ion-label>Confirmation Date</ion-label>
-                            <p>{{personalList.employmentDetail.dateOfConfirmation}}</p>
+                            <p>{{personalList.employmentDetail.dateOfConfirmation | date: 'dd-MM-yyyy'}}</p>
                         </ion-col>
                         <ion-col>
                             <ion-label>Resignation Date</ion-label>
-                            <p>{{personalList.employmentDetail.dateOfResign}}</p>
+                            <p>{{personalList.employmentDetail.dateOfResignation | date: 'dd-MM-yyyy'}}</p>
                         </ion-col>
                         <ion-col>
                             <ion-label>Year Of Service</ion-label>
@@ -176,7 +202,7 @@
                     <ion-row>
                         <ion-col>
                             <ion-label>Employee Number</ion-label>
-                            <p>{{personalList.employmentDetail.employeeId}}</p>
+                            <p>{{personalList.employmentDetail.employeeId }}</p>
                         </ion-col>
                         <ion-col>
                             <ion-label>Designation</ion-label>
@@ -205,17 +231,18 @@
                         </ion-col>
                         <ion-col>
                             <ion-label>Date Of Join</ion-label>
-                            <p style="white-space: nowrap;">{{personalList.employmentDetail.dateOfJoin}}</p>
+                            <p style="white-space: nowrap;">
+                                {{personalList.employmentDetail.dateOfJoin | date: 'dd-MM-yyyy'}}</p>
                         </ion-col>
                     </ion-row>
                     <ion-row>
                         <ion-col>
                             <ion-label>Confirmation Date</ion-label>
-                            <p>{{personalList.employmentDetail.dateOfConfirmation}}</p>
+                            <p>{{personalList.employmentDetail.dateOfConfirmation | date: 'dd-MM-yyyy'}}</p>
                         </ion-col>
                         <ion-col>
                             <ion-label>Resignation Date</ion-label>
-                            <p>{{personalList.employmentDetail.dateOfResign}}</p>
+                            <p>{{personalList.employmentDetail.dateOfResignation | date: 'dd-MM-yyyy'}}</p>
                         </ion-col>
                     </ion-row>
                     <ion-row>
@@ -231,7 +258,8 @@
             </div>
 
             <!-- <ion-item class="divider"></ion-item> -->
-            <div style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);background-color: #ffffff;padding: 10px;padding-bottom: 20px;margin-bottom: 20px;">
+            <div
+                style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);background-color: #ffffff;padding: 10px;padding-bottom: 20px;margin-bottom: 20px;">
                 <div
                     style="font-size: 13px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
                     EMPLOYMENT TYPE</div>
@@ -274,7 +302,8 @@
             </div>
 
             <!-- <ion-item class="divider"></ion-item> -->
-            <div style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);background-color: #ffffff;padding: 10px;padding-bottom: 20px;margin-bottom: 20px;">
+            <div
+                style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);background-color: #ffffff;padding: 10px;padding-bottom: 20px;margin-bottom: 20px;">
                 <div id="destination"
                     style="font-size: 13px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
                     BANK & EPF DETAILS</div>
@@ -282,22 +311,22 @@
                     <ion-row class="detailsRow">
                         <ion-col>
                             <ion-label>Bank Account Name</ion-label>
-                            <p *ngIf="!showEditProfile">{{personalList.employmentDetail.bankAccountName}}</p>
-                            <mat-form-field *ngIf="showEditProfile">
+                            <p *ngIf="modeValue === 'OFF'">{{personalList.employmentDetail.bankAccountName}}</p>
+                            <mat-form-field *ngIf="modeValue === 'ON'">
                                 <input matInput [(ngModel)]="list.employmentDetail.bankAccountName">
                             </mat-form-field>
                         </ion-col>
                         <ion-col>
                             <ion-label>Bank Account No</ion-label>
-                            <p *ngIf="!showEditProfile">{{personalList.employmentDetail.bankAccountNumber}}</p>
-                            <mat-form-field *ngIf="showEditProfile">
+                            <p *ngIf="modeValue === 'OFF'">{{personalList.employmentDetail.bankAccountNumber}}</p>
+                            <mat-form-field *ngIf="modeValue === 'ON'">
                                 <input matInput [(ngModel)]="list.employmentDetail.bankAccountNumber">
                             </mat-form-field>
                         </ion-col>
                         <ion-col>
                             <ion-label>EPF No</ion-label>
-                            <p *ngIf="!showEditProfile">{{personalList.employmentDetail.epfNumber}}</p>
-                            <mat-form-field *ngIf="showEditProfile">
+                            <p *ngIf="modeValue === 'OFF'">{{personalList.employmentDetail.epfNumber}}</p>
+                            <mat-form-field *ngIf="modeValue === 'ON'">
                                 <input matInput [(ngModel)]="list.employmentDetail.epfNumber">
                             </mat-form-field>
                         </ion-col>
@@ -306,8 +335,8 @@
                     <ion-row class="detailsRow">
                         <ion-col>
                             <ion-label>Income Tax No</ion-label>
-                            <p *ngIf="!showEditProfile">{{personalList.employmentDetail.incomeTaxNumber}}</p>
-                            <mat-form-field *ngIf="showEditProfile">
+                            <p *ngIf="modeValue === 'OFF'">{{personalList.employmentDetail.incomeTaxNumber}}</p>
+                            <mat-form-field *ngIf="modeValue === 'ON'">
                                 <input matInput [(ngModel)]="list.employmentDetail.incomeTaxNumber">
                             </mat-form-field>
                         </ion-col>
@@ -322,15 +351,15 @@
                     <ion-row>
                         <ion-col>
                             <ion-label>Bank Account Name</ion-label>
-                            <p *ngIf="!showEditProfile">{{personalList.employmentDetail.bankAccountName}}</p>
-                            <mat-form-field *ngIf="showEditProfile">
+                            <p *ngIf="modeValue === 'OFF'">{{personalList.employmentDetail.bankAccountName}}</p>
+                            <mat-form-field *ngIf="modeValue === 'ON'">
                                 <input matInput [(ngModel)]="list.employmentDetail.bankAccountName">
                             </mat-form-field>
                         </ion-col>
                         <ion-col>
                             <ion-label>Bank Account No</ion-label>
-                            <p *ngIf="!showEditProfile">{{personalList.employmentDetail.bankAccountNumber}}</p>
-                            <mat-form-field *ngIf="showEditProfile">
+                            <p *ngIf="modeValue === 'OFF'">{{personalList.employmentDetail.bankAccountNumber}}</p>
+                            <mat-form-field *ngIf="modeValue === 'ON'">
                                 <input matInput [(ngModel)]="list.employmentDetail.bankAccountNumber">
                             </mat-form-field>
                         </ion-col>
@@ -338,15 +367,15 @@
                     <ion-row>
                         <ion-col>
                             <ion-label>EPF No</ion-label>
-                            <p *ngIf="!showEditProfile">{{personalList.employmentDetail.epfNumber}}</p>
-                            <mat-form-field *ngIf="showEditProfile">
+                            <p *ngIf="modeValue === 'OFF'">{{personalList.employmentDetail.epfNumber}}</p>
+                            <mat-form-field *ngIf="modeValue === 'ON'">
                                 <input matInput [(ngModel)]="list.employmentDetail.epfNumber">
                             </mat-form-field>
                         </ion-col>
                         <ion-col>
                             <ion-label>Income Tax No</ion-label>
-                            <p *ngIf="!showEditProfile">{{personalList.employmentDetail.incomeTaxNumber}}</p>
-                            <mat-form-field *ngIf="showEditProfile">
+                            <p *ngIf="modeValue === 'OFF'">{{personalList.employmentDetail.incomeTaxNumber}}</p>
+                            <mat-form-field *ngIf="modeValue === 'ON'">
                                 <input matInput [(ngModel)]="list.employmentDetail.incomeTaxNumber">
                             </mat-form-field>
                         </ion-col>

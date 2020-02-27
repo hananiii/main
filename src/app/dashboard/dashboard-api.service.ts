@@ -130,7 +130,7 @@ export class DashboardApiService {
      */
     post_approve_list(leaveTransactionGUID): Observable<any> {
         return this.http.post(this.apiService.baseUrl + '/api/leave/approved', leaveTransactionGUID, { headers: this.apiService.headers })
-            .pipe(map((res: Response) => res.text()))
+            .pipe(map((response: Response) => response.text()))
     }
 
     /**

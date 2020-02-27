@@ -3,9 +3,10 @@ import { APIService } from 'src/services/shared-service/api.service';
 import { Validators, FormControl } from '@angular/forms';
 import * as _moment from 'moment';
 import { genderStatus, maritalStatus, PersonalDetailsService } from './personal-details.service';
-import { MAT_DATE_FORMATS, DateAdapter, MatDialog } from '@angular/material';
+import { MAT_DATE_FORMATS, DateAdapter, MatDialog, MatSnackBar } from '@angular/material';
 import { APP_DATE_FORMATS, AppDateAdapter } from '../date.adapter';
 import { EditModeDialogComponent } from '../edit-mode-dialog/edit-mode-dialog.component';
+import { SnackbarNotificationComponent } from '../snackbar-notification/snackbar-notification.component';
 const moment = _moment;
 /**
  * Personal Details Page
@@ -194,10 +195,9 @@ export class PersonalDetailsComponent implements OnInit {
     /**
      *Creates an instance of PersonalDetailsComponent.
      * @param {APIService} apiService
-     * @param {MatDialog} dialog
      * @memberof PersonalDetailsComponent
      */
-    constructor(private apiService: APIService, private dialog: MatDialog) {
+    constructor(private apiService: APIService) {
     }
 
     /**
@@ -242,7 +242,7 @@ export class PersonalDetailsComponent implements OnInit {
     toggleEvent(event) {
         if (event.detail.checked === true) {
             this.modeValue = 'ON';
-            this.dialog.open(EditModeDialogComponent, {
+            this.apiService.matdialog.open(EditModeDialogComponent, {
                 data: 'personal',
                 height: "343.3px",
                 width: "383px"
@@ -415,13 +415,12 @@ export class PersonalDetailsComponent implements OnInit {
                     (data: any[]) => {
                         this.items = data;
                         this.items.personalDetail.dob = moment(this.items.personalDetail.dob).format('DD-MM-YYYY');
+                        this.notification('Edit mode disabled. Good job!', true);
                     }
                 );
             },
             response => {
-                if (response.status === 401) {
-                    window.location.href = '/login';
-                }
+                this.notification(JSON.parse(response._body).status, false);
             });
     }
 
@@ -461,6 +460,22 @@ export class PersonalDetailsComponent implements OnInit {
             }
         };
     }
+
+    /**
+     * Show notification after submit
+     * @param {string} text
+     * @param {boolean} val
+     * @memberof PersonalDetailsComponent
+     */
+    notification(text: string, val: boolean) {
+        this.apiService.snackbar.openFromComponent(SnackbarNotificationComponent, {
+            duration: 3000,
+            verticalPosition: "top",
+            data: { message: text, response: val }
+        });
+    }
+
+
 
 
 }

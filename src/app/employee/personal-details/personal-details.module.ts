@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { SpinnerModule } from 'src/library/spinner/spinner.module';
 import { EditModeDialogComponent } from '../edit-mode-dialog/edit-mode-dialog.component';
+import { SnackbarNotificationComponent } from '../snackbar-notification/snackbar-notification.component';
 
 
 const routes: Routes = [
@@ -40,7 +41,7 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   providers: [],
-  declarations: [PersonalDetailsComponent, EditModeDialogComponent],
-  entryComponents: [EditModeDialogComponent]
+  declarations: [PersonalDetailsComponent, EditModeDialogComponent, SnackbarNotificationComponent],
+  entryComponents: [EditModeDialogComponent, SnackbarNotificationComponent]
 })
 export class PersonalDetailsModule { }

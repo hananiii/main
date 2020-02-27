@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { APIService } from 'src/services/shared-service/api.service';
 import { ActivatedRoute } from '@angular/router';
 import * as _moment from 'moment';
+import { EditModeDialogComponent } from '../edit-mode-dialog/edit-mode-dialog.component';
+import { MatDialog } from '@angular/material';
+import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scroll-to';
+import { SnackbarNotificationComponent } from '../snackbar-notification/snackbar-notification.component';
 const moment = _moment;
 
 /**
@@ -81,6 +85,20 @@ export class EmploymentDetailsComponent implements OnInit {
     public showEditProfile: boolean = false;
 
     /**
+     * toggle button value
+     * @type {string}
+     * @memberof EmploymentDetailsComponent
+     */
+    public modeValue: string = 'OFF';
+
+    /**
+     * personal details of this user
+     * @type {*}
+     * @memberof EmploymentDetailsComponent
+     */
+    public personalDetail: any;
+
+    /**
      * return API content
      * @readonly
      * @memberof EmploymentDetailsComponent
@@ -95,7 +113,7 @@ export class EmploymentDetailsComponent implements OnInit {
      * @param {ActivatedRoute} route
      * @memberof EmploymentDetailsComponent
      */
-    constructor(private apiService: APIService, private route: ActivatedRoute) {
+    constructor(private apiService: APIService, private route: ActivatedRoute, private _scrollToService: ScrollToService) {
         route.params.subscribe(params => {
             this.userId = params.id;
         });
@@ -109,59 +127,46 @@ export class EmploymentDetailsComponent implements OnInit {
      * Get employment details content from API
      * @memberof EmploymentDetailsComponent
      */
-    ngOnInit() {
-        this.apiService.get_employment_details(this.userId).subscribe(
-            data => {
-                this.list = data;
-                this.apiService.get_user_info_employment_details().subscribe(
-                    dataUserDtls => {
-                        if (this.list.id === dataUserDtls.id) {
-                            Object.assign(this.list, dataUserDtls);
-
-                            this.list.employmentDetail.dateOfJoin = moment(this.list.employmentDetail.dateOfJoin).format('DD-MM-YYYY');
-                            this.list.employmentDetail.dateOfConfirmation = moment(this.list.employmentDetail.dateOfConfirmation).format('DD-MM-YYYY');
-                            if (this.list.employmentDetail.dateOfResign === null) {
-                                this.list.employmentDetail.dateOfResign = 'NA';
-                            } else {
-                                this.list.employmentDetail.dateOfResign = moment(this.list.employmentDetail.dateOfResign).format('DD-MM-YYYY');
-                            }
-                            this.showSpinner = false;
-                            this.showContent = true;
-                            this.reporting();
-                        }
-                    },
-                    error => {
-                        if (error) {
-                            window.location.href = '/login';
-                        }
-                    }
-                )
-                // this.list.employmentDetail.dateOfJoin = moment(this.list.employmentDetail.dateOfJoin).format('DD-MM-YYYY');
-                // this.list.employmentDetail.dateOfConfirmation = moment(this.list.employmentDetail.dateOfConfirmation).format('DD-MM-YYYY');
-                // if (this.list.employmentDetail.dateOfResign === null) {
-                //     this.list.employmentDetail.dateOfResign = 'NA';
-                // } else {
-                //     this.list.employmentDetail.dateOfResign = moment(this.list.employmentDetail.dateOfResign).format('DD-MM-YYYY');
-                // }
-                // this.showSpinner = false;
-                // this.showContent = true;
-                // this.reporting();
+    async ngOnInit() {
+        let data = await this.apiService.get_employment_details(this.userId).toPromise();
+        this.personalDetail = data;
+        this.apiService.get_user_info_employment_details().subscribe(
+            dataUserDtls => {
+                this.list = dataUserDtls;
+                this.showSpinner = false;
+                this.showContent = true;
+                this.reporting();
             },
             error => {
-                if (error) {
-                    window.location.href = '/login';
-                }
+                this.snackbarMsg(JSON.parse(error._body).status, false);
             }
         )
     }
 
-    // /**
-    //  * This method is used to hide header of profile completeness
-    //  * @memberof EmploymentDetailsComponent
-    //  */
-    // clickToHideHeader() {
-    //     this.showHeader = false;
-    // }
+
+    /**
+     * toggle on/off of edit mode
+     * @param {*} evt
+     * @memberof PersonalDetailsComponent
+     */
+    mainToggle(evt) {
+        if (evt.detail.checked === true) {
+            this.modeValue = 'ON';
+            this.apiService.matdialog.open(EditModeDialogComponent, {
+                data: 'employment',
+                height: "225.3px",
+                width: "383px"
+            });
+            const config: ScrollToConfigOptions = {
+                target: 'destination'
+            };
+            this._scrollToService.scrollTo(config);
+        } else {
+            this.modeValue = 'OFF'
+            this.patchEmployment();
+        }
+        // this.sharedService.emitChange(this.modeValue);
+    }
 
     /**
      * filter superior name from user id
@@ -185,15 +190,32 @@ export class EmploymentDetailsComponent implements OnInit {
     patchEmployment() {
         const body = this.list.employmentDetail;
         body["id"] = this.list.id;
-        body.employmentStatus = Number(body.employmentStatus);
+        body.employmentStatus = body.employmentStatus;
+        body.employeeId = body.employeeId.toString();
+        body.incomeTaxNumber = body.incomeTaxNumber.toString();
+        body.bankAccountNumber = body.bankAccountNumber.toString();
         body.dateOfConfirmation = moment(body.dateOfConfirmation).format('YYYY-MM-DD');
         body.dateOfJoin = moment(body.dateOfJoin).format('YYYY-MM-DD');
         body.dateOfResign = moment(body.dateOfResign).format('YYYY-MM-DD');
-        console.log(body);
-        this.apiService.patch_employement_details(body).subscribe(res => {
-            console.log(res);
+        this.apiService.patch_user_info_employement_id(body, this.list.id).subscribe(res => {
             this.showEditProfile = false;
+            this.snackbarMsg('Edit mode disabled. Good job!', true);
+            this.list.employmentDetail = res;
         })
+    }
+
+    /**
+     * Show notification after submit
+     * @param {string} statement
+     * @param {boolean} value
+     * @memberof EmploymentDetailsComponent
+     */
+    snackbarMsg(statement: string, value: boolean) {
+        this.apiService.snackbar.openFromComponent(SnackbarNotificationComponent, {
+            duration: 3000,
+            verticalPosition: "top",
+            data: { message: statement, response: value }
+        });
     }
 
 }

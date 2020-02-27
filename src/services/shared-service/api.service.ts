@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { LocalStorageService } from 'angular-web-storage';
 import { AuthService } from './auth.service';
+import { MatDialog, MatSnackBar } from '@angular/material';
 
 /**
  * Store all API used in employee folder
@@ -33,7 +34,7 @@ export class APIService {
      * @param {Http} http
      * @memberof APIService
      */
-    constructor(public http: Http, public local: LocalStorageService, private auth: AuthService) {
+    constructor(public http: Http, public local: LocalStorageService, private auth: AuthService, public matdialog: MatDialog, public snackbar: MatSnackBar) {
     }
 
     /**
@@ -142,9 +143,16 @@ export class APIService {
      * @memberof APIService
      */
     get_user_info_employment_details(): Observable<any> {
-        return this.getApi('/api/admin/user-info-details/employment-detail/');
+        return this.getApi('/api/admin/user-info-details/employment-detail');
     }
 
+    /**
+     * patch user info personal-details
+     * @param {*} data
+     * @param {string} id
+     * @returns {Observable<any>}
+     * @memberof APIService
+     */
     patch_user_info_personal_id(data: any, id: string): Observable<any> {
         return this.patchApi(data, '/api/admin/user-info-details/personal/' + id);
     }
@@ -155,8 +163,8 @@ export class APIService {
      * @returns {Observable<any>}
      * @memberof APIService
      */
-    patch_employement_details(data): Observable<any> {
-        return this.getApiWithId('/api/userprofile/employment-detail', data);
+    patch_user_info_employement_id(data, userId: string): Observable<any> {
+        return this.patchApi(data, '/api/admin/user-info-details/employment/' + userId);
     }
 
     /**
