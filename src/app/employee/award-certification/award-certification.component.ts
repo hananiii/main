@@ -18,20 +18,6 @@ import { EditModeDialogComponent } from "../edit-mode-dialog/edit-mode-dialog.co
 export class AwardCertificationComponent implements OnInit {
 
     /**
-     * percentage of completensss
-     * @type {number}
-     * @memberof AwardCertificationComponent
-     */
-    // public progressPercentage: number;
-
-    /**
-     * show/hide progress bar percentage
-     * @type {boolean}
-     * @memberof AwardCertificationComponent
-     */
-    // public showHeader: boolean = true;
-
-    /**
      * show/hide content before loading complete
      * @type {boolean}
      * @memberof AwardCertificationComponent
@@ -58,34 +44,6 @@ export class AwardCertificationComponent implements OnInit {
      * @memberof AwardCertificationComponent
      */
     public showEditProfile: boolean = false;
-
-    /**
-     * img/pdf src url
-     * @type {*}
-     * @memberof AwardCertificationComponent
-     */
-    public imgURL: any;
-
-    /**
-     * show/hide img
-     * @type {boolean}
-     * @memberof AwardCertificationComponent
-     */
-    public showImg: boolean = false;
-
-    /**
-     * show/hide pdf
-     * @type {boolean}
-     * @memberof AwardCertificationComponent
-     */
-    public showPdf: boolean = false;
-
-    /**
-     * show.hide attachment button
-     * @type {boolean}
-     * @memberof AwardCertificationComponent
-     */
-    public showAttach: boolean = true;
 
     /**
      * employment details from requested Id
@@ -127,13 +85,6 @@ export class AwardCertificationComponent implements OnInit {
      * @memberof AwardCertificationComponent
      */
     private _fileform: FormGroup;
-
-    /**
-     * file name get from input
-     * @private
-     * @memberof AwardCertificationComponent
-     */
-    private _imagePath: any;
 
     /**
      * return personal details from API
@@ -219,49 +170,13 @@ export class AwardCertificationComponent implements OnInit {
      * @returns
      * @memberof AwardCertificationComponent
      */
-    preview(files: any, i: number) {
-        if (files.length === 0)
-            return;
-        const mimeType = files[0].type;
-        this.awards[i].certificationAttachment = files[0].name;
-        if (mimeType.match(/image\/*/) == null) {
-            this.showPdf = true;
-            this.showAttach = false;
-            const reader = new FileReader();
-            this._imagePath = files;
-            reader.readAsDataURL(files[0]);
-            reader.onload = (_event) => {
-                this.imgURL = reader.result;
-            }
-            return;
-        }
-        this.readFile(files);
-    }
-
-    /**
-     * read file of attachment
-     * @param {*} files
-     * @memberof AwardCertificationComponent
-     */
-    readFile(files) {
-        this.showImg = true;
-        this.showAttach = false;
-        const reader = new FileReader();
-        this._imagePath = files;
-        reader.readAsDataURL(files[0]);
-        reader.onload = (_event) => {
-            this.imgURL = reader.result;
-        }
-    }
-
-    /**
-     * hide attached file (after clicked close icon)
-     * @memberof AwardCertificationComponent
-     */
-    clickToHideAttachment() {
-        this.imgURL = null;
-        this.showPdf = false;
-        this.showImg = false;
+    preview(file: any, i: number) {
+        const fileToUpload = file.item(0);
+        let formData = new FormData();
+        formData.append('file', fileToUpload, fileToUpload.name);
+        this.apiService.post_file(formData).subscribe(res => {
+            this.awards[i].certificationAttachment = res.filename;
+        });
     }
 
     /**
@@ -295,7 +210,6 @@ export class AwardCertificationComponent implements OnInit {
             this.apiService.get_personal_details().subscribe(
                 (data: any[]) => {
                     this.items = data;
-                    this.clickToHideAttachment();
                 })
         })
     }

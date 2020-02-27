@@ -25,10 +25,11 @@
   }
   .text {
     color: #707070;
-    padding-left: 4%;
-    font-size: 12px;
+    padding-left: 2%;
+    font-size: 11px;
     text-overflow: ellipsis;
     white-space: nowrap;
+    opacity: 0.8;
   }
   ion-toggle {
     zoom: 0.55;

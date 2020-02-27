@@ -116,17 +116,6 @@ export class APIService {
     // }
 
     /**
-     * This method is used to update personal details
-     * @param {*} updateData
-     * @returns {Observable<any[]>}
-     * @memberof APIService
-     */
-    patch_personal_details(updateData): Observable<any[]> {
-        // this.headerAuthorization();
-        return this.patchApi(updateData, '/api/userprofile/personal-detail');
-    }
-
-    /**
      * This method is used to get employment details
      * @param {*} userId
      * @returns {Observable<any>}
@@ -210,6 +199,17 @@ export class APIService {
     get_master_list(item): Observable<any> {
         // this.headerAuthorization();
         return this.getApiWithId('/api/admin/master/', item);
+    }
+
+    /**
+     * upload file to azure
+     * @param {*} data
+     * @returns {Observable<any>}
+     * @memberof APIService
+     */
+    post_file(data): Observable<any> {
+        this.headerAuthorization();
+        return this.postApi(data, '/api/azure/upload');
     }
 
 
