@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { APIService } from "src/services/shared-service/api.service";
 import { FormGroup, FormBuilder } from "@angular/forms";
 import { genderStatus, maritalStatus } from "../personal-details/personal-details.service";
+import { EditModeDialogComponent } from "../edit-mode-dialog/edit-mode-dialog.component";
 
 /**
  * award & certificate page
@@ -98,7 +99,7 @@ export class AwardCertificationComponent implements OnInit {
      * @memberof AwardCertificationComponent
      */
     public employDetails;
-    
+
     /** 
      * show loading spinner during waiting requested data
      * @type {boolean}
@@ -111,6 +112,13 @@ export class AwardCertificationComponent implements OnInit {
      * @memberof AwardCertificationComponent
      */
     public awardObj = { certificationName: '', certificationEnrollYear: '', certificationGraduateYear: '', certificationAttachment: '' };
+
+    /**
+    * toggle button value
+    * @type {string}
+    * @memberof EmploymentDetailsComponent
+    */
+    public toggleValue: string = 'OFF';
 
     /**
      * validation group of file
@@ -185,6 +193,26 @@ export class AwardCertificationComponent implements OnInit {
     }
 
     /**
+     * toggle on/off of edit mode
+     * @param {*} evt
+     * @memberof PersonalDetailsComponent
+     */
+    mainToggle(evt) {
+        if (evt.detail.checked === true) {
+            this.toggleValue = 'ON';
+            this.apiService.matdialog.open(EditModeDialogComponent, {
+                data: 'certificate',
+                height: "225.3px",
+                width: "383px"
+            });
+        } else {
+            this.toggleValue = 'OFF'
+            this.updateCertificate();
+        }
+        // this.sharedService.emitChange(this.modeValue);
+    }
+
+    /**
      * get details of file after upload from local file
      * @param {*} files
      * @param {number} i
@@ -245,14 +273,14 @@ export class AwardCertificationComponent implements OnInit {
         const body = this.items.personalDetail;
         body['id'] = this.items.id;
         body.nric = this.items.personalDetail.nric.toString();
-        body.gender = Number(genderStatus[this.items.personalDetail.gender]);
-        body.maritalStatus = Number(maritalStatus[this.items.personalDetail.maritalStatus]);
-        body.postcode = this.items.personalDetail.postcode.toString();
+        body.gender = this.items.personalDetail.gender;
+        body.maritalStatus = this.items.personalDetail.maritalStatus;
+        body.postcode = Number(this.items.personalDetail.postcode);
         if (body.certification != undefined) {
-            body.certification.certificationDetail = this.awards;
+            body.certification = this.awards;
         } else {
             body['certification'] = {};
-            body['certification']['certificationDetail'] = this.awards;
+            body['certification'] = this.awards;
         }
         this.getPatchedValue(body);
     }
@@ -263,7 +291,7 @@ export class AwardCertificationComponent implements OnInit {
      * @memberof AwardCertificationComponent
      */
     getPatchedValue(body: any) {
-        this.apiService.patch_personal_details(body).subscribe(response => {
+        this.apiService.patch_user_info_personal_id(body, this.items.id).subscribe(response => {
             this.apiService.get_personal_details().subscribe(
                 (data: any[]) => {
                     this.items = data;
