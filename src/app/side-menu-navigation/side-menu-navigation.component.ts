@@ -74,22 +74,22 @@ export class SideMenuNavigationComponent implements OnInit {
     {
       title: 'Dashboard',
       url: '/main/dashboard',
-      icon: 'dashboard.svg'
+      icon: 'icon_dashboard@3x.png'
     },
     {
       title: 'Profile',
       url: '/main/profile',
-      icon: 'profile.svg'
+      icon: 'icon_customers@3x.png'
     },
     {
       title: 'Plan My Leave',
       url: '/main/plan-my-leave',
-      icon: 'my_leave.svg'
+      icon: 'icon_calendar@3x.png'
     },
     {
       title: 'Employee Directory',
       url: '/main/employee-directory',
-      icon: 'employee.svg'
+      icon: 'icon_persons@3x.png'
     }
   ];
 

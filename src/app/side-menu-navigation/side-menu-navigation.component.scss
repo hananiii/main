@@ -16,18 +16,22 @@
   ion-icon {
     color: #abacaf;
   }
+  .items {
+    cursor: pointer;
+    font-size: 15px;
+  }
   .item:hover {
     --background: rgba(0, 0, 0, 0.1);
     // border-left: 2px solid #a3a0fb;
   }
   .background-highlight {
     --background: rgba(0, 0, 0, 0.1);
-    border-left: 2px solid #a3a0fb;
+    border-left: 4px solid #a3a0fb;
+    --padding-start: 12px;
   }
-  .svg-highlight {
-    fill: #a3a0fb;
-    width: 20px;
-    height: 20px;
+  .background-highlight-icon {
+    --background: rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #a3a0fb;
   }
   ion-label {
     color: #ffffff;
