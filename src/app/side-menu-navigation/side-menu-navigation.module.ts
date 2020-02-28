@@ -16,6 +16,7 @@ import { EmailInvitationModule } from '../employee/email-invitation/email-invita
 import { DashboardModule } from '../dashboard/dashboard.module';
 import bugsnag from '@bugsnag/js'
 import { BugsnagErrorHandler } from '@bugsnag/plugin-angular'
+import { SharedService } from '../employee/shared.service';
 
 const bugsnagClient = bugsnag('a856baea01e03638403f09253bc830a2')
 
@@ -25,21 +26,21 @@ export function errorHandlerFactory() {
 
 bugsnagClient.notify(new Error('Test error'))
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        IonicModule,
-        InlineSVGModule.forRoot(),
-        HttpClientModule,
-        EmployeeSetupPageModule,
-        MatMenuModule,
-        UpdatePasswordModule,
-        EmailInvitationModule,
-        DashboardModule,
-        RouterModule.forChild(sideMenuNavigationRoutes)
-    ],
-    providers: [AuthGuard, { provide: ErrorHandler, useFactory: errorHandlerFactory }],
-    declarations: [SideMenuNavigationComponent]
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    InlineSVGModule.forRoot(),
+    HttpClientModule,
+    EmployeeSetupPageModule,
+    MatMenuModule,
+    UpdatePasswordModule,
+    EmailInvitationModule,
+    DashboardModule,
+    RouterModule.forChild(sideMenuNavigationRoutes)
+  ],
+  providers: [AuthGuard, { provide: ErrorHandler, useFactory: errorHandlerFactory }, SharedService],
+  declarations: [SideMenuNavigationComponent]
 })
 export class SideMenuNavigationModule { }
 

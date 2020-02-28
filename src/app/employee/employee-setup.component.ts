@@ -22,9 +22,11 @@ export interface ISubSideMenu {
 }
 
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { APIService } from 'src/services/shared-service/api.service';
 import { filter } from 'rxjs/operators';
+import { SharedService } from './shared.service';
+import { RouteDialogComponent } from './route-dialog/route-dialog.component';
 
 /**
  * Employee Setup Page
@@ -74,6 +76,13 @@ export class EmployeeSetupComponent implements OnInit {
   public lastSegment: string;
 
   /**
+     * toggle mode on off value
+     * @type {string}
+     * @memberof EmployeeSetupComponent
+     */
+  public emittedValue: string;
+
+  /**
    * This is local property used to set menu title, path routing & icon name
    * @type {ISubSideMenu[]}
    * @memberof EmployeeSetupComponent
@@ -117,13 +126,23 @@ export class EmployeeSetupComponent implements OnInit {
 
   /**
    *Creates an instance of EmployeeSetupComponent.
-   * @param {ActivatedRoute} route
    * @param {APIService} apiService
    * @param {Router} router
+   * @param {SharedService} _sharedService
    * @memberof EmployeeSetupComponent
    */
-  constructor(private route: ActivatedRoute, private apiService: APIService,
-    private router: Router) {
+  constructor(private apiService: APIService, private router: Router, private _sharedService: SharedService) {
+    router.events
+      .pipe(filter(e => e instanceof NavigationEnd))
+      .subscribe((e: NavigationEnd) => {
+        this.url = e.urlAfterRedirects;
+        this.checkUrl(this.url);
+      });
+
+    _sharedService.changeEmitted$.subscribe(
+      text => {
+        this.emittedValue = text;
+      });
   }
 
   /**
@@ -132,13 +151,6 @@ export class EmployeeSetupComponent implements OnInit {
    * @memberof EmployeeSetupComponent
    */
   ngOnInit() {
-    this.router.events
-      .pipe(filter(e => e instanceof NavigationEnd))
-      .subscribe((e: NavigationEnd) => {
-        this.url = e.urlAfterRedirects;
-        this.checkUrl(this.url);
-      });
-
     this.apiService.get_personal_details().subscribe(data => {
       this.userId = data.id;
       this.list = data;
@@ -173,16 +185,25 @@ export class EmployeeSetupComponent implements OnInit {
    * @memberof EmployeeSetupComponent
    */
   getIndexToShowArrow(index: number) {
-    this.numOfArray = index;
-    if (this.employeeSetupPage[index].url && index !== 1) {
-      this.router.navigate(this.employeeSetupPage[index].url);
-    } else {
-      if (this.userId === undefined) {
-        this.employeeSetupPage[1].url = ['/main/profile/employment-details', this.lastSegment];
+    if (this.emittedValue == 'OFF' || this.emittedValue == null) {
+      this.numOfArray = index;
+      if (this.employeeSetupPage[index].url && index !== 1) {
+        this.router.navigate(this.employeeSetupPage[index].url);
+      } else {
+        if (this.userId === undefined) {
+          this.employeeSetupPage[1].url = ['/main/profile/employment-details', this.lastSegment];
+          this.router.navigate(this.employeeSetupPage[index].url);
+        }
         this.router.navigate(this.employeeSetupPage[index].url);
       }
-      this.router.navigate(this.employeeSetupPage[index].url);
+    } else {
+      this._sharedService.dialog.open(RouteDialogComponent, {
+        width: "283px",
+        height: "194px"
+      });
     }
+
+
   }
 
 }

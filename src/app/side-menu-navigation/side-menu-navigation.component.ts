@@ -23,8 +23,11 @@ export interface ISideMenu {
 
 import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { APIService } from 'src/services/shared-service/api.service';
+import { SharedService } from '../employee/shared.service';
+import { RouteDialogComponent } from '../employee/route-dialog/route-dialog.component';
+import { filter } from 'rxjs/operators';
 /**
  * Side Menu Navigation Component
  * @export
@@ -64,6 +67,13 @@ export class SideMenuNavigationComponent implements OnInit {
    * @memberof SideMenuNavigationComponent
    */
   public list: any;
+
+  /**
+  * emitted toggle value
+  * @type {string}
+  * @memberof SideMenuNavigationComponent
+  */
+  public emittedData: string;
 
   /**
    * This is local property to show list of menu, url & icon name
@@ -131,8 +141,18 @@ export class SideMenuNavigationComponent implements OnInit {
    * @memberof SideMenuNavigationComponent
    */
   constructor(private menu: MenuController, private router: Router,
-    private apiService: APIService
+    private apiService: APIService, private sharedService: SharedService
   ) {
+    router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        this.getRoute(event.urlAfterRedirects);
+      });
+
+    sharedService.changeEmitted$.subscribe(
+      data => {
+        this.emittedData = data;
+      });
   }
 
   /**
@@ -142,27 +162,49 @@ export class SideMenuNavigationComponent implements OnInit {
    * @memberof SideMenuNavigationComponent
    */
   ngOnInit() {
-    if (this.router.url.includes('?')) {
-      const url = this.router.url.split('?');
-      const lastSegment = url.pop();
-      if (url[0] === this.appPages[2].url) {
-        this.activeRoute = this.appPages[2].url;
-      }
-    }
-
-    for (let i = 0; i < this.appPages.length; i++) {
-      if (this.router.url === this.appPages[i].url) {
-        this.activeRoute = this.appPages[i].url;
-      }
-    }
-
-
-
+    this.getRoute(this.router.url);
     this.openAtBeginning();
     this.apiService.get_personal_details().subscribe(data => {
       // this.userId = data.id;
       this.list = data;
     });
+  }
+
+  /**
+  * get route to highlight active route
+  * @param {*} URL
+  * @memberof SideMenuNavigationComponent
+  */
+  getRoute(URL) {
+    if (URL.split("/").length == 4) {
+      const url = URL.split('/');
+      const lastSegment = url.pop();
+      this.activeRoute = url.join('/');
+    } if (URL.split("/").length == 5) {
+      const url = URL.split('/');
+      const lastSegment = url.pop();
+      const last = url.pop();
+      this.activeRoute = url.join('/');
+    } if (URL.split("/").length < 4 || URL.split("/").length > 5) {
+      this.activeRoute = URL;
+    }
+  }
+
+  /**
+   * show active route highlight in menu 
+   * @param {string} currentRoute
+   * @memberof SideMenuNavigationComponent
+   */
+  activeUrl(currentRoute: string) {
+    if (this.emittedData == 'OFF' || this.emittedData == null) {
+      this.router.navigate([currentRoute]);
+      this.activeRoute = currentRoute;
+    } else {
+      this.sharedService.dialog.open(RouteDialogComponent, {
+        width: "283px",
+        height: "194px"
+      });
+    }
   }
 
   /**
