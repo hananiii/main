@@ -36,7 +36,7 @@
     opacity: 0.8;
     padding-top: 5px;
   }
-  .textBalance{
+  .textBalance {
     display: block;
     color: #43425d;
     opacity: 0.8;
@@ -101,13 +101,14 @@
     // color: #a5a4bf;
     // font-weight: bold;
     font-size: 11px;
-    margin-left: -20px;
+    // margin-left: -20px;
     color: #ffffff;
     width: 200px;
     padding: 0px 0px 0px 20px;
+    opacity: 1;
   }
   ::ng-deep .mat-tab-labels {
-    background: #43425d;//#f5f6fa;
+    background: #43425d; //#f5f6fa;
   }
   ::ng-deep .mat-tab-label.mat-tab-label-active {
     // color: #7069d8;
@@ -126,12 +127,12 @@
   ::ng-deep .mat-tab-label-content {
     padding: 0 60px;
   }
-  
+
   ::ng-deep .mat-tab-label-container {
     height: 30px;
     align-items: center;
   }
-  
+
   ::ng-deep {
     .mobileView-tab {
       .mat-tab-header {

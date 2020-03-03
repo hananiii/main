@@ -1,8 +1,8 @@
 :host {
   .app-calendar {
     // max-width: 900px;
-    width: 55%;
-    margin-top: 10px;
+    width: 50%;
+    margin-top: 20px;
     margin-bottom: 1%;
     display: inline-block;
   }
@@ -10,12 +10,12 @@
     min-height: 20px;
   }
   .holidayView {
-    padding-left: 3%;
-    margin-top: 60px;
+    // padding-left: 3%;
+    margin-top: 20px;
     float: right;
-    width: 45%;
-    overflow: auto;
-    max-height: 380px;
+    width: 50%;
+    // overflow: auto;
+    // max-height: 380px;
   }
   .titleRow {
     padding-left: 5%;
@@ -23,11 +23,9 @@
     // padding-bottom: 2%;
     background: #f5f6fa;
     height: 37px;
+    margin-left: 25px;
+    height: 42px;
     // margin-bottom: 12px;
-  }
-  .detailsRow {
-    // padding-left: 5%;
-    padding-top: 10px;
   }
   .divider {
     --min-height: none;
@@ -36,20 +34,37 @@
     width: 100%;
   }
   mat-chip {
-    max-width: 75px;
-    min-height: 20px;
-    min-width: 75px;
+    max-width: 83px;
+    min-height: 26px;
+    min-width: 83px;
   }
-  .mat-chip.mat-standard-chip {
-    background-color: #7069d8;
-  }
+  // .mat-chip.mat-standard-chip {
+  //   background-color: #7069d8;
+  // }
   ::ng-deep .mat-chip-list-wrapper .mat-standard-chip {
     margin-top: 8px;
+  }
+  .apply-leave-header {
+    font-size: 13px;
+    font-weight: bold;
+    color: #a5a4bf;
+    height: 42px;
+    background-color: #f5f6fa;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    margin-bottom: 15px;
   }
 
   //full calendar
   ::ng-deep .fc-toolbar > * > :not(:first-child) {
     text-transform: capitalize;
+    font-size: 10px;
+    background: #7069d8;
+    border-color: transparent;
+  }
+  ::ng-deep .fc-button-group {
+    font-size: 10px;
   }
   ::ng-deep .fc-button-group > .fc-button:not(:last-child) {
     text-transform: capitalize;
@@ -64,14 +79,29 @@
     cursor: pointer;
   }
   ::ng-deep .fc-toolbar h2 {
-    font-size: 18px;
+    font-size: 15px;
     font-weight: bold;
   }
   ::ng-deep .fc-button:not(:disabled) {
+    // box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.05);
+    // border: solid 1px #43425d;
+    // background-color: #43425d;
+    // color: #f0f0f7;
+    color: #a4afb7;
+    border-radius: 2px;
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.05);
-    border: solid 1px #43425d;
-    background-color: #43425d;
-    color: #f0f0f7;
+    border: solid 1px #e8e9ec;
+    background-color: #ffffff;
+  }
+  ::ng-deep .fc-today-button .fc-button .fc-button-primary {
+    color: white;
+    background: #7069d8;
+    border-color: transparent;
+  }
+  ::ng-deep .fc-left > button.fc-today-button {
+    color: white !important;
+    background: #7069d8 !important;
+    border-color: transparent !important;
   }
   ::ng-deep div.fc-view-container > div.fc-view fc-dayGridMonth-view fc-dayGrid-view > table > thead {
     line-height: 3.2;
@@ -83,14 +113,15 @@
     border: 1px solid #5ee2a0;
   }
   ::ng-deep table th {
-    background: #e9e9f0;
+    background: #f5f6fa;
     color: #a3a6b4;
-    height: 48px;
+    height: 43px;
     vertical-align: middle;
-    border-color: #e8e9ec;
+    border-color: #f5f6fa;
+    font-size: 13px;
   }
   ::ng-deep table td {
-    font-size: 15px;
+    font-size: 11px;
     color: #43425d;
   }
   ::ng-deep table,

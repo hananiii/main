@@ -11,7 +11,7 @@ export interface Holidays {
      * @type {string}
      * @memberof Holidays
      */
-    start: string;
+    // start: string;
 
     /**
      * Local property of end date in calendar
@@ -32,6 +32,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGrigPlugin from '@fullcalendar/timegrid';
 import listYear from '@fullcalendar/list';
+import interactionPlugin from '@fullcalendar/interaction';
 import { EventInput } from '@fullcalendar/core';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { APIService } from 'src/services/shared-service/api.service';
@@ -63,7 +64,7 @@ export class CalendarViewComponent implements OnInit {
      * This is input property for plugins of Full Calendar Component
      * @memberof CalendarViewComponent
      */
-    public calendarPlugins = [dayGridPlugin, timeGrigPlugin, listYear];
+    public calendarPlugins = [dayGridPlugin, interactionPlugin];
 
     /**
      * Get data from user profile API
@@ -112,7 +113,11 @@ export class CalendarViewComponent implements OnInit {
      * @type {string}
      * @memberof CalendarViewComponent
      */
-    public text: string;
+    // public text: string;
+
+    public calendarList: any;
+
+    public value: boolean = false;
 
     /**
      *Creates an instance of CalendarViewComponent.
@@ -130,10 +135,27 @@ export class CalendarViewComponent implements OnInit {
         this.calendarId = this.list.calendarId;
         let holidayList = await this.leaveAPI.get_personal_holiday_calendar(this.calendarId, year).toPromise();
         this.PBList = holidayList.holiday;
-        let onLeaveList = await this.leaveAPI.get_calendar_onleave_list({ 'startdate ': '2019-01-01', 'enddate': '2019-12-31' }).toPromise();
-        this.events = this.PBList.concat(onLeaveList);
+        this.calendarList = await this.leaveAPI.get_calendar_onleave_list({ 'enddate': moment(date).format('YYYY-MM-DD'), 'startdate': moment(date).format('YYYY-MM-DD') }).toPromise();
+        this.events = this.PBList.concat(this.calendarList);
+        console.log(this.PBList, this.events);
         this.editDateFormat(this.PBList);
         this.getEmployeeLeaveList(this.events);
+    }
+
+    abc(event) {
+        console.log(event)
+    }
+
+    selectDate(event) {
+        console.log(event);
+        if (event.end != event.start) {
+            // this.calendar.unselect();
+            this.value = true
+        }
+    }
+
+    aaaa(event) {
+        console.log(event)
     }
 
     /**
@@ -213,17 +235,17 @@ export class CalendarViewComponent implements OnInit {
      * @param {*} clicked
      * @memberof CalendarViewComponent
      */
-    onEventClick(clicked: any) {
-        if (clicked.event.end) {
-            this.endDate = moment(clicked.event.end).subtract(1, "days").format("YYYY-MM-DD");
-        }
-        if (clicked.event._def.extendedProps.TIME_SLOT) {
-            this.timeslot = 'Half Day' + '(' + clicked.event._def.extendedProps.TIME_SLOT + ')';
-        }
-        if (clicked.event._def.extendedProps.TIME_SLOT == null) {
-            this.timeslot = 'All Day';
-        }
-    }
+    // onEventClick(clicked: any) {
+    //     if (clicked.event.end) {
+    //         this.endDate = moment(clicked.event.end).subtract(1, "days").format("YYYY-MM-DD");
+    //     }
+    //     if (clicked.event._def.extendedProps.TIME_SLOT) {
+    //         this.timeslot = 'Half Day' + '(' + clicked.event._def.extendedProps.TIME_SLOT + ')';
+    //     }
+    //     if (clicked.event._def.extendedProps.TIME_SLOT == null) {
+    //         this.timeslot = 'All Day';
+    //     }
+    // }
 
 
 }

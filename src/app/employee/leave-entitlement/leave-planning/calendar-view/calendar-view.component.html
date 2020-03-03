@@ -1,12 +1,16 @@
 <div class='app-calendar'>
+    <div class="apply-leave-header">
+        Calendar
+    </div>
     <full-calendar *ngIf="events" #calendar defaultView="dayGridMonth" [header]="{
                                           left: 'prev,next today',
                                           center: 'title',
-                                          right: 'dayGridMonth,timeGridWeek, listYear'
+                                          right: ''
                                         }" [plugins]="calendarPlugins" [events]="events" [eventLimit]=true
-        (eventClick)="text = $event.el.text; start = $event.event.start; end = $event.event.end;color = $event.event.backgroundColor; onEventClick($event)">
+        [selectable]=true (dateClick)="abc($event)" (select)="selectDate($event)" (selectAllow)="aaaa($event)">
+        <!-- (eventClick)="text = $event.el.text; start = $event.event.start; end = $event.event.end;color = $event.event.backgroundColor; onEventClick($event)" -->
     </full-calendar>
-    <div *ngIf="text" style="height: 30px;float: left;margin-top: 29px;width: 5px;"
+    <!-- <div *ngIf="text" style="height: 30px;float: left;margin-top: 29px;width: 5px;"
         [style.border]="color=='' ? '2px solid #5ee2a0':'2px solid #7069d8'"></div>
     <div *ngIf="text"
         style=" color: #43425d;opacity: 0.8;font-size: 16px;padding-top: 5px;position: absolute;padding-left: 20px;">
@@ -15,42 +19,56 @@
     <div *ngIf="text" style="color: #43425d;opacity: 0.8;padding-left: 20px;padding-top: 13px;position: absolute;">
         {{timeslot}}</div>
     <div *ngIf="text" style="color: #43425d;opacity: 0.8;padding-left: 120px;padding-top: 13px;position: absolute;">
-        {{text}}</div>
+        {{text}}</div> -->
 </div>
 
 <div class="holidayView">
+    <div class="apply-leave-header">
+    </div>
+    <p style="font-size: 15px;font-weight: bold;opacity: 0.8;color: #43425d;margin-left: 25px;margin-bottom: 25px;">
+        Who's On Leave</p>
     <ion-row class="titleRow">
         <!-- <ion-col style="display: inline-flex;">
                             <ion-label style="color: white">Day</ion-label>
                         </ion-col> -->
+        <ion-col>
+            <ion-label style="font-size: 13px;font-weight: bold;line-height: 1.31;color: #a3a6b4;">ID
+            </ion-label>
+        </ion-col>
         <ion-col size="4">
-            <ion-label style="font-size: 13px;font-weight: bold;line-height: 1.31;color: #a3a6b4;">Date
+            <ion-label style="font-size: 13px;font-weight: bold;line-height: 1.31;color: #a3a6b4;">Name
             </ion-label>
         </ion-col>
         <ion-col>
-            <ion-label style="font-size: 13px;font-weight: bold;line-height: 1.31;color: #a3a6b4;">Holiday
+            <ion-label style="font-size: 13px;font-weight: bold;line-height: 1.31;color: #a3a6b4;">Leave Type
+            </ion-label>
+        </ion-col>
+        <ion-col>
+            <ion-label style="font-size: 13px;font-weight: bold;line-height: 1.31;color: #a3a6b4;">Status
             </ion-label>
         </ion-col>
     </ion-row>
 
-    <ion-list>
-        <ion-item *ngFor="let holiday of PBList" style="width: 100%;">
+    <ion-list style="margin-left: 25px;">
+        <ion-item *ngFor="let holiday of calendarList" style="width: 100%;">
             <ion-row class="detailsRow" style="width: 100%;">
-                <ion-col size="4">
+                <ion-col style="color: #4d4f5c;font-size: 11px;" align-self-center>
+                    {{holiday.STAFF_ID}}
+                </ion-col>
+                <ion-col size="4" style="color: #4d4f5c;font-size: 11px;" align-self-center>
+                    {{holiday.FULLNAME}}
+                </ion-col>
+                <ion-col style="color: #7069d8;;font-size: 11px;font-weight: bold;" align-self-center>
+                    {{holiday.CODE}}
+                </ion-col>
+                <ion-col style="color: #4d4f5c;font-size: 11px;" align-self-center>
                     <mat-chip-list>
-                        <ion-label
-                            style="position: absolute;margin-top: -20px;padding: 5px;padding-bottom: 0;color:#4d4f5c; font-size:11px;line-height:2.22">
-                            {{holiday.str}}
-                        </ion-label>
-                        <mat-chip>
+                        <mat-chip [style.background-color]="holiday.STATUS == 'APPROVED'? '#46cdcf': ''">
                             <p
-                                style="white-space: nowrap;width: 100%;text-align: center;color: #f0f0f7;font-size: 10px;line-height: 2.22;">
-                                {{holiday.day}}</p>
+                                style="white-space: nowrap;width: 100%;text-align: center;color: white;font-size: 10px;line-height: 2.22;">
+                                {{holiday.STATUS | titlecase}}</p>
                         </mat-chip>
                     </mat-chip-list>
-                </ion-col>
-                <ion-col class="colOfLeave" style="color: #4d4f5c;font-size: 11px;" align-self-center>
-                    {{holiday.title}}
                 </ion-col>
                 <!-- <ion-item class="divider" lines="full"></ion-item> -->
             </ion-row>
