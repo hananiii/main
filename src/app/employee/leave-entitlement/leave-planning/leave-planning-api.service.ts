@@ -77,10 +77,11 @@ export class LeavePlanningAPIService {
      * @param {string} message
      * @memberof LeavePlanningAPIService
      */
-    openSnackBar(message: string) {
+    openSnackBar(message: string, val: boolean) {
         this.snackBar.openFromComponent(NotificationComponent, {
-            duration: 2000,
-            data: message
+            duration: 3000,
+            verticalPosition: "top",
+            data: { message: message, response: val }
         });
     }
 }

@@ -62,7 +62,7 @@
     display: flex;
     align-items: center;
     padding-left: 20px;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
   }
   .apply-leave-form {
     padding-left: 5px;
@@ -72,18 +72,18 @@
     position: relative;
   }
   ::ng-deep .mat-radio-container {
-    height: 15px;
-    width: 15px;
+    height: 20px;
+    width: 20px;
   }
   ::ng-deep .mat-radio-outer-circle {
     border-width: 2px;
-    height: 15px;
-    width: 15px;
-    border-color: #a5a4bf;
+    height: 20px;
+    width: 20px;
+    border-color: #7069d8;
   }
   ::ng-deep .mat-radio-inner-circle {
-    height: 15px;
-    width: 15px;
+    height: 20px;
+    width: 20px;
   }
   ::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
     border-color: #7069d8;
@@ -102,7 +102,7 @@
   }
   .divider {
     --min-height: none;
-    padding-bottom: 5%;
+    padding-bottom: 3%;
     width: 100%;
   }
   ::ng-deep .mat-form-field > .mat-form-field-wrapper {
@@ -134,6 +134,11 @@
   .leave-card-list {
     background: #7069d8;
     color: #fff;
+    border-radius: 2px;
+  }
+  .mat-input-element:disabled {
+    color: #43425d;
+    opacity: 0.8;
   }
   //full calendar
   ::ng-deep .fc-toolbar > * > :not(:first-child) {
