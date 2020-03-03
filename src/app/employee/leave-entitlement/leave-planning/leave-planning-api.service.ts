@@ -3,8 +3,8 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { APIService } from 'src/services/shared-service/api.service';
-import { NotificationComponent } from './apply-leave/notification/notification.component';
 import { MatSnackBar } from '@angular/material';
+import { SnackbarNotificationComponent } from '../../snackbar-notification/snackbar-notification.component';
 
 /**
  * All leave planning API
@@ -78,7 +78,7 @@ export class LeavePlanningAPIService {
      * @memberof LeavePlanningAPIService
      */
     openSnackBar(message: string, val: boolean) {
-        this.snackBar.openFromComponent(NotificationComponent, {
+        this.snackBar.openFromComponent(SnackbarNotificationComponent, {
             duration: 3000,
             verticalPosition: "top",
             data: { message: message, response: val }

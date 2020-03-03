@@ -28,7 +28,7 @@
                         <mat-label>Leave types</mat-label>
                         <mat-select class="selectLeave" name="leave" formControlName="leaveTypes" required>
                             <mat-option *ngFor="let leave of entitlement; let i=index" [value]="leave.LEAVE_CODE"
-                                (click)="daysAvailable = leave.BALANCE_DAYS;leaveTypeId = leave.LEAVE_TYPE_GUID;">
+                                (click)="daysAvailable = leave.BALANCE_DAYS;leaveTypeId = leave.LEAVE_TYPE_GUID;leaveCode = leave.LEAVE_CODE">
                                 {{leave.LEAVE_CODE}}</mat-option>
                         </mat-select>
                         <mat-error *ngIf="!applyLeaveForm.leaveTypes" style="padding: 5px;padding-left: 0;">
@@ -355,8 +355,7 @@
                     </ion-button>
                     <ion-button
                         style="--border-radius: 2px;height: 30px; width: 57%;font-size: 12px;text-transform: none"
-                        [disabled]="!applyLeaveForm.valid"
-                        (click)="postData(); applyLeaveForm.reset();daysAvailable=0;daysCount=0;minDate='';maxDate='';">
+                        [disabled]="!applyLeaveForm.valid" (click)="postData()">
                         Submit
                     </ion-button>
                 </div>

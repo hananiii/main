@@ -1,0 +1,24 @@
+<div class="title">Leave Application</div>
+<div style="text-align: left;padding-left: 40px;padding-right: 40px;margin-bottom: 20px;">
+  <p style="color: #43425d;line-height: 1.25;font-size: 12px;margin-bottom: 20px;"><strong>Leave Type:
+      {{data.leavetype}}</strong></p>
+  <ng-container *ngFor="let item of data.details">
+    <p style="color: #43425d;line-height: 1.25;font-size: 12px;">
+      <strong>Start Date: </strong>{{item.startDate | date: 'dd MMMM yyyy'}}</p>
+    <p style="color: #43425d;line-height: 1.25;font-size: 12px;">
+      <strong>End Date: </strong>{{item.endDate | date: 'dd MMMM yyyy'}}</p>
+    <p style="color: #43425d;line-height: 1.25;font-size: 12px;margin-bottom: 25px;" *ngIf="item.dayType == 0">
+      <strong>Duration: </strong>Full Day</p>
+    <p style="color: #43425d;line-height: 1.25;font-size: 12px;margin-bottom: 25px;" *ngIf="item.dayType == 1">
+      <strong>Duration: </strong>Half Day - {{item.slot}}</p>
+    <p style="color: #43425d;line-height: 1.25;font-size: 12px;margin-bottom: 25px;" *ngIf="item.dayType == 2">
+      <strong>Duration: </strong>Quarter Day - {{item.quarterDay}}</p>
+  </ng-container>
+  <p style="color: #43425d;line-height: 1.25;font-size: 12px;margin-bottom: 16px;">
+    <strong>Reason: </strong>{{data.reason}}</p>
+</div>
+<div mat-dialog-actions style="display: block; text-align: center;font-size: 11px;">
+  <button mat-flat-button color="primary" style="color:white;background: #7069d8;border-radius: 2px;
+        width: 81%;height: 30px;line-height: 30px;font-size: 11px;" [mat-dialog-close]="'OK'">Send
+    Application</button>
+</div>

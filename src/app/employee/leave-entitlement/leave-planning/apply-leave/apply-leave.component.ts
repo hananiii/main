@@ -13,6 +13,7 @@ import { DayType } from './apply-leave.service';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
 import { LeavePlanningAPIService } from '../leave-planning-api.service';
 import { AppDateAdapter, APP_DATE_FORMATS } from 'src/app/employee/date.adapter';
+import { ApplyLeaveConfirmationComponent } from './apply-leave-confirmation/apply-leave-confirmation.component';
 const moment = _moment;
 /**
  * Apply Leave Page
@@ -206,6 +207,13 @@ export class ApplyLeaveComponent implements OnInit {
      * @memberof ApplyLeaveComponent
      */
     public quarterDayIndex: number[] = [];
+
+    /**
+     * selected leave type name
+     * @type {string}
+     * @memberof ApplyLeaveComponent
+     */
+    public leaveCode: string;
 
     /**
      * Local private property for value get from API
@@ -496,8 +504,6 @@ export class ApplyLeaveComponent implements OnInit {
         let newArray = [];
         newArray = this._dateArray;
         newArray = newArray.filter(val => !this._firstForm.includes(val));
-        // newArray = newArray.filter(val => !this._secondForm.includes(val));
-        // if (Number(this.dayTypes.value[0].name) !== 2) {
         let result = this.createConsecutiveDate(newArray);
         for (let i = 0; i < result.length; i++) {
             if (result[i] !== undefined) {
@@ -512,29 +518,6 @@ export class ApplyLeaveComponent implements OnInit {
                 this._arrayDateSlot.push(remainingFullDay);
             }
         }
-        // }
-        // if (Number(this.dayTypes.value[0].name) === 2) {
-        //     let result = this.createConsecutiveDate(newArray);
-        //     for (let i = 0; i < result.length; i++) {
-        //         if (result[i] !== undefined) {
-        //             const minMaxValue = this.getMinMaxDate(result[i]);
-        //             const remainingFullDay = {
-        //                 "startDate": moment(minMaxValue[0]).format('YYYY-MM-DD HH:mm:ss'),
-        //                 "endDate": moment(minMaxValue[1]).format('YYYY-MM-DD HH:mm:ss'),
-        //                 "dayType": 2,
-        //                 "slot": "",
-        //                 "quarterDay": this.selectedQuarterHour
-        //             }
-        //             this._arrayDateSlot.push(remainingFullDay);
-        //             this._arrayDateSlot.forEach((element, index) => {
-        //                 if (this._arrayDateSlot[index].dayType != 2) {
-        //                     this._arrayDateSlot.splice(index, 1);
-        //                 }
-        //             });
-        //         }
-        //     }
-        // }
-
         this.postDataHalfQuarter();
         const applyLeaveData = {
             "leaveTypeID": this.leaveTypeId,
@@ -543,21 +526,35 @@ export class ApplyLeaveComponent implements OnInit {
         }
         console.log(applyLeaveData);
 
-        this.leaveAPI.post_user_apply_leave(applyLeaveData).subscribe(
-            (val) => {
-                console.log("PATCH call successful value returned in body", val);
-                this.clearArrayList();
-                if (val.valid === true) {
-                    this.leaveAPI.openSnackBar(val.message, true);
-                } else {
-                    this.leaveAPI.openSnackBar(val.message, false);
-                }
-            },
-            response => {
-                console.log("PATCH call in error", response);
-                this.clearArrayList();
-                this.leaveAPI.openSnackBar(response.message, false);
-            });
+        const dialog = this.apiService.matdialog.open(ApplyLeaveConfirmationComponent, {
+            data: { leavetype: this.leaveCode, reason: this.applyLeaveForm.value.inputReason, details: this._arrayDateSlot },
+            height: "300px",
+            width: "440px"
+        });
+        dialog.afterClosed().subscribe(result => {
+            if (result === 'OK') {
+                this.leaveAPI.post_user_apply_leave(applyLeaveData).subscribe(
+                    (val) => {
+                        console.log("PATCH call successful value returned in body", val);
+                        this.clearArrayList();
+                        this.applyLeaveForm.reset();
+                        this.daysAvailable = 0;
+                        this.daysCount = 0;
+                        this.minDate = '';
+                        this.maxDate = '';
+                        if (val.valid === true) {
+                            this.leaveAPI.openSnackBar(val.message, true);
+                        } else {
+                            this.leaveAPI.openSnackBar(val.message, false);
+                        }
+                    },
+                    response => {
+                        console.log("PATCH call in error", response);
+                        this.clearArrayList();
+                        this.leaveAPI.openSnackBar(response.message, false);
+                    });
+            }
+        });
     }
 
     /**

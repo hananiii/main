@@ -18,10 +18,11 @@ import { MatRadioModule } from '@angular/material/radio';
 import { SpinnerModule } from 'src/library/spinner/spinner.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatChipsModule } from '@angular/material/chips';
-import { NotificationComponent } from './leave-planning/apply-leave/notification/notification.component';
 import { LeavePlanningComponent } from './leave-planning/leave-planning.component';
 import { ApplyLeaveComponent } from './leave-planning/apply-leave/apply-leave.component';
 import { CalendarViewComponent } from './leave-planning/calendar-view/calendar-view.component';
+import { ApplyLeaveConfirmationComponent } from './leave-planning/apply-leave/apply-leave-confirmation/apply-leave-confirmation.component';
+import { MatDialogModule } from '@angular/material';
 
 
 const routes: Routes = [
@@ -50,9 +51,10 @@ const routes: Routes = [
     SpinnerModule,
     MatSnackBarModule,
     MatChipsModule,
+    MatDialogModule,
     RouterModule.forChild(routes)
   ],
-  entryComponents: [NotificationComponent],
-  declarations: [LeaveEntitlementsComponent, LeavePlanningComponent, ApplyLeaveComponent, CalendarViewComponent, NotificationComponent]
+  entryComponents: [ApplyLeaveConfirmationComponent],
+  declarations: [LeaveEntitlementsComponent, LeavePlanningComponent, ApplyLeaveComponent, CalendarViewComponent, ApplyLeaveConfirmationComponent]
 })
 export class LeaveEntitlementModule { }

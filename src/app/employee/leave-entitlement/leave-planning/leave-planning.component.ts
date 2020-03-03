@@ -31,6 +31,13 @@ export class LeavePlanningComponent implements OnInit {
     public entitlementDetails: any;
 
     /**
+     * get user employment details
+     * @type {*}
+     * @memberof LeavePlanningComponent
+     */
+    public employment: any;
+
+    /**
      * This local property is used to show or hide spinner
      * @type {boolean}
      * @memberof LeavePlanningComponent
@@ -60,6 +67,7 @@ export class LeavePlanningComponent implements OnInit {
         this.leaveApi.get_entilement_details().subscribe(list => {
             this.entitlementDetails = list;
         })
+        this.API.get_user_info_employment_details().subscribe(details => this.employment = details)
     }
 
     /**
