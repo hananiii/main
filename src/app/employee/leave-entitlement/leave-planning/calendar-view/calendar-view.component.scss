@@ -18,14 +18,12 @@
     // max-height: 380px;
   }
   .titleRow {
-    padding-left: 5%;
+    width: 100%;
     padding-top: 5px;
-    // padding-bottom: 2%;
     background: #f5f6fa;
-    height: 37px;
-    margin-left: 25px;
+    margin-left: 10px;
     height: 42px;
-    // margin-bottom: 12px;
+    padding-left: 15px;
   }
   .divider {
     --min-height: none;
@@ -38,9 +36,9 @@
     min-height: 26px;
     min-width: 83px;
   }
-  // .mat-chip.mat-standard-chip {
-  //   background-color: #7069d8;
-  // }
+  ::ng-deep .mat-chip-list-wrapper {
+    display: inline-flex;
+  }
   ::ng-deep .mat-chip-list-wrapper .mat-standard-chip {
     margin-top: 8px;
   }
@@ -108,10 +106,10 @@
     background-color: #e9e9f0;
     color: #a3a6b4;
   }
-  ::ng-deep .fc-event {
-    background-color: #5ee2a0;
-    border: 1px solid #5ee2a0;
-  }
+  // ::ng-deep .fc-event {
+  //   background-color: #46cdcf;
+  //   border: 1px solid #46cdcf;
+  // }
   ::ng-deep table th {
     background: #f5f6fa;
     color: #a3a6b4;
@@ -123,10 +121,25 @@
   ::ng-deep table td {
     font-size: 11px;
     color: #43425d;
+    cursor: pointer;
   }
   ::ng-deep table,
   table td,
   table th {
     border-color: #e8e9ec;
+  }
+
+  // chips color
+  .approvedColor {
+    background-color: #46cdcf;
+  }
+  .rejectColor{
+    background-color: #ff6768;
+  }
+  .cancelColor{
+    background-color: #3b86ff;
+  }
+  .pendingColor{
+    background-color: #ffb961;
   }
 }

@@ -55,9 +55,18 @@ export class LeavePlanningAPIService {
      * @returns {Observable<any>}
      * @memberof LeavePlanningAPIService
      */
-    get_calendar_onleave_list(value: any): Observable<any> {
+    get_calendar_onleave_list(value?: any): Observable<any> {
         return this.http.get(this.api.baseUrl + '/api/employee/calendar-leave-list', { params: value, headers: this.api.headers })
             .pipe(map((response: Response) => response.json()))
+    }
+
+    /**
+     * get all employee onleave list 
+     * @returns {Observable<any>}
+     * @memberof LeavePlanningAPIService
+     */
+    get_all_onleave_list(): Observable<any> {
+        return this.api.getApi('/api/employee/calendar-leave-list');
     }
 
     /**

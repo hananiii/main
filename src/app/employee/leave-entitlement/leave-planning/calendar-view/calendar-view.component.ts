@@ -1,33 +1,3 @@
-export interface Holidays {
-
-    /**
-     * Local property of Day for date in calendar
-     * @type {string}
-     * @memberof Holidays
-     */
-    day: string;
-    /**
-     * Local property of start date in calendar
-     * @type {string}
-     * @memberof Holidays
-     */
-    // start: string;
-
-    /**
-     * Local property of end date in calendar
-     * @type {string}
-     * @memberof Holidays
-     */
-    end: string;
-
-    /**
-     * Local property of title name in calendar
-     * @type {string}
-     * @memberof Holidays
-     */
-    title: string;
-}
-
 import { Component, OnInit, ViewChild } from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGrigPlugin from '@fullcalendar/timegrid';
@@ -109,15 +79,18 @@ export class CalendarViewComponent implements OnInit {
     public timeslot: string;
 
     /**
-     * show text in clicked calendar
-     * @type {string}
+     * all on leave list from database
+     * @type {*}
      * @memberof CalendarViewComponent
      */
-    // public text: string;
-
     public calendarList: any;
 
-    public value: boolean = false;
+    /**
+     * get onleave employee from selected date
+     * @type {*}
+     * @memberof CalendarViewComponent
+     */
+    public onLeaveList: any
 
     /**
      *Creates an instance of CalendarViewComponent.
@@ -127,6 +100,10 @@ export class CalendarViewComponent implements OnInit {
      */
     constructor(private apiService: APIService, private leaveAPI: LeavePlanningAPIService) { }
 
+    /**
+     * initial method
+     * @memberof CalendarViewComponent
+     */
     async ngOnInit() {
         const date = new Date();
         let year = date.getFullYear();
@@ -135,27 +112,49 @@ export class CalendarViewComponent implements OnInit {
         this.calendarId = this.list.calendarId;
         let holidayList = await this.leaveAPI.get_personal_holiday_calendar(this.calendarId, year).toPromise();
         this.PBList = holidayList.holiday;
-        this.calendarList = await this.leaveAPI.get_calendar_onleave_list({ 'enddate': moment(date).format('YYYY-MM-DD'), 'startdate': moment(date).format('YYYY-MM-DD') }).toPromise();
+        await this.allOnleaveList();
+        await this.getOnLeaveList(new Date());
         this.events = this.PBList.concat(this.calendarList);
-        console.log(this.PBList, this.events);
         this.editDateFormat(this.PBList);
         this.getEmployeeLeaveList(this.events);
+        console.log(this.PBList);
+        console.log(this.calendarList);
+        console.log(this.events);
     }
 
-    abc(event) {
-        console.log(event)
+    /**
+     * get leave application on the selected date
+     * @param {Date} date
+     * @memberof CalendarViewComponent
+     */
+    async getOnLeaveList(date: Date) {
+        this.onLeaveList = await this.leaveAPI.get_calendar_onleave_list({ 'enddate': moment(date).format('YYYY-MM-DD'), 'startdate': moment(date).format('YYYY-MM-DD') }).toPromise();
     }
 
-    selectDate(event) {
-        console.log(event);
-        if (event.end != event.start) {
-            // this.calendar.unselect();
-            this.value = true
+    /**
+     * get all employee onleave list
+     * @memberof CalendarViewComponent
+     */
+    async allOnleaveList() {
+        this.calendarList = await this.leaveAPI.get_all_onleave_list().toPromise();
+        for (let i = 0; i < this.calendarList.length; i++) {
+            if (this.calendarList[i].STATUS === 'APPROVED') {
+                this.calendarList[i]["backgroundColor"] = "#46cdcf";
+                this.calendarList[i]["borderColor"] = "#46cdcf";
+            }
+            if (this.calendarList[i].STATUS === 'REJECTED') {
+                this.calendarList[i]["backgroundColor"] = "#ff6768";
+                this.calendarList[i]["borderColor"] = "#ff6768";
+            }
+            if (this.calendarList[i].STATUS === 'CANCELLED') {
+                this.calendarList[i]["backgroundColor"] = "#3b86ff";
+                this.calendarList[i]["borderColor"] = "#3b86ff";
+            }
+            if (this.calendarList[i].STATUS === 'PENDING') {
+                this.calendarList[i]["backgroundColor"] = "#ffb961";
+                this.calendarList[i]["borderColor"] = "#ffb961";
+            }
         }
-    }
-
-    aaaa(event) {
-        console.log(event)
     }
 
     /**
@@ -172,7 +171,6 @@ export class CalendarViewComponent implements OnInit {
         }
     }
 
-
     /**
      * display onleave & public holiday event in calendar
      * @param {*} list
@@ -181,11 +179,11 @@ export class CalendarViewComponent implements OnInit {
     getEmployeeLeaveList(list: any) {
         for (let i = 0; i < list.length; i++) {
             if (list[i].CODE != undefined) {
-                this.events[i].start = moment(list[i].START_DATE).format('YYYY-MM-DD');
-                this.events[i].end = moment(list[i].END_DATE).add(1, "days").format("YYYY-MM-DD");
+                this.events[i].start = moment(list[i].START_DATE).format("YYYY-MM-DD[T]HH:mm:ss");
+                this.events[i].end = moment(list[i].END_DATE).format("YYYY-MM-DD[T]HH:mm:ss");
                 this.events[i].title = list[i].FULLNAME + ' ' + '(' + (list[i].CODE) + ')';
                 // this.events[i].allDay = true;
-                this.checkAllDay(list, i);
+                // this.checkAllDay(list, i);
             } else {
                 this.events[i].start = (moment(list[i].start).format('YYYY-MM-DD'));
                 this.events[i].end = moment(list[i].end).format('YYYY-MM-DD');
@@ -204,13 +202,13 @@ export class CalendarViewComponent implements OnInit {
      * @param {number} index
      * @memberof CalendarViewComponent
      */
-    checkAllDay(list: any, index: number) {
-        if (list[index].TIME_SLOT) {
-            this.events[index].allDay = false;
-        } else {
-            this.events[index].allDay = true;
-        }
-    }
+    // checkAllDay(list: any, index: number) {
+    //     if (list[index].TIME_SLOT) {
+    //         this.events[index].allDay = false;
+    //     } else {
+    //         this.events[index].allDay = true;
+    //     }
+    // }
 
     /**
      * Method to get day of the week from a given date
