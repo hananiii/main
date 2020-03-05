@@ -254,6 +254,9 @@ app-employee-profile
   > .mat-tab-label {
   height: 35px;
 }
+.custom-dialog-container .mat-dialog-container {
+  border-radius: 2px;
+}
 
 $screen-breakpoints: (
   xs: 0,

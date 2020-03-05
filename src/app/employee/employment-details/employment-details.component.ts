@@ -155,7 +155,8 @@ export class EmploymentDetailsComponent implements OnInit {
             this.apiService.matdialog.open(EditModeDialogComponent, {
                 data: 'employment',
                 height: "225.3px",
-                width: "383px"
+                width: "383px",
+                panelClass: 'custom-dialog-container'
             });
             const config: ScrollToConfigOptions = {
                 target: 'destination'

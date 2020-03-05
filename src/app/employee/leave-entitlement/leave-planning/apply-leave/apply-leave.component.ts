@@ -529,7 +529,8 @@ export class ApplyLeaveComponent implements OnInit {
         const dialog = this.apiService.matdialog.open(ApplyLeaveConfirmationComponent, {
             data: { leavetype: this.leaveCode, reason: this.applyLeaveForm.value.inputReason, details: this._arrayDateSlot },
             height: "300px",
-            width: "440px"
+            width: "440px",
+            panelClass: 'custom-dialog-container'
         });
         dialog.afterClosed().subscribe(result => {
             if (result === 'OK') {

@@ -3,6 +3,7 @@ import { APIService } from 'src/services/shared-service/api.service';
 import { Observable } from 'rxjs';
 import { Http, Response } from '@angular/http';
 import { map } from 'rxjs/operators';
+import { SnackbarNotificationComponent } from '../employee/snackbar-notification/snackbar-notification.component';
 
 /**
  * ALl API for dashboard page
@@ -141,6 +142,20 @@ export class DashboardApiService {
     post_reject_list(GUID): Observable<any> {
         return this.http.post(this.apiService.baseUrl + '/api/leave/rejected', GUID, { headers: this.apiService.headers })
             .pipe(map((res: Response) => res.text()))
+    }
+
+    /**
+     * Show notification after submit
+     * @param {string} msg
+     * @param {boolean} value
+     * @memberof DashboardApiService
+     */
+    popUpDialog(msg: string, value: boolean) {
+        this.apiService.snackbar.openFromComponent(SnackbarNotificationComponent, {
+            duration: 3000,
+            verticalPosition: "top",
+            data: { message: msg, response: value }
+        });
     }
 
 

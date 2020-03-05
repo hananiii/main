@@ -1,0 +1,58 @@
+<div class="title" *ngIf="data.title === 'application'">Leave Application Status</div>
+<div class="title" *ngIf="data.title === 'task'">My Tasks</div>
+
+<div style="text-align: left;padding-left: 40px;padding-right: 40px;">
+  <p *ngIf="data.title === 'application'" style="color: #43425d;line-height: 1.25;font-size: 12px;margin-bottom: 20px;">
+    You've applied
+    <strong>{{data.leavetype}}</strong> on {{data.appliedDate}}. Details
+    application as below:
+  </p>
+  <p *ngIf="data.title === 'task'" style="color: #43425d;line-height: 1.25;font-size: 12px;margin-bottom: 20px;">
+    <strong>{{data.name}}</strong> applied
+    <strong>{{data.leavetype}}</strong> on {{data.appliedDate}}. Details
+    application as below:
+  </p>
+  <ng-container *ngFor="let item of data.details">
+    <p style="color: #43425d;line-height: 1.25;font-size: 12px;margin: 0;">
+      <strong>Start Date: </strong>{{item.startDate | date: 'dd MMMM yyyy'}}</p>
+    <p style="color: #43425d;line-height: 1.25;font-size: 12px;margin: 0;">
+      <strong>End Date: </strong>{{item.endDate | date: 'dd MMMM yyyy'}}</p>
+    <!-- <p style="color: #43425d;line-height: 1.25;font-size: 12px;margin-bottom: 25px;" *ngIf="item.dayType == 0">
+      <strong>Duration: </strong>Full Day</p>
+    <p style="color: #43425d;line-height: 1.25;font-size: 12px;margin-bottom: 25px;" *ngIf="item.dayType == 1">
+      <strong>Duration: </strong>Half Day - {{item.slot}}</p>
+    <p style="color: #43425d;line-height: 1.25;font-size: 12px;margin-bottom: 25px;" *ngIf="item.dayType == 2">
+      <strong>Duration: </strong>Quarter Day - {{item.quarterDay}}</p> -->
+  </ng-container>
+  <p style="color: #43425d;line-height: 1.25;font-size: 12px;margin-bottom: 16px;">
+    <strong>Reason: </strong>{{data.reason}}</p>
+  <p style="color: #43425d;line-height: 1.25;font-size: 12px;margin-bottom: 16px;">
+    <strong>Status: {{data.status}}</strong></p>
+  <!-- <ion-item class="divider"></ion-item> -->
+  <div style="width: 100%;border-bottom: 1px solid #43425d; opacity: 0.1;"></div>
+  <p *ngIf="data.title === 'application'" style="color: #43425d;line-height: 1.25;font-size: 12px;margin-bottom: 16px;">
+    <strong>Want to cancel leave request? </strong></p>
+  <p *ngIf="data.title === 'task'" style="color: #43425d;line-height: 1.25;font-size: 12px;margin-bottom: 16px;">
+    <strong>What should I do? </strong></p>
+  <mat-radio-group *ngIf="data.title === 'task'" style="font-size: 11px;" (change)="dayNameChanged($event)">
+    <mat-radio-button value="Approve" color="primary" style="padding-right: 25px;padding-bottom: 5px;" [checked]=true>
+      Approve
+    </mat-radio-button>
+    <mat-radio-button value="Reject" color="primary" style="padding-right: 25px;padding-bottom: 5px;">Reject
+    </mat-radio-button>
+  </mat-radio-group>
+  <mat-form-field class="reasonBox" appearance="outline" style="width: 98%;"> <input matInput placeholder="Reason"
+      required>
+  </mat-form-field>
+</div>
+<div *ngIf="data.title === 'application'" mat-dialog-actions
+  style="display: block; text-align: center;font-size: 11px;">
+  <button mat-flat-button color="primary" style="color:white;background: #ff6768;border-radius: 2px;
+        width: 81%;height: 30px;line-height: 30px;font-size: 11px;" [mat-dialog-close]="'OK'">Request
+    Cancellation</button>
+</div>
+<div *ngIf="data.title === 'task'" mat-dialog-actions style="display: block; text-align: center;font-size: 11px;">
+  <button mat-flat-button color="primary" style="color:white;background: #7069d8;border-radius: 2px;
+        width: 81%;height: 30px;line-height: 30px;font-size: 11px;" [mat-dialog-close]="'OK'">Send
+    Confirmation</button>
+</div>

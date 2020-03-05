@@ -40,9 +40,20 @@
     flex: 1;
     min-width: 300px;
   }
+  .status {
+    flex: 30%;
+    // max-width: 30%;
+    max-width: -webkit-fill-available;
+    background: #ffffff;
+    margin: 1%;
+    border-radius: 2px;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);
+    // margin-bottom: 30px;
+  }
   .tasks {
-    flex: 72%;
-    max-width: 72%;
+    flex: 30%;
+    // max-width: 30%;
+    max-width: -webkit-fill-available;
     background: #ffffff;
     margin: 1%;
     border-radius: 2px;
@@ -73,12 +84,16 @@
     opacity: 0.5;
   }
   mat-chip {
-    max-width: 69px;
-    min-height: 20px;
-    min-width: 69px;
+    max-width: 83px;
+    min-height: 26px;
+    min-width: 83px;
   }
   .mat-chip.mat-standard-chip {
     background-color: #46cdcf;
+  }
+  // for application status & task
+  ::ng-deep .mat-chip-list-wrapper {
+    display: inline-flex;
   }
   .annual-icon {
     width: 46px;
@@ -170,9 +185,9 @@
     overflow: hidden;
     max-height: 160px;
   }
-  .list {
-    padding: 0;
-  }
+  // .list {
+  //   padding: 0;
+  // }
   .avatar {
     margin-right: 15px;
     width: 34px;
@@ -189,16 +204,16 @@
     color: #4d4f5c;
     line-height: 1.4;
     text-align: justify;
-}
-p.listInnerText::ng-deep p {
+  }
+  p.listInnerText::ng-deep p {
     white-space: normal;
     font-size: 10px;
     color: #4d4f5c;
     line-height: 1.4;
     text-align: justify;
-}
+  }
   p.mainInnerText::ng-deep p {
     margin-bottom: 0;
     margin-top: 0;
-}
+  }
 }

@@ -245,7 +245,8 @@ export class PersonalDetailsComponent implements OnInit {
             this.apiService.matdialog.open(EditModeDialogComponent, {
                 data: 'personal',
                 height: "343.3px",
-                width: "383px"
+                width: "383px",
+                panelClass: 'custom-dialog-container'
             });
         } else {
             this.modeValue = 'OFF'

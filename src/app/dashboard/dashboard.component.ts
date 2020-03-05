@@ -10,6 +10,8 @@ import { Component, OnInit } from '@angular/core';
 import { DashboardApiService } from './dashboard-api.service';
 import * as _moment from 'moment';
 import { MenuController } from '@ionic/angular';
+import { MatDialog } from '@angular/material';
+import { LeaveApplicationConfirmationComponent } from './leave-application-confirmation/leave-application-confirmation.component';
 const moment = _moment;
 
 /**
@@ -278,7 +280,7 @@ export class DashboardComponent implements OnInit {
      * @param {MenuController} menu
      * @memberof DashboardComponent
      */
-    constructor(private dashboardAPI: DashboardApiService, private menu: MenuController) { }
+    constructor(private dashboardAPI: DashboardApiService, private menu: MenuController, private dialog: MatDialog) { }
 
     /**
      * Initial method
@@ -291,42 +293,48 @@ export class DashboardComponent implements OnInit {
             this.row = true;
             this.showSpinner = false;
         });
-        // this.dashboardAPI.get_news_notification().subscribe(data => {
-        //     this.notificationCategory(data);
-        //     this.row = true;
-        //     this.showSpinner = false;
-        // }, error => {
-        //     if (error) {
-        //         window.location.href = '/login';
-        //     }
-        // });
         this.getHolidayList();
         this.getAnnouncementList();
-        // this.getUserDetails();
         this.get_annual_medical_task();
         this.dashboardAPI.get_long_leave_reminder().subscribe(details => this.longLeave = details)
         this.get_RL();
     }
 
     /**
-     * get user profile details
+     * open dialog of status application
      * @memberof DashboardComponent
      */
-    // getUserDetails() {
-    //     this.mainAPI.get_user_profile().subscribe(data => {
-    //         this.entitlementList = data.entitlementDetail;
-    //         this.dateOfBirth = moment(data.personalDetail.dob).format('DD MMM')
-    //         this.birtdayToGo = this.calculateDays(data.personalDetail.dob);
-    //         for (let i = 0; i < this.entitlementList.length; i++) {
-    //             if (this.entitlementList[i].leaveTypeName == 'Annual Leave') {
-    //                 this.annualVal = this.entitlementList[i].entitledDays;
-    //             }
-    //             if (this.entitlementList[i].leaveTypeName == 'Medical Leave') {
-    //                 this.medicalVal = this.entitlementList[i].entitledDays;
-    //             }
-    //         }
-    //     });
-    // }
+    openStatusDialog() {
+        const dialog = this.dialog.open(LeaveApplicationConfirmationComponent, {
+            data: { title: 'application', leavetype: 'Annual Leave', appliedDate: '12 Jan 2020', reason: 'Visit hometown with family', status: 'Approved', details: [{ startDate: '20 January 2020', endDate: '21 January 2020' }] },
+            height: "430px",
+            width: "440px",
+            panelClass: 'custom-dialog-container'
+        });
+        dialog.afterClosed().subscribe(result => {
+            if (result === 'OK') {
+                this.dashboardAPI.popUpDialog("You've cancelled your leave application request", true);
+            }
+        });
+    }
+
+    /**
+     * open dialog of my task
+     * @memberof DashboardComponent
+     */
+    openTaskDialog() {
+        const dialog = this.dialog.open(LeaveApplicationConfirmationComponent, {
+            data: { title: 'task', name: 'Fathurrahman', leavetype: 'Annual Leave', appliedDate: '12 Jan 2020', reason: 'Visit hometown with family', status: 'Approved', details: [{ startDate: '20 January 2020', endDate: '21 January 2020' }] },
+            height: "450px",
+            width: "440px",
+            panelClass: 'custom-dialog-container'
+        });
+        dialog.afterClosed().subscribe(result => {
+            if (result === 'OK') {
+                this.dashboardAPI.popUpDialog("Your tasks has been submitted successfully", true);
+            }
+        });
+    }
 
     /**
      * remaining days to reach birthday
@@ -438,24 +446,6 @@ export class DashboardComponent implements OnInit {
     }
 
     /**
-     * Get today onleave status(number of employee onleave, total employee) & onleave list from API
-     * @memberof DashboardComponent
-     */
-    // getOnleaveDetails() {
-    //     const params = { 'startdate': this.datePipe.transform(new Date(), 'yyyy-MM-dd'), 'enddate': this.datePipe.transform(new Date(), 'yyyy-MM-dd') };
-    //     this.dashboardAPI.get_status_onleave(params).subscribe(
-    //         data => {
-    //             this.onLeaveNumber = data;
-    //         })
-    //     this.dashboardAPI.get_onleave_list(params).subscribe(
-    //         data => {
-    //             this.row = true;
-    //             this.showSpinner = false;
-    //             this.onLeaveList = data;
-    //         })
-    // }
-
-    /**
      * Show material-icon according category of notification
      * @param {*} data
      * @memberof DashboardComponent
@@ -463,21 +453,7 @@ export class DashboardComponent implements OnInit {
     notificationCategory(data: any) {
         this.notification = data;
         for (let i = 0; i < this.notification.length; i++) {
-            // if (this.notification[i].CATEGORY === Category[0]) {
             this.notification[i].CREATION_TS = (moment(this.notification[i].CREATION_TS).format('DD MMM YYYY'));
-            // }
-            // if (this.notification[i].CATEGORY === Category[0] || this.notification[i].CATEGORY === Category[2]) {
-            //     this.notification[i].icon = 'sms';
-            // }
-            // else if (this.notification[i].CATEGORY === Category[1] || this.notification[i].CATEGORY === Category[3]) {
-            //     this.notification[i].icon = 'account_box';
-            // }
-            // else if (this.notification[i].CATEGORY === Category[4]) {
-            //     this.notification[i].icon = 'cake';
-            // }
-            // else {
-            //     this.notification[i].icon = 'account_box';
-            // }
         }
     }
 
@@ -502,36 +478,5 @@ export class DashboardComponent implements OnInit {
             this.get_task_list();
         })
     }
-
-    /**
-     * This method is used to determine the button click and button style
-     * @param {number} value
-     * @memberof DashboardComponent
-     */
-    // buttonClick(value: number) {
-    //     if (value === 1) {
-    //         this.buttonOneFill = 'outline';
-    //         this.buttonTwoFill = 'clear';
-    //         this.buttonThreeFill = 'clear';
-    //         this.showAllUpdates = true;
-    //         this.showMyRecent = false;
-    //         this.showAnnouncement = false;
-    //     } else if (value === 2) {
-    //         this.buttonOneFill = 'clear';
-    //         this.buttonTwoFill = 'outline';
-    //         this.buttonThreeFill = 'clear';
-    //         this.showAllUpdates = false;
-    //         this.showMyRecent = true;
-    //         this.showAnnouncement = false;
-    //     } else {
-    //         this.buttonOneFill = 'clear';
-    //         this.buttonTwoFill = 'clear';
-    //         this.buttonThreeFill = 'outline';
-    //         this.showAllUpdates = false;
-    //         this.showMyRecent = false;
-    //         this.showAnnouncement = true;
-    //         this.showDot = false;
-    //     }
-    // }
 
 }

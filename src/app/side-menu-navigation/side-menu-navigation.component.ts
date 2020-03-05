@@ -202,7 +202,8 @@ export class SideMenuNavigationComponent implements OnInit {
     } else {
       this.sharedService.dialog.open(RouteDialogComponent, {
         width: "283px",
-        height: "194px"
+        height: "194px",
+        panelClass: 'custom-dialog-container'
       });
     }
   }

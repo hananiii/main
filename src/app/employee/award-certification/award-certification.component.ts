@@ -154,7 +154,8 @@ export class AwardCertificationComponent implements OnInit {
             this.apiService.matdialog.open(EditModeDialogComponent, {
                 data: 'certificate',
                 height: "225.3px",
-                width: "383px"
+                width: "383px",
+                panelClass: 'custom-dialog-container'
             });
         } else {
             this.toggleValue = 'OFF'

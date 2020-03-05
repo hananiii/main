@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
@@ -11,8 +11,9 @@ import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { GoogleChartModule } from 'src/library/google-chart/google-chart.module';
 import { SpinnerModule } from 'src/library/spinner/spinner.module';
-import { MatTooltipModule } from '@angular/material';
+import { MatTooltipModule, MatFormField, MatFormFieldModule, MatDialogModule, MatInputModule, MatRadioModule } from '@angular/material';
 import { MatChipsModule } from '@angular/material/chips';
+import { LeaveApplicationConfirmationComponent } from './leave-application-confirmation/leave-application-confirmation.component';
 
 
 const routes: Routes = [
@@ -35,9 +36,14 @@ const routes: Routes = [
         SpinnerModule,
         MatTooltipModule,
         MatChipsModule,
+        MatFormFieldModule,
+        MatDialogModule,
+        MatInputModule,
+        MatRadioModule,
         RouterModule.forChild(routes)
     ],
-    declarations: [DashboardComponent]
+    entryComponents: [LeaveApplicationConfirmationComponent],
+    declarations: [DashboardComponent, LeaveApplicationConfirmationComponent]
 })
 export class DashboardModule { }
 
