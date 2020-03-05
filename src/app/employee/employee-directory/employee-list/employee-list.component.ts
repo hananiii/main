@@ -149,7 +149,6 @@ export class EmployeeListComponent implements OnInit {
     filterDetails(char: any) {
         if (char && char.trim() != '') {
             let name = this.items.filter((data: any) => {
-                console.log(data);
                 return (data.employeeName.toUpperCase().indexOf(char.toUpperCase()) > -1);
             })
             let id = this.items.filter((details: any) => {
@@ -158,11 +157,12 @@ export class EmployeeListComponent implements OnInit {
             let department = this.items.filter((details: any) => {
                 return (details.department.toUpperCase().indexOf(char.toUpperCase()) > -1);
             })
-            let company = this.items.filter((details: any) => {
-                return (details.companyName.toUpperCase().indexOf(char.toUpperCase()) > -1);
+            let company = this.items.filter((list: any) => {
+                if (list.companyName != null) {
+                    return (list.companyName.toUpperCase().indexOf(char.toUpperCase()) > -1);
+                }
             })
             this.items = require('lodash').uniqBy(name.concat(id).concat(department).concat(company), 'userId');
-            console.log(this.items);
             this.showSpinner = false;
         }
     }
