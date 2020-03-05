@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { APIService } from 'src/services/shared-service/api.service';
-import { Router } from '@angular/router';
 
 /**
  * Employee List Page
@@ -21,13 +20,6 @@ export class EmployeeListComponent implements OnInit {
      * @memberof EmployeeListComponent
      */
     public items: any;
-
-    /**
-     * This local property is used to get department list from API
-     * @type {*}
-     * @memberof EmployeeListComponent
-     */
-    public departmentList: any;
 
     /**
      * This local property is used to show types of arrow icon for name column
@@ -51,55 +43,6 @@ export class EmployeeListComponent implements OnInit {
     public totalItem: number;
 
     /**
-     * This local property is used to set page items
-     * @type {number}
-     * @memberof EmployeeListComponent
-     */
-    public pageItems: number = 9;
-
-    /**
-     * This local property is used to set range for calculation
-     * @type {number}
-     * @memberof EmployeeListComponent
-     */
-    public range: number = 8;
-
-    /**
-     * This local property is used to calculate page number
-     * @type {number}
-     * @memberof EmployeeListComponent
-     */
-    public pageNum: number;
-
-    /** 
-     * This local property is used to calculate total page number
-     * @type {number}
-     * @memberof EmployeeListComponent
-     */
-    public totalPageNum: number;
-
-    /**
-     * This local property is used to show current page content items
-     * @type {*}
-     * @memberof EmployeeListComponent
-     */
-    public currentPageItems: any;
-
-    /**
-     * This local property is used to enable or disable next button
-     * @type {boolean}
-     * @memberof EmployeeListComponent
-     */
-    public disableNextButton: boolean;
-
-    /**
-     * This local property is used to enable or disable previous button
-     * @type {boolean}
-     * @memberof EmployeeListComponent
-     */
-    public disablePrevButton: boolean = true;
-
-    /**
      * This local property is used to show list view
      * @type {boolean}
      * @memberof EmployeeListComponent
@@ -112,26 +55,6 @@ export class EmployeeListComponent implements OnInit {
      * @memberof EmployeeListComponent
      */
     public gridView: boolean = false;
-
-    // /**
-    //  * This local property is used to save favourite name card
-    //  * @memberof EmployeeListComponent
-    //  */
-    // public setAsFavourite = [];
-
-    /**
-     * This local property is used to show filter details
-     * @type {boolean}
-     * @memberof EmployeeListComponent
-     */
-    public viewMoreFilter: boolean = false;
-
-    /**
-     * This local property is used to show header of advertisement message
-     * @type {boolean}
-     * @memberof EmployeeListComponent
-     */
-    public showHeader: boolean = true;
 
     /**
      * This local property is used to show loading spinner
@@ -148,33 +71,11 @@ export class EmployeeListComponent implements OnInit {
     p: number;
 
     /**
-     * selection
-     * @memberof EmployeeListComponent
-     */
-    foods = [
-        { value: 'steak-0', viewValue: 'Steak' },
-        { value: 'pizza-1', viewValue: 'Pizza' },
-        { value: 'tacos-2', viewValue: 'Tacos' }
-    ];
-
-    public hideViewOption;
-
-    /**
-     * return current page users
-     * @readonly
-     * @memberof EmployeeListComponent
-     */
-    public get personalList() {
-        return this.currentPageItems;
-    }
-
-    /**
      *Creates an instance of EmployeeListComponent.
      * @param {APIService} apiService
-     * @param {Router} router
      * @memberof EmployeeListComponent
      */
-    constructor(private apiService: APIService, public router: Router) {
+    constructor(private apiService: APIService) {
     }
 
     /**
@@ -184,115 +85,26 @@ export class EmployeeListComponent implements OnInit {
      * @memberof EmployeeListComponent
      */
     ngOnInit() {
-        (window.innerWidth < 992) ? this.viewList(false, 9, 8) : this.viewList(true, 9, 8);
-
+        (window.innerWidth < 992) ? this.viewList(false) : this.viewList(true);
         this.apiService.get_user_profile_list().subscribe(
             (data: any[]) => {
                 this.items = data;
-                // this.pageNum = 1;
-                // this.renderItems(this.pageNum);
                 this.showSpinner = false;
-            },
-            error => {
-                if (error) {
-                    window.location.href = '/login';
-                }
             }
         );
-        this.apiService.get_master_list('department').subscribe((data) => {
-            this.departmentList = data;
-        });
+        // this.apiService.get_master_list('department').subscribe((data) => {
+        //     this.departmentList = data;
+        // });
     }
 
     /**
      * This method is used to show view list or grid list items
      * @param {boolean} showList
-     * @param {number} pageItem
-     * @param {number} range
      * @memberof EmployeeListComponent
      */
-    viewList(showList: boolean, pageItem: number, range: number) {
+    viewList(showList: boolean) {
         this.listView = showList;
         this.gridView = !showList;
-        this.disableNextButton = false;
-        this.disablePrevButton = true;
-        this.pageItems = pageItem;
-        this.range = range;
-        // this.renderItems(1);
-    }
-
-    /**
-     * This method is used to calculate content of items in a page
-     * @param {number} i
-     * @memberof EmployeeListComponent
-     */
-    // renderItems(i: number) {
-    //     this.pageNum = i;
-    //     this.totalItem = this.items.length;
-    //     this.totalPageNum = this.totalItem / this.pageItems;
-    //     this.totalPageNum = Math.ceil(this.totalPageNum);
-    //     const firstNum = (this.pageNum * this.pageItems) - this.range;
-    //     const lastNum = this.pageNum * this.pageItems;
-    //     const currentPageList = [];
-    //     for (let j = firstNum - 1; j < lastNum; j++) {
-    //         const itemValue = this.items[j];
-    //         if (itemValue !== undefined) {
-    //             currentPageList.push(itemValue);
-    //         }
-    //     }
-    //     this.currentPageItems = currentPageList;
-    //     this.showSpinner = false;
-    // }
-
-    /**
-     * This method is used to disable or enable next button
-     * @memberof EmployeeListComponent
-     */
-    disableEnableNextButton() {
-        if (this.pageNum > 0 && this.pageNum < this.totalPageNum) {
-            this.disableNextButton = false;
-        }
-        if (this.pageNum === this.totalPageNum) {
-            this.disableNextButton = true;
-        }
-        if (this.pageNum > 1) {
-            this.disablePrevButton = false;
-        }
-    }
-
-    /**
-     * This method is used to disable or enable previous button
-     * @memberof EmployeeListComponent
-     */
-    disableEnablePreviousButton() {
-        if (this.pageNum > 1 && this.pageNum === this.totalPageNum) {
-            this.disablePrevButton = false;
-        }
-        if (this.pageNum < 2) {
-            this.disablePrevButton = true;
-        }
-        if (this.pageNum < this.totalPageNum) {
-            this.disableNextButton = false;
-        }
-    }
-
-    /**
-     * This method is used to show page content when clicked on next or previous button
-     * @param {number} index
-     * @param {string} nextOrPrev
-     * @memberof EmployeeListComponent
-     */
-    clickPageButton(index: number, nextOrPrev: string) {
-        if (!(index > this.totalPageNum) && nextOrPrev === 'next') {
-            // this.showSpinner = true;
-            // this.renderItems(index);
-            this.disableEnableNextButton();
-        }
-        if (!(index < 1) && nextOrPrev === 'prev') {
-            // this.showSpinner = true;
-            // this.renderItems(index);
-            this.disableEnablePreviousButton();
-        }
     }
 
     /**
@@ -303,7 +115,6 @@ export class EmployeeListComponent implements OnInit {
      * @memberof EmployeeListComponent
      */
     nameSorting(value: boolean, checkAsc: number, checkDes: number) {
-        // this.showSpinner = true;
         this.arrowDownName = value;
         this.items = this.items.slice(0);
         this.items.sort(function (a: any, b: any) {
@@ -311,9 +122,6 @@ export class EmployeeListComponent implements OnInit {
             const y = b.employeeName.toUpperCase();
             return x < y ? checkAsc : x > y ? checkDes : 0;
         });
-        // this.renderItems(1);
-        this.disableNextButton = false;
-        this.disablePrevButton = true;
     }
 
     /**
@@ -324,7 +132,6 @@ export class EmployeeListComponent implements OnInit {
      * @memberof EmployeeListComponent
      */
     IDSorting(value: boolean, ascValue: number, desValue: number) {
-        // this.showSpinner = true;
         this.arrowDownId = value;
         this.items = this.items.slice(0);
         this.items.sort(function (x, y) {
@@ -332,9 +139,6 @@ export class EmployeeListComponent implements OnInit {
             const b = y.staffNumber;
             return a < b ? ascValue : a > b ? desValue : 0;
         });
-        // this.renderItems(1);
-        this.disableNextButton = false;
-        this.disablePrevButton = true;
     }
 
     /**
@@ -344,14 +148,22 @@ export class EmployeeListComponent implements OnInit {
      */
     filterDetails(char: any) {
         if (char && char.trim() != '') {
-            this.items = this.items.filter((data: any) => {
+            let name = this.items.filter((data: any) => {
+                console.log(data);
                 return (data.employeeName.toUpperCase().indexOf(char.toUpperCase()) > -1);
             })
-            // this.pageNum = 1;
-            // this.renderItems(this.pageNum);
+            let id = this.items.filter((details: any) => {
+                return (details.staffNumber.indexOf(char) > -1);
+            })
+            let department = this.items.filter((details: any) => {
+                return (details.department.toUpperCase().indexOf(char.toUpperCase()) > -1);
+            })
+            let company = this.items.filter((details: any) => {
+                return (details.companyName.toUpperCase().indexOf(char.toUpperCase()) > -1);
+            })
+            this.items = require('lodash').uniqBy(name.concat(id).concat(department).concat(company), 'userId');
+            console.log(this.items);
             this.showSpinner = false;
-            this.disableEnableNextButton();
-            this.disableEnablePreviousButton();
         }
     }
 
@@ -364,12 +176,8 @@ export class EmployeeListComponent implements OnInit {
             (data: any[]) => {
                 this.items = data;
                 this.showSpinner = false;
-                // this.pageNum = 1;
-                // this.renderItems(this.pageNum);
             }
         );
-        this.disableNextButton = false;
-        this.disablePrevButton = true;
     }
 
     /**
@@ -385,39 +193,5 @@ export class EmployeeListComponent implements OnInit {
             this.filterDetails(text.srcElement.value);
         }
     }
-
-    // /**
-    //  * This method is used to check user ID exist or not
-    //  * @param {string} ID
-    //  * @returns
-    //  * @memberof EmployeeListComponent
-    //  */
-    // userIDExists(ID: string) {
-    //     return this.setAsFavourite.some(function (el) {
-    //         return el.itemId === ID;
-    //     });
-    // }
-
-    // /**
-    //  * This method is used to save name card as favourite list when clicked on star icon
-    //  * @param {number} index
-    //  * @param {*} item
-    //  * @memberof EmployeeListComponent
-    //  */
-    // clickAsFavourite(index: number, item: any) {
-    //     const obj = { index: index, itemId: item.id };
-    //     const data = obj;
-    //     if (!this.userIDExists(item.id) && this.setAsFavourite.length > 0) {
-    //         this.setAsFavourite.push(data);
-    //     } else if (this.userIDExists(item.id) && this.setAsFavourite.length > 0) {
-    //         for (let i = 0; i < this.setAsFavourite.length; i++) {
-    //             if (this.setAsFavourite[i].itemId == item.id && this.setAsFavourite[i].index == index) {
-    //                 this.setAsFavourite.splice(i, 1);
-    //             }
-    //         }
-    //     } else {
-    //         this.setAsFavourite.push(data);
-    //     }
-    // };
 
 }

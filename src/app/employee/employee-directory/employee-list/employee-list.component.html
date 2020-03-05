@@ -1,45 +1,16 @@
-<!-- <div class="advertiseTop" *ngIf="showHeader" style="width: 95%;height: 150px;background: #01a0d7;
-margin: 0 auto;">
-    <div class="objects-icon" [inlineSVG]="'assets/icon/user_profile/objects.svg'"></div>
-    <div class="close-icon" [inlineSVG]="'assets/icon/option/close.svg'" (click)="showHeader=false"></div>
-    <p class="pText">Find staff across the business, access their profiles and get connected by adding them to your
-        connections</p>
-</div> -->
-<!-- <div style="width: 100%; height:100%; text-align: center;" *ngIf="showSpinner">
-    <app-spinner></app-spinner>
-</div> -->
-
 <!-------------------------------------------LIST VIEW------------------------------------------>
 <div class="connectionsContainer" *ngIf="listView">
-    <!-- [style.display]="showSpinner ? 'none' : 'block'" -->
     <div class="topHeader">
         <ion-button class="people" *ngIf="items" color="primary" [style.pointerEvents]="'none'">
             <p style="color: white">{{items.length}} Peoples</p>
         </ion-button>
-        <!-- <p class="numOfPeople" *ngIf="items">
-                {{items.length}}
-                people</p> -->
-        <ion-searchbar mode="md" class="searchbar" placeholder="Search by name" (ionClear)="clearDetails()"
-            (ionChange)="changeDetails($event)"></ion-searchbar>
+        <ion-searchbar mode="md" class="searchbar" placeholder="Search by ID, Employee Name, Company & Department"
+            (ionClear)="clearDetails()" (ionChange)="changeDetails($event)"></ion-searchbar>
         <div style="white-space: nowrap;float: right;">
             <div style="padding-top: 18px;">
-                <i class="fas fa-bars" (click)="viewList(true, 9, 8)"
-                    [style.color]="listView ? '#7069d8' : '#a5a4bf'"></i>
-                <i class="fas fa-th" (click)="viewList(false, 9, 8)"
-                    [style.color]="gridView ? '#7069d8' : '#a5a4bf'"></i>
+                <i class="fas fa-bars" (click)="viewList(true)" [style.color]="listView ? '#7069d8' : '#a5a4bf'"></i>
+                <i class="fas fa-th" (click)="viewList(false)" [style.color]="gridView ? '#7069d8' : '#a5a4bf'"></i>
             </div>
-            <!-- <div style="color: #7a8589;font-size: 12px;display: inline;padding-left: 3%;">
-                    <span style="padding-right: 10px;">Page</span>
-                    <span style="border-radius: 1.5px;border: solid 0.5px #dfe3e6;padding-left: 7px;
-                padding-right: 7px;">{{pageNum}}</span>
-                    <span style="padding-right: 10px;padding-right: 5px;padding-left: 5px;">of</span>{{totalPageNum}}
-                    <i class="fas fa-angle-left" title="Previous page"
-                        style="padding-left: 10px;padding-right: 10px;font-size: 15px;cursor: pointer;"
-                        (click)="clickPageButton(pageNum-1, 'prev')"></i>
-                    <i class="fas fa-angle-right" title="Next page"
-                        style="cursor:pointer; font-size: 15px;padding-left: 10px"
-                        (click)="clickPageButton(pageNum+1, 'next')"></i>
-                </div> -->
         </div>
     </div>
     <div style="width: 100%; height:100%; text-align: center;" *ngIf="showSpinner">
@@ -48,7 +19,6 @@ margin: 0 auto;">
     <ion-content class="listContent" [style.display]="showSpinner ? 'none' : 'block'" *ngIf="items">
         <ion-row class="titleRow">
             <ion-col size="0.7" style="padding-left: 10px;">
-                <!-- <ion-checkbox mode="ios" style="width: 20px; height: 20px;"></ion-checkbox> -->
             </ion-col>
             <ion-col size="1">
                 <ion-label style="font-size: 12px;">ID</ion-label>
@@ -70,18 +40,12 @@ margin: 0 auto;">
             <ion-col size="3">
                 <ion-label style="font-size: 12px;">EMAIL ADDRESS</ion-label>
             </ion-col>
-            <ion-col>
-            </ion-col>
         </ion-row>
         <ion-row class="detailsRow" *ngFor="let item of items | paginate: { itemsPerPage: 9, currentPage: p,
             totalItems: items.length }; let i=index;">
             <ion-col size="0.7">
                 <ion-avatar class="avatar">
                     <img src="assets/icon/evans.jpg">
-                    <!-- <div class="checkboxOnAvatar">
-                        <ion-checkbox mode="ios" style="width: 20px; height: 20px;">
-                        </ion-checkbox>
-                    </div> -->
                 </ion-avatar>
             </ion-col>
             <ion-col size="1">
@@ -90,21 +54,11 @@ margin: 0 auto;">
             </ion-col>
             <ion-col class="colOfLeave" size="4"
                 style="opacity: 0.8;color: #43425d;font-weight: bold; font-size: 12px;">
-                <!-- (click)="router.navigate(['/main/user-public-profile'], { queryParams: { GUID: item.userId, name:
-                item.employeeName } });" -->
                 {{item.employeeName}}
             </ion-col>
             <ion-col class="colOfLeave" size="3" style="color:#808495; font-size: 12px;">{{item.designation}}
             </ion-col>
             <ion-col class="colOfLeave" size="3" style="color:#808495; font-size: 12px;">{{item.email}}
-            </ion-col>
-            <ion-col>
-                <!-- <ion-icon name="more" style="color: #dfe3e6; cursor: pointer"></ion-icon> -->
-                <!-- <ion-icon name="more" class="iconMore" [matMenuTriggerFor]="menu" style="cursor:pointer"></ion-icon>
-                <mat-menu #menu="matMenu">
-                    <button mat-menu-item>Add to my connection</button>
-                    <button mat-menu-item>Send a message</button>
-                </mat-menu> -->
             </ion-col>
             <ion-item class="divider" lines="full"></ion-item>
         </ion-row>
@@ -125,28 +79,7 @@ margin: 0 auto;">
                 </div>
             </div>
         </pagination-template>
-
-        <!-- <ion-button [disabled]="disablePrevButton" fill="outline" (click)="clickPageButton(p, 'prev')"
-            style="background: #f0f0f7;font-size: 12px;height: 30px;width: 124px;display: inline-block;"
-            color="primary">
-            <!-- <ion-icon name="arrow-back"></ion-icon> -- Prev
-        </ion-button>
-        <div style="padding-left: 10px;display: inline-block;"></div>
-        <ion-button [disabled]="disableNextButton"
-            style="font-size: 12px;height: 30px;width: 124px;display: inline-block;" color="primary"
-            (click)="clickPageButton(p, 'next')">Next
-            <!-- <ion-icon name="arrow-forward"></ion-icon> --
-        </ion-button> -->
         <div style="font-size: 10px;margin-top: -8px;white-space: nowrap;float: right;">
-            <!-- <span style="padding-right: 10px;">Page</span>
-            <span style="border-radius: 1.5px;border: solid 0.5px #dfe3e6;padding-left: 7px;
-            padding-right: 7px;">{{pageNum}}</span>
-            <span style="padding-right: 10px;padding-right: 5px;padding-left: 5px;">of</span>{{totalPageNum}}
-            <i class="fas fa-angle-left" title="Previous page"
-                style="padding-left: 10px;padding-right: 10px;font-size: 15px;cursor: pointer;"
-                (click)="clickPageButton(pageNum-1, 'prev')"></i>
-            <i class="fas fa-angle-right" title="Next page" style="cursor:pointer; font-size: 15px;padding-left: 10px"
-                (click)="clickPageButton(pageNum+1, 'next')"></i> -->
             <pagination-controls (pageChange)="p = $event" maxSize="5" directionLinks="true" previousLabel=""
                 nextLabel="">
             </pagination-controls>
@@ -167,38 +100,20 @@ margin: 0 auto;">
                 <p style="color: white">{{items.length}} Peoples</p>
             </ion-button>
         </div>
-        <!-- <p class="numOfPeople">
-            {{items.length}}
-            people</p> -->
         <div [class]="'hide-sm-down'">
-            <ion-searchbar mode="md" class="searchbar" placeholder="Search by name" (ionClear)="clearDetails()"
-                (ionChange)="changeDetails($event)"></ion-searchbar>
+            <ion-searchbar mode="md" class="searchbar" placeholder="Search by ID, Employee Name, Company & Department"
+                (ionClear)="clearDetails()" (ionChange)="changeDetails($event)"></ion-searchbar>
         </div>
         <div [class]="'hide-sm-up'">
-            <ion-searchbar mode="md" class="searchbar-sm" placeholder="Search by name" (ionClear)="clearDetails()"
+            <ion-searchbar mode="md" class="searchbar-sm"
+                placeholder="Search by ID, Employee Name, Company & Department" (ionClear)="clearDetails()"
                 (ionChange)="changeDetails($event)"></ion-searchbar>
         </div>
-        <!-- <ion-searchbar mode="md" class="searchbar" placeholder="Search by name" (ionClear)="clearDetails()"
-            (ionChange)="changeDetails($event)"></ion-searchbar> -->
         <div style="white-space: nowrap;float: right;">
             <div style="padding-top: 18px;">
-                <i class="fas fa-bars" (click)="viewList(true, 9, 8)"
-                    [style.color]="listView ? '#7069d8' : '#a5a4bf'"></i>
-                <i class="fas fa-th" (click)="viewList(false, 9, 8)"
-                    [style.color]="gridView ? '#7069d8' : '#a5a4bf'"></i>
+                <i class="fas fa-bars" (click)="viewList(true)" [style.color]="listView ? '#7069d8' : '#a5a4bf'"></i>
+                <i class="fas fa-th" (click)="viewList(false)" [style.color]="gridView ? '#7069d8' : '#a5a4bf'"></i>
             </div>
-            <!-- <div style="color: #7a8589;font-size: 12px;display: inline;padding-left: 3%;">
-                <span style="padding-right: 10px;">Page</span>
-                <span style="border-radius: 1.5px;border: solid 0.5px #dfe3e6;padding-left: 7px;
-                        padding-right: 7px;">{{pageNum}}</span>
-                <span style="padding-right: 10px;padding-right: 5px;padding-left: 5px;">of</span>{{totalPageNum}}
-                <i class="fas fa-angle-left" title="Previous page"
-                    style="padding-left: 10px;padding-right: 10px;font-size: 15px;cursor: pointer;"
-                    (click)="clickPageButton(pageNum-1, 'prev')"></i>
-                <i class="fas fa-angle-right" title="Next page"
-                    style="cursor:pointer; font-size: 15px;padding-left: 10px"
-                    (click)="clickPageButton(pageNum+1, 'next')"></i>
-            </div> -->
         </div>
     </div>
     <div style="width: 100%; height:100%; text-align: center;" *ngIf="showSpinner">
@@ -208,18 +123,21 @@ margin: 0 auto;">
         <div *ngIf="items" style="display: flex; flex-flow: row wrap;">
             <!-- ssdss -->
             <ion-card style="display: flex; flex-flow: column nowrap; justify-content: center; align-items: center;flex: 25%; 
-                            min-width: 200px; padding: 30px;" *ngFor="let item of items | paginate: { itemsPerPage: 9, currentPage: p, totalItems: items.length }; let i=index ">
+                            min-width: 200px; padding: 30px;"
+                *ngFor="let item of items | paginate: { itemsPerPage: 9, currentPage: p, totalItems: items.length }; let i=index ">
                 <ion-avatar style="margin: 0 auto;">
                     <img src="assets/icon/evans.jpg">
                 </ion-avatar>
                 <ion-card-content style="display: contents;">
-            
-                    <ion-card-subtitle style="opacity: 0.8;color: #43425d;font-weight: bold; font-size: 11px;white-space: nowrap; margin-top: 6px;margin-bottom: 6px;"
-                        (click)="router.navigate(['/main/user-public-profile'], { queryParams: { GUID: item.userId, name: item.employeeName } });">
+
+                    <ion-card-subtitle
+                        style="opacity: 0.8;color: #43425d;font-weight: bold; font-size: 11px;white-space: nowrap; margin-top: 6px;margin-bottom: 6px;">
                         {{item.employeeName}}
                     </ion-card-subtitle>
-                    <ion-card-subtitle style="opacity: 0.5;color:#43425d;font-size: 11px;display: flex;">
-                        <img src="assets/icon/user_profile/id_card@3x.png" style="width: 7px;height:10px"> {{item.staffNumber}}
+                    <ion-card-subtitle style="display: flex;">
+                        <img src="assets/icon/user_profile/id_card@3x.png"
+                            style="width: 7px;height:10px;margin: 2.5px;">
+                        <p style="opacity: 0.5;color:#43425d;font-size: 11px;">{{item.staffNumber}}</p>
                     </ion-card-subtitle>
                     <ion-card-subtitle style="white-space: nowrap;font-size: 11px;opacity: 0.8;color: #43425d;">
                         {{item.designation}}
@@ -229,46 +147,8 @@ margin: 0 auto;">
                     </ion-card-subtitle>
                 </ion-card-content>
             </ion-card>
-        </div>        
+        </div>
     </div>
-    <!-- <ion-content [style.display]="showSpinner ? 'none' : 'block'" class="gridContent">
-        <mat-grid-list cols="3" rowHeight="fit" style="height: 100%" *ngIf="items">
-            <mat-grid-tile *ngFor="let item of items | paginate: { itemsPerPage: 9, currentPage: p,
-                    totalItems: items.length }; let i=index " [style.max-height.%]="i<9 ? '33.3333' : '100' ">
-                <mat-card class="example-card" style="width: 90%;height: 90%;border-radius: 2px;
-                box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.15);">
-                    <!-- <i class="fas fa-star" (click)="clickAsFavourite(i,item)"
-                        [style.color]="userIDExists(item.id) ? '#ffbb00' : '#dfe3e6'"></i>
-                    <ion-icon class="moreIcon" name="more"></ion-icon> --
-                    <ion-avatar style="margin: 0 auto;">
-                        <img src="assets/icon/evans.jpg">
-                    </ion-avatar>
-                    <mat-card-header>
-                        <mat-card-subtitle
-                            style="opacity: 0.8;color: #43425d;font-weight: bold; font-size: 12px;white-space: nowrap;"
-                            (click)="router.navigate(['/main/user-public-profile'], { queryParams: { GUID: item.userId, name: item.employeeName } });">
-                            {{item.employeeName}}
-                        </mat-card-subtitle>
-                        <mat-card-subtitle style="opacity: 0.5;color:#43425d;font-size: 12px;">
-                            <!-- <i class="far fa-id-card"></i> --
-                            <img src="assets/icon/user_profile/id_card@3x.png" style="width: 7px;height:10px">
-                            {{item.staffNumber}}</mat-card-subtitle>
-                        <mat-card-subtitle style="white-space: nowrap;font-size: 12px;opacity: 0.8;color: #43425d;">
-                            {{item.designation}}
-                        </mat-card-subtitle>
-                        <mat-card-subtitle style="white-space: nowrap;opacity: 0.8;color: #43425d;font-size: 12px;">
-                            {{item.email}}
-                        </mat-card-subtitle>
-                    </mat-card-header>
-                    <!-- <mat-card-footer>
-                        <button mat-button class="footerButton">
-                            <i class="far fa-comment"></i>Send a message
-                        </button>
-                    </mat-card-footer> --
-                </mat-card>
-            </mat-grid-tile>
-        </mat-grid-list>
-    </ion-content> -->
     <div [style.display]="showSpinner ? 'none' : 'block'" style="margin-top: 20px;">
         <pagination-template #p2="paginationApi" (pageChange)="p = $event">
             <div class="custom-pagination" style="float: left;">
@@ -285,71 +165,10 @@ margin: 0 auto;">
                 </div>
             </div>
         </pagination-template>
-        <!-- <ion-button [disabled]="disablePrevButton" fill="outline" (click)="clickPageButton(pageNum-1, 'prev')"
-            style="background: #f0f0f7;font-size: 12px;height: 30px;width: 124px;display: inline-block" color="primary">
-            <!-- <ion-icon name="arrow-back"></ion-icon>-- Prev
-        </ion-button>
-        <div style="padding-left: 10px;display: inline-block"></div>
-        <ion-button [disabled]="disableNextButton"
-            style="font-size: 12px;height: 30px;width: 124px;display: inline-block" color="primary"
-            (click)="clickPageButton(pageNum+1, 'next')">Next
-            <!-- <ion-icon name="arrow-forward"></ion-icon> --
-        </ion-button> -->
         <div style="font-size: 10px;margin-top: -8px;white-space: nowrap;float: right;">
-            <!-- <span style="padding-right: 10px;">Page</span>
-            <span style="border-radius: 1.5px;border: solid 0.5px #dfe3e6;padding-left: 7px;
-                padding-right: 7px;">{{pageNum}}</span>
-            <span style="padding-right: 10px;padding-right: 5px;padding-left: 5px;">of</span>{{totalPageNum}}
-            <i class="fas fa-angle-left" title="Previous page"
-                style="padding-left: 10px;padding-right: 10px;font-size: 15px;cursor: pointer;"
-                (click)="clickPageButton(pageNum-1, 'prev')"></i>
-            <i class="fas fa-angle-right" title="Next page" style="cursor:pointer; font-size: 15px;padding-left: 10px"
-                (click)="clickPageButton(pageNum+1, 'next')"></i> -->
             <pagination-controls (pageChange)="p = $event" maxSize="5" directionLinks="true" previousLabel=""
                 nextLabel="">
             </pagination-controls>
         </div>
-    </div>
-</div>
-
-<!-------------------------------------------Filter Options-------------------------------------->
-
-<div class="filerContainer" *ngIf="viewMoreFilter" [style.bottom.px]="showHeader ? '-181' : '0'">
-    <ion-icon name="close" style="color:#dfe3e6;padding: 10px;font-size: 25px;cursor: pointer;"
-        (click)="viewMoreFilter=false;">
-    </ion-icon>
-    <p style="color: #20291f;padding-left: 15px;font-size: 14px;">FILTER BY</p>
-
-    <p style="color: #7a8589;font-size: 14px;padding-left: 15px;padding-top: 10px;">Office location</p>
-    <mat-select class="locationSelect" placeholder="All locations" [(value)]="selectedLocation">
-        <mat-option style="color:#7a8589" class="select" *ngFor="let food of foods" [value]="food.value">
-            {{food.viewValue}}
-        </mat-option>
-    </mat-select>
-
-    <p style="color: #7a8589;font-size: 14px;padding-left: 15px;padding-top: 67px;">Divisions</p>
-    <mat-select class="divisionSelect" placeholder="All divisions" [(value)]="selectedDivision">
-        <mat-option style="color:#7a8589" class="select" *ngFor="let food of foods" [value]="food.value">
-            {{food.viewValue}}
-        </mat-option>
-    </mat-select>
-
-    <p style="color: #7a8589;font-size: 14px;padding-left: 15px;padding-top: 57px;">Departments</p>
-    <mat-select class="departmentSelect" placeholder="All departments" [(value)]="selectedDepartment">
-        <mat-option style="color:#7a8589" class="select" *ngFor="let department of departmentList; let i= index"
-            [value]="department.DEPARTMENT">
-            {{department.DEPARTMENT}}
-        </mat-option>
-    </mat-select>
-    <p style="color: #057dcd;font-size: 14px;padding-left: 15px;padding-top: 40px;cursor: pointer;">Add more filter
-    </p>
-    <div style="position: absolute;bottom: 31px;left: 52px;">
-        <ion-button shape="round" fill="none"
-            (click)="selectedLocation=undefined;selectedDivision=undefined;selectedDepartment=undefined; $event.stopPropagation()"
-            style="height: 27px; font-size: 12px;text-transform: none">Clear
-        </ion-button>
-        <ion-button shape="round" fill="outline" style="height: 27px;font-size: 12px;width: 115px;text-transform: none">
-            Apply filter
-        </ion-button>
     </div>
 </div>

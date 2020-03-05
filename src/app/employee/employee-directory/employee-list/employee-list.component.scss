@@ -187,8 +187,8 @@
     // height: calc( 100% - 84px);
     background: white;
     // height: calc(100% - 110px);
-    padding-left: 20px;
-    padding-right: 20px;
+    // padding-left: 20px;
+    // padding-right: 20px;
     // width: 95%;
     margin: 0 auto;
     height: 100%;
@@ -197,6 +197,7 @@
   .titleRow {
     background: #f5f6fa;
     margin-bottom: 10px;
+    height: 42px;
   }
   .topHeader {
     width: 100%;
@@ -208,7 +209,7 @@
   }
   .searchbar {
     // width: 34%;
-    width: 317px;
+    width: 435px;
     height: 40px;
     color: #43425d;
     font-size: 12px;
@@ -393,6 +394,7 @@
     color: #43425d;
     font-size: 12px;
     float: left;
+    opacity: 0.8;
   }
   // .ngx-pagination .pagination-next a::after,
   // .ngx-pagination .pagination-next.disabled::after {

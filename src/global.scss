@@ -103,7 +103,40 @@ app-employee-list
   font-size: 12px;
   box-shadow: none !important;
   height: 40px;
-  width: 317px;
+  width: 435px;
+  opacity: 0.8;
+}
+app-employee-list
+  > div.connectionsContainer
+  > div.topHeader
+  > div.hide-sm-down
+  > ion-searchbar.searchbar
+  > div.searchbar-input-container
+  > input.searchbar-input {
+  background: transparent;
+  color: #43425d;
+  border: solid 1px #a5a4bf;
+  font-size: 12px;
+  box-shadow: none !important;
+  height: 40px;
+  width: 435px;
+  opacity: 0.8;
+}
+app-employee-list
+  > div.connectionsContainer
+  > div.topHeader
+  > div.hide-sm-up
+  > ion-searchbar.searchbar-sm
+  > div.searchbar-input-container
+  > input.searchbar-input {
+  background: transparent;
+  color: #43425d;
+  border: solid 1px #a5a4bf;
+  font-size: 12px;
+  box-shadow: none !important;
+  height: 40px;
+  width: 435px;
+  opacity: 0.8;
 }
 app-employee-list
   > div.connectionsContainer
@@ -112,9 +145,33 @@ app-employee-list
   > div.searchbar-input-container
   > ion-icon.searchbar-search-icon.sc-ion-searchbar-md {
   // height: 88%;
-  color: #bcbccb;
+  color: #a5a4bf;
   width: 16px;
   box-shadow: none;
+}
+app-employee-list
+  > div.connectionsContainer
+  > div.topHeader
+  > div.hide-sm-down
+  > ion-searchbar.searchbar
+  > div.searchbar-input-container
+  > button
+  > ion-icon.searchbar-clear-icon.sc-ion-searchbar-md {
+  height: 80%;
+  color: #a5a4bf;
+  // margin-top: -3px;
+}
+app-employee-list
+  > div.connectionsContainer
+  > div.topHeader
+  > div.hide-sm-up
+  > ion-searchbar.searchbar-sm
+  > div.searchbar-input-container
+  > button
+  > ion-icon.searchbar-clear-icon.sc-ion-searchbar-md {
+  height: 80%;
+  color: #a5a4bf;
+  // margin-top: -3px;
 }
 app-employee-list
   > div.connectionsContainer
@@ -124,6 +181,7 @@ app-employee-list
   > button
   > ion-icon.searchbar-clear-icon.sc-ion-searchbar-md {
   height: 80%;
+  color: #a5a4bf;
   // margin-top: -3px;
 }
 app-employee-list
