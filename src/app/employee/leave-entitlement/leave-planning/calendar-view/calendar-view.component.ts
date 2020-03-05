@@ -187,10 +187,10 @@ export class CalendarViewComponent implements OnInit {
                 this.events[i].allDay = true;
             }
         }
-        setTimeout(() => {
-            let calendarView = this.calendar.getApi();
-            calendarView.render();
-        }, 100);
+        // setTimeout(() => {
+        //     let calendarView = this.calendar.getApi();
+        //     calendarView.render();
+        // }, 100);
     }
 
     /**
