@@ -117,9 +117,6 @@ export class CalendarViewComponent implements OnInit {
         this.events = this.PBList.concat(this.calendarList);
         this.editDateFormat(this.PBList);
         this.getEmployeeLeaveList(this.events);
-        console.log(this.PBList);
-        console.log(this.calendarList);
-        console.log(this.events);
     }
 
     /**

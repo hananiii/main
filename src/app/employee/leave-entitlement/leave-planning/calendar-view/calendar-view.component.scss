@@ -106,6 +106,9 @@
     background-color: #e9e9f0;
     color: #a3a6b4;
   }
+  ::ng-deep .fc-more {
+    color: #43425d;
+  }
   // ::ng-deep .fc-event {
   //   background-color: #46cdcf;
   //   border: 1px solid #46cdcf;
@@ -133,13 +136,13 @@
   .approvedColor {
     background-color: #46cdcf;
   }
-  .rejectColor{
+  .rejectColor {
     background-color: #ff6768;
   }
-  .cancelColor{
+  .cancelColor {
     background-color: #3b86ff;
   }
-  .pendingColor{
+  .pendingColor {
     background-color: #ffb961;
   }
 }

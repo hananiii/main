@@ -7,7 +7,7 @@
                                           center: 'title',
                                           right: ''
                                         }" [plugins]="calendarPlugins" [events]="events" [eventLimit]=true
-        (dateClick)="getOnLeaveList($event.dateStr)">
+        (dateClick)="getOnLeaveList($event.dateStr)" [selectable]=true>
     </full-calendar>
 </div>
 
