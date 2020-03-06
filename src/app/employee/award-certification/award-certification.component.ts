@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { APIService } from "src/services/shared-service/api.service";
 import { FormGroup, FormBuilder } from "@angular/forms";
-import { genderStatus, maritalStatus } from "../personal-details/personal-details.service";
 import { EditModeDialogComponent } from "../edit-mode-dialog/edit-mode-dialog.component";
+import { SharedService } from "../shared.service";
 
 /**
  * award & certificate page
@@ -99,10 +99,11 @@ export class AwardCertificationComponent implements OnInit {
      *Creates an instance of AwardCertificationComponent.
      * @param {APIService} apiService
      * @param {FormBuilder} fb
-     * @param {PersonalDetailsService} xservice
+     * @param {SharedService} sharedService
      * @memberof AwardCertificationComponent
      */
-    constructor(private apiService: APIService, private fb: FormBuilder) {
+    constructor(private apiService: APIService, private fb: FormBuilder,private sharedService: SharedService
+        ) {
 
         // private xservice: PersonalDetailsService
         // xservice.percentChanged.subscribe(value => {
@@ -161,7 +162,7 @@ export class AwardCertificationComponent implements OnInit {
             this.toggleValue = 'OFF'
             this.updateCertificate();
         }
-        // this.sharedService.emitChange(this.modeValue);
+        this.sharedService.emitChange(this.toggleValue);
     }
 
     /**

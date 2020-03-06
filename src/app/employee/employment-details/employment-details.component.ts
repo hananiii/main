@@ -3,9 +3,9 @@ import { APIService } from 'src/services/shared-service/api.service';
 import { ActivatedRoute } from '@angular/router';
 import * as _moment from 'moment';
 import { EditModeDialogComponent } from '../edit-mode-dialog/edit-mode-dialog.component';
-import { MatDialog } from '@angular/material';
 import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scroll-to';
 import { SnackbarNotificationComponent } from '../snackbar-notification/snackbar-notification.component';
+import { SharedService } from '../shared.service';
 const moment = _moment;
 
 /**
@@ -111,15 +111,14 @@ export class EmploymentDetailsComponent implements OnInit {
      *Creates an instance of EmploymentDetailsComponent.
      * @param {APIService} apiService
      * @param {ActivatedRoute} route
+     * @param {ScrollToService} _scrollToService
+     * @param {SharedService} sharedService
      * @memberof EmploymentDetailsComponent
      */
-    constructor(private apiService: APIService, private route: ActivatedRoute, private _scrollToService: ScrollToService) {
+    constructor(private apiService: APIService, private route: ActivatedRoute, private _scrollToService: ScrollToService, private sharedService: SharedService) {
         route.params.subscribe(params => {
             this.userId = params.id;
         });
-        // xservice.percentChanged.subscribe(value => {
-        //     this.progressPercentage = value;
-        // })
     }
 
     /**
@@ -166,7 +165,7 @@ export class EmploymentDetailsComponent implements OnInit {
             this.modeValue = 'OFF'
             this.patchEmployment();
         }
-        // this.sharedService.emitChange(this.modeValue);
+        this.sharedService.emitChange(this.modeValue);
     }
 
     /**

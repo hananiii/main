@@ -17,6 +17,7 @@ import { DashboardModule } from '../dashboard/dashboard.module';
 import bugsnag from '@bugsnag/js'
 import { BugsnagErrorHandler } from '@bugsnag/plugin-angular'
 import { SharedService } from '../employee/shared.service';
+import { RouteDialogComponent } from '../employee/route-dialog/route-dialog.component';
 
 const bugsnagClient = bugsnag('a856baea01e03638403f09253bc830a2')
 
@@ -39,8 +40,9 @@ bugsnagClient.notify(new Error('Test error'))
     DashboardModule,
     RouterModule.forChild(sideMenuNavigationRoutes)
   ],
+  entryComponents: [RouteDialogComponent],
   providers: [AuthGuard, { provide: ErrorHandler, useFactory: errorHandlerFactory }, SharedService],
-  declarations: [SideMenuNavigationComponent]
+  declarations: [SideMenuNavigationComponent, RouteDialogComponent]
 })
 export class SideMenuNavigationModule { }
 

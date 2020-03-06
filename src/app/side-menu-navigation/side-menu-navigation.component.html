@@ -20,7 +20,7 @@
               [class.background-highlight]="activeRoute === appPages[i].url">
               <!-- <div class="my-icon" aria-label="My icon" [inlineSVG]="'assets/icon/sidebar_menus/' + p.icon"></div> -->
               <img style="margin: 0 auto; width: 16px;" src="assets/icon/sidebar_menus/{{p.icon}}">
-              <ion-label (click)="activeRoute = appPages[i].url">
+              <ion-label>
                 {{p.title}}
               </ion-label>
             </ion-item>

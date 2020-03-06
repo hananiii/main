@@ -7,6 +7,7 @@ import { MAT_DATE_FORMATS, DateAdapter, MatDialog, MatSnackBar } from '@angular/
 import { APP_DATE_FORMATS, AppDateAdapter } from '../date.adapter';
 import { EditModeDialogComponent } from '../edit-mode-dialog/edit-mode-dialog.component';
 import { SnackbarNotificationComponent } from '../snackbar-notification/snackbar-notification.component';
+import { SharedService } from '../shared.service';
 const moment = _moment;
 /**
  * Personal Details Page
@@ -195,9 +196,10 @@ export class PersonalDetailsComponent implements OnInit {
     /**
      *Creates an instance of PersonalDetailsComponent.
      * @param {APIService} apiService
+     * @param {SharedService} sharedService
      * @memberof PersonalDetailsComponent
      */
-    constructor(private apiService: APIService) {
+    constructor(private apiService: APIService, private sharedService: SharedService) {
     }
 
     /**
@@ -252,7 +254,7 @@ export class PersonalDetailsComponent implements OnInit {
             this.modeValue = 'OFF'
             this.patchData();
         }
-        // this.sharedService.emitChange(this.modeValue);
+        this.sharedService.emitChange(this.modeValue);
     }
 
     /**
