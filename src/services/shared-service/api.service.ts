@@ -184,11 +184,11 @@ export class APIService {
      * @returns {Observable<any>}
      * @memberof APIService
      */
-    get_user_profile_details(guid): Observable<any> {
-        this.headerAuthorization();
-        return this.http.get(this.baseUrl + '/api/userprofile/' + guid, { headers: this.headers })
-            .pipe(map((res: Response) => res.json()));
-    }
+    // get_user_profile_details(guid): Observable<any> {
+    //     this.headerAuthorization();
+    //     return this.http.get(this.baseUrl + '/api/userprofile/' + guid, { headers: this.headers })
+    //         .pipe(map((res: Response) => res.json()));
+    // }
 
     /**
      * This method is used to get any desired item
@@ -196,10 +196,10 @@ export class APIService {
      * @returns {Observable<any>}
      * @memberof APIService
      */
-    get_master_list(item): Observable<any> {
-        // this.headerAuthorization();
-        return this.getApiWithId('/api/admin/master/', item);
-    }
+    // get_master_list(item): Observable<any> {
+    //     // this.headerAuthorization();
+    //     return this.getApiWithId('/api/admin/master/', item);
+    // }
 
     /**
      * upload file to azure

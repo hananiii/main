@@ -1,11 +1,3 @@
-export enum Category {
-    "new-announcement", // sms
-    "new-user-join", // account-box
-    "user-leave", // sms
-    "user-update", // account-box
-    "user-birthday" // cake
-}
-
 import { Component, OnInit } from '@angular/core';
 import { DashboardApiService } from './dashboard-api.service';
 import * as _moment from 'moment';
@@ -26,110 +18,6 @@ const moment = _moment;
     styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-    /**
-     * This is local property of button outline style 
-     * @type {string}
-     * @memberof DashboardComponent
-     */
-    // public buttonOneFill: string = 'outline';
-
-    /**
-     * This is local property of button outline style
-     * @type {string}
-     * @memberof DashboardComponent
-     */
-    // public buttonTwoFill: string = 'clear';
-
-    /**
-     * This is local property of button outline style
-     * @type {string}
-     * @memberof DashboardComponent
-     */
-    // public buttonThreeFill: string = 'clear';
-
-    /**
-     * This is local property of show all updates content
-     * @type {boolean}
-     * @memberof DashboardComponent
-     */
-    // public showAllUpdates: boolean = true;
-
-    /**
-     * This is local property of show my recent content
-     * @type {boolean}
-     * @memberof DashboardComponent
-     */
-    // public showMyRecent: boolean = false;
-
-    /**
-     * This is local property of show announcement content
-     * @type {boolean}
-     * @memberof DashboardComponent
-     */
-    // public showAnnouncement: boolean = false;
-
-    /**
-     * This is local property of show icon of red dot
-     * @type {boolean}
-     * @memberof DashboardComponent
-     */
-    // public showDot: boolean = true;
-
-    /**
-     * This is local property to expand content
-     * @type {boolean}
-     * @memberof DashboardComponent
-     */
-    // public showViewMore: boolean = true;
-
-    /**
-     * This is local property to collapse content
-     * @type {boolean}
-     * @memberof DashboardComponent
-     */
-    // public showViewLess: boolean = false;
-
-    /**
-     * This is local property to expand who is onleave content
-     * @type {boolean}
-     * @memberof DashboardComponent
-     */
-    // public seeAll: boolean = true;
-
-    /**
-     * This is local property to collapse who is onleave content
-     * @type {boolean}
-     * @memberof DashboardComponent
-     */
-    // public seeLess: boolean = false;
-
-    /**
-     * This is local property to determine click on expand view more or vice versa
-     * @type {boolean}
-     * @memberof DashboardComponent
-     */
-    // public clickOnViewMore: boolean;
-
-    /**
-     * This is local property to determine click on expand see all or vice versa
-     * @type {boolean}
-     * @memberof DashboardComponent
-     */
-    // public clickOnSeeAll: boolean;
-
-    /**
-     * Get on leave total employee number & employee onleave number from API
-     * @type {*}
-     * @memberof DashboardComponent
-     */
-    public onLeaveNumber: any;
-
-    /**
-     * Get on leave employee name & designation from API
-     * @type {*}
-     * @memberof DashboardComponent
-     */
-    public onLeaveList: any;
 
     /**
      * This local property is used to show or hide spinner
@@ -144,13 +32,6 @@ export class DashboardComponent implements OnInit {
      * @memberof DashboardComponent
      */
     public row: boolean = false;
-
-    /**
-     * Notification update from API
-     * @type {*}
-     * @memberof DashboardComponent
-     */
-    public notification: any;
 
     /**
      * upcoming holiday list
@@ -194,13 +75,6 @@ export class DashboardComponent implements OnInit {
      */
     public viewLessAnnouncement: boolean = false;
 
-    /**
-     * entitlement list from endpoint
-     * @type {*}
-     * @memberof DashboardComponent
-     */
-    public entitlementList: any;
-
     /** 
      * annual leave details
      * @type {number}
@@ -228,20 +102,6 @@ export class DashboardComponent implements OnInit {
      * @memberof DashboardComponent
      */
     public RLDaysToGo: number;
-
-    /** 
-     * date of birth from personal details
-     * @type {*}
-     * @memberof DashboardComponent
-     */
-    public dateOfBirth: any;
-
-    /**
-     * days remaining to next birthday
-     * @type {number}
-     * @memberof DashboardComponent
-     */
-    public birtdayToGo: number;
 
     /**
      * get birthday details from endpoint
@@ -272,19 +132,24 @@ export class DashboardComponent implements OnInit {
     public applicationStatus: any;
 
     /**
-     * Return enum category
-     * @readonly
+     * expired replacement leave
      * @type {*}
      * @memberof DashboardComponent
      */
-    get enumCategory(): any {
-        return Category;
-    }
+    public expiredRL: number = 0;
+
+    /**
+     * annual leave days to go
+     * @type {number}
+     * @memberof DashboardComponent
+     */
+    public annualDaysToGo: number;
 
     /**
      *Creates an instance of DashboardComponent.
      * @param {DashboardApiService} dashboardAPI
      * @param {MenuController} menu
+     * @param {MatDialog} dialog
      * @memberof DashboardComponent
      */
     constructor(private dashboardAPI: DashboardApiService, private menu: MenuController, private dialog: MatDialog) { }
@@ -294,7 +159,6 @@ export class DashboardComponent implements OnInit {
      * @memberof DashboardComponent
      */
     ngOnInit() {
-        // this.getOnleaveDetails();
         this.dashboardAPI.get_birthday_details().subscribe(data => {
             this.birthdayDetail = data;
             this.row = true;
@@ -369,6 +233,8 @@ export class DashboardComponent implements OnInit {
     get_annual_medical_task() {
         this.dashboardAPI.get_annual_leave().subscribe(details => {
             this.annualVal = details;
+            this.annualDaysToGo = this.calculateDays(this.annualVal.YEAR);
+
             this.dashboardAPI.get_user_application_status(this.annualVal.USER_GUID).subscribe(val => {
                 this.applicationStatus = val;
             })
@@ -401,8 +267,12 @@ export class DashboardComponent implements OnInit {
             let date = [];
             if (RL.status == undefined) {
                 for (let i = 0; i < RL.length; i++) {
-                    this.replaceVal += RL[i].DAYS_ADDED;
-                    date.push(RL[i].EXPIREDATE);
+                    if ((new Date(RL[i].EXPIREDATE).getTime() > new Date().getTime()) || RL[i].EXPIREDATE == null) {
+                        this.replaceVal += RL[i].DAYS_ADDED;
+                        date.push(RL[i].EXPIREDATE);
+                    } else {
+                        this.expiredRL += RL[i].DAYS_ADDED;
+                    }
                 }
                 if (date.every((val, i, arr) => val === arr[0])) {
                     this.RLDaysToGo = this.calculateDays(date[0]);
@@ -453,18 +323,6 @@ export class DashboardComponent implements OnInit {
         );
         const day = date.getDay();
         return weekdays[day];
-    }
-
-    /**
-     * Show material-icon according category of notification
-     * @param {*} data
-     * @memberof DashboardComponent
-     */
-    notificationCategory(data: any) {
-        this.notification = data;
-        for (let i = 0; i < this.notification.length; i++) {
-            this.notification[i].CREATION_TS = (moment(this.notification[i].CREATION_TS).format('DD MMM YYYY'));
-        }
     }
 
     /**
