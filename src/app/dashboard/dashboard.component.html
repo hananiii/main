@@ -383,14 +383,27 @@
                             <ng-container style="padding-top: 2%;">
                                 <ion-col align-self-center style="padding-left: 0px;color:#4d4f5c;font-size:11px;">
                                     <ion-text>
-                                        Leave application requested on {{item.dateApplied | date: 'dd MMM yyyy'}}.
+                                        {{item.leaveTypeName}} requested on
+                                        {{item.dateApplied | date: 'dd MMM yyyy'}}.
+                                        <div style="display: flex;">
+                                            <p style="color: #43425d;line-height: 1.25;font-size: 11px;margin-top: 10px;
+                                        margin-bottom: 5px;">
+                                                <strong>Start Date: </strong> {{item.startDate | date: 'dd-MM-yyyy'}}
+                                            </p>
+                                            <p style="color: #43425d;line-height: 1.25;font-size: 11px;margin-top: 10px;
+                                            margin-bottom: 5px;margin-left: 15px;">
+                                                <strong>End Date: </strong> {{item.endDate | date: 'dd-MM-yyyy'}}</p>
+                                            <p style="color: #43425d;line-height: 1.25;font-size: 11px;margin-top: 10px;
+                                                margin-bottom: 0;margin-left: 15px;">
+                                                <strong>Days: </strong> {{item.noOfDays}}</p>
+                                        </div>
                                     </ion-text>
                                 </ion-col>
                                 <ion-col style="color: #4d4f5c;font-size: 11px;text-align: right;" align-self-center>
                                     <mat-chip-list>
                                         <mat-chip style="cursor: pointer;" (click)="openStatusDialog(item)"
                                             [ngClass]="{
-                                            'approvedColor': item.status == 'APPROVED','rejectColor': item.status == 'REJECTED', 'cancelColor': item.status == 'CANCEL', 'pendingColor': item.status == 'PENDING'}">
+                                            'approvedColor': item.status == 'APPROVED','rejectColor': item.status == 'REJECTED', 'cancelColor': item.status == 'CANCELLED', 'pendingColor': item.status == 'PENDING'}">
 
                                             <p
                                                 style="white-space: nowrap;width: 100%;text-align: center;color: white;font-size: 10px;line-height: 2.22;">

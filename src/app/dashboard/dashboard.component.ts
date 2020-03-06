@@ -177,7 +177,7 @@ export class DashboardComponent implements OnInit {
      */
     openStatusDialog(item: any) {
         const dialog = this.dialog.open(LeaveApplicationConfirmationComponent, {
-            data: { title: 'application', leavetype: item.leaveTypeAbbr, appliedDate: item.dateApplied, reason: 'Visit hometown with family', status: item.status, details: [{ startDate: item.startDate, endDate: item.endDate, noOfDays: item.noOfDays, timeslot: item.timeSlot }] },
+            data: { title: 'application', leavetype: item.leaveTypeName, appliedDate: item.dateApplied, reason: item.reason, status: item.status, details: [{ startDate: item.startDate, endDate: item.endDate, noOfDays: item.noOfDays, timeslot: item.timeSlot }] },
             height: "440px",
             width: "440px",
             panelClass: 'custom-dialog-container'
