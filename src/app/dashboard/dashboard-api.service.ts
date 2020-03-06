@@ -32,11 +32,11 @@ export class DashboardApiService {
      * @returns {Observable<any>}
      * @memberof DashboardApiService
      */
-    get_status_onleave(param): Observable<any> {
-        this.apiService.headerAuthorization();
-        return this.http.get(this.apiService.baseUrl + '/api/employee/status-onleave', { params: param, headers: this.apiService.headers })
-            .pipe(map((res: Response) => res.json()))
-    }
+    // get_status_onleave(param): Observable<any> {
+    //     this.apiService.headerAuthorization();
+    //     return this.http.get(this.apiService.baseUrl + '/api/employee/status-onleave', { params: param, headers: this.apiService.headers })
+    //         .pipe(map((res: Response) => res.json()))
+    // }
 
     /**
      * To get employee onleave details
@@ -46,10 +46,20 @@ export class DashboardApiService {
      * @returns {Observable<any>}
      * @memberof DashboardApiService
      */
-    get_onleave_list(value): Observable<any> {
-        this.apiService.headerAuthorization();
-        return this.http.get(this.apiService.baseUrl + '/api/employee/leave-list', { params: value, headers: this.apiService.headers })
-            .pipe(map((response: Response) => response.json()))
+    // get_onleave_list(value): Observable<any> {
+    //     this.apiService.headerAuthorization();
+    //     return this.http.get(this.apiService.baseUrl + '/api/employee/leave-list', { params: value, headers: this.apiService.headers })
+    //         .pipe(map((response: Response) => response.json()))
+    // }
+
+    /**
+     * get self leave application status
+     * @param {string} id
+     * @returns {Observable<any>}
+     * @memberof DashboardApiService
+     */
+    get_user_application_status(id: string): Observable<any> {
+        return this.apiService.getApiWithId('/api/admin/approval-override/', id);
     }
 
     /**

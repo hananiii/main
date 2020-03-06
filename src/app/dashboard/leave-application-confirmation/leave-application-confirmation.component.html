@@ -4,12 +4,12 @@
 <div style="text-align: left;padding-left: 40px;padding-right: 40px;">
   <p *ngIf="data.title === 'application'" style="color: #43425d;line-height: 1.25;font-size: 12px;margin-bottom: 20px;">
     You've applied
-    <strong>{{data.leavetype}}</strong> on {{data.appliedDate}}. Details
+    <strong>{{data.leavetype}}</strong> on {{data.appliedDate | date: 'dd MMM yyyy'}}. Details
     application as below:
   </p>
   <p *ngIf="data.title === 'task'" style="color: #43425d;line-height: 1.25;font-size: 12px;margin-bottom: 20px;">
     <strong>{{data.name}}</strong> applied
-    <strong>{{data.leavetype}}</strong> on {{data.appliedDate}}. Details
+    <strong>{{data.leavetype}}</strong> on {{data.appliedDate | date: 'dd MMM yyyy'}}. Details
     application as below:
   </p>
   <ng-container *ngFor="let item of data.details">
@@ -17,17 +17,17 @@
       <strong>Start Date: </strong>{{item.startDate | date: 'dd MMMM yyyy'}}</p>
     <p style="color: #43425d;line-height: 1.25;font-size: 12px;margin: 0;">
       <strong>End Date: </strong>{{item.endDate | date: 'dd MMMM yyyy'}}</p>
-    <!-- <p style="color: #43425d;line-height: 1.25;font-size: 12px;margin-bottom: 25px;" *ngIf="item.dayType == 0">
+    <p style="color: #43425d;line-height: 1.25;font-size: 12px;" *ngIf="item.noOfDays == 1">
       <strong>Duration: </strong>Full Day</p>
-    <p style="color: #43425d;line-height: 1.25;font-size: 12px;margin-bottom: 25px;" *ngIf="item.dayType == 1">
-      <strong>Duration: </strong>Half Day - {{item.slot}}</p>
-    <p style="color: #43425d;line-height: 1.25;font-size: 12px;margin-bottom: 25px;" *ngIf="item.dayType == 2">
-      <strong>Duration: </strong>Quarter Day - {{item.quarterDay}}</p> -->
+    <p style="color: #43425d;line-height: 1.25;font-size: 12px;" *ngIf="item.noOfDays == 0.5">
+      <strong>Duration: </strong>Half Day - {{item.timeslot}}</p>
+    <p style="color: #43425d;line-height: 1.25;font-size: 12px;" *ngIf="item.noOfDays == 0.25">
+      <strong>Duration: </strong>Quarter Day - {{item.timeslot}}</p>
   </ng-container>
   <p style="color: #43425d;line-height: 1.25;font-size: 12px;margin-bottom: 16px;">
     <strong>Reason: </strong>{{data.reason}}</p>
   <p style="color: #43425d;line-height: 1.25;font-size: 12px;margin-bottom: 16px;">
-    <strong>Status: {{data.status}}</strong></p>
+    <strong>Status: {{data.status | titlecase}}</strong></p>
   <!-- <ion-item class="divider"></ion-item> -->
   <div style="width: 100%;border-bottom: 1px solid #43425d; opacity: 0.1;"></div>
   <p *ngIf="data.title === 'application'" style="color: #43425d;line-height: 1.25;font-size: 12px;margin-bottom: 16px;">

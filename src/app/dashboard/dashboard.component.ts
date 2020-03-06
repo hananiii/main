@@ -206,7 +206,7 @@ export class DashboardComponent implements OnInit {
      * @type {number}
      * @memberof DashboardComponent
      */
-    public annualVal: number;
+    public annualVal: any;
 
     /**
      * medical leave details
@@ -265,6 +265,13 @@ export class DashboardComponent implements OnInit {
     public tasks: any;
 
     /**
+     * application status list from API
+     * @type {*}
+     * @memberof DashboardComponent
+     */
+    public applicationStatus: any;
+
+    /**
      * Return enum category
      * @readonly
      * @type {*}
@@ -304,10 +311,10 @@ export class DashboardComponent implements OnInit {
      * open dialog of status application
      * @memberof DashboardComponent
      */
-    openStatusDialog() {
+    openStatusDialog(item: any) {
         const dialog = this.dialog.open(LeaveApplicationConfirmationComponent, {
-            data: { title: 'application', leavetype: 'Annual Leave', appliedDate: '12 Jan 2020', reason: 'Visit hometown with family', status: 'Approved', details: [{ startDate: '20 January 2020', endDate: '21 January 2020' }] },
-            height: "430px",
+            data: { title: 'application', leavetype: item.leaveTypeAbbr, appliedDate: item.dateApplied, reason: 'Visit hometown with family', status: item.status, details: [{ startDate: item.startDate, endDate: item.endDate, noOfDays: item.noOfDays, timeslot: item.timeSlot }] },
+            height: "440px",
             width: "440px",
             panelClass: 'custom-dialog-container'
         });
@@ -362,6 +369,9 @@ export class DashboardComponent implements OnInit {
     get_annual_medical_task() {
         this.dashboardAPI.get_annual_leave().subscribe(details => {
             this.annualVal = details;
+            this.dashboardAPI.get_user_application_status(this.annualVal.USER_GUID).subscribe(val => {
+                this.applicationStatus = val;
+            })
         })
         this.dashboardAPI.get_medical_leave().subscribe(details => {
             if (details.status == undefined) {
