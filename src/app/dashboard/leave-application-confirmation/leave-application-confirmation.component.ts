@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-leave-application-confirmation',
@@ -8,6 +9,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 })
 export class LeaveApplicationConfirmationComponent implements OnInit {
 
+  public reason: any;
+  public action: string;
   /**
       *Creates an instance of LeaveApplicationConfirmationComponent.
       * @param {MatDialogRef<LeaveApplicationConfirmationComponent>} dialog reference to a dialog opened
@@ -22,6 +25,7 @@ export class LeaveApplicationConfirmationComponent implements OnInit {
    * @memberof LeaveApplicationConfirmationComponent
    */
   ngOnInit() {
+    this.reason = new FormControl('', Validators.required);
   }
 
 }

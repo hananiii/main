@@ -146,6 +146,14 @@ export class DashboardComponent implements OnInit {
     public annualDaysToGo: number;
 
     /**
+     * reason value get from confirmation pop up
+     * @private
+     * @type {string}
+     * @memberof DashboardComponent
+     */
+    private _reason: string;
+
+    /**
      *Creates an instance of DashboardComponent.
      * @param {DashboardApiService} dashboardAPI
      * @param {MenuController} menu
@@ -177,13 +185,15 @@ export class DashboardComponent implements OnInit {
      */
     openStatusDialog(item: any) {
         const dialog = this.dialog.open(LeaveApplicationConfirmationComponent, {
-            data: { title: 'application', leavetype: item.leaveTypeName, appliedDate: item.dateApplied, reason: item.reason, status: item.status, details: [{ startDate: item.startDate, endDate: item.endDate, noOfDays: item.noOfDays, timeslot: item.timeSlot }] },
+            data: { title: 'application', leavetype: item.leaveTypeName, transactionId: item.leaveTransactionId, appliedDate: item.dateApplied, reason: item.reason, status: item.status, startDate: item.startDate, endDate: item.endDate, noOfDays: item.noOfDays, timeslot: item.timeSlot },
             height: "440px",
             width: "440px",
             panelClass: 'custom-dialog-container'
         });
         dialog.afterClosed().subscribe(result => {
-            if (result === 'OK') {
+            if (result != undefined) {
+                this._reason = result[1];
+                this.postLeaveApplicationStatus(result[2], result[0]);
                 this.dashboardAPI.popUpDialog("You've cancelled your leave application request", true);
             }
         });
@@ -193,18 +203,20 @@ export class DashboardComponent implements OnInit {
      * open dialog of my task
      * @memberof DashboardComponent
      */
-    openTaskDialog() {
+    async openTaskDialog(list: any) {
         const dialog = this.dialog.open(LeaveApplicationConfirmationComponent, {
-            data: { title: 'task', name: 'Fathurrahman', leavetype: 'Annual Leave', appliedDate: '12 Jan 2020', reason: 'Visit hometown with family', status: 'Approved', details: [{ startDate: '20 January 2020', endDate: '21 January 2020' }] },
+            data: { title: 'task', name: list.employeeName, leavetype: list.leaveTypeName, transactionId: list.leave_transaction_guid, appliedDate: list.dateApplied, reason: list.reason, status: list.status, startDate: list.start_date, endDate: list.end_date, noOfDays: list.no_of_days, timeslot: list.timeSlot },
             height: "450px",
             width: "440px",
             panelClass: 'custom-dialog-container'
         });
-        dialog.afterClosed().subscribe(result => {
-            if (result === 'OK') {
-                this.dashboardAPI.popUpDialog("Your tasks has been submitted successfully", true);
-            }
-        });
+        let value = await dialog.afterClosed().toPromise();
+        if (value !== undefined) {
+            console.log(value);
+            this._reason = value[1];
+            await this.postLeaveApplicationStatus(value[2], value[0]);
+            this.dashboardAPI.popUpDialog("Your tasks has been submitted successfully", true);
+        };
     }
 
     /**
@@ -234,7 +246,6 @@ export class DashboardComponent implements OnInit {
         this.dashboardAPI.get_annual_leave().subscribe(details => {
             this.annualVal = details;
             this.annualDaysToGo = this.calculateDays(this.annualVal.YEAR);
-
             this.dashboardAPI.get_user_application_status(this.annualVal.USER_GUID).subscribe(val => {
                 this.applicationStatus = val;
             })
@@ -330,21 +341,11 @@ export class DashboardComponent implements OnInit {
      * @param {string} leaveGUID
      * @memberof DashboardComponent
      */
-    approveLeave(leaveGUID: string) {
-        this.dashboardAPI.post_approve_list({ "id": leaveGUID }).subscribe(response => {
+    postLeaveApplicationStatus(leaveGUID: string, status: string) {
+        this.dashboardAPI.post_application_status({ "id": leaveGUID, "reason": this._reason }, status).subscribe(response => {
             this.get_task_list();
-        })
-    }
-
-    /**
-     * method to reject clicked leave transaction GUID
-     * @param {*} leave_transaction_guid
-     * @memberof DashboardComponent
-     */
-    rejectLeave(leave_transaction_guid) {
-        this.dashboardAPI.post_reject_list({ "id": leave_transaction_guid }).subscribe(response => {
-            this.get_task_list();
-        })
+            this.get_annual_medical_task();
+        }, error => this.dashboardAPI.popUpDialog(JSON.parse(error._body).status, false))
     }
 
 }

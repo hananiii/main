@@ -135,23 +135,13 @@ export class DashboardApiService {
     }
 
     /**
-     * superior approve task leave from dashboard
+     * user/superior approve/reject/cancel task leave from dashboard
      * @returns {Observable<any>}
      * @memberof DashboardApiService
      */
-    post_approve_list(leaveTransactionGUID): Observable<any> {
-        return this.http.post(this.apiService.baseUrl + '/api/leave/approved', leaveTransactionGUID, { headers: this.apiService.headers })
+    post_application_status(leaveTransactionGUID, status: string): Observable<any> {
+        return this.http.post(this.apiService.baseUrl + '/api/leave/' + status, leaveTransactionGUID, { headers: this.apiService.headers })
             .pipe(map((response: Response) => response.text()))
-    }
-
-    /**
-     * superior reject task leave from dashboard
-     * @returns {Observable<any>}
-     * @memberof DashboardApiService
-     */
-    post_reject_list(GUID): Observable<any> {
-        return this.http.post(this.apiService.baseUrl + '/api/leave/rejected', GUID, { headers: this.apiService.headers })
-            .pipe(map((res: Response) => res.text()))
     }
 
     /**

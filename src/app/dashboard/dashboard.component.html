@@ -371,19 +371,19 @@
 
 <div class="row" *ngIf="row" style="margin-bottom: 30px;">
     <div class="status">
-        <div style="background-color: #ffffff;padding: 10px;" *ngIf="tasks">
+        <div style="background-color: #ffffff;padding: 10px;" *ngIf="applicationStatus">
             <div
                 style="font-size: 12px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
                 MY LEAVE APPLICATION STATUS
             </div>
-            <ng-container>
+            <ng-container *ngIf="applicationStatus.status !== 'No leave applied'">
                 <ion-list style="max-height: 250px;overflow: auto;">
                     <ion-item *ngFor="let item of applicationStatus">
                         <ion-row style="display: flex; flex: 1;">
                             <ng-container style="padding-top: 2%;">
                                 <ion-col align-self-center style="padding-left: 0px;color:#4d4f5c;font-size:11px;">
                                     <ion-text>
-                                        {{item.leaveTypeName}} requested on
+                                        {{item.employeeName}} requested {{item.leaveTypeName}} on
                                         {{item.dateApplied | date: 'dd MMM yyyy'}}.
                                         <div style="display: flex;">
                                             <p style="color: #43425d;line-height: 1.25;font-size: 11px;margin-top: 10px;
@@ -401,7 +401,8 @@
                                 </ion-col>
                                 <ion-col style="color: #4d4f5c;font-size: 11px;text-align: right;" align-self-center>
                                     <mat-chip-list>
-                                        <mat-chip style="cursor: pointer;" (click)="openStatusDialog(item)"
+                                        <mat-chip style="cursor: pointer;"
+                                            (click)="item.status !== 'CANCELLED'? openStatusDialog(item): ''"
                                             [ngClass]="{
                                             'approvedColor': item.status == 'APPROVED','rejectColor': item.status == 'REJECTED', 'cancelColor': item.status == 'CANCELLED', 'pendingColor': item.status == 'PENDING'}">
 
@@ -416,8 +417,8 @@
                     </ion-item>
                 </ion-list>
             </ng-container>
-            <ng-container *ngIf="applicationStatus">
-                <p *ngIf="applicationStatus.length === 0"
+            <ng-container>
+                <p *ngIf="applicationStatus.status === 'No leave applied'"
                     style="padding-left: 15px;color: rgb(77, 79, 92);font-size: 11px;line-height: 1.82;">
                     No leave application applied</p>
             </ng-container>
@@ -430,24 +431,37 @@
                 style="font-size: 12px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
                 MY TASKS
             </div>
-            <ng-container>
+            <ng-container *ngIf="tasks.status !== 'No pending leave'">
                 <ion-list style="max-height: 250px;overflow: auto;">
-                    <ion-item>
+                    <ion-item *ngFor="let item of tasks">
                         <ion-row style="display: flex; flex: 1;">
                             <ng-container style="padding-top: 2%;">
                                 <ion-col align-self-center style="padding-left: 0px;color:#4d4f5c;font-size:11px;">
                                     <ion-text>
-                                        Leave application request on 03 Jan 2020.
+                                        {{item.employeeName}} requested {{item.leaveTypeName}} on
+                                        {{item.dateApplied | date: 'dd MMM yyyy'}}.
+                                        <div style="display: flex;">
+                                            <p style="color: #43425d;line-height: 1.25;font-size: 11px;margin-top: 10px;
+                                        margin-bottom: 5px;">
+                                                <strong>Start Date: </strong> {{item.start_date | date: 'dd-MM-yyyy'}}
+                                            </p>
+                                            <p style="color: #43425d;line-height: 1.25;font-size: 11px;margin-top: 10px;
+                                            margin-bottom: 5px;margin-left: 15px;">
+                                                <strong>End Date: </strong> {{item.end_date | date: 'dd-MM-yyyy'}}</p>
+                                            <p style="color: #43425d;line-height: 1.25;font-size: 11px;margin-top: 10px;
+                                                margin-bottom: 0;margin-left: 15px;">
+                                                <strong>Days: </strong> {{item.no_of_days}}</p>
+                                        </div>
                                     </ion-text>
                                 </ion-col>
                                 <ion-col style="color: #4d4f5c;font-size: 11px;text-align: right;" align-self-center>
                                     <mat-chip-list>
-                                        <mat-chip style="cursor: pointer;" (click)="openTaskDialog()">
-                                            <!-- [ngClass]="{ -->
-                                            <!-- 'approvedColor': holiday.STATUS == 'APPROVED','rejectColor': holiday.STATUS == 'REJECTED', 'cancelColor': holiday.STATUS == 'CANCELLED', 'pendingColor': holiday.STATUS == 'PENDING'}" -->
+                                        <mat-chip style="cursor: pointer;" (click)="openTaskDialog(item)"
+                                            [ngClass]="{
+                                            'approvedColor': item.status == 'APPROVED','rejectColor': item.status == 'REJECTED', 'cancelColor': item.status == 'CANCELLED', 'pendingColor': item.status == 'PENDING'}">
                                             <p
                                                 style="white-space: nowrap;width: 100%;text-align: center;color: white;font-size: 10px;line-height: 2.22;">
-                                                Approved</p>
+                                                {{item.status | titlecase}}</p>
                                         </mat-chip>
                                     </mat-chip-list>
                                 </ion-col>
@@ -456,8 +470,7 @@
                     </ion-item>
                 </ion-list>
             </ng-container>
-            <!-- change to 'No pending' -->
-            <ng-container *ngIf="tasks.status === 'Not available'">
+            <ng-container *ngIf="tasks.status === 'No pending leave'">
                 <p style="padding-left: 15px;color: rgb(77, 79, 92);font-size: 11px;line-height: 1.82;">
                     No task assigned to you</p>
             </ng-container>
@@ -465,7 +478,7 @@
     </div>
     <!-- <div class="reminder" *ngIf="longLeave.status == 'Not available'" style="min-width: 180px; max-width: -webkit-fill-available;"> -->
     <!-- *ngIf="longLeave == undefined" 05-03-2020 -->
-    <div class="reminder" *ngIf="tasks" [style.flex.%]="tasks.status == 'Not available'? '0':''">
+    <div class="reminder" *ngIf="tasks" [style.flex.%]="tasks.status == 'Not available'? '0':'24'">
         <p style="color:#f0f0f7;font-weight: bold;line-height: 1.07;font-size: 14px;margin-bottom: 10px;">Long Leave
             Reminder</p>
         <img style="width: 27px;height:27px;" src="assets/icon/dashboard/icon_long_reminder@3x.png">

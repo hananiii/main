@@ -40,6 +40,7 @@ const routes: Routes = [
         MatDialogModule,
         MatInputModule,
         MatRadioModule,
+        ReactiveFormsModule,
         RouterModule.forChild(routes)
     ],
     entryComponents: [LeaveApplicationConfirmationComponent],

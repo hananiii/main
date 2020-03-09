@@ -12,18 +12,18 @@
     <strong>{{data.leavetype}}</strong> on {{data.appliedDate | date: 'dd MMM yyyy'}}. Details
     application as below:
   </p>
-  <ng-container *ngFor="let item of data.details">
-    <p style="color: #43425d;line-height: 1.25;font-size: 12px;margin: 0;">
-      <strong>Start Date: </strong>{{item.startDate | date: 'dd MMMM yyyy'}}</p>
-    <p style="color: #43425d;line-height: 1.25;font-size: 12px;margin: 0;">
-      <strong>End Date: </strong>{{item.endDate | date: 'dd MMMM yyyy'}}</p>
-    <p style="color: #43425d;line-height: 1.25;font-size: 12px;" *ngIf="item.noOfDays >= 1">
-      <strong>Duration: </strong>Full Day</p>
-    <p style="color: #43425d;line-height: 1.25;font-size: 12px;" *ngIf="item.noOfDays == 0.5">
-      <strong>Duration: </strong>Half Day - {{item.timeslot}}</p>
-    <p style="color: #43425d;line-height: 1.25;font-size: 12px;" *ngIf="item.noOfDays == 0.25">
-      <strong>Duration: </strong>Quarter Day - {{item.timeslot}}</p>
-  </ng-container>
+  <!-- <ng-container *ngFor="let item of data.details"> -->
+  <p style="color: #43425d;line-height: 1.25;font-size: 12px;margin: 0;">
+    <strong>Start Date: </strong>{{data.startDate | date: 'dd MMMM yyyy'}}</p>
+  <p style="color: #43425d;line-height: 1.25;font-size: 12px;margin: 0;">
+    <strong>End Date: </strong>{{data.endDate | date: 'dd MMMM yyyy'}}</p>
+  <p style="color: #43425d;line-height: 1.25;font-size: 12px;" *ngIf="data.noOfDays >= 1">
+    <strong>Duration: </strong>Full Day</p>
+  <p style="color: #43425d;line-height: 1.25;font-size: 12px;" *ngIf="data.noOfDays == 0.5">
+    <strong>Duration: </strong>Half Day - {{data.timeslot}}</p>
+  <p style="color: #43425d;line-height: 1.25;font-size: 12px;" *ngIf="data.noOfDays == 0.25">
+    <strong>Duration: </strong>Quarter Day - {{data.timeslot}}</p>
+  <!-- </ng-container> -->
   <p style="color: #43425d;line-height: 1.25;font-size: 12px;margin-bottom: 16px;">
     <strong>Reason: </strong>{{data.reason}}</p>
   <p style="color: #43425d;line-height: 1.25;font-size: 12px;margin-bottom: 16px;">
@@ -34,26 +34,27 @@
     <strong>Want to cancel leave request? </strong></p>
   <p *ngIf="data.title === 'task'" style="color: #43425d;line-height: 1.25;font-size: 12px;margin-bottom: 16px;">
     <strong>What should I do? </strong></p>
-  <mat-radio-group *ngIf="data.title === 'task'" style="font-size: 11px;">
-    <!-- (change)="dayNameChanged($event)" mat-radio-group -->
+  <mat-radio-group *ngIf="data.title === 'task'" style="font-size: 11px;" (change)="action = $event.value">
     <mat-radio-button value="Approve" color="primary" style="padding-right: 25px;padding-bottom: 5px;" [checked]=true>
       Approve
     </mat-radio-button>
     <mat-radio-button value="Reject" color="primary" style="padding-right: 25px;padding-bottom: 5px;">Reject
     </mat-radio-button>
   </mat-radio-group>
-  <mat-form-field class="reasonBox" appearance="outline" style="width: 98%;"> <input matInput placeholder="Reason"
-      required>
+  <mat-form-field class="reasonBox" appearance="outline" style="width: 98%;">
+    <input matInput placeholder="Reason" [formControl]="reason" required>
   </mat-form-field>
 </div>
 <div *ngIf="data.title === 'application'" mat-dialog-actions
   style="display: block; text-align: center;font-size: 11px;">
   <button mat-flat-button color="primary" style="color:white;background: #ff6768;border-radius: 2px;
-        width: 81%;height: 30px;line-height: 30px;font-size: 11px;" [mat-dialog-close]="'OK'">Request
+        width: 81%;height: 30px;line-height: 30px;font-size: 11px;"
+    [mat-dialog-close]="['cancelled', reason.value, data.transactionId]">Request
     Cancellation</button>
 </div>
 <div *ngIf="data.title === 'task'" mat-dialog-actions style="display: block; text-align: center;font-size: 11px;">
   <button mat-flat-button color="primary" style="color:white;background: #7069d8;border-radius: 2px;
-        width: 81%;height: 30px;line-height: 30px;font-size: 11px;" [mat-dialog-close]="'OK'">Send
+        width: 81%;height: 30px;line-height: 30px;font-size: 11px;"
+    [mat-dialog-close]="[action, reason.value, data.transactionId]">Send
     Confirmation</button>
 </div>
