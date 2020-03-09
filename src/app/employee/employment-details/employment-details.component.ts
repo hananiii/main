@@ -64,20 +64,6 @@ export class EmploymentDetailsComponent implements OnInit {
     public showContent: boolean = false;
 
     /**
-     * details of user list from API
-     * @type {*}
-     * @memberof EmploymentDetailsComponent
-     */
-    public data: any;
-
-    /**
-     * get filtered superior name
-     * @type {string}
-     * @memberof EmploymentDetailsComponent
-     */
-    public reportingName: string;
-
-    /**
      * show edit profile 
      * @type {boolean}
      * @memberof EmploymentDetailsComponent
@@ -134,7 +120,6 @@ export class EmploymentDetailsComponent implements OnInit {
                 this.list = dataUserDtls;
                 this.showSpinner = false;
                 this.showContent = true;
-                this.reporting();
             },
             error => {
                 this.snackbarMsg(JSON.parse(error._body).status, false);
@@ -166,21 +151,6 @@ export class EmploymentDetailsComponent implements OnInit {
             this.patchEmployment();
         }
         this.sharedService.emitChange(this.modeValue);
-    }
-
-    /**
-     * filter superior name from user id
-     * @memberof EmploymentDetailsComponent
-     */
-    reporting() {
-        this.apiService.get_user_profile_list().subscribe(data => {
-            this.data = data;
-            for (let i = 0; i < this.data.length; i++) {
-                if (this.data[i].userId === this.list.employmentDetail.reportingTo) {
-                    this.reportingName = this.data[i].employeeName;
-                }
-            }
-        })
     }
 
     /**
