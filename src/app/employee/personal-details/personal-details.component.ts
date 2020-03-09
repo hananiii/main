@@ -230,9 +230,7 @@ export class PersonalDetailsComponent implements OnInit {
                     })
             },
             error => {
-                if (error.status === 401) {
-                    window.location.href = '/login';
-                }
+                this.notification(JSON.parse(error._body).status, false);
             });
     }
 

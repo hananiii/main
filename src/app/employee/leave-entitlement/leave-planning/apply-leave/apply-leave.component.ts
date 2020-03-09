@@ -1,15 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { APIService } from 'src/services/shared-service/api.service';
 import { ActivatedRoute } from '@angular/router';
-import { FullCalendarComponent } from '@fullcalendar/angular';
-import { EventInput } from '@fullcalendar/core';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGrigPlugin from '@fullcalendar/timegrid';
-import interactionPlugin from '@fullcalendar/interaction'; // for dateClick
-import { FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 import * as _moment from 'moment';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { DayType } from './apply-leave.service';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
 import { LeavePlanningAPIService } from '../leave-planning-api.service';
 import { AppDateAdapter, APP_DATE_FORMATS } from 'src/app/employee/date.adapter';
@@ -59,26 +53,6 @@ export class ApplyLeaveComponent implements OnInit {
     public daysCount: number = 0;
 
     /**
-     * Local property for show or hide Add icon
-     * @type {boolean}
-     * @memberof ApplyLeaveComponent
-     */
-    // public showAddIcon: boolean = true;
-
-    /**
-     * This is input property for plugins of Full Calendar Component
-     * @memberof ApplyLeaveComponent
-     */
-    // public calendarPlugins = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
-
-    /**
-     * Property for alias Event Input of Full Calendar Component
-     * @type {EventInput[]}
-     * @memberof ApplyLeaveComponent
-     */
-    // public calendarEvents: EventInput[];
-
-    /**
      * Local property for min. date range
      * @type {string}
      * @memberof ApplyLeaveComponent
@@ -100,39 +74,11 @@ export class ApplyLeaveComponent implements OnInit {
     public applyLeaveForm: any;
 
     /**
-     * Local property for selected quarter hour value
-     * @type {string}
-     * @memberof ApplyLeaveComponent
-     */
-    // public selectedQuarterHour: string = '';
-
-    /**
      * Local property for leave type ID
      * @type {string}
      * @memberof ApplyLeaveComponent
      */
     public leaveTypeId: string;
-
-    /**
-     * show text in clicked calendar
-     * @type {string}
-     * @memberof ApplyLeaveComponent
-     */
-    // public text: string;
-
-    /**
-     * date in clicked calendar
-     * @type {Date}
-     * @memberof ApplyLeaveComponent
-     */
-    // public date: Date;
-
-    /**
-     * real number of day between start & end date
-     * @type {number}
-     * @memberof ApplyLeaveComponent
-     */
-    // public dateRealCount: number;
 
     /**
     * date range selected
@@ -256,78 +202,11 @@ export class ApplyLeaveComponent implements OnInit {
     private _reformatDateTo: string;
 
     /**
-     * Default index number for first day types selection
-     * @private
-     * @type {string}
-     * @memberof ApplyLeaveComponent
-     */
-    // private _index: string = '0';
-
-    /**
      * Date selected for 1st day types selection 
      * @private
      * @memberof ApplyLeaveComponent
      */
     private _firstForm = [];
-
-    /**
-     * Date selected for 2nd day types selection 
-     * @private
-     * @memberof ApplyLeaveComponent
-     */
-    // private _secondForm = [];
-
-    /**
-     * Index number of selected date from selection list (_dateArray) for 1st day types selection
-     * @private
-     * @memberof ApplyLeaveComponent
-     */
-    // private _firstFormIndex = [];
-
-    /**
-     * Index number of selected date from selection list (_dateArray) for 2nd day types selection
-     * @private
-     * @memberof ApplyLeaveComponent
-     */
-    // private _secondFormIndex = [];
-
-    /**
-     * Disable date option list (true/false)
-     * @private
-     * @memberof ApplyLeaveComponent
-     */
-    // private _arrayList = [];
-
-    /**
-     * AM/PM for 1st day types selection
-     * @private
-     * @type {string}
-     * @memberof ApplyLeaveComponent
-     */
-    // private _slot1: string;
-
-    /**
-     * AM/PM for 2nd day types selection
-     * @private
-     * @type {string}
-     * @memberof ApplyLeaveComponent
-     */
-    // private _slot2: string;
-
-    /**
-     * {startDate: "YYYY-MM-DD 00:00:00", endDate: "YYYY-MM-DD 00:00:00", dayType: number, slot: string, quarterDay: string}
-     * Object for 1st day types selection
-     * @private
-     * @memberof ApplyLeaveComponent
-     */
-    // private _objSlot1 = [];
-
-    /**
-     * Object for 2nd day types selection
-     * @private
-     * @memberof ApplyLeaveComponent
-     */
-    // private _objSlot2 = [];
 
     /**
      * Data collected from (_objSlot1, _objSlot2) POST to apply leave API
@@ -342,23 +221,6 @@ export class ApplyLeaveComponent implements OnInit {
      * @memberof ApplyLeaveComponent
      */
     private _selectedQuarterHour: string[] = [];
-
-    /**
-     * This is local property for Full Calendar Component
-     * @type {FullCalendarComponent}
-     * @memberof ApplyLeaveComponent
-     */
-    // @ViewChild('calendar') calendarComponent: FullCalendarComponent;
-
-    /**
-     * get return value of dayTypes array list
-     * @readonly
-     * @type {FormArray}
-     * @memberof ApplyLeaveComponent
-     */
-    // get dayTypes(): FormArray {
-    //     return this.applyLeaveForm.get('dayTypes') as FormArray;
-    // }
 
     /**
      * Creates an instance of ApplyLeaveComponent.
@@ -397,7 +259,6 @@ export class ApplyLeaveComponent implements OnInit {
         this.calendarId = this._userList.calendarId;
         this.leaveAPI.get_personal_holiday_calendar(this.calendarId, yr).subscribe(
             data => {
-                // this.formatDate(data.holiday);
                 for (let i = 0; i < data.rest.length; i++) {
                     const weekdays = new Array(
                         "SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"
@@ -414,47 +275,6 @@ export class ApplyLeaveComponent implements OnInit {
         //     calendarApi.render();
         // }, 100);
     }
-
-    /**
-     * This method is used to form group for validation
-     * @returns
-     * @memberof ApplyLeaveComponent
-     */
-    // formGroup() {
-    //     return new FormGroup({
-    //         // dayTypes: new FormArray([
-    //         //     new FormGroup({
-    //         //         name: new FormControl(0),
-    //         //         selectArray: new FormArray([
-    //         //             new FormControl(['0']),
-    //         //             new FormControl(''),
-    //         //         ]),
-    //         //         status: new FormControl([false])
-    //         //     })
-    //         // ]),
-    //         leaveTypes: new FormControl('', Validators.required),
-    //         firstPicker: new FormControl('', Validators.required),
-    //         secondPicker: new FormControl('', Validators.required),
-    //         inputReason: new FormControl('', Validators.required),
-    //     });
-    // }
-
-    /**
-     * format date using moment library
-     * @param {*} holiday
-     * @memberof CalendarViewPage
-     */
-    // formatDate(holiday) {
-    //     this.calendarEvents = holiday;
-    //     for (let i = 0; i < holiday.length; i++) {
-    //         this.calendarEvents[i].start = (moment(holiday[i].start).format('YYYY-MM-DD'));
-    //         this.calendarEvents[i].end = moment(holiday[i].end).format('YYYY-MM-DD');
-    //         this.calendarEvents[i].day = this.getDayName(new Date(holiday[i].start));
-    //         this.calendarEvents[i].allDay = true;
-    //         this.calendarEvents[i]["backgroundColor"] = "#7069d8";
-    //         this.calendarEvents[i]["borderColor"] = "#7069d8";
-    //     }
-    // }
 
     /**
      * Method to get day of the week from a given date
@@ -536,7 +356,6 @@ export class ApplyLeaveComponent implements OnInit {
             if (result === 'OK') {
                 this.leaveAPI.post_user_apply_leave(applyLeaveData).subscribe(
                     (val) => {
-                        console.log("PATCH call successful value returned in body", val);
                         this.clearArrayList();
                         this.applyLeaveForm.reset();
                         this.daysAvailable = 0;
@@ -550,9 +369,8 @@ export class ApplyLeaveComponent implements OnInit {
                         }
                     },
                     response => {
-                        console.log("PATCH call in error", response);
                         this.clearArrayList();
-                        this.leaveAPI.openSnackBar(response.message, false);
+                        this.leaveAPI.openSnackBar(JSON.parse(response._body).status, false);
                     });
             }
         });
@@ -563,15 +381,8 @@ export class ApplyLeaveComponent implements OnInit {
      * @memberof ApplyLeaveComponent
      */
     clearArrayList() {
-        // this._arrayList = [];
         this._firstForm = [];
-        // this._secondForm = [];
-        // this._firstFormIndex = [];
-        // this._secondFormIndex = [];
-        // this._objSlot1 = [];
-        // this._objSlot2 = [];
         this._arrayDateSlot = [];
-        // this.selectedQuarterHour = '';
         this._dateArray = [];
         this._slot = [];
         this._selectedQuarterHour = [];
@@ -640,13 +451,6 @@ export class ApplyLeaveComponent implements OnInit {
                 this.Q3Button.push(false);
                 this.Q4Button.push(false);
             }
-
-            // this.dayTypes.patchValue([{ selectArray: [this._dateArray] }]);
-            // this.dayTypes.controls.splice(1, 1);
-            // this.clearArrayList(false);
-            // if (this._dateArray.length === 1) {
-            //     this.showAddIcon = false;
-            // } else { this.showAddIcon = true; }
         }
     }
 
@@ -720,30 +524,16 @@ export class ApplyLeaveComponent implements OnInit {
         var start = new Date(first.getTime());
         var end = new Date(last.getTime());
         this.daysCount = 0;
-        // this.dateRealCount = 0;
         this._dateArray = [];
         while (start <= end) {
             if (!dayNumber.includes(start.getDay())) {
                 this.daysCount++;
-                // this.dateRealCount++;
                 this._dateArray.push(new Date(start));
             }
             start.setDate(start.getDate() + 1);
         }
         return [this.daysCount, this._dateArray];
     }
-
-    /**
-     * quarter day calculation
-     * @param {*} event
-     * @memberof ApplyLeaveComponent
-     */
-    // quarterDay(event: any) {
-    //     if (this.selectedQuarterHour == '') {
-    //         this.daysCount -= 0.75;
-    //     }
-    //     this.selectedQuarterHour = event.value;
-    // }
 
     /**
      * This method is used to get min. and max. date of each date array
@@ -793,227 +583,5 @@ export class ApplyLeaveComponent implements OnInit {
             return this.maxDate = toDate;
         }
     }
-
-    /**
-     * This method is used to detect selection change of day types
-     * @param {*} event
-     * @param {*} index
-     * @memberof ApplyLeaveComponent
-     */
-    // dayTypesChanged(event: any, index: any) {
-    //     this._index = index;
-    //     this.showAddIcon = true;
-    //     if (event.value == '1') {
-    //         this.open(index);
-    //         if (this.selectedQuarterHour != '') {
-    //             this.daysCount += 0.75;
-    //             this.selectedQuarterHour = '';
-    //         }
-    //         if (this.dateRealCount === 1) {
-    //             this.showAddIcon = false;
-    //         }
-    //     }
-    //     if (event.value == '2') {
-    //         this.showAddIcon = false;
-    //         if (this.dateRealCount === 1 && this.daysCount !== 1) {
-    //             this._objSlot1 = [];
-    //             this._slot1 = '';
-    //             this.halfDaySelectionChanged([], 0);
-    //             // this.open(0);
-    //             // this._firstFormIndex = [];
-    //         }
-    //     }
-    // }
-
-    /**
-     * This method is used to patch value to form control status
-     * @param {number} i
-     * @param {*} value
-     * @param {boolean} disabled
-     * @memberof ApplyLeaveComponent
-     */
-    // patchValueFunction(i: number, value: any, disabled: boolean) {
-    //     for (let j = 0; j < value.length; j++) {
-    //         const valueFirst = (this.dayTypes.controls[i].value.status[0]).splice(value[j], 1, disabled);
-    //         this.dayTypes.controls[0].patchValue([{ status: valueFirst }]);
-    //     }
-    // }
-
-    /**
-     * This method is used to detect opened change of half day dates
-     * @param {number} index
-     * @memberof ApplyLeaveComponent
-     */
-    // open(index: number) {
-    //     if (this._arrayList.length === 0) {
-    //         for (let j = 0; j < this.dayTypes.controls[index].value.selectArray[0].length; j++) {
-    //             this._arrayList.push(false);
-    //         }
-    //     }
-    //     const selected = (this.dayTypes.controls[index].value.status).splice(0, 1, this._arrayList);
-    //     this.dayTypes.controls[index].patchValue([{ status: selected }]);
-    //     if (index == 0) {
-    //         this.patchValueFunction(index, this._firstFormIndex, false);
-    //         this.patchValueFunction(index, this._secondFormIndex, true);
-    //     } if (index == 1) {
-    //         this.patchValueFunction(index, this._firstFormIndex, true);
-    //         this.patchValueFunction(index, this._secondFormIndex, false);
-    //     }
-    // }
-
-    /**
-     * This method is used to calculate days of leave apply
-     * @param {*} date
-     * @param {*} form
-     * @memberof ApplyLeaveComponent
-     */
-    // calculate(date: any, form: any) {
-    //     let missing = null;
-    //     for (let i = 0; i < form.length; i++) {
-    //         if (date.indexOf(form[i]) == -1) {
-    //             missing = form[i];
-    //             this.daysCount = this.daysCount + 0.5;
-    //         }
-    //     }
-    //     if (!missing) {
-    //         this.daysCount = this.daysCount - 0.5;
-    //     }
-    // }
-
-    /**
-     * This method is used to check duplicate start date
-     * @param {*} obj
-     * @param {*} list
-     * @returns
-     * @memberof ApplyLeaveComponent
-     */
-    // containsObject(obj: any, list: any) {
-    //     for (let i = 0; i < list.length; i++) {
-    //         if (list[i].startDate === obj.startDate) {
-    //             return true;
-    //         }
-    //     }
-    //     return false;
-    // }
-
-    /**
-     * This method is used to format body to be send to POST API
-     * @param {*} form
-     * @param {*} array
-     * @param {string} slot
-     * @memberof ApplyLeaveComponent
-     */
-    // postValueReformat(form: any, array: any, slot: string) {
-    //     for (let j = 0; j < form.length; j++) {
-    //         const obj = {
-    //             "startDate": moment(form[j]).format('YYYY-MM-DD HH:mm:ss'),
-    //             "endDate": moment(form[j]).format('YYYY-MM-DD HH:mm:ss'),
-    //             "dayType": Number(this.dayTypes.controls[this._index].value.name),
-    //             "slot": slot,
-    //             "quarterDay": this.selectedQuarterHour,
-    //         }
-    //         if (this.containsObject(obj, array) === false) {
-    //             array.push(obj);
-    //         }
-    //         if (obj.slot !== array[j].slot) {
-    //             array.splice(j, 1, obj);
-    //         }
-    //     }
-    // }
-
-    /**
-     * This method is used to calculate days when selected date options
-     * @param {*} selectedDate
-     * @param {number} index
-     * @memberof ApplyLeaveComponent
-     */
-    // halfDaySelectionChanged(selectedDate: any, index: number) {
-    //     if (index == 0) {
-    //         this.calculate(selectedDate, this._firstForm);
-    //         this._firstForm = selectedDate;
-    //         this.postValueReformat(this._firstForm, this._objSlot1, this._slot1);
-    //     }
-    //     if (index == 1) {
-    //         this.calculate(selectedDate, this._secondForm);
-    //         this._secondForm = selectedDate;
-    //         this.postValueReformat(this._secondForm, this._objSlot2, this._slot2);
-    //     }
-    //     this._arrayDateSlot = this._objSlot1.concat(this._objSlot2);
-    // }
-
-    /**
-     * This method is used to assign value of selected date option
-     * @param {number} i
-     * @param {number} indexj
-     * @memberof ApplyLeaveComponent
-     */
-    // valueSelected(i: number, indexj: number) {
-    //     if (i == 0) {
-    //         const index = this._firstFormIndex.findIndex(item => item === indexj);
-    //         if (index > -1) {
-    //             this._firstFormIndex.splice(index, 1);
-    //         } else {
-    //             this._firstFormIndex.push(indexj);
-    //         }
-    //     } if (i == 1) {
-    //         const index = this._secondFormIndex.findIndex(item => item === indexj);
-    //         if (index > -1) {
-    //             this._secondFormIndex.splice(index, 1);
-    //         } else {
-    //             this._secondFormIndex.push(indexj);
-    //         }
-    //     }
-    // }
-
-    /**
-     * This method is used to get time slot AM/PM when detect change
-     * @param {*} event
-     * @param {*} i
-     * @memberof ApplyLeaveComponent
-     */
-    // timeSlotChanged(event: any, i: any) {
-    //     this._index = i;
-    //     const selected = (this.dayTypes.controls[this._index].value.selectArray).splice(1, 1, event.value);
-    //     this.dayTypes.controls[i].patchValue([{ selectArray: selected }]);
-    //     if (i === 0) {
-    //         this._slot1 = event.value;
-    //         this.postValueReformat(this._firstForm, this._objSlot1, this._slot1);
-    //     }
-    //     if (i === 1) {
-    //         this._slot2 = event.value;
-    //         this.postValueReformat(this._secondForm, this._objSlot2, this._slot2);
-    //     }
-    //     this._arrayDateSlot = this._objSlot1.concat(this._objSlot2);
-    // }
-
-    /**
-     * This method is used for add new form group after clicked add button
-     * @memberof ApplyLeaveComponent
-     */
-    // addFormField() {
-    //     if (this.dayTypes.controls.length < 2) {
-    //         this.dayTypes.push(new FormGroup({
-    //             name: new FormControl(0),
-    //             selectArray: new FormArray([new FormControl(this._dateArray), new FormControl('')]),
-    //             status: new FormControl([false])
-    //         }));
-    //     } else {
-    //         alert("No other option");
-    //     }
-    // }
-
-    /**
-     * click to remove day types form
-     * @memberof ApplyLeaveComponent
-     */
-    // removeItem() {
-    //     this._objSlot2 = [];
-    //     this._slot2 = '';
-    //     this.halfDaySelectionChanged([], 1);
-    //     this.open(1);
-    //     this._secondFormIndex = [];
-    //     this.dayTypes.controls.splice(1, 1);
-    // }
-
 
 }
