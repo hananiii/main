@@ -12,7 +12,6 @@
     <strong>{{data.leavetype}}</strong> on {{data.appliedDate | date: 'dd MMM yyyy'}}. Details
     application as below:
   </p>
-  <!-- <ng-container *ngFor="let item of data.details"> -->
   <p style="color: #43425d;line-height: 1.25;font-size: 12px;margin: 0;">
     <strong>Start Date: </strong>{{data.startDate | date: 'dd MMMM yyyy'}}</p>
   <p style="color: #43425d;line-height: 1.25;font-size: 12px;margin: 0;">
@@ -23,22 +22,22 @@
     <strong>Duration: </strong>Half Day - {{data.timeslot}}</p>
   <p style="color: #43425d;line-height: 1.25;font-size: 12px;" *ngIf="data.noOfDays == 0.25">
     <strong>Duration: </strong>Quarter Day - {{data.timeslot}}</p>
-  <!-- </ng-container> -->
   <p style="color: #43425d;line-height: 1.25;font-size: 12px;margin-bottom: 16px;">
     <strong>Reason: </strong>{{data.reason}}</p>
   <p style="color: #43425d;line-height: 1.25;font-size: 12px;margin-bottom: 16px;">
     <strong>Status: {{data.status | titlecase}}</strong></p>
-  <!-- <ion-item class="divider"></ion-item> -->
   <div style="width: 100%;border-bottom: 1px solid #43425d; opacity: 0.1;"></div>
   <p *ngIf="data.title === 'application'" style="color: #43425d;line-height: 1.25;font-size: 12px;margin-bottom: 16px;">
     <strong>Want to cancel leave request? </strong></p>
   <p *ngIf="data.title === 'task'" style="color: #43425d;line-height: 1.25;font-size: 12px;margin-bottom: 16px;">
     <strong>What should I do? </strong></p>
   <mat-radio-group *ngIf="data.title === 'task'" style="font-size: 11px;" (change)="action = $event.value">
-    <mat-radio-button value="Approve" color="primary" style="padding-right: 25px;padding-bottom: 5px;" [checked]=true>
+    <mat-radio-button value="approved" color="primary" style="padding-right: 25px;padding-bottom: 5px;" [checked]=true>
       Approve
     </mat-radio-button>
-    <mat-radio-button value="Reject" color="primary" style="padding-right: 25px;padding-bottom: 5px;">Reject
+    <mat-radio-button value="rejected" color="primary" style="padding-right: 25px;padding-bottom: 5px;">Reject
+    </mat-radio-button>
+    <mat-radio-button value="cancelled" color="primary" style="padding-right: 25px;padding-bottom: 5px;">Cancel
     </mat-radio-button>
   </mat-radio-group>
   <mat-form-field class="reasonBox" appearance="outline" style="width: 98%;">
@@ -49,12 +48,14 @@
   style="display: block; text-align: center;font-size: 11px;">
   <button mat-flat-button color="primary" style="color:white;background: #ff6768;border-radius: 2px;
         width: 81%;height: 30px;line-height: 30px;font-size: 11px;"
-    [mat-dialog-close]="['cancelled', reason.value, data.transactionId]">Request
+    [mat-dialog-close]="['cancelled', reason.value, data.transactionId]" [disabled]="!reason.valid"
+    [style.opacity]="reason.valid? '1':'0.5'">Request
     Cancellation</button>
 </div>
 <div *ngIf="data.title === 'task'" mat-dialog-actions style="display: block; text-align: center;font-size: 11px;">
   <button mat-flat-button color="primary" style="color:white;background: #7069d8;border-radius: 2px;
         width: 81%;height: 30px;line-height: 30px;font-size: 11px;"
-    [mat-dialog-close]="[action, reason.value, data.transactionId]">Send
+    [mat-dialog-close]="[action, reason.value, data.transactionId]" [disabled]="!reason.valid"
+    [style.opacity]="reason.valid? '1':'0.5'">Send
     Confirmation</button>
 </div>

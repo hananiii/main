@@ -9,8 +9,20 @@ import { FormControl, Validators } from '@angular/forms';
 })
 export class LeaveApplicationConfirmationComponent implements OnInit {
 
+  /**
+   * reason input value
+   * @type {*}
+   * @memberof LeaveApplicationConfirmationComponent
+   */
   public reason: any;
+
+  /**
+   * radio button value (approved/rejected/cancelled)
+   * @type {string}
+   * @memberof LeaveApplicationConfirmationComponent
+   */
   public action: string;
+
   /**
       *Creates an instance of LeaveApplicationConfirmationComponent.
       * @param {MatDialogRef<LeaveApplicationConfirmationComponent>} dialog reference to a dialog opened
