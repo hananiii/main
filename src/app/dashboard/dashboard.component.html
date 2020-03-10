@@ -12,14 +12,19 @@
             <i class="material-icons" style="font-size: 8px;margin: 16px;color: #43425d;">fiber_manual_record</i>
             <!-- <img style="margin: 15px;width: 12px;height:12px;float:left" src="assets/icon/dashboard/arrow_right.png"> -->
             <p style="display:inline-block;color: #4d4f5c; font-weight:bold;font-size:11px;line-height: 1.82;">
-                {{annualVal.BALANCE_DAYS - annualVal.CF_DAYS}} days balance
+                {{annualVal.BALANCE_DAYS - annualVal.CF_DAYS | number : '1.2-2'}} days balance
                 for this year </p>
         </div>
         <div style="display: block">
             <i class="material-icons" style="font-size: 8px;margin: 16px;color: #43425d;">fiber_manual_record</i>
             <!-- <img style="margin: 15px;width: 12px;height:12px;float:left" src="assets/icon/dashboard/arrow_right.png"> -->
-            <p style="display: inline-block;color: #4d4f5c; font-weight:bold;font-size:11px;line-height: 1.82;">
-                {{annualVal.CF_DAYS}} days carry
+            <p *ngIf="annualVal.CF_DAYS != null"
+                style="display: inline-block;color: #4d4f5c; font-weight:bold;font-size:11px;line-height: 1.82;">
+                {{annualVal.CF_DAYS | number : '1.2-2'}} days carry
+                forward from last year</p>
+            <p *ngIf="annualVal.CF_DAYS == null"
+                style="display: inline-block;color: #4d4f5c; font-weight:bold;font-size:11px;line-height: 1.82;">
+                0.00 days carry
                 forward from last year</p>
         </div>
         <p
@@ -27,7 +32,7 @@
             Total Annual Leave
         </p>
         <p style="margin-left: 42px;color: #4d4f5c; font-weight:bold;font-size:11px;line-height: 1.82;margin-top: 0;
-            margin-bottom: 0;"> {{annualVal.BALANCE_DAYS}} Days</p>
+            margin-bottom: 0;"> {{annualVal.BALANCE_DAYS | number : '1.2-2'}} Days</p>
         <p style="margin-left: 42px;font-size: 11px;font-weight: bold;line-height: 1.82;color: #ff6768;">
             *Expiring
             in {{annualDaysToGo}} days</p>
@@ -65,7 +70,7 @@
             Replacement Leave
         </p>
         <p style="margin-left: 42px;color: #4d4f5c; font-weight:bold;font-size:11px;line-height: 1.82;margin-top: 0;
-            margin-bottom: 0;"> {{replaceVal}} Days</p>
+            margin-bottom: 0;"> {{replaceVal | number : '1.2-2'}} Days</p>
         <p *ngIf="replaceVal != 0"
             style="margin-left: 42px;font-size: 11px;font-weight: bold;line-height: 1.82;color: #ff6768;">
             *Expiring
@@ -82,7 +87,7 @@
             Replacement Leave
         </p>
         <p style="margin-left: 42px;color: #4d4f5c; font-weight:bold;font-size:11px;line-height: 1.82;margin-top: 0;
-                margin-bottom: 0;"> {{expiredRL}} Days</p>
+                margin-bottom: 0;"> {{expiredRL | number : '1.2-2'}} Days</p>
         <p *ngIf="replaceVal != 0"
             style="margin-left: 42px;font-size: 11px;font-weight: bold;line-height: 1.82;color: #ff6768;"> *Expired</p>
         <ion-item class="divider" lines="full"></ion-item>
@@ -247,14 +252,14 @@
             <span style="display: flex; justify-content: space-between; min-width: auto;">
                 <ion-label *ngIf="annualVal"
                     style="float: left;font-size: 35px;color: #43425d;font-weight: bold;line-height: 1.26;">
-                    {{annualVal.BALANCE_DAYS}}</ion-label>
+                    {{annualVal.BALANCE_DAYS | number : '1.2-2'}}</ion-label>
                 <img class="annual-icon" src="assets/icon/dashboard/icon_annual_leave@3x.png">
             </span>
             <p style="font-size: 12px;opacity: 0.5;color: #43425d;line-height: 1.25;display: inline-block;
             margin-bottom: 0;width: 100%;">Days Available</p>
             <p *ngIf="annualVal"
                 style="float:left;color: #ff6768;opacity: 0.8;font-weight: bold;font-size: 11px;line-height: 1.36;margin-top: 5px;">
-                {{annualVal.BALANCE_DAYS}} Expiring in {{annualDaysToGo}} days
+                {{annualVal.BALANCE_DAYS | number : '1.2-2'}} Expiring in {{annualDaysToGo}} days
             </p>
             <p (click)="menu.enable(true, 'viewAnnualDetails');menu.enable(false, 'viewReplacementDetails');menu.enable(false, 'viewAnnouncementDetails');menu.enable(false, 'viewHolidayDetails');menu.open('viewAnnualDetails');"
                 style="cursor: pointer;margin-top: 5px;float: right;color:#3b86ff;opacity: 0.8;line-height: 1.36;font-size: 11px;font-weight: bold;">
@@ -266,14 +271,14 @@
             </p>
             <ion-label *ngIf="replaceVal>-1"
                 style="float: left;font-size: 35px;color: #43425d;font-weight: bold;line-height: 1.26;">
-                {{replaceVal}}</ion-label>
+                {{replaceVal | number : '1.2-2'}}</ion-label>
             <img class="annual-icon" src="assets/icon/dashboard/icon_annual_leave@3x.png">
             <!-- <img class="replace-icon" src="assets/icon/dashboard/icon_replacement_leave@3x.png"> -->
             <p style="font-size: 12px;opacity: 0.5;color: #43425d;line-height: 1.25;display: inline-block;
                 margin-bottom: 0;width: 100%;">Days Available</p>
             <p *ngIf="replaceVal != 0"
                 style="float:left;color: #ff6768;opacity: 0.8;font-weight: bold;font-size: 11px;line-height: 1.36;margin-top: 5px;">
-                {{replaceVal}} Expiring in {{RLDaysToGo}} days
+                {{replaceVal | number : '1.2-2'}} Expiring in {{RLDaysToGo}} days
             </p>
 
             <p (click)="menu.enable(true, 'viewReplacementDetails');menu.enable(false, 'viewAnnualDetails');menu.enable(false, 'viewAnnouncementDetails');menu.enable(false, 'viewHolidayDetails');menu.open('viewReplacementDetails');"
@@ -285,7 +290,7 @@
             <p style="font-size: 12px;color:#43425d;opacity: 0.8;font-weight: bold;line-height: 1.25;">Medical Leave</p>
             <ion-label *ngIf="medicalVal>-1"
                 style="float: left;font-size: 35px;color: #43425d;font-weight: bold;line-height: 1.26;">
-                {{medicalVal}}</ion-label>
+                {{medicalVal | number : '1.2-2'}}</ion-label>
             <img class="annual-icon" src="assets/icon/dashboard/icon_annual_leave@3x.png">
             <!-- <img class="medical-icon" src="assets/icon/dashboard/icon_medical@3x.png"> -->
             <p style="font-size: 12px;opacity: 0.5;color: #43425d;line-height: 1.25;display: inline-block;
@@ -339,9 +344,9 @@
     </div>
     <div class="holiday">
         <div style="background-color: #ffffff;padding: 10px;">
-            <div
+            <div *ngIf="holidays"
                 style="font-size: 12px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
-                UPCOMING HOLIDAYS<p (click)="menu.enable(true, 'viewHolidayDetails');menu.enable(false, 'viewReplacementDetails');menu.enable(false, 'viewAnnualDetails');
+                UPCOMING HOLIDAYS<p *ngIf="holidays.length !== 0" (click)="menu.enable(true, 'viewHolidayDetails');menu.enable(false, 'viewReplacementDetails');menu.enable(false, 'viewAnnualDetails');
                 menu.enable(false, 'viewAnnouncementDetails');menu.open('viewHolidayDetails');"
                     style="cursor: pointer;margin-top: 0px;float: right;margin-right: 5px;color:#3b86ff;opacity: 0.8;line-height: 1.36;font-size: 11px;font-weight: bold;">
                     View Details</p>
@@ -365,6 +370,11 @@
                     <ion-item *ngIf="i<2" class="divider" lines="full"></ion-item>
                 </ng-container>
             </ion-row>
+            <ng-container *ngIf="holidays">
+                <p *ngIf="holidays.length === 0"
+                    style="padding-left: 15px;color: rgb(77, 79, 92);font-size: 11px;line-height: 1.82;">
+                    No upcoming holiday</p>
+            </ng-container>
         </div>
     </div>
 </div>
@@ -443,14 +453,14 @@
                                         <div style="display: flex;">
                                             <p style="color: #43425d;line-height: 1.25;font-size: 11px;margin-top: 10px;
                                         margin-bottom: 5px;">
-                                                <strong>Start Date: </strong> {{item.start_date | date: 'dd-MM-yyyy'}}
+                                                <strong>Start Date: </strong> {{item.startDate | date: 'dd-MM-yyyy'}}
                                             </p>
                                             <p style="color: #43425d;line-height: 1.25;font-size: 11px;margin-top: 10px;
                                             margin-bottom: 5px;margin-left: 15px;">
-                                                <strong>End Date: </strong> {{item.end_date | date: 'dd-MM-yyyy'}}</p>
+                                                <strong>End Date: </strong> {{item.endDate | date: 'dd-MM-yyyy'}}</p>
                                             <p style="color: #43425d;line-height: 1.25;font-size: 11px;margin-top: 10px;
                                                 margin-bottom: 0;margin-left: 15px;">
-                                                <strong>Days: </strong> {{item.no_of_days}}</p>
+                                                <strong>Days: </strong> {{item.noOfDays}}</p>
                                         </div>
                                     </ion-text>
                                 </ion-col>

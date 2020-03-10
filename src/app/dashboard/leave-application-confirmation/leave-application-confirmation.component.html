@@ -31,7 +31,7 @@
     <strong>Want to cancel leave request? </strong></p>
   <p *ngIf="data.title === 'task'" style="color: #43425d;line-height: 1.25;font-size: 12px;margin-bottom: 16px;">
     <strong>What should I do? </strong></p>
-  <mat-radio-group *ngIf="data.title === 'task'" style="font-size: 11px;" (change)="action = $event.value">
+  <mat-radio-group *ngIf="data.title === 'task'" style="font-size: 11px;" (change)="radioChanged($event)">
     <mat-radio-button value="approved" color="primary" style="padding-right: 25px;padding-bottom: 5px;" [checked]=true>
       Approve
     </mat-radio-button>

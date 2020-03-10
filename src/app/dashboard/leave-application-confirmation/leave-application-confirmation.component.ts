@@ -21,7 +21,7 @@ export class LeaveApplicationConfirmationComponent implements OnInit {
    * @type {string}
    * @memberof LeaveApplicationConfirmationComponent
    */
-  public action: string;
+  public action: string = 'approved';
 
   /**
       *Creates an instance of LeaveApplicationConfirmationComponent.
@@ -38,6 +38,17 @@ export class LeaveApplicationConfirmationComponent implements OnInit {
    */
   ngOnInit() {
     this.reason = new FormControl('', Validators.required);
+  }
+
+  /**
+   * radio button changed (approved/rejected/cancelled)
+   * @param {*} event
+   * @memberof LeaveApplicationConfirmationComponent
+   */
+  radioChanged(event) {
+    if (event.value != undefined) {
+      this.action = event.value;
+    }
   }
 
 }
