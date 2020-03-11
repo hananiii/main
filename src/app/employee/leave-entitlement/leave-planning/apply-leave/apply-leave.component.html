@@ -309,10 +309,14 @@
                     </div>
                 </div>
                 <ion-item class="divider" lines="full" style="width:97%;"></ion-item>
-                <ion-button fill="outline"
+                <ion-button fill="outline" (click)="file.click();"
                     style="--border-radius: 2px;background: #f5f6fa;height: 30px; width: 40%;font-size: 12px;text-transform: none">
                     Upload Attachment
                 </ion-button>
+                <a *ngIf="uploadedFile != undefined"
+                    style="display: block;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"
+                    [href]="uploadedFile.link" download>{{uploadedFile.filename}}</a>
+                <input style="display:none" #file name="file" type="file" (change)="uploadEvent($event.target.files)">
                 <p style="color: #808495;font-size:11px;margin-bottom: 15px;">File Allowed: .jpg,
                     .png, .pdf only (max size 1MB)
                 </p>

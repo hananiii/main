@@ -162,6 +162,13 @@ export class ApplyLeaveComponent implements OnInit {
     public leaveCode: string;
 
     /**
+     * uploaded file
+     * @type {*}
+     * @memberof ApplyLeaveComponent
+     */
+    public uploadedFile: any;
+
+    /**
      * Local private property for value get from API
      * @private
      * @type {*}
@@ -274,6 +281,22 @@ export class ApplyLeaveComponent implements OnInit {
         //     let calendarApi = this.calendarComponent.getApi();
         //     calendarApi.render();
         // }, 100);
+    }
+
+    /**
+     * get details of file after upload from local file
+     * @param {*} files
+     * @param {number} i
+     * @returns
+     * @memberof ApplyLeaveComponent
+     */
+    uploadEvent(document: any) {
+        const fileToSave = document.item(0);
+        let formData = new FormData();
+        formData.append('file', fileToSave, fileToSave.name);
+        this.apiService.post_file(formData).subscribe(res => {
+            this.uploadedFile = res;
+        });
     }
 
     /**
@@ -390,7 +413,7 @@ export class ApplyLeaveComponent implements OnInit {
         this.halfDayIndex = [];
         this.dayName = [];
         this.dateSelection = [];
-
+        this.uploadedFile = null;
     }
 
     /**
