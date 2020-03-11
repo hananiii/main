@@ -171,7 +171,10 @@ export class EmploymentDetailsComponent implements OnInit {
             this.showEditProfile = false;
             this.snackbarMsg('Edit mode disabled. Good job!', true);
             this.list.employmentDetail = res;
-        })
+        },
+            err => {
+                this.snackbarMsg(JSON.parse(err._body).status, false);
+            })
     }
 
     /**

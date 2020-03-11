@@ -3,6 +3,7 @@ import { APIService } from "src/services/shared-service/api.service";
 import { FormGroup, FormBuilder } from "@angular/forms";
 import { EditModeDialogComponent } from "../edit-mode-dialog/edit-mode-dialog.component";
 import { SharedService } from "../shared.service";
+import { SnackbarNotificationComponent } from "../snackbar-notification/snackbar-notification.component";
 
 /**
  * award & certificate page
@@ -102,8 +103,8 @@ export class AwardCertificationComponent implements OnInit {
      * @param {SharedService} sharedService
      * @memberof AwardCertificationComponent
      */
-    constructor(private apiService: APIService, private fb: FormBuilder,private sharedService: SharedService
-        ) {
+    constructor(private apiService: APIService, private fb: FormBuilder, private sharedService: SharedService
+    ) {
 
         // private xservice: PersonalDetailsService
         // xservice.percentChanged.subscribe(value => {
@@ -213,7 +214,11 @@ export class AwardCertificationComponent implements OnInit {
                 (data: any[]) => {
                     this.items = data;
                 })
-        })
+            this.msgNotification('Edit mode disabled. Good job!', true);
+        },
+            response => {
+                this.msgNotification(JSON.parse(response._body).status, false);
+            })
     }
 
     /**
@@ -252,5 +257,19 @@ export class AwardCertificationComponent implements OnInit {
      */
     deleteItem(i: number, awards: any) {
         this.awards.splice(i, 1);
+    }
+
+    /**
+     * Show notification after submit
+     * @param {string} statement
+     * @param {boolean} value
+     * @memberof EmploymentDetailsComponent
+     */
+    msgNotification(statement: string, value: boolean) {
+        this.apiService.snackbar.openFromComponent(SnackbarNotificationComponent, {
+            duration: 3000,
+            verticalPosition: "top",
+            data: { message: statement, response: value }
+        });
     }
 }
