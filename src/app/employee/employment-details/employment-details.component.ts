@@ -157,7 +157,7 @@ export class EmploymentDetailsComponent implements OnInit {
      * patch employment details
      * @memberof EmploymentDetailsComponent
      */
-    patchEmployment() {
+    async patchEmployment() {
         const body = this.list.employmentDetail;
         body["id"] = this.list.id;
         body.employmentStatus = body.employmentStatus;
@@ -167,10 +167,23 @@ export class EmploymentDetailsComponent implements OnInit {
         body.dateOfConfirmation = moment(body.dateOfConfirmation).format('YYYY-MM-DD');
         body.dateOfJoin = moment(body.dateOfJoin).format('YYYY-MM-DD');
         body.dateOfResign = moment(body.dateOfResign).format('YYYY-MM-DD');
+        let list = await this.apiService.get_user_profile_list().toPromise();
+        list.filter(item => {
+            if (item.employeeName === body.reportingTo) {
+                body.reportingTo = item.userId;
+            }
+        })
         this.apiService.patch_user_info_employement_id(body, this.list.id).subscribe(res => {
             this.showEditProfile = false;
             this.snackbarMsg('Edit mode disabled. Good job!', true);
-            this.list.employmentDetail = res;
+            this.apiService.get_user_profile_list().subscribe(data => {
+                this.list.employmentDetail = res;
+                data.filter(item => {
+                    if (this.list.employmentDetail.reportingTo === item.userId) {
+                        this.list.employmentDetail.reportingTo = item.employeeName
+                    }
+                })
+            });
         },
             err => {
                 this.snackbarMsg(JSON.parse(err._body).status, false);
