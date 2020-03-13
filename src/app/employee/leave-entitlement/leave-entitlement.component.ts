@@ -70,6 +70,13 @@ export class LeaveEntitlementsComponent implements OnInit {
     public showContent: boolean = false;
 
     /**
+     * url of profile picture
+     * @type {*}
+     * @memberof LeaveEntitlementsComponent
+     */
+    public url: any;
+
+    /**
      * Return API content
      * @readonly
      * @memberof LeaveEntitlementsComponent
@@ -89,6 +96,7 @@ export class LeaveEntitlementsComponent implements OnInit {
         // xservice.percentChanged.subscribe(value => {
         //     this.progressPercentage = value;
         // })
+        this.apiService.get_profile_pic('personal').subscribe(img => this.url = img)
     }
 
     /**

@@ -45,13 +45,22 @@ export class LeavePlanningComponent implements OnInit {
     public showSpinner: boolean = true;
 
     /**
+     * get url of profile picture
+     * @type {*}
+     * @memberof LeavePlanningComponent
+     */
+    public url: any
+
+    /**
      *Creates an instance of LeavePlanningComponent.
      * @param {APIService} API
      * @param {Router} router
      * @memberof LeavePlanningComponent
      */
     constructor(private API: APIService, private leaveApi: LeavePlanningAPIService, private router: Router
-    ) { }
+    ) {
+        this.API.get_profile_pic('personal').subscribe(img => this.url = img)
+    }
 
     /**
      * Initial method

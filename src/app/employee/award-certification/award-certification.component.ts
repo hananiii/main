@@ -80,6 +80,13 @@ export class AwardCertificationComponent implements OnInit {
     public toggleValue: string = 'OFF';
 
     /**
+     * url from profile picture
+     * @type {*}
+     * @memberof AwardCertificationComponent
+     */
+    public url: any;
+
+    /**
      * validation group of file
      * @private
      * @type {FormGroup}
@@ -105,11 +112,7 @@ export class AwardCertificationComponent implements OnInit {
      */
     constructor(private apiService: APIService, private fb: FormBuilder, private sharedService: SharedService
     ) {
-
-        // private xservice: PersonalDetailsService
-        // xservice.percentChanged.subscribe(value => {
-        //     this.progressPercentage = value;
-        // })
+        this.apiService.get_profile_pic('personal').subscribe(img => this.url = img)
     }
 
     ngOnInit() {

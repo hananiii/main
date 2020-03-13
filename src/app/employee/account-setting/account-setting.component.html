@@ -8,8 +8,8 @@
         <ion-row>
             <ion-col size="2">
                 <div class="fullContainer" style="margin-top: 10px;">
-                    <ion-avatar class="avatar">
-                        <img src="assets/icon/chris.jpg">
+                    <ion-avatar class="avatar" *ngIf="url">
+                        <img src="{{url.link + url.details[0].PROFILE_PICTURE}}">
                     </ion-avatar>
                 </div>
             </ion-col>
@@ -28,8 +28,10 @@
                         </ion-button> -->
                 <ion-button
                     style="font-size: 11px;margin-top: 12px;height: 30px;width: 124px;display: block; text-transform: capitalize"
-                    color="primary"> Change Photo
+                    color="primary" (click)="file.click();"> Change Photo
                 </ion-button>
+                <input style="display:none" #file name="file" type="file"
+                    (change)="submitProfilePic($event.target.files)">
                 <!-- </div> -->
                 <!-- <p style="color:#7069d8; font-size: 10px;cursor: pointer;display: block">Remove Photo</p> -->
                 <!-- </div> -->

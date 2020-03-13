@@ -76,6 +76,13 @@ export class SideMenuNavigationComponent implements OnInit {
   public emittedData: string;
 
   /**
+   * get profile picture
+   * @type {*}
+   * @memberof SideMenuNavigationComponent
+   */
+  public url: any;
+
+  /**
    * This is local property to show list of menu, url & icon name
    * @type {ISideMenu[]}
    * @memberof SideMenuNavigationComponent
@@ -147,6 +154,9 @@ export class SideMenuNavigationComponent implements OnInit {
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
         this.getRoute(event.urlAfterRedirects);
+        this.apiService.get_profile_pic('personal').subscribe(data => {
+          this.url = data;
+        })
       });
 
     sharedService.changeEmitted$.subscribe(

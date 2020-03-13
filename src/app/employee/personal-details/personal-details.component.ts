@@ -184,14 +184,13 @@ export class PersonalDetailsComponent implements OnInit {
      * @memberof PersonalDetailsComponent
      */
     public modeValue: string = 'OFF';
+
     /**
-     * Return API content of personal details
-     * @readonly
+     * get url of personal profile picture
+     * @type {*}
      * @memberof PersonalDetailsComponent
      */
-    get personalList() {
-        return this.items;
-    }
+    public url: any;
 
     /**
      *Creates an instance of PersonalDetailsComponent.
@@ -200,6 +199,7 @@ export class PersonalDetailsComponent implements OnInit {
      * @memberof PersonalDetailsComponent
      */
     constructor(private apiService: APIService, private sharedService: SharedService) {
+        this.apiService.get_profile_pic('personal').subscribe(img => this.url = img)
     }
 
     /**
@@ -410,7 +410,9 @@ export class PersonalDetailsComponent implements OnInit {
      */
     patchData() {
         this.showEditProfile = false;
-        this.apiService.patch_user_info_personal_id(this.data(), this.items.id).subscribe(
+        this.items.personalDetail.nric = this.items.personalDetail.nric.toString();
+        this.items.personalDetail.dob = moment(this.items.personalDetail.dob).format('YYYY-MM-DD');
+        this.apiService.patch_user_info_personal_id(this.items.personalDetail, this.items.id).subscribe(
             (val) => {
                 this.apiService.get_personal_details().subscribe(
                     (data: any[]) => {
@@ -430,37 +432,37 @@ export class PersonalDetailsComponent implements OnInit {
      * @returns
      * @memberof PersonalDetailsComponent
      */
-    data() {
-        return {
-            // "id": this.items.id,
-            "fullname": this.items.personalDetail.fullname,
-            "nickname": this.items.personalDetail.nickname,
-            "nric": this.items.personalDetail.nric.toString(),
-            "dob": moment(this.firstPicker.value).format('YYYY-MM-DD'),
-            "gender": this.items.personalDetail.gender,
-            "maritalStatus": this.items.personalDetail.maritalStatus,
-            "race": this.items.personalDetail.race,
-            "religion": this.items.personalDetail.religion,
-            "nationality": this.items.personalDetail.nationality,
-            "phoneNumber": this.items.personalDetail.phoneNumber.toString(),
-            "workPhoneNumber": this.items.personalDetail.workPhoneNumber.toString(),
-            "emailAddress": this.items.personalDetail.emailAddress,
-            "workEmailAddress": this.items.personalDetail.workEmailAddress,
-            "address1": this.items.personalDetail.address1.toString(),
-            "address2": this.items.personalDetail.address2.toString(),
-            "postcode": this.items.personalDetail.postcode,
-            "city": this.items.personalDetail.city,
-            "state": this.items.personalDetail.state,
-            "country": this.items.personalDetail.country,
-            "emergencyContact": { "contacts": this.removeItems },
-            "certification": this.items.personalDetail.certification,
-            "education": { "educationDetail": this.eduList },
-            "family": {
-                "spouse": this.spouseItems,
-                "child": this.childItems
-            }
-        };
-    }
+    // data() {
+    //     return {
+    //         // "id": this.items.id,
+    //         "fullname": this.items.personalDetail.fullname,
+    //         "nickname": this.items.personalDetail.nickname,
+    //         "nric": this.items.personalDetail.nric.toString(),
+    //         "dob": moment(this.firstPicker.value).format('YYYY-MM-DD'),
+    //         "gender": this.items.personalDetail.gender,
+    //         "maritalStatus": this.items.personalDetail.maritalStatus,
+    //         "race": this.items.personalDetail.race,
+    //         "religion": this.items.personalDetail.religion,
+    //         "nationality": this.items.personalDetail.nationality,
+    //         "phoneNumber": this.items.personalDetail.phoneNumber.toString(),
+    //         "workPhoneNumber": this.items.personalDetail.workPhoneNumber.toString(),
+    //         "emailAddress": this.items.personalDetail.emailAddress,
+    //         "workEmailAddress": this.items.personalDetail.workEmailAddress,
+    //         "address1": this.items.personalDetail.address1.toString(),
+    //         "address2": this.items.personalDetail.address2.toString(),
+    //         "postcode": this.items.personalDetail.postcode,
+    //         "city": this.items.personalDetail.city,
+    //         "state": this.items.personalDetail.state,
+    //         "country": this.items.personalDetail.country,
+    //         "emergencyContact": { "contacts": this.removeItems },
+    //         "certification": this.items.personalDetail.certification,
+    //         "education": { "educationDetail": this.eduList },
+    //         "family": {
+    //             "spouse": this.spouseItems,
+    //             "child": this.childItems
+    //         }
+    //     };
+    // }
 
     /**
      * Show notification after submit

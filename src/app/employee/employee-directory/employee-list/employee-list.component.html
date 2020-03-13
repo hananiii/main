@@ -44,7 +44,10 @@
         <ion-row class="detailsRow" *ngFor="let item of items | paginate: { itemsPerPage: 9, currentPage: p,
             totalItems: items.length }; let i=index;">
             <ion-col size="0.7">
-                <ion-avatar class="avatar">
+                <ion-avatar class="avatar" *ngIf="url && url.details[i].PROFILE_PICTURE !== null">
+                    <img src="{{url.link + url.details[i].PROFILE_PICTURE}}">
+                </ion-avatar>
+                <ion-avatar class="avatar" *ngIf="url && url.details[i].PROFILE_PICTURE === null">
                     <img src="assets/icon/evans.jpg">
                 </ion-avatar>
             </ion-col>
@@ -125,7 +128,10 @@
             <ion-card style="display: flex; flex-flow: column nowrap; justify-content: center; align-items: center;flex: 25%; 
                             min-width: 200px; padding: 30px;"
                 *ngFor="let item of items | paginate: { itemsPerPage: 9, currentPage: p, totalItems: items.length }; let i=index ">
-                <ion-avatar style="margin: 0 auto;">
+                <ion-avatar style="margin: 0 auto;" *ngIf="url && url.details[i].PROFILE_PICTURE !== null">
+                    <img src="{{url.link + url.details[i].PROFILE_PICTURE}}">
+                </ion-avatar>
+                <ion-avatar style="margin: 0 auto;" *ngIf="url && url.details[i].PROFILE_PICTURE === null">
                     <img src="assets/icon/evans.jpg">
                 </ion-avatar>
                 <ion-card-content style="display: contents;">

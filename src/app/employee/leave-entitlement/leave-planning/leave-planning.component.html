@@ -17,7 +17,10 @@
     <ion-card-header style="padding: inherit;border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);">
         <div class="fullContainer">
             <div class="left">
-                <ion-avatar class="avatar">
+                <ion-avatar class="avatar" *ngIf="url && url.details[0].PROFILE_PICTURE !== null">
+                    <img src="{{url.link + url.details[0].PROFILE_PICTURE}}">
+                </ion-avatar>
+                <ion-avatar class="avatar" *ngIf="url && url.details[0].PROFILE_PICTURE === null">
                     <img src="assets/icon/chris.jpg">
                 </ion-avatar>
             </div>

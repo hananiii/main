@@ -17,8 +17,8 @@
         </div>
         <div class="fullContainer">
             <div class="left">
-                <ion-avatar class="avatar">
-                    <img src="assets/icon/chris.jpg">
+                <ion-avatar class="avatar" *ngIf="url">
+                    <img src="{{url.link + url.details[0].PROFILE_PICTURE}}">
                 </ion-avatar>
             </div>
             <div class="right" *ngIf="personalList">
@@ -60,8 +60,8 @@
         style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);flex-flow: column-reverse;">
         <div class="fullContainer" style="flex-flow: inherit;">
             <div class="left">
-                <ion-avatar class="avatar">
-                    <img src="assets/icon/chris.jpg">
+                <ion-avatar class="avatar" *ngIf="url">
+                    <img src="{{url.link + url.details[0].PROFILE_PICTURE}}">
                 </ion-avatar>
             </div>
             <div class="right" *ngIf="personalList">

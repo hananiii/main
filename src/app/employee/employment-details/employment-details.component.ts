@@ -85,6 +85,13 @@ export class EmploymentDetailsComponent implements OnInit {
     public personalDetail: any;
 
     /**
+     * url of profile picture
+     * @type {*}
+     * @memberof EmploymentDetailsComponent
+     */
+    public url: any;
+
+    /**
      * return API content
      * @readonly
      * @memberof EmploymentDetailsComponent
@@ -105,6 +112,7 @@ export class EmploymentDetailsComponent implements OnInit {
         route.params.subscribe(params => {
             this.userId = params.id;
         });
+        this.apiService.get_profile_pic('personal').subscribe(img => this.url = img)
     }
 
     /**

@@ -64,6 +64,13 @@ export class EmployeeListComponent implements OnInit {
     public showSpinner: boolean = true;
 
     /**
+     * profile picture url
+     * @type {*}
+     * @memberof EmployeeListComponent
+     */
+    public url: any;
+
+    /**
      * page number of paginator
      * @type {number}
      * @memberof EmployeeListComponent
@@ -76,6 +83,7 @@ export class EmployeeListComponent implements OnInit {
      * @memberof EmployeeListComponent
      */
     constructor(private apiService: APIService) {
+        this.apiService.get_profile_pic('all').subscribe(img => this.url = img)
     }
 
     /**
@@ -92,9 +100,6 @@ export class EmployeeListComponent implements OnInit {
                 this.showSpinner = false;
             }
         );
-        // this.apiService.get_master_list('department').subscribe((data) => {
-        //     this.departmentList = data;
-        // });
     }
 
     /**

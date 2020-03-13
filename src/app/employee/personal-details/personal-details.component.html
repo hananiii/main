@@ -43,21 +43,24 @@
         </div> -->
         <div class="fullContainer">
             <div class="left">
-                <ion-avatar class="avatar">
+                <ion-avatar class="avatar" *ngIf="url && url.details[0].PROFILE_PICTURE !== null">
+                    <img src="{{url.link + url.details[0].PROFILE_PICTURE}}">
+                </ion-avatar>
+                <ion-avatar class="avatar" *ngIf="url && url.details[0].PROFILE_PICTURE === null">
                     <img src="assets/icon/chris.jpg">
                 </ion-avatar>
                 <!-- <ion-badge style="background-color: white;border: 1px solid#bebebe;">
                     <div class="pic-icon" [inlineSVG]="'assets/icon/option/picture.svg'"></div>
                 </ion-badge> -->
             </div>
-            <div class="right" *ngIf="personalList && employDetails">
-                <ion-card-subtitle style="color: #43425d;opacity: 0.8;font-weight: bold;">{{personalList.employeeName}}
+            <div class="right" *ngIf="items && employDetails">
+                <ion-card-subtitle style="color: #43425d;opacity: 0.8;font-weight: bold;">{{items.employeeName}}
                 </ion-card-subtitle>
                 <!-- <div style="display:block; padding-top: 5px;"> -->
                 <ion-card-subtitle class="subtitle">
-                    {{personalList.employeeDesignation}}</ion-card-subtitle>
+                    {{items.employeeDesignation}}</ion-card-subtitle>
                 <!-- <i class="fas fa-circle"></i> -->
-                <ion-card-subtitle class="subtitle">{{personalList.employeeDepartment}}
+                <ion-card-subtitle class="subtitle">{{items.employeeDepartment}}
                 </ion-card-subtitle>
                 <!-- </div> -->
                 <!-- <div style="padding-top: 5px;"> -->
@@ -75,21 +78,24 @@
     flex-flow: column-reverse;">
         <div class="fullContainer" style=" flex-flow: inherit;">
             <div class="left">
-                <ion-avatar class="avatar">
+                <ion-avatar class="avatar" *ngIf="url && url.details[0].PROFILE_PICTURE !== null">
+                    <img src="{{url.link + url.details[0].PROFILE_PICTURE}}">
+                </ion-avatar>
+                <ion-avatar class="avatar" *ngIf="url && url.details[0].PROFILE_PICTURE === null">
                     <img src="assets/icon/chris.jpg">
                 </ion-avatar>
                 <!-- <ion-badge style="background-color: white;border: 1px solid#bebebe;">
                         <div class="pic-icon" [inlineSVG]="'assets/icon/option/picture.svg'"></div>
                     </ion-badge> -->
             </div>
-            <div class="right" *ngIf="personalList && employDetails">
-                <ion-card-subtitle style="color: #43425d;opacity: 0.8;font-weight: bold;">{{personalList.employeeName}}
+            <div class="right" *ngIf="items && employDetails">
+                <ion-card-subtitle style="color: #43425d;opacity: 0.8;font-weight: bold;">{{items.employeeName}}
                 </ion-card-subtitle>
                 <!-- <div style="display:block; padding-top: 5px;"> -->
                 <ion-card-subtitle class="subtitle">
-                    {{personalList.employeeDesignation}}</ion-card-subtitle>
+                    {{items.employeeDesignation}}</ion-card-subtitle>
                 <!-- <i class="fas fa-circle"></i> -->
-                <ion-card-subtitle class="subtitle">{{personalList.employeeDepartment}}
+                <ion-card-subtitle class="subtitle">{{items.employeeDepartment}}
                 </ion-card-subtitle>
                 <!-- </div> -->
                 <!-- <div style="padding-top: 5px;"> -->
@@ -138,7 +144,7 @@
 
     </ion-card-header>
     <!-- <ion-item *ngIf="showContent" lines="full" class="mainDivider"></ion-item> -->
-    <div class="cardContent" *ngIf="personalList && showContent">
+    <div class="cardContent" *ngIf="items && showContent">
         <ion-card-content>
             <div
                 style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);background-color: #ffffff;padding: 10px;padding-bottom: 20px;margin-bottom: 20px; min-width: min-content;">
@@ -149,7 +155,7 @@
                     <ion-row class="detailsRow" style="min-width: 220px;">
                         <ion-col>
                             <ion-label>Birthdate</ion-label>
-                            <p>{{personalList.personalDetail.dob}}</p>
+                            <p>{{items.personalDetail.dob}}</p>
                             <!-- <mat-form-field *ngIf="showEditProfile" disabled>
                                     <input matInput [matDatepicker]="picker1" [formControl]="firstPicker" required disabled>
                                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
@@ -158,7 +164,7 @@
                         </ion-col>
                         <ion-col>
                             <ion-label>Gender</ion-label>
-                            <p>{{personalList.personalDetail.gender}}</p>
+                            <p>{{items.personalDetail.gender}}</p>
                             <!-- <mat-form-field *ngIf="showEditProfile" disabled>
                                     <mat-select [(value)]="items.personalDetail.gender">
                                         <mat-option value="Female">Female</mat-option>
@@ -168,9 +174,9 @@
                         </ion-col>
                         <ion-col>
                             <ion-label>NRIC</ion-label>
-                            <p>{{personalList.personalDetail.nric}}</p>
+                            <p>{{items.personalDetail.nric}}</p>
                             <!-- <ion-label>Marital Status</ion-label>
-                                <p *ngIf="!showEditProfile">{{personalList.personalDetail.maritalStatus}}</p>
+                                <p *ngIf="!showEditProfile">{{items.personalDetail.maritalStatus}}</p>
                                 <mat-form-field *ngIf="showEditProfile">
                                     <mat-select [(value)]="items.personalDetail.maritalStatus">
                                         <mat-option value="Single">Single</mat-option>
@@ -180,27 +186,27 @@
                         </ion-col>
                         <ion-col>
                             <ion-label>Nationality</ion-label>
-                            <p>{{personalList.personalDetail.nationality}}</p>
+                            <p>{{items.personalDetail.nationality}}</p>
                         </ion-col>
                     </ion-row>
                     <ion-row class="detailsRow" style="min-width: 220px;">
                         <ion-col>
                             <ion-label>Race</ion-label>
-                            <p>{{personalList.personalDetail.race}}</p>
+                            <p>{{items.personalDetail.race}}</p>
                             <!-- <mat-form-field *ngIf="showEditProfile">
                                     <input matInput [(ngModel)]="items.personalDetail.race">
                                 </mat-form-field> -->
                         </ion-col>
                         <ion-col>
                             <ion-label>Religion</ion-label>
-                            <p *ngIf="modeValue === 'OFF'">{{personalList.personalDetail.religion}}</p>
+                            <p *ngIf="modeValue === 'OFF'">{{items.personalDetail.religion}}</p>
                             <mat-form-field *ngIf="modeValue === 'ON'">
                                 <input matInput [(ngModel)]="items.personalDetail.religion">
                             </mat-form-field>
                         </ion-col>
                         <ion-col>
                             <ion-label>Marital Status</ion-label>
-                            <p *ngIf="modeValue === 'OFF'">{{personalList.personalDetail.maritalStatus}}</p>
+                            <p *ngIf="modeValue === 'OFF'">{{items.personalDetail.maritalStatus}}</p>
                             <mat-form-field *ngIf="modeValue === 'ON'">
                                 <mat-select [(value)]="items.personalDetail.maritalStatus">
                                     <mat-option value="Single">Single</mat-option>
@@ -209,14 +215,14 @@
                             </mat-form-field>
 
                             <!-- <ion-label>Nationality</ion-label>
-                                <p>{{personalList.personalDetail.nationality}}</p> -->
+                                <p>{{items.personalDetail.nationality}}</p> -->
                             <!-- <mat-form-field *ngIf="showEditProfile">
                                     <input matInput [(ngModel)]="items.personalDetail.nationality">
                                 </mat-form-field> -->
                         </ion-col>
                         <ion-col>
                             <ion-label>Personal Email Address</ion-label>
-                            <p *ngIf="modeValue === 'OFF'">{{personalList.personalDetail.emailAddress}}</p>
+                            <p *ngIf="modeValue === 'OFF'">{{items.personalDetail.emailAddress}}</p>
                             <mat-form-field *ngIf="modeValue === 'ON'">
                                 <input matInput [(ngModel)]="items.personalDetail.emailAddress">
                             </mat-form-field>
@@ -227,7 +233,7 @@
                         <ion-col>
                             <ion-label>Work Email Address</ion-label>
                             <p *ngIf="modeValue === 'OFF'" style="white-space: nowrap;">
-                                {{personalList.personalDetail.workEmailAddress}}</p>
+                                {{items.personalDetail.workEmailAddress}}</p>
                             <mat-form-field *ngIf="modeValue === 'ON'">
                                 <input matInput [(ngModel)]="items.personalDetail.workEmailAddress">
                             </mat-form-field>
@@ -236,7 +242,7 @@
                         <ion-col>
                             <ion-label>Personal Phone Number</ion-label>
                             <p *ngIf="modeValue === 'OFF'" style="white-space: nowrap;">
-                                {{personalList.personalDetail.phoneNumber}}</p>
+                                {{items.personalDetail.phoneNumber}}</p>
                             <mat-form-field *ngIf="modeValue === 'ON'">
                                 <input matInput [(ngModel)]="items.personalDetail.phoneNumber">
                             </mat-form-field>
@@ -244,12 +250,12 @@
                         <ion-col>
                             <ion-label>Work Phone Number</ion-label>
                             <p *ngIf="modeValue === 'OFF'" style="white-space: nowrap;">
-                                {{personalList.personalDetail.workPhoneNumber}}</p>
+                                {{items.personalDetail.workPhoneNumber}}</p>
                             <mat-form-field *ngIf="modeValue === 'ON'">
                                 <input matInput [(ngModel)]="items.personalDetail.workPhoneNumber">
                             </mat-form-field>
                             <!-- <ion-label>NRIC</ion-label>
-                                <p >{{personalList.personalDetail.nric}}</p> -->
+                                <p >{{items.personalDetail.nric}}</p> -->
                             <!-- <mat-form-field *ngIf="showEditProfile">
                                     <input matInput [(ngModel)]="items.personalDetail.nric">
                                 </mat-form-field> -->
@@ -262,37 +268,37 @@
                     <ion-row class="detailsRow" style="flex-flow: nowrap;">
                         <ion-col>
                             <ion-label>Birthdate</ion-label>
-                            <p>{{personalList.personalDetail.dob}}</p>
+                            <p>{{items.personalDetail.dob}}</p>
                         </ion-col>
                         <ion-col>
                             <ion-label>Gender</ion-label>
-                            <p>{{personalList.personalDetail.gender}}</p>
+                            <p>{{items.personalDetail.gender}}</p>
                         </ion-col>
                     </ion-row>
                     <ion-row class="detailsRow" style="flex-flow: nowrap;">
                         <ion-col>
                             <ion-label>NRIC</ion-label>
-                            <p>{{personalList.personalDetail.nric}}</p>
+                            <p>{{items.personalDetail.nric}}</p>
                         </ion-col>
                         <ion-col>
                             <ion-label>Nationality</ion-label>
-                            <p>{{personalList.personalDetail.nationality}}</p>
+                            <p>{{items.personalDetail.nationality}}</p>
                         </ion-col>
                     </ion-row>
                     <ion-row class="detailsRow" style="flex-flow: nowrap;">
                         <ion-col>
                             <ion-label>Race</ion-label>
-                            <p>{{personalList.personalDetail.race}}</p>
+                            <p>{{items.personalDetail.race}}</p>
                         </ion-col>
                         <ion-col>
                             <ion-label>Religion</ion-label>
-                            <p *ngIf="modeValue === 'OFF'">{{personalList.personalDetail.religion}}</p>
+                            <p *ngIf="modeValue === 'OFF'">{{items.personalDetail.religion}}</p>
                         </ion-col>
                     </ion-row>
                     <ion-row class="detailsRow" style="flex-flow: nowrap;">
                         <ion-col>
                             <ion-label>Marital Status</ion-label>
-                            <p *ngIf="modeValue === 'OFF'">{{personalList.personalDetail.maritalStatus}}</p>
+                            <p *ngIf="modeValue === 'OFF'">{{items.personalDetail.maritalStatus}}</p>
                             <mat-form-field *ngIf="modeValue === 'ON'">
                                 <mat-select [(value)]="items.personalDetail.maritalStatus">
                                     <mat-option value="Single">Single</mat-option>
@@ -302,7 +308,7 @@
                         </ion-col>
                         <ion-col>
                             <ion-label>Personal Email Address</ion-label>
-                            <p *ngIf="modeValue === 'OFF'">{{personalList.personalDetail.emailAddress}}</p>
+                            <p *ngIf="modeValue === 'OFF'">{{items.personalDetail.emailAddress}}</p>
                             <mat-form-field *ngIf="modeValue === 'ON'">
                                 <input matInput [(ngModel)]="items.personalDetail.emailAddress">
                             </mat-form-field>
@@ -312,7 +318,7 @@
                         <ion-col>
                             <ion-label>Work Email Address</ion-label>
                             <p *ngIf="modeValue === 'OFF'" style="white-space: nowrap;">
-                                {{personalList.personalDetail.workEmailAddress}}</p>
+                                {{items.personalDetail.workEmailAddress}}</p>
                             <mat-form-field *ngIf="modeValue === 'ON'">
                                 <input matInput [(ngModel)]="items.personalDetail.workEmailAddress">
                             </mat-form-field>
@@ -320,7 +326,7 @@
                         <ion-col>
                             <ion-label>Personal Phone Number</ion-label>
                             <p *ngIf="modeValue === 'OFF'" style="white-space: nowrap;">
-                                {{personalList.personalDetail.phoneNumber}}</p>
+                                {{items.personalDetail.phoneNumber}}</p>
                             <mat-form-field *ngIf="modeValue === 'ON'">
                                 <input matInput [(ngModel)]="items.personalDetail.phoneNumber">
                             </mat-form-field>
@@ -330,7 +336,7 @@
                         <ion-col>
                             <ion-label>Work Phone Number</ion-label>
                             <p *ngIf="modeValue === 'OFF'" style="white-space: nowrap;">
-                                {{personalList.personalDetail.workPhoneNumber}}</p>
+                                {{items.personalDetail.workPhoneNumber}}</p>
                             <mat-form-field *ngIf="modeValue === 'ON'">
                                 <input matInput [(ngModel)]="items.personalDetail.workPhoneNumber">
                             </mat-form-field>
@@ -347,35 +353,35 @@
                     <ion-col>
                         <!-- <ion-label>RESIDENTIAL ADDRESS</ion-label> -->
                         <p *ngIf="modeValue === 'OFF'" style="display: inline">
-                            {{personalList.personalDetail.address1}},</p>
+                            {{items.personalDetail.address1}},</p>
                         <mat-form-field *ngIf="modeValue === 'ON'">
                             <input matInput placeholder="Address line 1" [(ngModel)]="items.personalDetail.address1">
                         </mat-form-field>
                         &nbsp;
                         <p *ngIf="modeValue === 'OFF'" style="display: inline">
-                            {{personalList.personalDetail.address2}},</p>
+                            {{items.personalDetail.address2}},</p>
                         <mat-form-field *ngIf="modeValue === 'ON'">
                             <input matInput placeholder="Address line 2" [(ngModel)]="items.personalDetail.address2">
                         </mat-form-field>
                         &nbsp;
-                        <p *ngIf="modeValue === 'OFF'" style="display: inline">{{personalList.personalDetail.postcode}},
+                        <p *ngIf="modeValue === 'OFF'" style="display: inline">{{items.personalDetail.postcode}},
                         </p>
                         <mat-form-field *ngIf="modeValue === 'ON'">
                             <input matInput placeholder="Postcode" [(ngModel)]="items.personalDetail.postcode">
                         </mat-form-field>
                         &nbsp;
-                        <p *ngIf="modeValue === 'OFF'" style="display: inline">{{personalList.personalDetail.city}},</p>
+                        <p *ngIf="modeValue === 'OFF'" style="display: inline">{{items.personalDetail.city}},</p>
                         <mat-form-field *ngIf="modeValue === 'ON'">
                             <input matInput placeholder="City" [(ngModel)]="items.personalDetail.city">
                         </mat-form-field>
                         &nbsp;
-                        <p *ngIf="modeValue === 'OFF'" style="display: inline">{{personalList.personalDetail.state}},
+                        <p *ngIf="modeValue === 'OFF'" style="display: inline">{{items.personalDetail.state}},
                         </p>
                         <mat-form-field *ngIf="modeValue === 'ON'">
                             <input matInput placeholder="State" [(ngModel)]="items.personalDetail.state">
                         </mat-form-field>
                         &nbsp;
-                        <p *ngIf="modeValue === 'OFF'" style="display: inline">{{personalList.personalDetail.country}}.
+                        <p *ngIf="modeValue === 'OFF'" style="display: inline">{{items.personalDetail.country}}.
                         </p>
                         <mat-form-field *ngIf="modeValue === 'ON'">
                             <input matInput placeholder="Country" [(ngModel)]="items.personalDetail.country">
