@@ -97,6 +97,7 @@ export class EmployeeListComponent implements OnInit {
         this.apiService.get_user_profile_list().subscribe(
             (data: any[]) => {
                 this.items = data;
+                
                 this.showSpinner = false;
             }
         );

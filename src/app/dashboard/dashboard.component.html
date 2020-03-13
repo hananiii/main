@@ -496,13 +496,22 @@
             </div>
             <div style="max-height: 250px;overflow: auto;width: 100%;">
                 <ion-list class="list" style="width: 100%;">
-                    <ion-row *ngFor="let item of longLeave.downline">
+                    <ion-row *ngFor="let item of longLeave.downline; let i=index">
                         <ion-col size="9"
                             style="padding: 0;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
                             <ion-item lines="none">
-                                <ion-avatar slot="start" class="avatar">
-                                    <img src="assets/icon/picture.png">
-                                </ion-avatar>
+                                <ng-container *ngFor="let list of url.details; let j= index">
+                                    <ng-container *ngIf="url.details[j].USER_GUID == item.userGuid">
+                                        <ion-avatar class="avatar"
+                                            *ngIf="url && url.details[j].PROFILE_PICTURE !== null">
+                                            <img src="{{url.link + url.details[j].PROFILE_PICTURE}}">
+                                        </ion-avatar>
+                                        <ion-avatar class="avatar"
+                                            *ngIf="url && url.details[j].PROFILE_PICTURE === null">
+                                            <img src="assets/icon/picture.png">
+                                        </ion-avatar>
+                                    </ng-container>
+                                </ng-container>
                                 <ion-label text-wrap class="labelText">
                                     <p
                                         style="color: #4d4f5c; font-size: 11px;white-space: pre-wrap; line-height: normal;margin: 5px 0px;">

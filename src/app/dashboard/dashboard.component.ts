@@ -146,6 +146,13 @@ export class DashboardComponent implements OnInit {
     public annualDaysToGo: number;
 
     /**
+     * get url of profile picture
+     * @type {*}
+     * @memberof DashboardComponent
+     */
+    public url: any;
+
+    /**
      * reason value get from confirmation pop up
      * @private
      * @type {string}
@@ -160,7 +167,11 @@ export class DashboardComponent implements OnInit {
      * @param {MatDialog} dialog
      * @memberof DashboardComponent
      */
-    constructor(private dashboardAPI: DashboardApiService, private menu: MenuController, private dialog: MatDialog) { }
+    constructor(private dashboardAPI: DashboardApiService, private menu: MenuController, private dialog: MatDialog) {
+        this.dashboardAPI.apiService.get_profile_pic('all').subscribe(data => {
+            this.url = data;
+        })
+    }
 
     /**
      * Initial method

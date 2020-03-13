@@ -17,11 +17,11 @@ export class DashboardApiService {
 
     /**
      *Creates an instance of DashboardApiService.
-     * @param {APIService} apiService
+     * @param {APIService} apiService get main api service
      * @param {Http} http
      * @memberof DashboardApiService
      */
-    constructor(private apiService: APIService, public http: Http) {
+    constructor(public apiService: APIService, public http: Http) {
     }
 
     /**
