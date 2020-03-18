@@ -23,6 +23,14 @@ export class AccountSettingComponent implements OnInit {
     public url: string;
 
     /**
+     * get user data
+     * @private
+     * @type {*}
+     * @memberof AccountSettingComponent
+     */
+    private userData: any;
+
+    /**
      *Creates an instance of AccountSettingComponent.
      * @param {APIService} api
      * @param {AccountSettingAPIService} accountApi
@@ -39,7 +47,7 @@ export class AccountSettingComponent implements OnInit {
      * @memberof AccountSettingComponent
      */
     ngOnInit() {
-
+        this.api.get_user_profile().subscribe(data => this.userData = data)
     }
 
     /**
@@ -52,7 +60,7 @@ export class AccountSettingComponent implements OnInit {
         let formData = new FormData();
         formData.append('file', fileToUpload, fileToUpload.name);
         this.api.post_file(formData).subscribe(res => {
-            const data = { "profilePictureFile": res.filename };
+            const data = { "userGuid": this.userData.userId, "profilePictureFile": res.filename };
             this.accountApi.post_profile_pic(data).subscribe(response => {
                 this.api.get_profile_pic('personal').subscribe(data => {
                     this.url = data;
