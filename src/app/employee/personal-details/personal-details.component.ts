@@ -276,20 +276,20 @@ export class PersonalDetailsComponent implements OnInit {
      * @memberof PersonalDetailsComponent
      */
     initContact() {
-        if ((this.items.personalDetail.emergencyContact.contacts instanceof Array) && this.items.personalDetail.emergencyContact.contacts !== undefined) {
-            this.removeItems = (this.items.personalDetail.emergencyContact.contacts);
+        if ((this.items.personalDetail.emergencyContact instanceof Array) && this.items.personalDetail.emergencyContact !== undefined) {
+            this.removeItems = (this.items.personalDetail.emergencyContact);
             // for (let i = 0; i < this.removeItems.length; i++) {
             //     this.showEditContact.push(false);
             // }
         }
-        else if (!(this.items.personalDetail.emergencyContact.contacts instanceof Array) && this.items.personalDetail.emergencyContact.contacts !== undefined) {
-            this.removeItems.push(this.items.personalDetail.emergencyContact.contacts);
+        else if (!(this.items.personalDetail.emergencyContact instanceof Array) && this.items.personalDetail.emergencyContact !== undefined) {
+            this.removeItems.push(this.items.personalDetail.emergencyContact);
             // for (let i = 0; i < this.removeItems.length; i++) {
             //     this.showEditContact.push(false);
             // }
         }
         else {
-            this.removeItems = this.items.personalDetail.emergencyContact.contacts;
+            this.removeItems = this.items.personalDetail.emergencyContact;
         }
     }
 
@@ -388,10 +388,22 @@ export class PersonalDetailsComponent implements OnInit {
      * @memberof PersonalDetailsComponent
      */
     getObject(list, obj) {
-        if (obj === this.contactObj) { this.removeItems = list; }
-        if (obj === this.spouseObj) { this.spouseItems = list; }
-        if (obj === this.childObj) { this.childItems = list; }
-        if (obj === this.educationObj) { this.eduList = list; }
+        if (obj === this.contactObj) {
+            this.contactObj = { contactName: '', contactRelationship: '', contactNumber: '' };
+            this.removeItems = list;
+        }
+        if (obj === this.spouseObj) {
+            this.spouseObj = { spouseName: '', spouseIdentificationNumber: '' };
+            this.spouseItems = list;
+        }
+        if (obj === this.childObj) {
+            this.childObj = { childName: '', childIdentificationNumber: '' };
+            this.childItems = list;
+        }
+        if (obj === this.educationObj) {
+            this.educationObj = { qualificationLevel: '', major: '', university: '', year: '' };
+            this.eduList = list;
+        }
     }
 
     /**
