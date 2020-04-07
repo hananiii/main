@@ -174,7 +174,7 @@ export class EmploymentDetailsComponent implements OnInit {
         body.bankAccountNumber = body.bankAccountNumber.toString();
         body.dateOfConfirmation = moment(body.dateOfConfirmation).format('YYYY-MM-DD');
         body.dateOfJoin = moment(body.dateOfJoin).format('YYYY-MM-DD');
-        body.dateOfResign = moment(body.dateOfResign).format('YYYY-MM-DD');
+        body.dateOfResignation = moment(body.dateOfResignation).format('YYYY-MM-DD');
         let list = await this.apiService.get_user_profile_list().toPromise();
         list.filter(item => {
             if (item.employeeName === body.reportingTo) {
