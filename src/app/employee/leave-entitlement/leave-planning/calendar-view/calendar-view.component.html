@@ -9,6 +9,15 @@
                                         }" [plugins]="calendarPlugins" [events]="events" [eventLimit]=true
         (dateClick)="getOnLeaveList($event.dateStr)" [selectable]=true>
     </full-calendar>
+    <div *ngIf="events" style="height: 15px;float: left;width: 15px;background-color: #3b86ff;margin-top: 15px;"></div>
+    <div *ngIf="events" style="color: #43425d;opacity: 0.8;font-size: 11px;padding-left: 20px;margin-top: 15px;">
+        <span> Public Holiday</span></div>
+    <div *ngIf="events" style="height: 15px;float: left;width: 15px;background-color: #46cdcf;"></div>
+    <div *ngIf="events" style="color: #43425d;opacity: 0.8;font-size: 11px;padding-left: 20px;">
+        <span> Approved Leave</span></div>
+    <div *ngIf="events" style="height: 15px;float: left;width: 15px;background-color: #ffb961;"></div>
+    <div *ngIf="events" style="color: #43425d;opacity: 0.8;font-size: 11px;padding-left: 20px;">
+        <span> Pending Approval</span></div>
 </div>
 
 <div class="holidayView" *ngIf="onLeaveList">

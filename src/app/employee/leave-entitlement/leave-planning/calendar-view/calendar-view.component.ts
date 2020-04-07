@@ -163,8 +163,8 @@ export class CalendarViewComponent implements OnInit {
         for (let i = 0; i < date.length; i++) {
             this.PBList[i].str = (moment(date[i].start).format('DD-MM-YYYY'));
             this.PBList[i].day = this.getWeekDay(new Date(date[i].start));
-            this.PBList[i]["backgroundColor"] = "#7069d8";
-            this.PBList[i]["borderColor"] = "#7069d8";
+            this.PBList[i]["backgroundColor"] = "#3b86ff";
+            this.PBList[i]["borderColor"] = "#3b86ff";
         }
     }
 
