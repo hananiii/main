@@ -1,19 +1,24 @@
-:host {
-  top: 48px;
-  background: #f0f0f7;
-  overflow: auto;
-  justify-content: flex-start !important;
+:host(.menuOverlay) {
+  z-index: 101 !important;
+}
 
-  // Flexbox
+:host {
+  z-index: 0 !important;
+
+  .main {
+    top: 48px;
+    background: #f0f0f7;
+    overflow: auto;
+    position: absolute;
+    width: 100%;
+    max-height: calc(100% - 48px);
+    height: 100%;
+  }
   .row {
     display: flex;
     flex-wrap: wrap;
-    // padding: 0 10px;
-  }
-  .column {
-    flex: 75%;
-    max-width: 75%;
     padding: 0 10px;
+    margin: 0;
   }
   .annual,
   .replacement,
@@ -117,66 +122,8 @@
     height: 43px;
     float: right;
   }
-  .svg-icon {
-    width: 46px;
-    height: 44px;
-    float: right;
-  }
-  .columns {
-    flex: 25%;
-    max-width: 25%;
-    padding: 0 10px;
-  }
-  .column .annual {
-    margin-top: 5px;
-    vertical-align: middle;
-  }
-
-  .column .leftCard {
-    margin-top: 5px;
-    vertical-align: middle;
-  }
-  .column .googleCart {
-    margin-top: 20px;
-    vertical-align: middle;
-    margin-bottom: 20px;
-  }
-  .columns .rightCard {
-    margin-top: 5px;
-    vertical-align: middle;
-  }
-  .columns .rightCardBottom {
-    margin-top: 5px;
-    vertical-align: middle;
-  }
-  .columns .rightCardLast {
-    margin-top: 20px;
-    vertical-align: middle;
-  }
 
   // mat grid list
-
-  .button1,
-  .button2 {
-    color: #057dcd;
-    width: 100px;
-    height: 25px;
-    font-size: 12px;
-    text-transform: none;
-    cursor: pointer;
-  }
-  .button2 {
-    margin-top: 0;
-  }
-  .button3 {
-    margin-top: 0;
-    width: 130px;
-    height: 25px;
-    color: #057dcd;
-    font-size: 12px;
-    text-transform: none;
-    cursor: pointer;
-  }
   .button-outline {
     --border-width: 1px;
   }

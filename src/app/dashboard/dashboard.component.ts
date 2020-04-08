@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { DashboardApiService } from './dashboard-api.service';
 import * as _moment from 'moment';
 import { MenuController } from '@ionic/angular';
@@ -159,6 +159,13 @@ export class DashboardComponent implements OnInit {
      * @memberof DashboardComponent
      */
     private _reason: string;
+
+    /**
+     * set menu is open or close by assign new class
+     * @type {boolean}
+     * @memberof DashboardComponent
+     */
+    @HostBinding('class.menuOverlay') menuOpen: boolean = false;
 
     /**
      *Creates an instance of DashboardComponent.
