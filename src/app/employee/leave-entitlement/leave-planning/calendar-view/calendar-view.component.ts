@@ -180,32 +180,17 @@ export class CalendarViewComponent implements OnInit {
                 this.events[i].end = moment(list[i].END_DATE).format("YYYY-MM-DD[T]HH:mm:ss");
                 this.events[i].title = list[i].FULLNAME + ' ' + '(' + (list[i].CODE) + ')';
                 // this.events[i].allDay = true;
-                // this.checkAllDay(list, i);
             } else {
                 this.events[i].start = (moment(list[i].start).format('YYYY-MM-DD'));
                 this.events[i].end = moment(list[i].end).format('YYYY-MM-DD');
                 this.events[i].allDay = true;
             }
         }
-        // setTimeout(() => {
-        //     let calendarView = this.calendar.getApi();
-        //     calendarView.render();
-        // }, 100);
+        setTimeout(() => {
+            let calendarView = this.calendar.getApi();
+            calendarView.render();
+        }, 100);
     }
-
-    /**
-     * check either is all day or half day
-     * @param {*} list
-     * @param {number} index
-     * @memberof CalendarViewComponent
-     */
-    // checkAllDay(list: any, index: number) {
-    //     if (list[index].TIME_SLOT) {
-    //         this.events[index].allDay = false;
-    //     } else {
-    //         this.events[index].allDay = true;
-    //     }
-    // }
 
     /**
      * Method to get day of the week from a given date
@@ -223,24 +208,5 @@ export class CalendarViewComponent implements OnInit {
         //Return the element that corresponds to that index.
         return weekdays[day];
     }
-
-    /**
-     * when event is clicked
-     * show 'All Day' || 'Half Day'
-     * @param {*} clicked
-     * @memberof CalendarViewComponent
-     */
-    // onEventClick(clicked: any) {
-    //     if (clicked.event.end) {
-    //         this.endDate = moment(clicked.event.end).subtract(1, "days").format("YYYY-MM-DD");
-    //     }
-    //     if (clicked.event._def.extendedProps.TIME_SLOT) {
-    //         this.timeslot = 'Half Day' + '(' + clicked.event._def.extendedProps.TIME_SLOT + ')';
-    //     }
-    //     if (clicked.event._def.extendedProps.TIME_SLOT == null) {
-    //         this.timeslot = 'All Day';
-    //     }
-    // }
-
 
 }

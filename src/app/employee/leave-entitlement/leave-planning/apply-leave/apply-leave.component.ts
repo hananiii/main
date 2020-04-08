@@ -387,6 +387,9 @@ export class ApplyLeaveComponent implements OnInit {
                         this.maxDate = '';
                         if (val.valid === true) {
                             this.leaveAPI.openSnackBar(val.message, true);
+                            this.leaveAPI.get_entilement_details().subscribe(item => {
+                                this.entitlement = item;
+                            })
                         } else {
                             this.leaveAPI.openSnackBar(val.message, false);
                         }

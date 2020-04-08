@@ -1,21 +1,3 @@
-<!-- <div class='app-calendar'>
-    <full-calendar #calendar defaultView="dayGridMonth" [header]="{
-                          left: 'prev,next today',
-                          center: 'title',
-                          right: 'dayGridMonth,timeGridWeek'
-                        }" [plugins]="calendarPlugins" [events]="calendarEvents"
-        (eventClick)="text = $event.el.text; date = $event.event.start">
-    </full-calendar>
-    <div *ngIf="text" style="border: 2px solid #7069d8;height: 30px;float: left;margin-top: 29px;width: 5px;"></div>
-    <div *ngIf="text"
-        style="color: #43425d;opacity: 0.8;font-size: 16px;padding-top: 5px;position: absolute;padding-left: 20px;">
-        {{date | date:'EEEE, MMM d'}}</div><br>
-    <div *ngIf="text" style="color: #43425d;opacity: 0.8;padding-left: 20px;padding-top: 13px;position: absolute;">All
-        Day
-    </div>
-    <div *ngIf="text" style="color: #43425d;opacity: 0.8;padding-left: 120px;padding-top: 13px;position: absolute;">
-        {{text}}</div>
-</div> -->
 <ion-grid style="display: flex; flex-flow: wrap;">
     <ion-col style="padding: unset;">
         <div class="selection">
