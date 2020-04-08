@@ -14,6 +14,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { AccountSettingComponent } from './account-setting.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 
 const routes: Routes = [
@@ -38,6 +39,7 @@ const routes: Routes = [
         InlineSVGModule,
         RouterModule.forChild(routes)
     ],
-    declarations: [AccountSettingComponent]
+    declarations: [AccountSettingComponent, ChangePasswordComponent],
+    entryComponents: [ChangePasswordComponent]
 })
 export class AccountSettingModule { }

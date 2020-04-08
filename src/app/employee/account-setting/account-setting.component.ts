@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { APIService } from 'src/services/shared-service/api.service';
 import { AccountSettingAPIService } from './account-setting-api.service';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 /**
  * Account Setting Page
@@ -48,6 +49,19 @@ export class AccountSettingComponent implements OnInit {
      */
     ngOnInit() {
         this.api.get_user_profile().subscribe(data => this.userData = data)
+    }
+
+    /**
+     * open dialog of change password
+     * @memberof AccountSettingComponent
+     */
+    changePass() {
+        this.api.matdialog.open(ChangePasswordComponent, {
+            data: 'personal',
+            height: "330px",
+            width: "360px",
+            panelClass: 'custom-dialog-container'
+        });
     }
 
     /**
