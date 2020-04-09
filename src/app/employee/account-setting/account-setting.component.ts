@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { APIService } from 'src/services/shared-service/api.service';
 import { AccountSettingAPIService } from './account-setting-api.service';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { AuthService } from 'src/services/shared-service/auth.service';
+import { SnackbarNotificationComponent } from '../snackbar-notification/snackbar-notification.component';
 
 /**
  * Account Setting Page
@@ -32,12 +34,20 @@ export class AccountSettingComponent implements OnInit {
     private userData: any;
 
     /**
+     * email from session storage
+     * @private
+     * @type {string}
+     * @memberof AccountSettingComponent
+     */
+    private _email: string;
+
+    /**
      *Creates an instance of AccountSettingComponent.
      * @param {APIService} api
      * @param {AccountSettingAPIService} accountApi
      * @memberof AccountSettingComponent
      */
-    constructor(private api: APIService, private accountApi: AccountSettingAPIService) {
+    constructor(private api: APIService, private accountApi: AccountSettingAPIService, private _auth: AuthService) {
         this.api.get_profile_pic('personal').subscribe(data => {
             this.url = data;
         })
@@ -48,7 +58,8 @@ export class AccountSettingComponent implements OnInit {
      * @memberof AccountSettingComponent
      */
     ngOnInit() {
-        this.api.get_user_profile().subscribe(data => this.userData = data)
+        this.api.get_user_profile().subscribe(data => this.userData = data);
+        this._email = this._auth.session.get('email');
     }
 
     /**
@@ -56,12 +67,26 @@ export class AccountSettingComponent implements OnInit {
      * @memberof AccountSettingComponent
      */
     changePass() {
-        this.api.matdialog.open(ChangePasswordComponent, {
+        const dialog = this.api.matdialog.open(ChangePasswordComponent, {
+            disableClose: true,
             data: 'personal',
-            height: "330px",
+            height: "340px",
             width: "360px",
             panelClass: 'custom-dialog-container'
         });
+        dialog.afterClosed().subscribe(data => {
+            if (data !== undefined) {
+                this.accountApi.post_change_password({
+                    "loginId": this._email,
+                    "password": data.confirmPass,
+                    "oldPassword": data.currentPass
+                }).subscribe(
+                    result => { this.notify(result.message, true) },
+                    response => {
+                        this.notify(JSON.parse(response._body).status, false);
+                    })
+            }
+        })
     }
 
     /**
@@ -80,6 +105,20 @@ export class AccountSettingComponent implements OnInit {
                     this.url = data;
                 })
             })
+        });
+    }
+
+    /**
+     * Show notification after submit
+     * @param {string} statement
+     * @param {boolean} validation
+     * @memberof AccountSettingComponent
+     */
+    notify(statement: string, validation: boolean) {
+        this.api.snackbar.openFromComponent(SnackbarNotificationComponent, {
+            duration: 3000,
+            verticalPosition: "top",
+            data: { message: statement, response: validation }
         });
     }
 }

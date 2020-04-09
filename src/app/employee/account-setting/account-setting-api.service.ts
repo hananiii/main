@@ -32,5 +32,17 @@ export class AccountSettingAPIService {
         return this.api.postApi(data, '/api/profile-picture');
     }
 
-    
+    /**
+     * change password for local database only
+     * NOT SUPPORTED FOR AD
+     * @param {*} value
+     * @returns {Observable<any>}
+     * @memberof AccountSettingAPIService
+     */
+    post_change_password(value): Observable<any> {
+        this.api.headerAuthorization();
+        return this.api.postApi(value, '/api/change-password/execute');
+    }
+
+
 }

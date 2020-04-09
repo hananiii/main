@@ -162,6 +162,7 @@ export class LoginComponent implements OnInit {
    */
   signIn(email: string, pass: string) {
     this.spinner.show();
+    this._auth.session.set('email', email);
     this._auth.login(email, pass)
       .subscribe(data => {
         this.router.navigate(['main'])
