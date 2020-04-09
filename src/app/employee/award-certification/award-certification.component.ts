@@ -47,13 +47,6 @@ export class AwardCertificationComponent implements OnInit {
     public showEditProfile: boolean = false;
 
     /**
-     * employment details from requested Id
-     * @type {*}
-     * @memberof AwardCertificationComponent
-     */
-    public employ: any;
-
-    /**
      * employment details from logged user
      * @memberof AwardCertificationComponent
      */
@@ -121,10 +114,6 @@ export class AwardCertificationComponent implements OnInit {
             (data: any[]) => {
                 this.items = data;
                 this.showSpinner = false;
-                this.apiService.get_employment_details(this.items.id).subscribe(
-                    data => {
-                        this.employ = data;
-                    });
                 this.apiService.get_user_info_employment_details().subscribe(
                     dataUserDtls => {
                         this.employDetails = dataUserDtls;
@@ -157,6 +146,7 @@ export class AwardCertificationComponent implements OnInit {
         if (evt.detail.checked === true) {
             this.toggleValue = 'ON';
             this.apiService.matdialog.open(EditModeDialogComponent, {
+                disableClose: true,
                 data: 'certificate',
                 height: "225.3px",
                 width: "383px",
@@ -213,10 +203,7 @@ export class AwardCertificationComponent implements OnInit {
      */
     getPatchedValue(body: any) {
         this.apiService.patch_user_info_personal_id(body, this.items.id).subscribe(response => {
-            this.apiService.get_personal_details().subscribe(
-                (data: any[]) => {
-                    this.items = data;
-                })
+            this.items.personalDetail = response;
             this.msgNotification('Edit mode disabled. Good job!', true);
         },
             response => {

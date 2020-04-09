@@ -36,8 +36,7 @@
                 Mode: {{modeValue}}</p>
             <div style="display: inline-block;position: absolute;margin-top: 12px;">
                 <ion-toggle style="zoom:0.70;--background: #a5a4bf;" mode="ios" color="secondary"
-                    (ionChange)="mainToggle($event)"
-                    [disabled]="list.employmentDetail.bankAccountName===''||list.employmentDetail.bankAccountNumber===''||list.employmentDetail.epfNumber === ''||list.employmentDetail.incomeTaxNumber === ''">
+                    (ionChange)="mainToggle($event)">
                 </ion-toggle>
             </div>
         </div>
@@ -121,8 +120,7 @@
                 Mode: {{modeValue}}</p>
             <div style="display: inline-block;position: absolute;margin-top: 12px;">
                 <ion-toggle style="zoom:0.70;--background: #a5a4bf;" mode="ios" color="secondary"
-                    (ionChange)="mainToggle($event)"
-                    [disabled]="list.employmentDetail.bankAccountName===''||list.employmentDetail.bankAccountNumber===''||list.employmentDetail.epfNumber === ''||list.employmentDetail.incomeTaxNumber === ''">
+                    (ionChange)="mainToggle($event)">
                 </ion-toggle>
             </div>
         </div>
@@ -322,9 +320,7 @@
                             <p *ngIf="modeValue === 'OFF'">{{personalList.employmentDetail.bankAccountName}}</p>
                             <mat-form-field *ngIf="modeValue === 'ON'">
                                 <mat-label>Bank Account Name</mat-label>
-                                <input matInput [(ngModel)]="list.employmentDetail.bankAccountName" required>
-                                <mat-error *ngIf="list.employmentDetail.bankAccountName === ''">Please enter a value
-                                </mat-error>
+                                <input matInput [(ngModel)]="list.employmentDetail.bankAccountName">
                             </mat-form-field>
                         </ion-col>
                         <ion-col>
@@ -332,9 +328,7 @@
                             <p *ngIf="modeValue === 'OFF'">{{personalList.employmentDetail.bankAccountNumber}}</p>
                             <mat-form-field *ngIf="modeValue === 'ON'">
                                 <mat-label>Bank Account No</mat-label>
-                                <input matInput [(ngModel)]="list.employmentDetail.bankAccountNumber" required>
-                                <mat-error *ngIf="list.employmentDetail.bankAccountNumber === ''">Please enter a value
-                                </mat-error>
+                                <input matInput [(ngModel)]="list.employmentDetail.bankAccountNumber">
                             </mat-form-field>
                         </ion-col>
                         <ion-col>
@@ -342,9 +336,7 @@
                             <p *ngIf="modeValue === 'OFF'">{{personalList.employmentDetail.epfNumber}}</p>
                             <mat-form-field *ngIf="modeValue === 'ON'">
                                 <mat-label>EPF No</mat-label>
-                                <input matInput [(ngModel)]="list.employmentDetail.epfNumber" required>
-                                <mat-error *ngIf="list.employmentDetail.epfNumber === ''">Please enter a value
-                                </mat-error>
+                                <input matInput [(ngModel)]="list.employmentDetail.epfNumber">
                             </mat-form-field>
                         </ion-col>
                         <ion-col></ion-col>
@@ -355,9 +347,7 @@
                             <p *ngIf="modeValue === 'OFF'">{{personalList.employmentDetail.incomeTaxNumber}}</p>
                             <mat-form-field *ngIf="modeValue === 'ON'">
                                 <mat-label>Income Tax No</mat-label>
-                                <input matInput [(ngModel)]="list.employmentDetail.incomeTaxNumber" required>
-                                <mat-error *ngIf="list.employmentDetail.incomeTaxNumber === ''">Please enter a value
-                                </mat-error>
+                                <input matInput [(ngModel)]="list.employmentDetail.incomeTaxNumber">
                             </mat-form-field>
                         </ion-col>
                         <ion-col>

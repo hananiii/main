@@ -29,7 +29,7 @@
                     {{personalList.employeeDesignation}}</ion-card-subtitle>
                 <ion-card-subtitle class="subtitle">{{personalList.employeeDepartment}}
                 </ion-card-subtitle>
-                <ion-card-subtitle class="subtitle" *ngIf="employ">
+                <ion-card-subtitle class="subtitle" *ngIf="employDetails">
                     {{employDetails.employmentDetail.branch}}
                 </ion-card-subtitle>
             </div>
@@ -72,7 +72,7 @@
                     {{personalList.employeeDesignation}}</ion-card-subtitle>
                 <ion-card-subtitle class="subtitle">{{personalList.employeeDepartment}}
                 </ion-card-subtitle>
-                <ion-card-subtitle class="subtitle" *ngIf="employ">
+                <ion-card-subtitle class="subtitle" *ngIf="employDetails">
                     {{employDetails.employmentDetail.branch}}
                 </ion-card-subtitle>
             </div>
@@ -100,12 +100,13 @@
                             white-space: nowrap;overflow: hidden;">
                             <ion-label style="color: #a3a6b4;font-weight: bold;">CERTIFICATE NAME</ion-label>
                         </ion-col>
-                        <ion-col style="text-align: center;text-overflow: ellipsis; white-space: nowrap;overflow:
-                            hidden;">
+                        <ion-col style="text-overflow: ellipsis; white-space: nowrap;overflow:
+                            hidden;" [style.text-align]="toggleValue=== 'ON'? 'left': 'center'">
                             <ion-label style="color: #a3a6b4;font-weight: bold;">ENROLL YEAR</ion-label>
                         </ion-col>
-                        <ion-col style="text-align: center;text-overflow: ellipsis;
-                            white-space: nowrap;overflow: hidden;">
+                        <ion-col style="text-overflow: ellipsis;
+                            white-space: nowrap;overflow: hidden;"
+                            [style.text-align]="toggleValue=== 'ON'? 'left': 'center'">
                             <ion-label style="color: #a3a6b4;font-weight: bold;">GRADUATE YEAR</ion-label>
                         </ion-col>
                         <ion-col style="text-overflow: ellipsis;
@@ -145,8 +146,8 @@
                             style="background: #f0f0f7;font-size: 12px;height: 30px;width: 124px;display: inline-block; text-transform: capitalize"
                             color="primary">Attachment
                         </ion-button>
-                        <a class="contentText"
-                            style="text-align: left;display: block;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"
+                        <a class="contentText" [style.text-align]="toggleValue=== 'ON'? 'center': 'left'"
+                            style="display: block;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"
                             [href]="items.link+item.certificationAttachment"
                             download>{{item.certificationAttachment}}</a>
                     </ion-col>

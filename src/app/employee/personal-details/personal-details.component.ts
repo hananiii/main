@@ -196,6 +196,7 @@ export class PersonalDetailsComponent implements OnInit {
         if (event.detail.checked === true) {
             this.modeValue = 'ON';
             this.apiService.matdialog.open(EditModeDialogComponent, {
+                disableClose: true,
                 data: 'personal',
                 height: "343.3px",
                 width: "383px",
@@ -331,13 +332,9 @@ export class PersonalDetailsComponent implements OnInit {
         this.items.personalDetail.dob = moment(this.items.personalDetail.dob).format('YYYY-MM-DD');
         this.apiService.patch_user_info_personal_id(this.data(), this.items.id).subscribe(
             (val) => {
-                this.apiService.get_personal_details().subscribe(
-                    (data: any[]) => {
-                        this.items = data;
-                        this.items.personalDetail.dob = moment(this.items.personalDetail.dob).format('DD-MM-YYYY');
-                        this.notification('Edit mode disabled. Good job!', true);
-                    }
-                );
+                this.items.personalDetail = val;
+                this.items.personalDetail.dob = moment(this.items.personalDetail.dob).format('DD-MM-YYYY');
+                this.notification('Edit mode disabled. Good job!', true);
             },
             response => {
                 this.notification(JSON.parse(response._body).status, false);

@@ -145,6 +145,7 @@ export class EmploymentDetailsComponent implements OnInit {
         if (evt.detail.checked === true) {
             this.modeValue = 'ON';
             this.apiService.matdialog.open(EditModeDialogComponent, {
+                disableClose: true,
                 data: 'employment',
                 height: "225.3px",
                 width: "383px",

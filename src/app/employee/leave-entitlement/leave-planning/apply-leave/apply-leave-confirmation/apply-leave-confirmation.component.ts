@@ -29,4 +29,12 @@ export class ApplyLeaveConfirmationComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * close dialog
+   * @memberof ApplyLeaveConfirmationComponent
+   */
+  onCloseClick() {
+    this.dialog.close();
+  }
+
 }
