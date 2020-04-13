@@ -126,13 +126,10 @@
                         <p style="opacity: 0.8;font-size: 9px;line-height: 2.22;color: #4d4f5c;">
                             {{item.CREATION_TS | date:'d MMM yyyy'}}
                         </p>
-                        <p class="innerText"
-                            style="white-space: normal;font-size: 10px;color: #4d4f5c;line-height:1.4;text-align: justify;"
-                            [innerHTML]="item.MESSAGE">
-                        </p>
-                        <ng-container *ngFor="let list of item.ATTACHMENT; let j=index">
+                        <p class="innerText" [innerHTML]="item.MESSAGE"></p>
+                        <!-- <ng-container *ngFor="let list of item.ATTACHMENT; let j=index">
                             <img *ngIf="list !== '' && url" src="{{url.link + list}}" style="width: 150px;">
-                        </ng-container>
+                        </ng-container> -->
                     </ion-label>
                 </ion-item>
                 <ion-item *ngIf="showallannouncement">
@@ -143,15 +140,10 @@
                         <p style="opacity: 0.8;font-size: 9px;line-height: 2.22;color: #4d4f5c;">
                             {{item.CREATION_TS | date:'d MMM yyyy'}}
                         </p>
-                        <p [innerHTML]="item.MESSAGE" class="listInnerText" style="white-space: normal;
-                        font-size: 10px;
-                        color: #4d4f5c;
-                        line-height: 1.4;
-                        text-align: justify;">
-                        </p>
-                        <ng-container *ngFor="let list of item.ATTACHMENT; let j=index">
+                        <p [innerHTML]="item.MESSAGE" class="listInnerText"></p>
+                        <!-- <ng-container *ngFor="let list of item.ATTACHMENT; let j=index">
                             <img *ngIf="list !== '' && url" src="{{url.link + list}}" style="width: 150px;">
-                        </ng-container>
+                        </ng-container> -->
                     </ion-label>
                 </ion-item>
             </ng-container>
@@ -331,13 +323,12 @@
                     white-space: nowrap;text-overflow: ellipsis;">
                             <span *ngIf="item.IS_PINNED === 1" style="font-weight: bold;color:#43425d;font-size:11px">
                                 {{item.TITLE}} <br></span>
-                            <p class="mainInnerText" [innerHTML]="item.MESSAGE"
-                                style="margin-bottom: 0; margin-top: 0;white-space: pre-wrap;"></p>
-                            <ng-container *ngFor="let list of item.ATTACHMENT">
+                            <p class="mainInnerText" [innerHTML]="item.MESSAGE"></p>
+                            <!-- <ng-container *ngFor="let list of item.ATTACHMENT">
                                 <img *ngIf="list !== '' && url" src="{{url.link + list}}" style="width: 50px;">
-                            </ng-container>
+                            </ng-container> -->
                         </ion-col>
-                        <ion-item *ngIf="i<2" class="divider" lines="full"></ion-item>
+                        <ion-item *ngIf="i<2" class="divider" style="padding: 0;" lines="full"></ion-item>
                     </ng-container>
                 </ion-row>
             </div>
