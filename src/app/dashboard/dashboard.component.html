@@ -73,8 +73,7 @@
             margin-bottom: 0;"> {{replaceVal | number : '1.2-2'}} Days</p>
         <p *ngIf="replaceVal != 0"
             style="margin-left: 42px;font-size: 11px;font-weight: bold;line-height: 1.82;color: #ff6768;">
-            *Expiring
-            in {{RLDaysToGo}} days</p>
+            *Expiring on {{expiredDate | date:'d MMM yyyy'}}</p>
         <ion-item class="divider" lines="full"></ion-item>
 
         <div style="display: block">

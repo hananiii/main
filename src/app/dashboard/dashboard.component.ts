@@ -153,6 +153,13 @@ export class DashboardComponent implements OnInit {
     public url: any;
 
     /**
+     * expired date of RL
+     * @type {*}
+     * @memberof DashboardComponent
+     */
+    public expiredDate: any;
+
+    /**
      * reason value get from confirmation pop up
      * @private
      * @type {string}
@@ -291,20 +298,20 @@ export class DashboardComponent implements OnInit {
      * @memberof DashboardComponent
      */
     get_RL() {
-        this.dashboardAPI.get_replacement_leave().subscribe(details => {
+        this.dashboardAPI.get_detailed_RL().subscribe(details => {
             const RL = details;
             let date = [];
             if (RL.status == undefined) {
-                for (let i = 0; i < RL.length; i++) {
-                    if ((new Date(RL[i].EXPIREDATE).getTime() > new Date().getTime()) || RL[i].EXPIREDATE == null) {
-                        this.replaceVal += RL[i].DAYS_ADDED;
-                        date.push(RL[i].EXPIREDATE);
-                    } else {
-                        this.expiredRL += RL[i].DAYS_ADDED;
-                    }
+                for (let i = 0; i < RL.active.length; i++) {
+                    this.replaceVal += RL.active[i].DAYS_ADDED;
+                    date.push(RL.active[i].EXPIREDATE);
+                }
+                for (let i = 0; i < RL.expired.length; i++) {
+                    this.expiredRL += RL.expired[i].DAYS_ADDED;
                 }
                 if (date.every((val, i, arr) => val === arr[0])) {
                     this.RLDaysToGo = this.calculateDays(date[0]);
+                    this.expiredDate = date[0];
                 }
             }
         })

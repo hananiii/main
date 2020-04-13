@@ -126,6 +126,25 @@ export class DashboardApiService {
     }
 
     /**
+     * get simple RL balance 
+     * @returns {Observable<any>}
+     * @memberof DashboardApiService
+     */
+    get_simple_RL(): Observable<any> {
+        return this.apiService.getApi('/api/employee/RL/simple');
+    }
+
+
+    /**
+     * get detailed RL balance 
+     * @returns {Observable<any>}
+     * @memberof DashboardApiService
+     */
+    get_detailed_RL(): Observable<any> {
+        return this.apiService.getApi('/api/employee/RL/detailed');
+    }
+
+    /**
      * get dashboard task to be done
      * @returns {Observable<any>}
      * @memberof DashboardApiService
