@@ -4,6 +4,8 @@ import * as _moment from 'moment';
 import { MenuController } from '@ionic/angular';
 import { MatDialog } from '@angular/material';
 import { LeaveApplicationConfirmationComponent } from './leave-application-confirmation/leave-application-confirmation.component';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter, map } from 'rxjs/operators';
 const moment = _moment;
 
 /**
@@ -181,10 +183,19 @@ export class DashboardComponent implements OnInit {
      * @param {MatDialog} dialog
      * @memberof DashboardComponent
      */
-    constructor(private dashboardAPI: DashboardApiService, private menu: MenuController, private dialog: MatDialog) {
-        this.dashboardAPI.apiService.get_profile_pic('all').subscribe(data => {
-            this.url = data;
-        })
+    constructor(private dashboardAPI: DashboardApiService, private menu: MenuController, private router: Router) {
+        router.events
+            .pipe(filter(event => event instanceof NavigationEnd))
+            .subscribe((event: NavigationEnd) => {
+                this.dashboardAPI.apiService.get_profile_pic('all').subscribe(data => {
+                    this.url = data;
+                })
+                this.get_RL();
+                this.getAnnouncementList();
+                this.getHolidayList();
+                this.get_annual_medical_task();
+            });
+
     }
 
     /**
@@ -200,8 +211,8 @@ export class DashboardComponent implements OnInit {
         this.getHolidayList();
         this.getAnnouncementList();
         this.get_annual_medical_task();
-        this.dashboardAPI.get_long_leave_reminder().subscribe(details => this.longLeave = details)
         this.get_RL();
+        this.dashboardAPI.get_long_leave_reminder().subscribe(details => this.longLeave = details);
     }
 
     /**
@@ -209,7 +220,7 @@ export class DashboardComponent implements OnInit {
      * @memberof DashboardComponent
      */
     openStatusDialog(item: any) {
-        const dialog = this.dialog.open(LeaveApplicationConfirmationComponent, {
+        const dialog = this.dashboardAPI.dialog.open(LeaveApplicationConfirmationComponent, {
             data: { title: 'application', leavetype: item.leaveTypeName, transactionId: item.leaveTransactionId, appliedDate: item.dateApplied, reason: item.reason, status: item.status, startDate: item.startDate, endDate: item.endDate, noOfDays: item.noOfDays, timeslot: item.timeSlot },
             height: "440px",
             width: "440px",
@@ -229,7 +240,7 @@ export class DashboardComponent implements OnInit {
      * @memberof DashboardComponent
      */
     async openTaskDialog(list: any) {
-        const dialog = this.dialog.open(LeaveApplicationConfirmationComponent, {
+        const dialog = this.dashboardAPI.dialog.open(LeaveApplicationConfirmationComponent, {
             data: { title: 'task', name: list.employeeName, leavetype: list.leaveTypeName, transactionId: list.leaveTransactionId, appliedDate: list.dateApplied, reason: list.reason, status: list.status, startDate: list.startDate, endDate: list.endDate, noOfDays: list.noOfDays, timeslot: list.timeSlot },
             height: "450px",
             width: "440px",
@@ -287,9 +298,10 @@ export class DashboardComponent implements OnInit {
      * get pending task list
      * @memberof DashboardComponent
      */
-    async get_task_list() {
-        let data = await this.dashboardAPI.get_task_list().toPromise();
-        this.tasks = data;
+    get_task_list() {
+        this.dashboardAPI.get_task_list().pipe(
+            map(data => data.sort((a, b) => new Date(b.dateApplied).getTime() - new Date(a.dateApplied).getTime()))
+        ).subscribe(data => this.tasks = data);
     }
 
 

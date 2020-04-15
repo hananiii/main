@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Http, Response } from '@angular/http';
 import { map } from 'rxjs/operators';
 import { SnackbarNotificationComponent } from '../employee/snackbar-notification/snackbar-notification.component';
+import { MatDialog } from '@angular/material';
 
 /**
  * ALl API for dashboard page
@@ -19,9 +20,10 @@ export class DashboardApiService {
      *Creates an instance of DashboardApiService.
      * @param {APIService} apiService get main api service
      * @param {Http} http
+     * @param {MatDialog} dialog get pop up dialog
      * @memberof DashboardApiService
      */
-    constructor(public apiService: APIService, public http: Http) {
+    constructor(public apiService: APIService, public http: Http, public dialog: MatDialog) {
     }
 
     /**
