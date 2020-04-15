@@ -299,9 +299,12 @@ export class DashboardComponent implements OnInit {
      * @memberof DashboardComponent
      */
     get_task_list() {
-        this.dashboardAPI.get_task_list().pipe(
-            map(data => data.sort((a, b) => new Date(b.dateApplied).getTime() - new Date(a.dateApplied).getTime()))
-        ).subscribe(data => this.tasks = data);
+        this.dashboardAPI.get_task_list().subscribe(data => {
+            this.tasks = data;
+            if (this.tasks.status == undefined) {
+                this.tasks.sort((a, b) => new Date(b.dateApplied).getTime() - new Date(a.dateApplied).getTime())
+            }
+        });
     }
 
 
