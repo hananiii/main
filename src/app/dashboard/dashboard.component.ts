@@ -302,8 +302,9 @@ export class DashboardComponent implements OnInit {
             const RL = details;
             let date = [];
             if (RL.status == undefined) {
+                this.replaceVal = RL.balance;
                 for (let i = 0; i < RL.active.length; i++) {
-                    this.replaceVal += RL.active[i].DAYS_ADDED;
+                    // this.replaceVal += RL.active[i].DAYS_ADDED;
                     date.push(RL.active[i].EXPIREDATE);
                 }
                 for (let i = 0; i < RL.expired.length; i++) {
