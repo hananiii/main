@@ -69,6 +69,7 @@ export class AuthService {
                 if (user && user.access_token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     this.local.set('access_token', JSON.stringify(user.access_token));
+                    this.local.set('loginType', user.login_type);
                     this.isAuthenticated();
                     setTimeout(() => {
                         this.isTokenExpired();

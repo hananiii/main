@@ -26,6 +26,13 @@ export class AccountSettingComponent implements OnInit {
     public url: string;
 
     /**
+     * get login type to show/hide change password 
+     * @type {string}
+     * @memberof AccountSettingComponent
+     */
+    public loginType: string;
+
+    /**
      * get user data
      * @private
      * @type {*}
@@ -60,6 +67,7 @@ export class AccountSettingComponent implements OnInit {
     ngOnInit() {
         this.api.get_user_profile().subscribe(data => this.userData = data);
         this._email = this._auth.session.get('email');
+        this.loginType = this._auth.local.get('loginType');
     }
 
     /**
