@@ -212,7 +212,10 @@ export class DashboardComponent implements OnInit {
         this.getAnnouncementList();
         this.get_annual_medical_task();
         this.get_RL();
-        this.dashboardAPI.get_long_leave_reminder().subscribe(details => this.longLeave = details);
+        this.dashboardAPI.get_long_leave_reminder().subscribe(details => {
+            this.longLeave = details;
+            this.showSpinner = false;
+        });
     }
 
     /**
@@ -281,12 +284,14 @@ export class DashboardComponent implements OnInit {
     get_annual_medical_task() {
         this.dashboardAPI.get_annual_leave().subscribe(details => {
             this.annualVal = details;
+            this.showSpinner = false;
             this.annualDaysToGo = this.calculateDays(this.annualVal.YEAR);
             this.dashboardAPI.get_user_application_status(this.annualVal.USER_GUID).subscribe(val => {
                 this.applicationStatus = val;
             })
         })
         this.dashboardAPI.get_medical_leave().subscribe(details => {
+            this.showSpinner = false;
             if (details.status == undefined) {
                 this.medicalVal = details.BALANCE_DAYS;
             }
@@ -315,6 +320,7 @@ export class DashboardComponent implements OnInit {
     get_RL() {
         this.dashboardAPI.get_detailed_RL().subscribe(details => {
             const RL = details;
+            this.showSpinner = false;
             let date = [];
             if (RL.status == undefined) {
                 this.replaceVal = RL.balance;
@@ -340,6 +346,7 @@ export class DashboardComponent implements OnInit {
     getHolidayList() {
         this.dashboardAPI.get_upcoming_holidays().subscribe(details => {
             this.holidays = details;
+            this.showSpinner = false;
             for (let i = 0; i < this.holidays.length; i++) {
                 this.holidays[i].day = this.getDayFromDate(new Date(this.holidays[i].start));
                 this.holidays[i].start = (moment(this.holidays[i].start).format('DD MMM YYYY'));
@@ -354,6 +361,7 @@ export class DashboardComponent implements OnInit {
     getAnnouncementList() {
         this.dashboardAPI.get_announcement_list().subscribe(list => {
             this.announcements = list;
+            this.showSpinner = false;
         })
     }
 

@@ -46,7 +46,7 @@
                     <img src="{{url.link + url.details[0].PROFILE_PICTURE}}">
                 </ion-avatar>
                 <ion-avatar class="avatar" *ngIf="url && url.details[0].PROFILE_PICTURE === null">
-                    <img src="assets/icon/chris.jpg">
+                    <img src="assets/icon/picture.png">
                 </ion-avatar>
             </div>
             <div class="right" *ngIf="personalList && personalDetail">
@@ -97,7 +97,7 @@
                     <img src="{{url.link + url.details[0].PROFILE_PICTURE}}">
                 </ion-avatar>
                 <ion-avatar class="avatar" *ngIf="url && url.details[0].PROFILE_PICTURE === null">
-                    <img src="assets/icon/chris.jpg">
+                    <img src="assets/icon/picture.png">
                 </ion-avatar>
             </div>
             <div class="right" *ngIf="personalList && personalDetail">
@@ -163,10 +163,24 @@
                         </ion-col>
                         <ion-col>
                             <ion-label style="display: block;">Reporting To</ion-label>
-                            <ion-avatar style="width: 24px; height: 24px; display: inline-block; margin-top: 3px">
-                                <img src="assets/icon/chris.jpg">
-                            </ion-avatar>
-                            <p style="display: inline;position: absolute;top: 31px;left: 37px;">
+                            <ng-container *ngIf="reportingUrl">
+                                <ng-container *ngFor="let list of reportingUrl.details; let j= index">
+                                    <ng-container *ngIf="list.FULLNAME == personalList.employmentDetail.reportingTo">
+                                        <ion-avatar
+                                            style="width: 24px; height: 24px; display: inline-block; margin-top: 3px"
+                                            *ngIf="list.PROFILE_PICTURE !== null">
+                                            <img src="{{reportingUrl.link + list.PROFILE_PICTURE}}">
+                                        </ion-avatar>
+                                        <ion-avatar
+                                            style="width: 24px; height: 24px; display: inline-block; margin-top: 3px"
+                                            *ngIf="list.PROFILE_PICTURE === null">
+                                            <img src="assets/icon/picture.png">
+                                        </ion-avatar>
+                                    </ng-container>
+                                </ng-container>
+                            </ng-container>
+                            <p [style.position]="svNotFound? 'initial':'absolute'"
+                                style="display: inline;top: 31px;left: 37px;">
                                 {{personalList.employmentDetail.reportingTo}}
                             </p>
                         </ion-col>
@@ -218,9 +232,22 @@
                     <ion-row>
                         <ion-col>
                             <ion-label style="display: block;">Reporting To</ion-label>
-                            <ion-avatar style="width: 24px; height: 24px; display: inline-block; margin-top: 3px">
-                                <img src="assets/icon/chris.jpg">
-                            </ion-avatar>
+                            <ng-container *ngIf="reportingUrl">
+                                <ng-container *ngFor="let list of reportingUrl.details; let j= index">
+                                    <ng-container *ngIf="list.FULLNAME == personalList.employmentDetail.reportingTo">
+                                        <ion-avatar
+                                            style="width: 24px; height: 24px; display: inline-block; margin-top: 3px"
+                                            *ngIf="list.PROFILE_PICTURE !== null">
+                                            <img src="{{reportingUrl.link + list.PROFILE_PICTURE}}">
+                                        </ion-avatar>
+                                        <ion-avatar
+                                            style="width: 24px; height: 24px; display: inline-block; margin-top: 3px"
+                                            *ngIf="list.PROFILE_PICTURE === null">
+                                            <img src="assets/icon/picture.png">
+                                        </ion-avatar>
+                                    </ng-container>
+                                </ng-container>
+                            </ng-container>
                             <p style="display: inline;position: absolute;top: 31px;left: 37px;">
                                 {{personalList.employmentDetail.reportingTo}}
                             </p>

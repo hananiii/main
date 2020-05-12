@@ -92,6 +92,20 @@ export class EmploymentDetailsComponent implements OnInit {
     public url: any;
 
     /**
+     * all profile picture list
+     * @type {*}
+     * @memberof EmploymentDetailsComponent
+     */
+    public reportingUrl: any;
+
+    /**
+     * supervisor not found in profile picture list 
+     * @type {boolean}
+     * @memberof EmploymentDetailsComponent
+     */
+    public svNotFound: boolean;
+
+    /**
      * return API content
      * @readonly
      * @memberof EmploymentDetailsComponent
@@ -128,6 +142,12 @@ export class EmploymentDetailsComponent implements OnInit {
                 this.list = dataUserDtls;
                 this.showSpinner = false;
                 this.showContent = true;
+                this.apiService.get_profile_pic('all').subscribe(data => {
+                    this.reportingUrl = data;
+                    if (this.reportingUrl.details.some(person => !(person.FULLNAME === this.list.employmentDetail.reportingTo))) {
+                        this.svNotFound = true;
+                    }
+                })
             },
             error => {
                 this.snackbarMsg(JSON.parse(error._body).status, false);

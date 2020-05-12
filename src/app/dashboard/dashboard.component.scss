@@ -152,6 +152,10 @@
   .labelText {
     margin: 0;
   }
+  p.innerText {
+    white-space: normal;
+    font-size: 10px;
+  }
   p.innerText::ng-deep p {
     white-space: normal;
     font-size: 10px;
@@ -174,6 +178,8 @@
   }
   p.mainInnerText {
     margin: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
   p.mainInnerText::ng-deep p {
     margin: 0;

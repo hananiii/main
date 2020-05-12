@@ -253,6 +253,7 @@
                     {{annualVal.BALANCE_DAYS | number : '1.2-2'}} Expiring in {{annualDaysToGo}} days
                 </p>
                 <p (click)="menuOpen=true;menu.enable(true, 'viewAnnualDetails');menu.enable(false, 'viewReplacementDetails');menu.enable(false, 'viewAnnouncementDetails');menu.enable(false, 'viewHolidayDetails');menu.open('viewAnnualDetails');"
+                    (click)="menuOpen=true;menu.enable(true, 'viewAnnualDetails');menu.enable(false, 'viewReplacementDetails');menu.enable(false, 'viewAnnouncementDetails');menu.enable(false, 'viewHolidayDetails');menu.open('viewAnnualDetails');"
                     style="cursor: pointer;margin-top: 5px;float: right;color:#3b86ff;opacity: 0.8;line-height: 1.36;font-size: 11px;font-weight: bold;">
                     View
                     Details</p>
@@ -332,9 +333,9 @@
                 </ion-row>
             </div>
         </div>
-        <div class="holiday">
+        <div class="holiday" *ngIf="holidays">
             <div style="background-color: #ffffff;padding: 10px;">
-                <div *ngIf="holidays"
+                <div
                     style="font-size: 12px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
                     UPCOMING HOLIDAYS<p *ngIf="holidays.length !== 0" (click)="menuOpen=true;menu.enable(true, 'viewHolidayDetails');menu.enable(false, 'viewReplacementDetails');menu.enable(false, 'viewAnnualDetails');
                 menu.enable(false, 'viewAnnouncementDetails');menu.open('viewHolidayDetails');"
@@ -360,7 +361,7 @@
                         <ion-item *ngIf="i<2" class="divider" lines="full"></ion-item>
                     </ng-container>
                 </ion-row>
-                <ng-container *ngIf="holidays">
+                <ng-container>
                     <p *ngIf="holidays.length === 0"
                         style="padding-left: 15px;color: rgb(77, 79, 92);font-size: 11px;line-height: 1.82;">
                         No upcoming holiday</p>
@@ -376,7 +377,7 @@
                     style="font-size: 12px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
                     MY LEAVE APPLICATION STATUS
                 </div>
-                <ng-container *ngIf="applicationStatus.status !== 'No leave applied'">
+                <ng-container *ngIf="applicationStatus.length !== undefined">
                     <ion-list style="max-height: 250px;overflow: auto;">
                         <ion-item *ngFor="let item of applicationStatus">
                             <ion-row style="display: flex; flex: 1;">
@@ -420,9 +421,8 @@
                         </ion-item>
                     </ion-list>
                 </ng-container>
-                <ng-container>
-                    <p *ngIf="applicationStatus.status === 'No leave applied'"
-                        style="padding-left: 15px;color: rgb(77, 79, 92);font-size: 11px;line-height: 1.82;">
+                <ng-container *ngIf="applicationStatus.length === undefined">
+                    <p style="padding-left: 15px;color: rgb(77, 79, 92);font-size: 11px;line-height: 1.82;">
                         No leave application applied</p>
                 </ng-container>
             </div>
