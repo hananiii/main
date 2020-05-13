@@ -178,12 +178,12 @@
   }
   p.mainInnerText {
     margin: 0;
-    text-overflow: ellipsis;
-    overflow: hidden;
   }
   p.mainInnerText::ng-deep p {
     margin: 0;
-    white-space: pre-wrap;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
   p.mainInnerText::ng-deep img {
     height: 50px;
