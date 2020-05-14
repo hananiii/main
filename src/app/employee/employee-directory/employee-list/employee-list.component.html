@@ -16,7 +16,8 @@
     <div style="width: 100%; height:100%; text-align: center;" *ngIf="showSpinner">
         <app-spinner></app-spinner>
     </div>
-    <ion-content class="listContent" [style.display]="showSpinner ? 'none' : 'block'" *ngIf="items">
+    <!-- <ion-content class="listContent" [style.display]="showSpinner ? 'none' : 'block'" *ngIf="items"> -->
+    <div class="listContent" [style.display]="showSpinner ? 'none' : 'block'" *ngIf="items">
         <ion-row class="titleRow">
             <ion-col size="0.7" style="padding-left: 10px;">
             </ion-col>
@@ -69,29 +70,31 @@
             </ion-col>
             <ion-item class="divider" lines="full"></ion-item>
         </ion-row>
-    </ion-content>
-    <div [style.display]="showSpinner ? 'none' : 'block'">
-        <pagination-template #p2="paginationApi" (pageChange)="p = $event">
-            <div class="custom-pagination" style="float: left;">
-                <div class="pagination-previous" style="display: inline-block">
-                    <ion-button [disabled]="p2.isFirstPage()" fill="outline" (click)="p2.previous()"
-                        style="background: #f0f0f7;font-size: 12px;height: 30px;width: 124px;" color="primary">Prev
-                    </ion-button>
+        <div [style.display]="showSpinner ? 'none' : 'block'" style="margin-top: 20px;">
+            <pagination-template #p2="paginationApi" (pageChange)="p = $event">
+                <div class="custom-pagination" style="float: left;">
+                    <div class="pagination-previous" style="display: inline-block">
+                        <ion-button [disabled]="p2.isFirstPage()" fill="outline" (click)="p2.previous()"
+                            style="background: #f0f0f7;font-size: 12px;height: 30px;width: 124px;" color="primary">Prev
+                        </ion-button>
+                    </div>
+                    <div style="padding-left: 10px;display: inline-block;"></div>
+                    <div class="pagination-next" style="display: inline-block">
+                        <ion-button (click)="p2.next()" [disabled]="p2.isLastPage()"
+                            style="font-size: 12px;height: 30px;width: 124px" color="primary">Next
+                        </ion-button>
+                    </div>
                 </div>
-                <div style="padding-left: 10px;display: inline-block;"></div>
-                <div class="pagination-next" style="display: inline-block">
-                    <ion-button (click)="p2.next()" [disabled]="p2.isLastPage()"
-                        style="font-size: 12px;height: 30px;width: 124px" color="primary">Next
-                    </ion-button>
-                </div>
+            </pagination-template>
+            <div style="font-size: 10px;margin-top: -8px;white-space: nowrap;float: right;">
+                <pagination-controls (pageChange)="p = $event" maxSize="5" directionLinks="true" previousLabel=""
+                    nextLabel="">
+                </pagination-controls>
             </div>
-        </pagination-template>
-        <div style="font-size: 10px;margin-top: -8px;white-space: nowrap;float: right;">
-            <pagination-controls (pageChange)="p = $event" maxSize="5" directionLinks="true" previousLabel=""
-                nextLabel="">
-            </pagination-controls>
         </div>
     </div>
+    <!-- </ion-content> -->
+
 </div>
 <!-------------------------------------------GRID VIEW------------------------------------------>
 
