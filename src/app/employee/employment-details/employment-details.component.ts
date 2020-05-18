@@ -227,7 +227,7 @@ export class EmploymentDetailsComponent implements OnInit {
      */
     snackbarMsg(statement: string, value: boolean) {
         this.apiService.snackbar.openFromComponent(SnackbarNotificationComponent, {
-            duration: 3000,
+            duration: 5000,
             verticalPosition: "top",
             data: { message: statement, response: value }
         });

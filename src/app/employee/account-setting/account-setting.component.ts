@@ -124,7 +124,7 @@ export class AccountSettingComponent implements OnInit {
      */
     notify(statement: string, validation: boolean) {
         this.api.snackbar.openFromComponent(SnackbarNotificationComponent, {
-            duration: 3000,
+            duration: 5000,
             verticalPosition: "top",
             data: { message: statement, response: validation }
         });

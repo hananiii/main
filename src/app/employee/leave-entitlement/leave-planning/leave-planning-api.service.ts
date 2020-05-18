@@ -88,7 +88,7 @@ export class LeavePlanningAPIService {
      */
     openSnackBar(message: string, val: boolean) {
         this.snackBar.openFromComponent(SnackbarNotificationComponent, {
-            duration: 3000,
+            duration: 5000,
             verticalPosition: "top",
             data: { message: message, response: val }
         });

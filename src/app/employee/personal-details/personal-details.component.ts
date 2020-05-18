@@ -386,7 +386,7 @@ export class PersonalDetailsComponent implements OnInit {
      */
     notification(text: string, val: boolean) {
         this.apiService.snackbar.openFromComponent(SnackbarNotificationComponent, {
-            duration: 3000,
+            duration: 5000,
             verticalPosition: "top",
             data: { message: text, response: val }
         });

@@ -173,7 +173,7 @@ export class DashboardApiService {
      */
     popUpDialog(msg: string, value: boolean) {
         this.apiService.snackbar.openFromComponent(SnackbarNotificationComponent, {
-            duration: 3000,
+            duration: 5000,
             verticalPosition: "top",
             data: { message: msg, response: value }
         });
