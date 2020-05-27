@@ -367,6 +367,10 @@ export class ApplyLeaveComponent implements OnInit {
             "reason": this.applyLeaveForm.value.inputReason,
             "data": this._arrayDateSlot
         }
+        if (this.uploadedFile != undefined) {
+            applyLeaveData['attachment'] = this.uploadedFile.filename
+        } else { applyLeaveData['attachment'] = '' }
+
         console.log(applyLeaveData);
 
         const dialog = this.apiService.matdialog.open(ApplyLeaveConfirmationComponent, {
