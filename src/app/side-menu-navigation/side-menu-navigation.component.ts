@@ -24,7 +24,7 @@ export interface ISideMenu {
 import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { Router, NavigationEnd } from '@angular/router';
-import { APIService } from 'src/services/shared-service/api.service';
+import { APIService } from '$user-root/src/services/shared-service/api.service';
 import { SharedService } from '../employee/shared.service';
 import { RouteDialogComponent } from '../employee/route-dialog/route-dialog.component';
 import { filter } from 'rxjs/operators';

@@ -6,9 +6,9 @@ import { InlineSVGModule } from 'ng-inline-svg';
 
 import { IonicModule } from '@ionic/angular';
 import { SideMenuNavigationComponent } from './side-menu-navigation.component';
-import { AuthGuard } from 'src/services/shared-service/guards/auth-guard.service';
+import { AuthGuard } from '$user-root/src/services/shared-service/guards/auth-guard.service';
 import { sideMenuNavigationRoutes } from './side-menu-navigation.routes';
-import { EmployeeSetupPageModule } from 'src/app/employee/employee-setup.module';
+import { EmployeeSetupPageModule } from '$user-root/src/app/employee/employee-setup.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MatMenuModule } from '@angular/material/menu';
 import { UpdatePasswordModule } from '../employee/update-password/update-password.module';

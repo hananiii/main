@@ -11,7 +11,12 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "doc:build": "npx compodoc -p tsconfig.json",
-    "doc:serve": "npx compodoc -p tsconfig.json -s"
+    "doc:serve": "npx compodoc -p tsconfig.json -s",
+    "postinstall": "link-module-alias",
+    "preinstall": "command -v link-module-alias && link-module-alias clean || true"
+  },
+  "_moduleAliases": {
+    "$user-root/*": "./*"
   },
   "private": true,
   "dependencies": {
@@ -46,6 +51,8 @@
     "angular2-uuid": "^1.1.1",
     "core-js": "^2.5.4",
     "font-awesome": "4.7.0",
+    "link-module-alias": "^1.2.0",
+    "module-alias": "^2.2.2",
     "moment": "^2.24.0",
     "ng-inline-svg": "^8.3.0",
     "ng2-pdf-viewer": "^5.3.3",

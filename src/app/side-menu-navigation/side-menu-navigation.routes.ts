@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AuthGuard } from 'src/services/shared-service/guards/auth-guard.service';
+import { AuthGuard } from '$user-root/src/services/shared-service/guards/auth-guard.service';
 import { SideMenuNavigationComponent } from './side-menu-navigation.component';
 import { EmployeeSetupComponent } from '../employee/employee-setup.component';
 import { PageNotFoundComponent } from '../page-not-found.component';
