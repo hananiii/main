@@ -1,5 +1,5 @@
 {
-  "name": "leave",
+  "name": "eleave-user",
   "version": "0.0.1",
   "author": "Ionic Framework",
   "homepage": "http://ionicframework.com/",
@@ -17,7 +17,7 @@
   "_moduleAliases": {
     "$user-root/*": "./*"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "^7.2.0",
     "@angular/cdk": "^7.2.1",
@@ -94,5 +94,5 @@
     "typescript": "~3.1.6",
     "webpack-bugsnag-plugins": "^1.4.2"
   },
-  "description": "An Ionic project"
+  "description": "An Ionic project made for eLeave User"
 }
