@@ -10,27 +10,7 @@
 </ion-header> -->
 
 
-<ion-content hidden class="contentMenu" contentId="content">
-    <ion-list lines="none" style="background: #8b89b4;">
-        <ion-title style="font-weight: bold;display: inline-block;color: #f0f0f7;font-size: 15px;padding-bottom: 20px;
-            padding-top: 10px;">
-            Employee
-        </ion-title>
-        <ion-menu-toggle auto-hide="false">
-            <!-- *ngFor="let p of employeeSetupPage; let i=index" -->
-            <!-- (click)="getIndexToShowArrow(i)" -->
-            <ion-item class="items" lines="none" [ngClass]="{
-                        'mainColor': numOfArray === i,'highlightColor': numOfArray !== i}">
-                <ion-label style="color: #ffffff;">
-                    Department
-                </ion-label>
-                <!-- <div *ngIf="numOfArray === i">
-                        <ion-icon slot="end" color="primary" name="arrow-dropright"></ion-icon>
-                    </div> -->
-            </ion-item>
-        </ion-menu-toggle>
-    </ion-list>
-</ion-content>
+
 
 <ion-content class="content2">
     <ion-router-outlet></ion-router-outlet>

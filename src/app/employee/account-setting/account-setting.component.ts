@@ -23,7 +23,7 @@ export class AccountSettingComponent implements OnInit {
      * @type {string}
      * @memberof AccountSettingComponent
      */
-    public url: string;
+    public url: any;
 
     /**
      * get login type to show/hide change password 

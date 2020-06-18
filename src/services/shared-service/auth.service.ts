@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { LocalStorageService, SessionStorageService, LocalStorage, SessionStorage } from 'angular-web-storage';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '$user-root/src/environments/environment';
 
 /**
  * authenticate service
@@ -18,7 +19,7 @@ export class AuthService {
      * @type {string}
      * @memberof AuthService
      */
-    public baseUrl: string = "https://zencore.zen.com.my:3000";
+    public baseUrl: string = environment.URL + ":3000";
 
     /**
      *Creates an instance of AuthService.

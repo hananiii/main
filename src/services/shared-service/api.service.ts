@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { LocalStorageService } from 'angular-web-storage';
 import { AuthService } from './auth.service';
 import { MatDialog, MatSnackBar } from '@angular/material';
+import { environment } from '$user-root/src/environments/environment';
 
 /**
  * Store all API used in employee folder
@@ -27,7 +28,7 @@ export class APIService {
      * @type {string}
      * @memberof APIService
      */
-    public baseUrl: string = "https://zencore.zen.com.my:3000";
+    public baseUrl: string = environment.URL + ":3000";
 
     /**
      *Creates an instance of APIService.
