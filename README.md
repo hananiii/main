@@ -102,11 +102,8 @@ webpack                           4.28.4
 
 
 # Environment variable
-
-Port = 8101
-URL =  https://zencore.zen.com.my
-
-Example:
-environment.URL + ':8104/#/forgot-password/user'
+PORT = 8101
+API_URL =  https://zencore.zen.com.my:3000
+FORGET_PASS_URL = https://zencore.zen.com.my:8104
 
 ```
