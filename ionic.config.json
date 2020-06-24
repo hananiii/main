@@ -1,7 +1,5 @@
 {
-  "name": "leave",
-  "integrations": {
-    "capacitor": {}
-  },
+  "name": "eleave-v3-master",
+  "integrations": {},
   "type": "angular"
 }
