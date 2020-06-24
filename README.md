@@ -48,11 +48,17 @@ Utility:
    cordova-res : not installed
    native-run  : not installed
 
-System:
+System: (Developer name: Nani)
 
    NodeJS : v10.16.0 (/usr/local/bin/node)
    npm    : 6.9.0
    OS     : macOS Catalina
+
+System: (Developer name: Ruoli)
+
+   NodeJS : v12.15.0 (C:\Program Files\nodejs\node.exe)
+   npm    : 6.13.4
+   OS     : Windows 10
 
 ```
 
@@ -93,5 +99,11 @@ Package                           Version
 rxjs                              6.3.3
 typescript                        3.1.6
 webpack                           4.28.4
+
+
+# Environment variable
+PORT = 8101
+API_URL =  https://zencore.zen.com.my:3000
+FORGET_PASS_URL = https://zencore.zen.com.my:8104
 
 ```
