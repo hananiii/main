@@ -1,7 +1,8 @@
 {
-  "name": "leave",
+  "name": "eleave-user",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }
