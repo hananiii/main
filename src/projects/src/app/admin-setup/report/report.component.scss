@@ -1,0 +1,211 @@
+:host(.menuOverlay) {
+  z-index: 101 !important;
+}
+
+:host {
+  margin: auto;
+  width: 100%;
+  z-index: 0 !important;
+
+  .menuContent {
+    height: calc(100% - 72px);
+    overflow: auto;
+  }
+  ion-card {
+    height: calc(100% - 48px);
+    margin: 0;
+    top: 48px;
+    box-shadow: none;
+  }
+  .fullContainer {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 17px;
+  }
+  .right {
+    padding-left: 20px;
+    // max-width: 50%;
+  }
+  .cardContent {
+    line-height: 1.25;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    // overflow-y: auto;
+
+    @media screen and (max-width: 577px) {
+      height: calc(100% - 17em);
+    }
+
+    @media screen and (min-width: 576px) {
+      height: calc(100% - 11.5em);
+    }
+  }
+  .content {
+    overflow-y: auto;
+    overflow-x: hidden;
+    // overflow: auto;
+    height: calc(100% - 133px);
+  }
+  .titleRow {
+    text-align: center;
+  }
+  .text {
+    font-size: 12px;
+    color: #43425d;
+  }
+  .buttonGroup {
+    text-align: left;
+    // display: none;
+    display: flex;
+    // width: 50%;
+    flex: 1;
+    white-space: nowrap;
+  }
+  .button-outline {
+    --border-width: 1px;
+  }
+  .dateForm {
+    text-align: right;
+    // display: flex;
+    flex-wrap: wrap;
+    // width: 50%;
+    font-size: 12px;
+    padding-right: 16px;
+    // position: absolute;
+    flex: 1;
+    white-space: nowrap;
+  }
+  .calendar-icon {
+    fill: #a5a4bf;
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    right: 0;
+    top: 10px;
+  }
+  ::ng-deep .mat-form-field-outline {
+    background: white;
+    border-radius: 4px;
+  }
+  // main page report button
+  .individualClicked {
+    --background: #7069d8;
+  }
+  .individualUnclicked {
+    --background: #43425d;
+  }
+  .groupUnclicked {
+    --background: #43425d;
+  }
+  .groupClicked {
+    --background: #7069d8;
+  }
+  // main content
+  .row {
+    display: flex;
+    // flex-wrap: nowrap;
+    margin: 0;
+    // max-height: 100%;
+    margin-bottom: 10px;
+    max-height: calc(100% - 58px);
+    height: calc(100% - 58px);
+    // padding: 0 10px;
+  }
+  .report {
+    flex: 1;
+    // max-width: 30%;
+    max-height: 100%;
+  }
+  ::ng-deep .group > .mat-form-field-wrapper {
+    padding-bottom: 0px;
+  }
+  ::ng-deep .group > .mat-select-arrow-wrapper {
+    padding-top: 6px;
+  }
+  ::ng-deep .group > .mat-form-field-wrapper >.mat-form-field-flex > .mat-form-field-infix {
+    padding-top: 6px;
+  }
+  .avatar {
+    width: 30px;
+    height: 30px;
+    margin: 0 auto;
+    // margin-top: -7px;
+  }
+  .listEmployee {
+    flex: 3;
+    // max-width: 70%;
+    max-height: 100%;
+    margin-left: 10px;
+    width: -webkit-fill-available;
+  }
+  .searchbar {
+    // height: 40px;
+    color: #43425d;
+    font-size: 12px;
+    float: left;
+    padding-left: 0;
+    // margin-top: 15px;
+    // margin-bottom: 10px;
+    // display: none;
+    @media screen and (max-width: 577px) {
+      width: 100%;
+    }
+    @media screen and (min-width: 576px) {
+      width: 100%;
+    }
+  }
+  .ionCheckbox {
+    width: 20px;
+    height: 20px;
+    margin-right: 14px;
+    opacity: 1;
+    --border-color: #7069d8;
+    --border-width: 2px;
+  }
+  .ionCheckboxList {
+    width: 20px;
+    height: 20px;
+    // margin-right: 14px;
+    // opacity: 1;
+    // --border-color: #7069d8;
+    --border-width: 2px;
+  }
+  .ionItem {
+    color: #43425d;
+    font-size: 11px;
+    font-weight: bold;
+    height: 40px;
+  }
+  .checkLabel {
+    opacity: 0.8;
+  }
+  .odd {
+    background: #f4f4f4;
+  }
+  .buttons {
+    margin: 10px 0px 10px 0px;
+  }
+  ::ng-deep .button.mat-menu-item {
+    outline: none;
+  }
+  .search-icon {
+    width: 30px;
+    height: 30px;
+    fill: #a3a6b4;
+    opacity: 0.8;
+    margin: 0 auto;
+  }
+  // .table-scroll-style {
+  //   -ms-overflow-style: none;
+  // }
+
+  // .table-scroll-style::-webkit-scrollbar {
+  //   display: display;
+  // }
+}

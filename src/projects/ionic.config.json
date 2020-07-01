@@ -1,0 +1,7 @@
+{
+  "name": "leave",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

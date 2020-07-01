@@ -1,0 +1,469 @@
+<ion-menu class="apply-on-behalf-history" contentId="applybehalfContent" side="end" type="overlay"
+    menuId="applybehalfDetails" (ionDidClose)="menuOpened = false;">
+    <ion-header style="background-color:#43425d; color: #fcfcfc;">
+        <img style="margin: 17px;width: 22px;height: 17px;float:left"
+            src="assets/icon/dashboard/icon All Holidays@3x.png">
+        <p style="line-height: 1.27;font-size: 11px;color: #fcfcfc;font-weight: bold;margin: 20px;">
+            APPLY ON BEHALF HISTORY
+        </p>
+    </ion-header>
+
+    <ion-content>
+        <div style="display: block;width: 100%;" *ngFor="let item of reportDetails; let i=index;">
+            <div
+                style="font-size: 11px;background: #f5f6fa;padding: 10px;padding-left: 15px;margin: 10px;color: #a3a6b4;font-weight: bold;">
+                <ion-row style=" display: flex; flex-wrap: wrap;">
+                    <ion-col size="7" style=" min-width: fit-content;">DATE APPLIED: <p
+                            style="font-size: 11px;color: #43425d;font-weight: bold;display: inline;">
+                            {{item.applicationDate | date: 'dd MMM yyyy' | uppercase}}</p>
+                    </ion-col>
+                    <ion-col style=" min-width: fit-content;">DONE BY: <p
+                            style="font-size: 11px;color: #43425d;font-weight: bold;display: inline;">
+                            {{item.appliedBy}}</p>
+                    </ion-col>
+                </ion-row>
+            </div>
+            <div style="margin: 20px;margin-top:10px;margin-left: 25px;">
+                <ion-row style="display: flex; flex-wrap: wrap;">
+                    <ion-col
+                        style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis; flex: 1 1 30%; min-width: fit-content;">
+                        <ion-label style="color:#43425d; opacity: 0.8;font-weight: bold;;font-size: 12px;">
+                            Leave Type</ion-label>
+                        <p
+                            style="color: #808495;font-size:12px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;margin: 0">
+                            {{item.leaveTypeName}}</p>
+                    </ion-col>
+                    <ion-col
+                        style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis; flex: 1 1 30%; min-width: fit-content;">
+                        <ion-label style="color:#43425d; opacity: 0.8;font-weight: bold;;font-size: 12px;">
+                            No. of Days</ion-label>
+                        <p
+                            style="margin: 0;color: #808495;font-size:12px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">
+                            {{item.noOfDays}} days</p>
+                    </ion-col>
+                    <ion-col
+                        style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis; flex: 1 1 30%; min-width: fit-content;">
+                        <ion-label style="color:#43425d; opacity: 0.8;font-weight: bold;;font-size: 12px;">
+                            No. of Employees</ion-label>
+                        <p
+                            style="margin: 0;color: #808495;font-size:12px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">
+                            1 persons</p>
+                    </ion-col>
+                    <ion-col
+                        style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis; flex: 1 1 30%; min-width: fit-content;">
+                        <ion-label style="color:#43425d; opacity: 0.8;font-weight: bold;font-size: 12px;"
+                            *ngFor="let date of item.date">
+                            <!-- Date: {{date | date: 'dd MMM yyyy'}}</ion-label> -->
+                            Date: {{date | date: 'dd MMM yyyy'}} </ion-label>
+                        <p
+                            style="margin: 0;color: #808495;font-size:12px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">
+                            {{item.dayType}}</p>
+                    </ion-col>
+                </ion-row>
+                <!-- <ion-row *ngFor="let date of item.date">
+                    <ion-col style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                        <ion-label style="color:#43425d; opacity: 0.8;font-weight: bold;font-size: 12px;">
+                            Date: {{date | date: 'dd MMM yyyy'}}</ion-label>
+                        <p
+                            style="margin: 0;color: #808495;font-size:12px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">
+                            {{item.dayType}}</p>
+                    </ion-col>
+                </ion-row> -->
+                <div style="margin-left: 5px;"><img style="cursor: pointer;margin-right: 6px;width: 14px;height: 14px;"
+                        src="assets/icon/leave_setup/icon_request@3x.png" (click)="expandCollapse(i)">
+                    <p style="color: #43425d;opacity: 0.8;font-size: 11px;font-weight: bold;
+                    display: inline-block;"> List of Employees</p>
+                    <div
+                        style="border-top: 1px solid rgba(67, 66, 93, 0.2);display: inline-block;width: calc(100% - 120px); margin-left: 5px;">
+                    </div>
+                </div>
+                <div *ngIf="showList[i] === true" style="font-size: 12px;color: #43425d;
+                opacity: 0.8;margin-left: 20px; white-space: nowrap;">
+                    <ion-row style="display: flex; flex-wrap: wrap;">
+                        <ion-col style="padding-top: 0; flex: 1 1 100%;">{{item.employeeName}}</ion-col>
+                    </ion-row>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-menu>
+<ion-router-outlet id="applybehalfContent">
+</ion-router-outlet>
+
+
+<ion-card>
+    <ion-card-header style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);">
+        <div class="fullContainer">
+            <ion-item-group style="display: flex; width: auto;">
+                <div class="left" style="min-width: fit-content;">
+                    <img src="assets/icon/leave_setup/icon_applyonbehalf@3x.png" style="width:30px;height:33px">
+                </div>
+                <div class="right">
+                    <ion-card-subtitle style="color: #43425d;opacity: 0.8;font-weight: bold;font-size: 13px;">Apply on
+                        Behalf
+                    </ion-card-subtitle>
+                    <ion-card-subtitle class="subtitle" style="font-size: 12px;">
+                        A section for administrator to apply on behalf for any type of leave for
+                        employee</ion-card-subtitle>
+                </div>
+            </ion-item-group>
+            <div style="margin-right: 33px; margin-left: auto; padding-left: 5px; line-height: initial;">
+                <ion-button
+                    style="--border-radius: 2px;font-size: 11px;height: 30px;width:193px;cursor: pointer;text-transform: none;"
+                    color="primary"
+                    (click)="reportApi.menu.open('applybehalfDetails');reportApi.menu.enable(true, 'applybehalfDetails');menuOpened = true;showHistory()">
+                    View Apply On Behalf History
+                </ion-button>
+            </div>
+        </div>
+    </ion-card-header>
+    <div style="background: #f0f0f7;height: 100%;position: absolute;width: 100%;">
+        <div class="cardContent">
+            <ion-card-content class="overflow-style" style="max-height: 100%;height: 100%;overflow-y: auto;">
+                <div class="row">
+                    <div class="filter">
+                        <div
+                            style="font-size: 12px;width:100%;background: #f5f6fa;padding: 10px;margin-bottom: 15px;color: #a5a4bf;">
+                            <ion-row>
+                                <ion-col style="font-weight: bold;white-space: nowrap;
+                                text-overflow: ellipsis;overflow: hidden;padding-bottom: 0;margin-bottom: 5px;">
+                                    EMPLOYEE LIST</ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col style="padding-top: 0;color: #808495;padding-bottom: 0;margin-bottom: 5px;">
+                                    You can
+                                    apply leave on behalf employee. Simply type their name or even by
+                                    department name to apply leave for them - as individual or whole department.
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-searchbar mode="md" class="searchbar"
+                                    placeholder="Search by Name/Department or Company"
+                                    (ionChange)="changeDetails($event.srcElement.value)">
+                                </ion-searchbar>
+                            </ion-row>
+                        </div>
+                        <div
+                            style="font-size: 12px;width:100%;background: #f5f6fa;padding: 4px;margin-bottom: 5px;color: #a5a4bf;font-weight: bold;">
+                            <ion-row nowrap>
+                                <ion-col size="1.5"
+                                    style="text-align: center;padding-left: 10px;padding-right: 30px;text-overflow: initial;">
+                                    <ion-checkbox mode="ios" class="ionCheckbox" style="margin-top: 6px;"
+                                        [(ngModel)]="headCheckbox" [indeterminate]="indeterminateVal"
+                                        (click)="headerCheckbox()">
+                                    </ion-checkbox>
+                                </ion-col>
+                                <ion-col size="1" align-self-center [class]="'hide-md-down'" style="white-space: nowrap;
+                                text-overflow: ellipsis;overflow: hidden;">
+                                    ID
+                                </ion-col>
+                                <ion-col size="4" align-self-center style="white-space: pre-line;
+                                text-overflow: ellipsis;overflow: hidden;">
+                                    EMPLOYEE NAME
+                                </ion-col>
+                                <ion-col size="2.3" align-self-center [class]="'hide-md-down'" style="white-space: nowrap;
+                                text-overflow: ellipsis;overflow: hidden;"
+                                    [style.text-align]="applyLeaveForm.controls.leaveTypes.valid? 'center':'left'">
+                                    ENTITLEMENT
+                                </ion-col>
+                                <ion-col size="2.3" align-self-center [class]="'hide-md-down'" style="text-align: center;white-space: nowrap;
+                                text-overflow: ellipsis;overflow: hidden;">
+                                    BALANCE
+                                </ion-col>
+                                <ion-col size="4.6" align-self-center [class]="'hide-md-up'" style="white-space: nowrap;
+                                text-overflow: ellipsis;overflow: hidden;min-width: fit-content;"
+                                    [style.text-align]="applyLeaveForm.controls.leaveTypes.valid? 'center':'left'">
+                                    ENTITLEMENT
+                                </ion-col>
+                                <ion-col align-self-center>
+                                    <ion-buttons end style="height: 26px;" *ngIf="indeterminateVal || headCheckbox"
+                                        (click)="showCheckedUser()">
+                                        <div style="width: 18px;height: 18px;fill: #a5a4bf;opacity: 0.8;cursor: pointer;"
+                                            [inlineSVG]="'assets/icon/add_employee/filters.svg'">
+                                        </div>
+                                    </ion-buttons>
+                                </ion-col>
+                            </ion-row>
+                        </div>
+                        <div style="height: calc( 100% - 200px);overflow: auto;">
+                            <ng-container *ngIf="!showSpinner">
+                                <ion-row class="detailsRow" *ngFor="let item of employeeList; let i=index">
+                                    <ion-col size="1.5" align-self-center class="selection-column">
+                                        <div *ngIf="(this.applyonbehalfPlatformApi.platforms().includes('tablet' ||
+                                        'desktop'))">
+                                            <ion-avatar class="avatar" (mouseover)="hoverInOut(i, true, item.isChecked)"
+                                                (mouseout)="hoverInOut(i, false, item.isChecked)">
+                                                <img src="assets/icon/evans.jpg" style="margin-left: 5px;"
+                                                    [style.display]="showCheckBox[i] ? 'none' : 'block'">
+                                                <div class="checkboxOnAvatar"
+                                                    [style.display]="showCheckBox[i] ? 'block' : 'none'">
+                                                    <ion-checkbox mode="ios" class="ionCheckbox"
+                                                        style="position: absolute;margin-top: 7px;margin-left: -4px;"
+                                                        [(ngModel)]="item.isChecked" (ionChange)="contentCheckbox()">
+                                                    </ion-checkbox>
+                                                </div>
+                                            </ion-avatar>
+
+                                        </div>
+                                        <div *ngIf="!(this.applyonbehalfPlatformApi.platforms().includes('tablet' ||
+                                        'desktop'))">
+                                            <ion-avatar class="avatar">
+                                                <!-- <img src="assets/icon/evans.jpg" style="margin-left: 5px;"
+                                                [style.display]="showCheckBox[i] ? 'none' : 'block'"> -->
+                                                <div class="checkboxOnAvatar" style="display: block">
+                                                    <ion-checkbox mode="ios" class="ionCheckbox"
+                                                        style="position: absolute;margin-top: 7px;margin-left: -4px;"
+                                                        [(ngModel)]="item.isChecked" (ionChange)="contentCheckbox()">
+                                                    </ion-checkbox>
+                                                </div>
+                                            </ion-avatar>
+
+                                        </div>
+                                    </ion-col>
+                                    <ion-col size="1" [class]="'hide-md-down'" style=" color: #7a8589; font-size: 13px;"
+                                        align-self-center
+                                        style="color: #808495; font-size: 12px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                        {{item.employeeNo}}
+                                    </ion-col>
+                                    <ion-col size="4"
+                                        style="white-space: pre-line;overflow: hidden;text-overflow: ellipsis;">
+                                        <ion-label style="color:#43425d; font-weight: bold;;font-size: 12px;">
+                                            {{item.employeeName}}</ion-label>
+                                        <p
+                                            style="color: #808495;font-size:11px;text-overflow: ellipsis;overflow: hidden;white-space: pre-line;">
+                                            {{item.designation}}</p>
+                                        <p [class]="'hide-md-up'"
+                                            style="color: #808495;font-size:11px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">
+                                            ID: {{item.employeeNo}}</p>
+                                    </ion-col>
+                                    <ion-col size="2.3" align-self-center [class]="'hide-md-down'"
+                                        *ngIf="!applyLeaveForm.controls.leaveTypes.valid" style="color: #808495; font-size: 11px;white-space: pre-line;overflow:
+                                    hidden;text-overflow: ellipsis; color: #7a8589; font-size: 13px;">
+                                        {{item.abbr}}
+                                    </ion-col>
+                                    <ion-col size="4.6" align-self-center [class]="'hide-md-up'"
+                                        *ngIf="!applyLeaveForm.controls.leaveTypes.valid" style="color: #808495; font-size: 11px;white-space: pre-line;overflow:
+                                    hidden;text-overflow: ellipsis; color: #7a8589; font-size: 13px;">
+                                        {{item.abbr}}
+                                    </ion-col>
+                                    <ion-col size="2.3" align-self-center
+                                        *ngIf="applyLeaveForm.controls.leaveTypes.valid" [class]="'hide-md-down'" style="text-align: center;color: #808495; font-size: 11px;white-space:
+                                    nowrap;overflow: hidden;text-overflow: ellipsis; color: #7a8589; font-size: 13px;">
+                                        {{item.entitled}}
+                                    </ion-col>
+                                    <ion-col size="4.6" align-self-center
+                                        *ngIf="applyLeaveForm.controls.leaveTypes.valid" [class]="'hide-md-up'"
+                                        style="text-align: center;color: #808495; font-size: 11px;white-space:
+                                    pre-line;overflow: hidden;text-overflow: ellipsis; color: #7a8589; font-size: 13px;">
+                                        <div style="font-weight: bold;">{{item.entitled}} day(s)</div>
+                                        <div>Balance: {{item.balance}}</div>
+                                        <!-- </div> -->
+                                    </ion-col>
+                                    <ion-col size="2.3" align-self-center [class]="'hide-md-down'"
+                                        style="color: #7a8589; font-size: 13px; text-align: center;color: #808495; font-size: 11px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                        {{item.balance}}
+                                    </ion-col>
+                                    <ion-col></ion-col>
+                                    <ion-item lines="full" style=" --min-height: none;width: 100%;"></ion-item>
+                                </ion-row>
+                            </ng-container>
+                            <div style="width: 100%; height:100%; text-align: center; margin-top: -30px"
+                                *ngIf="showSpinner">
+                                <app-spinner></app-spinner>
+                            </div>
+                            <div *ngIf="employeeList && employeeList.length === 0 && !showSpinner"
+                                style="width: 100%; text-align:center;padding: 10px">
+                                <div class="search-icon" [inlineSVG]="'assets/icon/top_header/search.svg'"></div>
+                                <p style="font-size: 20px;color:#a3a6b4;opacity: 0.8;padding-top:10px ">No Results Found
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="selection">
+                        <div
+                            style="font-size: 12px;width:100%;background: #f5f6fa;padding: 10px;margin-bottom: 5px;color: #a5a4bf;">
+                            <ion-row>
+                                <ion-col style="font-weight: bold;white-space: nowrap;
+                                text-overflow: ellipsis;overflow: hidden;padding-bottom: 0;margin-bottom: 5px;">
+                                    LEAVE TYPES & DURATION</ion-col>
+                            </ion-row>
+                        </div>
+
+                        <form [formGroup]="applyLeaveForm" style="height: calc( 100% - 62px);
+                        overflow: auto;padding-left: 15px;">
+                            <div style="display:flex;flex-wrap: wrap; white-space: pre;width: 90%;overflow: hidden;">
+                                <mat-form-field appearance="outline" style="flex: 3; min-width: 200px;">
+                                    <mat-label>Leave types</mat-label>
+                                    <mat-select class="selectLeave" name="leave" *ngIf="radioOption == '1'"
+                                        formControlName="leaveTypes" required>
+                                        <mat-option *ngFor="let leave of entitlement; let i=index"
+                                            [value]="leave.LEAVE_CODE"
+                                            (click)="addEntitlementBal(leave.LEAVE_TYPE_GUID);daysAvailable = leave.BALANCE_DAYS;leaveTypeId = leave.LEAVE_TYPE_GUID; applyLeaveForm.controls.firstPicker.enable();applyLeaveForm.controls.secondPicker.enable();">
+                                            {{leave.LEAVE_CODE}}</mat-option>
+                                    </mat-select>
+                                    <mat-select class="selectLeave" name="leave" *ngIf="radioOption == '2'"
+                                        formControlName="leaveTypes" required>
+                                        <mat-option *ngFor="let leave of leaveTypes; let i=index" [value]="leave.CODE"
+                                            (click)="addEntitlementBal(leave.LEAVE_TYPE_GUID);leaveTypeId = leave.LEAVE_TYPE_GUID; applyLeaveForm.controls.firstPicker.enable();applyLeaveForm.controls.secondPicker.enable();">
+                                            {{leave.CODE}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="!applyLeaveForm.leaveTypes" style="padding: 5px;padding-left: 0;">
+                                        Please select one leave type</mat-error>
+                                </mat-form-field>
+                                &nbsp;&nbsp;
+                                <div class="days-available" *ngIf="radioOption == '1'">
+                                    <mat-label style="color: #808495;font-size: 12px;">Days available</mat-label>
+                                    <p *ngIf="daysAvailable != undefined"
+                                        style="color: #43425d;font-size: 13px;font-weight: bold;opacity: 0.8;margin-top: 12px">
+                                        {{daysAvailable}}</p>
+                                    <p *ngIf="daysAvailable == undefined"
+                                        style="color: #43425d;font-size: 13px;font-weight: bold;opacity: 0.8;margin-top: 12px">
+                                        0</p>
+                                </div>
+                                <!-- <mat-form-field style="width: 24%" appearance="outline" *ngIf="radioOption === '1'">
+                                    <mat-label>Days available</mat-label>
+                                    <input matInput [(value)]="daysAvailable" disabled>
+                                </mat-form-field> -->
+                            </div>
+                            <div style="display: flex;overflow: hidden;flex-flow: row wrap;max-width: 90%;">
+                                <!-- <div style="display:block; white-space: nowrap;width: 90%;overflow: hidden;"> -->
+                                <mat-form-field class="date" appearance="outline">
+                                    <mat-label>Start date</mat-label>
+                                    <input class="dateInput" matInput [matDatepicker]="picker1"
+                                        formControlName="firstPicker" required (dateInput)="getValueFrom($event)"
+                                        [max]="maxDate" (dateChange)="onDateChange()">
+                                    <div class="calendar-icon" [inlineSVG]="'assets/icon/option/calendar.svg'"
+                                        (click)="picker1.open()">
+                                    </div>
+                                    <mat-datepicker #picker1></mat-datepicker>
+                                    <mat-error *ngIf="!applyLeaveForm.firstPicker"
+                                        style="padding: 5px;padding-left: 0;">
+                                        Invalid start date</mat-error>
+                                </mat-form-field>
+                                <!-- <div style="display: inline-block;width:3%"></div> -->
+                                <mat-form-field class="date" appearance="outline">
+                                    <mat-label>End date</mat-label>
+                                    <input class="dateInput" matInput [matDatepicker]="picker2"
+                                        formControlName="secondPicker" required (dateInput)="getValueTo($event)"
+                                        [min]="minDate" (dateChange)="onDateChange()">
+                                    <div class="calendar-icon" [inlineSVG]="'assets/icon/option/calendar.svg'"
+                                        (click)="picker2.open()">
+                                    </div>
+                                    <mat-datepicker #picker2></mat-datepicker>
+                                    <mat-error *ngIf="!applyLeaveForm.secondPicker"
+                                        style="padding: 5px;padding-left: 0;">
+                                        Invalid end date</mat-error>
+                                </mat-form-field>
+                                <!-- &nbsp;&nbsp; -->
+                                <div style="flex: 1 1 70px;min-width: 50px;">
+                                    <mat-label style="color: #808495;font-size: 12px;">No. of days</mat-label>
+                                    <p
+                                        style="color: #43425d;font-size: 13px;font-weight: bold;opacity: 0.8;margin-top: 12px">
+                                        {{daysCount}}</p>
+                                </div>
+                            </div>
+
+                            <div style="display: block; white-space: pre-line;width: 90%;overflow: hidden;margin-top: 10px;"
+                                *ngFor="let date of dateSelection; let j = index">
+                                <div style="display: flex; max-width: 100%;flex-flow: row wrap-reverse;">
+                                    <mat-radio-group
+                                        style="align-self: center; margin-top: 7px;flex: 2; font-size: 12px;"
+                                        [value]="dayName[j]" (change)="dayNameChanged($event, j)">
+                                        <mat-radio-button value="0" color="primary" style="padding-right: 15px;"
+                                            [checked]=true>Full Day
+                                        </mat-radio-button>
+                                        <mat-radio-button value="1" color="primary" style="padding-right: 15px;">Half
+                                            Day
+                                        </mat-radio-button>
+                                        <mat-radio-button value="2" color="primary" style="padding-right: 15px;">Quarter
+                                            Day
+                                        </mat-radio-button>
+                                    </mat-radio-group>
+                                    <mat-form-field style="height: 60px;flex: 1; width: 150px;" appearance="outline">
+                                        <mat-label>Date Selection</mat-label>
+                                        <input matInput [(value)]="date" disabled>
+                                    </mat-form-field>
+                                </div>
+                                <div>
+                                    <div *ngIf="dayName[j] == '1'">
+                                        <p style="font-size: 12px;color: #43425d;">Half Day selection</p>
+                                        <ion-button (click)="amButton[j] = true;getHalfQuarterValue(j,'AM')"
+                                            [fill]="amButton[j] ? 'solid':'outline'"
+                                            style="--border-radius: 2px;height: 32px; width: 63px;font-size: 12px;">
+                                            AM
+                                        </ion-button>
+                                        <ion-button (click)="amButton[j] = false;getHalfQuarterValue(j,'PM')"
+                                            [fill]="!amButton[j] ? 'solid':'outline'"
+                                            style="--border-radius: 2px;height: 32px; width: 63px;font-size: 12px;">
+                                            PM
+                                        </ion-button>
+                                    </div>
+                                    <div *ngIf="dayName[j] == '2'">
+                                        <p style="font-size: 12px;color: #43425d;">Select your time-off here</p>
+                                        <div>
+                                            <ion-button [fill]="Q1Button[j]? 'solid':'outline'"
+                                                (click)="Q1Button[j]=true;Q2Button[j]=false;Q3Button[j]=false;Q4Button[j]=false; getHalfQuarterValue(j,'Q1')"
+                                                style="--border-radius: 2px;height: 32px; width: 63px;font-size: 12px;">
+                                                Q1
+                                            </ion-button>
+                                            <ion-button [fill]="Q2Button[j]? 'solid':'outline'"
+                                                (click)="Q1Button[j]=false;Q2Button[j]=true;Q3Button[j]=false;Q4Button[j]=false; getHalfQuarterValue(j,'Q2')"
+                                                style="--border-radius: 2px;height: 32px; width: 63px;font-size: 12px;">
+                                                Q2
+                                            </ion-button>
+                                            <ion-button [fill]="Q3Button[j]? 'solid':'outline'"
+                                                (click)="Q1Button[j]=false;Q2Button[j]=false;Q3Button[j]=true;Q4Button[j]=false; getHalfQuarterValue(j,'Q3')"
+                                                style="--border-radius: 2px;height: 32px; width: 63px;font-size: 12px;">
+                                                Q3
+                                            </ion-button>
+                                            <ion-button [fill]="Q4Button[j]? 'solid':'outline'"
+                                                (click)="Q1Button[j]=false;Q2Button[j]=false;Q3Button[j]=false;Q4Button[j]=true; getHalfQuarterValue(j,'Q4')"
+                                                style="--border-radius: 2px;height: 32px; width: 63px;font-size: 12px;">
+                                                Q4
+                                            </ion-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <ion-item class="divider" lines="full" style="width:90%;"></ion-item>
+                            <ion-button fill="outline" *ngIf="radioOption == '1'"
+                                style="--border-radius: 2px;background: #f5f6fa;height: 30px; width: auto;font-size: 12px;text-transform: none"
+                                (click)="file.click();">
+                                Upload Attachment
+                            </ion-button>
+                            <a *ngIf="uploadedFile != undefined"
+                                style="color: #7069d8;display: block;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"
+                                [href]="uploadedFile.link" download>{{uploadedFile.filename}}</a>
+                            <input style="display:none" #file name="file" type="file"
+                                (change)="uploadEvent($event.target.files)">
+                            <p *ngIf="radioOption == '1'" style="color: #808495;font-size:11px;">File Allowed: .jpg,
+                                .png, .pdf only
+                            </p>
+                            <mat-form-field appearance="outline" style="width: 90%;margin-top: 20px;">
+                                <mat-label>Reason</mat-label>
+                                <textarea matInput formControlName="inputReason" required
+                                    style="height: 100px;resize: none;"></textarea>
+                                <mat-error *ngIf="!applyLeaveForm.inputReason" style="padding: 5px;padding-left: 0;">
+                                    Please enter reason</mat-error>
+                            </mat-form-field>
+
+                            <div style="text-align: center;width: 90%;">
+                                <ion-button fill="outline"
+                                    (click)="applyLeaveForm.reset(); daysAvailable=0;daysCount=0;minDate='';maxDate='';clearArrayList();"
+                                    style="--border-radius: 2px;background: #f5f6fa;height: 30px; width: 40%;font-size: 12px;text-transform: none">
+                                    Clear
+                                </ion-button>
+                                <ion-button
+                                    style="--border-radius: 2px;height: 30px; width: 57%;font-size: 12px;text-transform: none"
+                                    [disabled]="!applyLeaveForm.valid"
+                                    (click)="postData(); applyLeaveForm.reset();applyLeaveForm.controls.leaveTypes.disable();applyLeaveForm.controls.firstPicker.disable();applyLeaveForm.controls.secondPicker.disable();daysAvailable=0;daysCount=0;minDate='';maxDate='';">
+                                    Submit
+                                </ion-button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </ion-card-content>
+        </div>
+    </div>
+</ion-card>
