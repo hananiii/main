@@ -1,0 +1,419 @@
+// http://ionicframework.com/docs/theming/
+@import "~@ionic/angular/css/core.css";
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+@import "~@angular/material/theming";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+@import "~@fullcalendar/core/main.css";
+@import "~@fullcalendar/daygrid/main.css";
+@import "@fullcalendar/list/main.css";
+@import "~bootstrap/dist/css/bootstrap.css";
+// @import '~@fullcalendar/timegrid/main.css';
+
+$mat-myapp-primary: (
+  50: #eeedfa,
+  100: #d4d2f3,
+  200: #b8b4ec,
+  300: #9b96e4,
+  400: #8580de,
+  500: #7069d8,
+  600: #6861d4,
+  700: #5d56ce,
+  800: #534cc8,
+  900: #413bbf,
+  A100: #ffffff,
+  A200: #dad9ff,
+  A400: #aaa6ff,
+  A700: #918cff,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+$mat-myapp-accent: (
+  50: #e8e8ec,
+  100: #c7c6ce,
+  200: #a1a1ae,
+  300: #7b7b8e,
+  400: #5f5e75,
+  500: #43425d,
+  600: #3d3c55,
+  700: #34334b,
+  800: #2c2b41,
+  900: #1e1d30,
+  A100: #7777ff,
+  A200: #4444ff,
+  A400: #1111ff,
+  A700: #0000f6,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #ffffff,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #ffffff,
+    A400: #ffffff,
+    A700: #ffffff,
+  ),
+);
+
+$primary: mat-palette($mat-myapp-primary); //$#057dcd
+$accent: mat-palette($mat-myapp-accent); //#7a8589
+
+$theme: mat-light-theme($primary, $accent);
+
+@include angular-material-theme($theme);
+
+app-public-personal-details > mat-card > .mat-card-header > div.mat-card-header-text {
+  overflow: hidden;
+}
+app-employee-setup
+  > ion-card
+  > div
+  > div.cardContent
+  > ion-card-content
+  > div.row
+  > div.table
+  > div.connectionsContainer
+  > div.topHeader
+  > ion-item-group
+  > ion-searchbar
+  > div.searchbar-input-container
+  > input.searchbar-input {
+  background: transparent;
+  color: #43425d;
+  opacity: 0.8;
+  border: solid 1px #a5a4bf;
+  font-size: 12px;
+  box-shadow: none !important;
+  height: 40px;
+  padding-left: 40px;
+}
+app-employee-setup
+  > ion-card
+  > div
+  > div.cardContent
+  > ion-card-content
+  > div.row
+  > div.table
+  > div.connectionsContainer
+  > div.topHeader
+  > ion-item-group
+  > ion-searchbar
+  > div.searchbar-input-container
+  > ion-icon.searchbar-search-icon.sc-ion-searchbar-md {
+  color: #bcbccb;
+  width: 16px;
+  box-shadow: none;
+}
+app-employee-setup
+  > ion-card
+  > div
+  > div.cardContent
+  > ion-card-content
+  > div.row
+  > div.table
+  > div.connectionsContainer
+  > div.topHeader
+  > ion-item-group
+  > ion-searchbar
+  > div.searchbar-input-container
+  > button
+  > ion-icon.searchbar-clear-icon.sc-ion-searchbar-md {
+  color: #bcbccb;
+  width: 16px;
+  box-shadow: none;
+}
+app-employee-setup
+  > ion-card
+  > div
+  > div.cardContent
+  > ion-card-content
+  > div.row
+  > div.table
+  > div.connectionsContainer
+  > ion-content
+  > .mat-grid-list
+  > div
+  > .mat-grid-tile
+  > figure
+  > .mat-card
+  > .mat-card-header
+  > div.mat-card-header-text {
+  overflow: hidden;
+}
+app-employee-profile > mat-card > .mat-card-header > div.mat-card-header-text {
+  overflow: hidden;
+}
+app-employee-profile
+  > ion-card
+  > ion-card-content
+  > .mat-tab-group
+  > .mat-tab-header
+  > .mat-tab-label-container
+  > .mat-tab-list
+  > .mat-tab-lables
+  > .mat-tab-label {
+  height: 35px;
+}
+app-assign-role > div.row > div.column1 > mat-card > .mat-card-header > div.mat-card-header-text {
+  overflow: hidden;
+}
+app-assign-role > div.row > div.column2 > mat-card > .mat-card-header > div.mat-card-header-text {
+  overflow: hidden;
+}
+app-apply-on-behalf
+  > ion-card
+  > div
+  > div.cardContent
+  > ion-card-content
+  > div.row
+  > div.filter
+  > div
+  > ion-row
+  > ion-searchbar.searchbar
+  > div.searchbar-input-container
+  > input.searchbar-input {
+  background: white;
+  color: #43425d;
+  opacity: 0.8;
+  border: solid 1px #a5a4bf;
+  font-size: 12px;
+  box-shadow: none !important;
+  height: 40px;
+  padding-left: 40px;
+}
+app-apply-on-behalf
+  > ion-card
+  > div
+  > div.cardContent
+  > ion-card-content
+  > div.row
+  > div.filter
+  > div
+  > ion-row
+  > ion-searchbar.searchbar
+  > div.searchbar-input-container
+  > ion-icon.searchbar-search-icon.sc-ion-searchbar-md {
+  color: #bcbccb;
+  width: 16px;
+  box-shadow: none;
+}
+app-apply-on-behalf
+  > ion-card
+  > div
+  > div.cardContent
+  > ion-card-content
+  > div.row
+  > div.filter
+  > div
+  > ion-row
+  > ion-searchbar.searchbar
+  > div.searchbar-input-container
+  > button
+  > ion-icon.searchbar-clear-icon.sc-ion-searchbar-md {
+  color: #bcbccb;
+  width: 16px;
+  box-shadow: none;
+}
+app-approval-override
+  > ion-card
+  > div
+  > div.cardContent
+  > ion-card-content
+  > div.row
+  > div.filter
+  > div
+  > ion-row
+  > ion-searchbar.searchbar
+  > div.searchbar-input-container
+  > input.searchbar-input {
+  background: white;
+  color: #43425d;
+  opacity: 0.8;
+  border: solid 1px #a5a4bf;
+  font-size: 12px;
+  box-shadow: none !important;
+  height: 40px;
+  padding-left: 40px;
+}
+app-approval-override
+  > ion-card
+  > div
+  > div.cardContent
+  > ion-card-content
+  > div.row
+  > div.filter
+  > div
+  > ion-row
+  > ion-searchbar.searchbar
+  > div.searchbar-input-container
+  > ion-icon.searchbar-search-icon.sc-ion-searchbar-md {
+  color: #bcbccb;
+  width: 16px;
+  box-shadow: none;
+}
+app-approval-override
+  > ion-card
+  > div
+  > div.cardContent
+  > ion-card-content
+  > div.row
+  > div.filter
+  > div
+  > ion-row
+  > ion-searchbar.searchbar
+  > div.searchbar-input-container
+  > button
+  > ion-icon.searchbar-clear-icon.sc-ion-searchbar-md {
+  color: #bcbccb;
+  width: 16px;
+  box-shadow: none;
+}
+// reports
+app-report
+  > ion-card
+  > div
+  > div.cardContent
+  > ion-card-content
+  > div.row
+  > div.listEmployee
+  > div
+  > ion-row
+  > ion-col
+  > ion-searchbar.searchbar
+  > div.searchbar-input-container
+  > input.searchbar-input {
+  background: white;
+  color: #43425d;
+  opacity: 0.8;
+  border: solid 1px #a5a4bf;
+  font-size: 12px;
+  box-shadow: none !important;
+  height: 40px;
+  padding-left: 40px;
+}
+app-report
+  > ion-card
+  > div
+  > div.cardContent
+  > ion-card-content
+  > div.row
+  > div.listEmployee
+  > div
+  > ion-row
+  > ion-col
+  > ion-searchbar.searchbar
+  > div.searchbar-input-container
+  > ion-icon.searchbar-search-icon.sc-ion-searchbar-md {
+  color: #bcbccb;
+  width: 16px;
+  box-shadow: none;
+}
+app-report
+  > ion-card
+  > div
+  > div.cardContent
+  > ion-card-content
+  > div.row
+  > div.listEmployee
+  > div
+  > ion-row
+  > ion-col
+  > ion-searchbar.searchbar
+  > div.searchbar-input-container
+  > button
+  > ion-icon.searchbar-clear-icon.sc-ion-searchbar-md {
+  color: #bcbccb;
+  width: 16px;
+  box-shadow: none;
+}
+
+.pop-over-style .popover-content {
+  transition: .5s ease;
+  --min-width: 300px !important;
+  bottom: 0 !important;
+  top: 0 !important;
+  right: 0 !important;
+  left: unset !important;
+  transform-origin: initial !important;
+  max-height: fit-content !important;
+
+  ion-backdrop {
+    opacity: 0.33 !important;
+  }
+}
+
+$screen-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+) !default;
+
+@each $keySize, $valueSize in $screen-breakpoints {
+  .hide-#{$keySize}-down {
+    @media screen and (max-width: $valueSize) {
+      display: none;
+    }
+  }
+
+  .hide-#{$keySize}-up {
+    @media screen and (min-width: $valueSize + 1) {
+      display: none;
+    }
+  }
+
+  .show-flex-#{$keySize}-down {
+    @media screen and (max-width: $valueSize) {
+      display: flex;
+    }
+  }
+
+  .show-flex-#{$keySize}-up {
+    @media screen and (min-width: $valueSize) {
+      display: flex;
+    }
+  }
+
+}
+.confirmation-popover {
+  .popover-content {
+      top: 245px;
+      left: 473.5px;
+      transform-origin: left top;
+      transform: scale(1);
+      width: 300px;
+      max-height: 600px;
+      overflow-y: auto;
+  }
+}

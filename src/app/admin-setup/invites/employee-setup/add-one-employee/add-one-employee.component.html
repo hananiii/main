@@ -1,0 +1,386 @@
+<div class="box" *ngIf="individual">
+    <!-- <div class="back-icon" [inlineSVG]="'assets/icon/option/arrow-pointing-to-left-edit.svg'"
+        (click)="dialogAddOneEmployee.close()"></div> -->
+    <!-- <p style="text-align: center;color: #7a8589;font-size: 16px;padding-bottom: 3%;margin-top: 0;">
+        Please enter the employee details below</p> -->
+    <form [formGroup]="invitationForm">
+        <div style="display: block;width: 60%;">
+            <span style="padding-bottom: 5px;font-size: 12px;color:#808495;display: block">
+                SELECT COMPANY</span>
+            <mat-form-field appearance="outline"
+                style="height: 55px;display: block;font-size: 12px;width: 100%;color:#43425d;">
+                <mat-label>Please select company</mat-label>
+                <mat-select formControlName="company" required>
+                    <mat-option>None</mat-option>
+                    <mat-option *ngFor="let company of companyList" [value]=company.NAME
+                        (click)="getRecentId(company.TENANT_COMPANY_GUID)">
+                        {{company.NAME}}
+                    </mat-option>
+                </mat-select>
+                <!-- <mat-error>Company tenant is <strong>required</strong></mat-error> -->
+            </mat-form-field>
+        </div>
+
+        <div style="display: block;width: 100%;">
+            <div style="display: inline-block;width: 47%;">
+                <span style="padding-bottom: 5px;font-size: 12px;color:#808495;display: block">
+                    BRANCH</span>
+                <mat-form-field appearance="outline"
+                    style="height: 55px;display: block;font-size: 12px;width: 100%;color:#43425d;">
+                    <mat-label>Select/Create branch</mat-label>
+                    <input matInput [matAutocomplete]="branch" [formControl]="branchCtrl"
+                        (keyup.enter)="enter(branchCtrl,branchList)">
+                    <mat-autocomplete #branch="matAutocomplete"
+                        (optionSelected)="optionSelected($event.option,branchList, branchCtrl)">
+                        <mat-option style="font-size: 12px;color: #43425d;">None</mat-option>
+                        <mat-option *ngFor="let branch of filteredBranch | async" [value]="branch.BRANCH">
+                            <span style="font-size: 12px;color: #43425d;">{{branch.BRANCH}}</span>
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+            &nbsp;&nbsp;
+            <div style="display: inline-block;width: 47%;">
+                <span style="padding-bottom: 5px;font-size: 12px;color:#808495;display: block">
+                    SECTION</span>
+                <mat-form-field appearance="outline"
+                    style="height: 55px;display: block;font-size: 12px;width: 100%;color:#43425d;">
+                    <mat-label>Select/Create section</mat-label>
+                    <input matInput [matAutocomplete]="section" [formControl]="sectionCtrl"
+                        (keyup.enter)="enter(sectionCtrl,sectionList)">
+                    <mat-autocomplete #section="matAutocomplete"
+                        (optionSelected)="optionSelected($event.option,sectionList, sectionCtrl)">
+                        <mat-option style="font-size: 12px;color: #43425d;">None</mat-option>
+                        <mat-option *ngFor="let section of filteredSection | async" [value]="section.SECTION">
+                            <span style="font-size: 12px;color: #43425d;">{{section.SECTION}}</span>
+                        </mat-option>
+                    </mat-autocomplete>
+                    <!-- <mat-select>
+                    <mat-option>None</mat-option>
+                    <mat-option *ngFor="let section of sectionList" [value]=section.SECTION>
+                        {{section.SECTION}}
+                    </mat-option>
+                </mat-select> -->
+                </mat-form-field>
+                <!-- <span style="padding-bottom: 5px;font-size: 12px;color:#808495;display: block">
+                    DIVISION</span>
+                <mat-form-field appearance="outline"
+                    style="height: 55px;display: block;font-size: 12px;width: 100%;color:#43425d;">
+                    <mat-label>Select/Create division</mat-label>
+                    <input matInput [formControl]="divisionCtrl">
+                    <!-- [matAutocomplete]="auto" (keyup.enter)="enter()" -->
+                <!-- <mat-autocomplete #auto="matAutocomplete" (optionSelected)="optionSelected($event.option)">
+                    <mat-option *ngFor="let state of filteredDivision | async" [value]="state">
+                        <span style="font-size: 12px;color: #43425d;">{{ state }}</span>
+                    </mat-option>
+                </mat-autocomplete> --
+                </mat-form-field> -->
+            </div>
+        </div>
+
+        <div style="display: block;width: 100%;">
+            <div style="display: inline-block;width: 47%;">
+                <span style="padding-bottom: 5px;font-size: 12px;color:#808495;display: block">
+                    DEPARTMENT</span>
+                <mat-form-field appearance="outline"
+                    style="height: 55px;display: block;font-size: 12px;width: 100%;color:#43425d;">
+                    <mat-label>Select/Create department</mat-label>
+                    <input matInput [matAutocomplete]="department" [formControl]="departmentCtrl"
+                        (keyup.enter)="enter(departmentCtrl,departmentList)">
+                    <mat-autocomplete #department="matAutocomplete"
+                        (optionSelected)="optionSelected($event.option,departmentList, departmentCtrl)">
+                        <mat-option style="font-size: 12px;color: #43425d;">None</mat-option>
+                        <mat-option *ngFor="let department of filteredDepartment | async"
+                            [value]="department.DEPARTMENT">
+                            <span style="font-size: 12px;color: #43425d;">{{department.DEPARTMENT}}</span>
+                        </mat-option>
+                    </mat-autocomplete>
+                    <!-- <mat-select>
+                    <mat-option>None</mat-option>
+                    <mat-option *ngFor="let department of departmentList" [value]=department.DEPARTMENT>
+                        {{department.DEPARTMENT}}
+                    </mat-option>
+                </mat-select> -->
+                </mat-form-field>
+            </div>
+            &nbsp;&nbsp;
+            <div style="display: inline-block;width: 47%;">
+                <span style="padding-bottom: 5px;font-size: 12px;color:#808495;display: block">
+                    COST CENTRE</span>
+                <mat-form-field appearance="outline"
+                    style="height: 55px;display: block;font-size: 12px;width: 100%;color:#43425d;">
+                    <mat-label>Select/Create cost centre</mat-label>
+                    <input matInput [matAutocomplete]="costcentre" [formControl]="costCentreCtrl"
+                        (keyup.enter)="enter(costCentreCtrl,costcentre)">
+                    <mat-autocomplete #costcentre="matAutocomplete"
+                        (optionSelected)="optionSelected($event.option,costcentre, costCentreCtrl)">
+                        <mat-option style="font-size: 12px;color: #43425d;">None</mat-option>
+                        <mat-option *ngFor="let costcentre of filteredCostCentre | async"
+                            [value]="costcentre.COSTCENTRE">
+                            <span style="font-size: 12px;color: #43425d;">{{costcentre.COSTCENTRE}}</span>
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- <div style="display: block;width: 100%;">
+            <div style="display: inline-block;width: 47%;">
+                
+            </div>
+        </div> -->
+
+        <ion-item class="divider" lines="full"></ion-item>
+
+
+        <div style="display:block; white-space: nowrap;width: 100%;">
+            <div style="width: 100%;display: inline-block;">
+                <span style="font-size: 12px;color: #808495;display: block">
+                    EMPLOYEE NAME</span>
+                <mat-form-field appearance="outline" style="width: 100%;font-size: 12px;color: #43425d;opacity: 0.8;">
+                    <mat-label>Name</mat-label>
+                    <input matInput formControlName="name" required>
+                    <mat-error *ngIf="!invitationForm.name">
+                        Employee name is <strong>required</strong></mat-error>
+                </mat-form-field>
+            </div>
+            &nbsp;&nbsp;
+            <!-- <div style="width: 40%;display: inline-block;">
+                <span style="font-size: 12px;color:#707070;padding-left: 3px;display: block">
+                    NRIC </span>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Please enter IC number</mat-label>
+                    <input matInput formControlName="IC">
+                    <mat-error *ngIf="!invitationForm.IC">
+                        IC number is <strong>required</strong></mat-error>
+                </mat-form-field>
+            </div> -->
+        </div>
+        <div style="width: 100%;display: inline-block;">
+            <span style="font-size: 12px;color: #808495;display: block">
+                EMAIL ADDRESS</span>
+            <mat-form-field appearance="outline" style="width: 100%;font-size: 12px;color: #43425d;opacity: 0.8;">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" required>
+                <mat-error *ngIf="!invitationForm.email">
+                    Email is <strong>required</strong></mat-error>
+            </mat-form-field>
+        </div>
+
+        <div style="display:block; white-space: nowrap;width: 100%;">
+            <div style="width: 50%;display: inline-block;">
+                <span style="font-size: 12px;color: #808495;display: block">
+                    EMPLOYEE ID </span>
+                <mat-form-field appearance="outline" style="width: 100%;font-size: 12px;">
+                    <mat-label>Employee ID Number</mat-label>
+                    <input matInput formControlName="id" required>
+                    <mat-hint *ngIf="latestId" style="font-size: 10px;color: #7069d8;">Recent ID:
+                        {{latestId.recentStaffId}}</mat-hint>
+                    <mat-error *ngIf="!invitationForm.id">
+                        ID is <strong>required</strong></mat-error>
+                </mat-form-field>
+            </div>
+            &nbsp;&nbsp;
+            <div style="width: 45%;display: inline-block;">
+                <span style="font-size: 12px;color: #808495;display: block">
+                    DATE OF HIRE </span>
+                <mat-form-field class="date" appearance="outline" style="width: 100%;font-size: 12px;">
+                    <mat-label>Hired Date</mat-label>
+                    <input class="dateInput" matInput [matDatepicker]="picker1" formControlName="joinDate" required>
+                    <!-- (dateInput)="getValueFrom($event)" (dateChange)="onDateChange()" -->
+                    <!-- <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle> -->
+                    <!-- <div class="calendar-icon" [inlineSVG]="'assets/icon/option/calendar.svg'" (click)="picker1.open()">
+                    </div> -->
+                    <img src="assets/icon/add_employee/icon_calendar@3x.png" style="width:11px;height:11px;cursor: pointer;position: absolute;
+                        right: 0;top: 10px;" (click)="picker1.open()">
+                    <mat-datepicker #picker1></mat-datepicker>
+                    <mat-error *ngIf="!invitationForm.joinDate">
+                        Hired date is <strong>required</strong></mat-error>
+                </mat-form-field>
+            </div>
+            <!-- &nbsp;&nbsp;
+            <div style="width: 40%;display: inline-block;">
+                <span style="font-size: 12px;color:#707070;padding-left: 3px;display: block">
+                    DESIGNATION </span>
+                <mat-form-field appearance="outline" style="width: 100%;padding-top: 1%;">
+                    <mat-label>Please enter designation</mat-label>
+                    <mat-select class="selectLeave" formControlName="designation" required>
+                        <mat-option *ngFor="let designationItem of designationList; let i=index"
+                            [value]="designationItem.DESIGNATION">
+                            <!-- (click)="getIndex(leave)" --
+                            {{designationItem.DESIGNATION}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="!invitationForm.designation">
+                        Designation is <strong>required</strong></mat-error>
+                </mat-form-field>
+            </div> -->
+        </div>
+
+        <!-- <div style="display:block; white-space: nowrap;width: 100%;margin-left: 30px;">
+            <div style="width: 30%;display: inline-block;">
+                <span style="font-size: 12px;color:#707070;padding-left: 3px;display: block">
+                    EMAIL ADDRESS </span>
+                <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>Please enter email address</mat-label>
+                    <input matInput formControlName="email" required>
+                    <mat-error *ngIf="!invitationForm.email">
+                        Email is <strong>required</strong></mat-error>
+                </mat-form-field>
+            </div>
+            &nbsp;&nbsp;
+            <div style="width: 31%;display: inline-block;">
+                <span style="font-size: 12px;color:#707070;padding-left: 3px;display: block">
+                    PERSONAL PHONE NUMBER </span>
+                <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>Please enter phone number</mat-label>
+                    <input matInput formControlName="phone" required>
+                    <mat-error *ngIf="!invitationForm.phone">
+                        Phone number is <strong>required</strong></mat-error>
+                </mat-form-field>
+            </div>
+        </div> -->
+
+        <!-- <div style="text-align: right;padding-right: 7.5%;">
+            <ion-button fill="outline" style="font-size: 12px;height: 30px;width: 90px;background: white;"
+                color="primary" (click)="dialogAddOneEmployee.close()">
+                CANCEL
+            </ion-button>
+            <div style="width: 10px; display: inline-block"></div>
+            <ion-button style="font-size: 12px;height: 30px;width: 160px;" color="primary"
+                [disabled]="invitationForm.invalid" (click)="sendInvitation()">SEND INVITATION
+            </ion-button>
+            <div style="display: inline-block;margin-top: 10px;padding-left: 5px;vertical-align: middle;"
+                *ngIf="showSmallSpinner">
+                <ion-spinner name="lines-small" color="primary"></ion-spinner>
+            </div>
+        </div> -->
+    </form>
+</div>
+
+<div style="text-align: center;margin:20px" *ngIf="individual">
+    <ion-button
+        style="--border-radius:2px;font-size: 11px;height: 30px;width:124px;cursor: pointer;text-transform: none;"
+        color="primary" (click)="sendInvitation()" [disabled]="!invitationForm.valid">
+        Add
+    </ion-button>
+    <div style="display: inline-block;margin-top: 10px;padding-left: 5px;vertical-align: middle;"
+        *ngIf="showSmallSpinner">
+        <ion-spinner name="lines-small" color="primary"></ion-spinner>
+    </div>
+    <p style="color: #808495;font-size: 12px;padding-left: 70px;
+    padding-right: 70px;padding-top: 10px;">After click Add, it will go to edit mode and you can straightaway
+        complete the rest of the configuration there.</p>
+</div>
+
+<ng-container *ngIf="getDetails">
+    <ion-row class="detailsRow">
+        <ion-col>
+            <p style="font-size: 12px;font-weight: bold;color: #808495;">
+                Select Company</p>
+            <mat-form-field *ngIf="getDetails.employmentDetail != undefined" appearance="outline"
+                style="height: 50px;font-size: 12px;width: 43%;color:#43425d;">
+                <mat-label>Please select company</mat-label>
+                <mat-select required [disabled]="disabledEditMode" [(ngModel)]="getDetails.employmentDetail.companyId">
+                    <mat-option>None</mat-option>
+                    <mat-option *ngFor="let company of companyList" [value]=company.TENANT_COMPANY_GUID
+                        (click)="getDetails.employmentDetail.companyId = (company.TENANT_COMPANY_GUID);">
+                        {{company.NAME}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </ion-col>
+    </ion-row>
+    <ion-row class="detailsRow">
+        <ion-col>
+            <p style="font-size: 12px;font-weight: bold;color: #808495;">
+                Branch</p>
+            <mat-form-field appearance="outline"
+                style="height: 50px;font-size: 12px;width: 100%;color:#43425d;opacity: 0.8;">
+                <mat-label>Select/Create branch</mat-label>
+                <input matInput [matAutocomplete]="branch" [formControl]="branchCtrl"
+                    (keyup.enter)="enter(branchCtrl,branchList)">
+                <mat-autocomplete #branch="matAutocomplete"
+                    (optionSelected)="optionSelected($event.option,branchList, branchCtrl)">
+                    <mat-option style="font-size: 12px;color: #43425d;">None
+                    </mat-option>
+                    <mat-option *ngFor="let branch of filteredBranch | async" [value]="branch.BRANCH">
+                        <span style="font-size: 12px;color: #43425d;">{{branch.BRANCH}}</span>
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </ion-col>
+        <!-- <ion-col>
+            <p style="font-size: 12px;font-weight: bold;color: #808495;">
+                Division</p>
+            <mat-form-field appearance="outline"
+                style="height: 50px;font-size: 12px;width: 100%;color:#43425d;opacity: 0.8;">
+                <mat-label>Select/Create division</mat-label>
+                <input matInput [disabled]="disabledEditMode">
+                <!-- [matAutocomplete]="auto" (keyup.enter)="enter()" -->
+        <!-- <mat-autocomplete #auto="matAutocomplete" (optionSelected)="optionSelected($event.option)">
+                                            <mat-option *ngFor="let state of filteredDivision | async" [value]="state">
+                                                <span style="font-size: 12px;color: #43425d;">{{ state }}</span>
+                                            </mat-option>
+                                        </mat-autocomplete> --
+            </mat-form-field>
+        </ion-col> -->
+        <ion-col>
+            <p style="font-size: 12px;font-weight: bold;color: #808495;">
+                Section</p>
+            <mat-form-field appearance="outline"
+                style="height: 50px;font-size: 12px;width: 100%;color:#43425d;opacity: 0.8;">
+                <mat-label>Select/Create section</mat-label>
+                <input matInput [matAutocomplete]="section" [formControl]="sectionCtrl"
+                    (keyup.enter)="enter(sectionCtrl,sectionList)">
+                <mat-autocomplete #section="matAutocomplete"
+                    (optionSelected)="optionSelected($event.option,sectionList, sectionCtrl)">
+                    <mat-option style="font-size: 12px;color: #43425d;">None
+                    </mat-option>
+                    <mat-option *ngFor="let section of filteredSection | async" [value]="section.SECTION">
+                        <span style="font-size: 12px;color: #43425d;">{{section.SECTION}}</span>
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </ion-col>
+        <ion-col>
+            <p style="font-size: 12px;font-weight: bold;color: #808495;">
+                Department</p>
+            <mat-form-field appearance="outline"
+                style="height: 50px;font-size: 12px;width: 100%;color:#43425d;opacity: 0.8;">
+                <mat-label>Select/Create department</mat-label>
+                <input matInput [matAutocomplete]="department" [formControl]="departmentCtrl"
+                    (keyup.enter)="enter(departmentCtrl,departmentList)">
+                <mat-autocomplete #department="matAutocomplete"
+                    (optionSelected)="optionSelected($event.option,departmentList, departmentCtrl)">
+                    <mat-option style="font-size: 12px;color: #43425d;">None
+                    </mat-option>
+                    <mat-option *ngFor="let department of filteredDepartment | async" [value]="department.DEPARTMENT">
+                        <span style="font-size: 12px;color: #43425d;">{{department.DEPARTMENT}}</span>
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </ion-col>
+    </ion-row>
+    <ion-row class="detailsRow">
+        <ion-col>
+            <p style="font-size: 12px;font-weight: bold;color: #808495;">
+                Cost Centre</p>
+            <mat-form-field appearance="outline"
+                style="height: 50px;font-size: 12px;width: 100%;color:#43425d;opacity: 0.8;">
+                <mat-label>Select/Create cost centre</mat-label>
+                <input matInput [matAutocomplete]="costcentre" [formControl]="costCentreCtrl"
+                    (keyup.enter)="enter(costCentreCtrl,costcentre)">
+                <mat-autocomplete #costcentre="matAutocomplete"
+                    (optionSelected)="optionSelected($event.option,costcentre, costCentreCtrl)">
+                    <mat-option style="font-size: 12px;color: #43425d;">None
+                    </mat-option>
+                    <mat-option *ngFor="let costcentre of filteredCostCentre | async" [value]="costcentre.COSTCENTRE">
+                        <span style="font-size: 12px;color: #43425d;">{{costcentre.COSTCENTRE}}</span>
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </ion-col>
+        <ion-col></ion-col>
+        <ion-col></ion-col>
+    </ion-row>
+</ng-container>
