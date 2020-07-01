@@ -1,0 +1,1802 @@
+<ion-menu style="--width:455px" contentId="addNewEmployee" side="end" type="overlay" menuId="addNewEmployeeDetails"
+    (ionDidClose)="menuOpen=false">
+    <ion-header style="background-color:#43425d; color: #fcfcfc;">
+        <img style="margin: 17px;margin-top: 21px;width: 18.8px;height: 11.8px;float:left"
+            src="assets/icon/add_employee/icon_employee@3x.png">
+        <p style="line-height: 1.27;font-size: 11px;color: #fcfcfc;font-weight: bold;margin: 20px;">ADD NEW EMPLOYEE
+        </p>
+    </ion-header>
+
+    <ion-content>
+        <p style="font-size: 12px;color: #808495;margin: 17px;">You can add by individual or by bulk. All data will be
+            import to their respective sections details. Don’t worry as you can always edit later</p>
+        <div style="margin-left:17px;margin-right:17px">
+            <div style="display: block;white-space: nowrap;text-align: center;">
+                <ion-button
+                    style="--border-radius: 4px 0 0 4px;margin-right: 0;display:inline-block;font-size: 11px;height: 30px;width:195px;cursor: pointer;text-transform: none;"
+                    [ngClass]="{
+                    'individualClicked': individualButton === true , 'individualUnclicked': individualButton === false}"
+                    (click)="bulkButton = false; individualButton = true;">
+                    Add Individual
+                </ion-button>
+                <ion-button [ngClass]="{ 'bulkClicked' : bulkButton === true , 'bulkUnclicked' : bulkButton === false}"
+                    (click)="bulkButton = true; individualButton = false;"
+                    style="--border-radius: 0 4px 4px 0;margin-left: 0;display:inline-block;font-size: 11px;height: 30px;width:195px;cursor: pointer;text-transform: none;">
+                    Add Bulk
+                </ion-button>
+            </div>
+            <div>
+                <app-add-one-employee *ngIf="individualButton === true" [individual]="individualButton === true"
+                    [disabledEditMode]="false" (closeMenu)="inviteAPI.menu.close('addNewEmployeeDetails');
+                    endPoint();">
+                </app-add-one-employee>
+                <app-bulk-import *ngIf="bulkButton === true" (closeMenu)="inviteAPI.menu.close('addNewEmployeeDetails');
+                endPoint();"></app-bulk-import>
+            </div>
+        </div>
+    </ion-content>
+</ion-menu>
+<ion-router-outlet id="addNewEmployee">
+</ion-router-outlet>
+
+<!-- ---------------------------------------- create new calendar profile ------------------- -->
+
+<ion-menu style="--width:455px" contentId="addNewCalendar" side="end" type="overlay"
+    menuId="addNewCalendarProfileDetails" (ionDidClose)="menuOpen=false">
+    <ion-header style="background-color:#43425d; color: #fcfcfc;">
+        <img style="margin: 17px;margin-top: 21px;width: 18.8px;height: 11.8px;float:left"
+            src="assets/icon/dashboard/icon All Holidays@3x.png">
+        <p style="line-height: 1.27;font-size: 11px;color: #fcfcfc;font-weight: bold;margin: 20px;">ADD NEW CALENDAR
+            PROFILE
+        </p>
+    </ion-header>
+
+    <ion-content>
+        <mat-form-field appearance="outline" style="width: 93%;font-size: 12px;opacity: 0.8;
+        color: #43425d;margin-left: 10px;margin-right: 10px;margin-top: 15px;">
+            <mat-label>Calendar Profile Name</mat-label>
+            <input matInput type="text" [formControl]="newProfileName" required>
+            <mat-error>Please enter profile name</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="width: 93%;font-size: 12px;opacity: 0.8;
+        color: #43425d;margin-left: 10px;margin-right: 10px;">
+            <mat-label>Rest Day</mat-label>
+            <mat-select [formControl]="newDayControl" multiple>
+                <mat-option *ngFor="let day of calWeekdays; let j=index" [value]="day" (click)="selectRestDay(day)">
+                    {{day}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="width: 93%;font-size: 12px;opacity: 0.8;
+        color: #43425d;margin-left: 10px;margin-right: 10px;">
+            <mat-label>Country List</mat-label>
+            <mat-select [formControl]="calCountry">
+                <mat-option selected>None</mat-option>
+                <mat-option *ngFor="let list of calCountryList; let i=index" [value]="list.iso"
+                    (click)="calCountryRegion = countrydata[list.iso].regions; calCountryIso = list.iso;">
+                    {{list.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="width: 93%;font-size: 12px;opacity: 0.8;
+        color: #43425d;margin-left: 10px;margin-right: 10px;">
+            <mat-label>Regions</mat-label>
+            <mat-select [formControl]="calRegion">
+                <mat-option selected>None</mat-option>
+                <mat-option *ngFor="let list of calCountryRegion; let i=index" [value]="list.iso"
+                    (click)=" calRegionISO = list.iso">
+                    {{list.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="width: 93%;font-size: 12px;opacity: 0.8;
+        color: #43425d;margin-left: 10px;margin-right: 10px;">
+            <mat-label>Year (readonly)</mat-label>
+            <input matInput [value]="calDefaultYear" readonly>
+        </mat-form-field>
+        <ion-item lines="none" style=" font-size: 12px; opacity: 0.8; color: #43425d; display: flex;">
+            <ion-checkbox mode="ios" style="width: 16px; height: 16px;opacity: 0.8;" [checked]="defaultCalendarProfile"
+                [disabled]=true>
+            </ion-checkbox>
+            <ion-label style="opacity: 0.8;">Set as default Calendar
+                Profile</ion-label>
+
+        </ion-item>
+        &nbsp;&nbsp;
+
+        <div style="text-align: center;margin:30px">
+            <ion-button
+                style="--border-radius: 2px;font-size: 11px;height: 30px;width:124px;cursor: pointer;text-transform: none;"
+                color="primary"
+                (click)="postCreateCalendarProfile();inviteAPI.menu.close('addNewCalendarProfileDetails');"
+                [disabled]="!newProfileName.valid">
+                Create
+            </ion-button>
+        </div>
+    </ion-content>
+</ion-menu>
+<ion-router-outlet id="addNewCalendar">
+</ion-router-outlet>
+
+<!-- ---------------------------------------- create new working hour menu ------------------- -->
+<ion-menu style="--width:750px" contentId="addNewWorkingHour" side="end" type="overlay"
+    menuId="addNewWorkingHourDetails" (ionDidClose)="menuOpen=false">
+    <ion-header style="background-color:#43425d; color: #fcfcfc;">
+        <img style="margin: 17px;margin-top: 21px;width: 18.8px;height: 11.8px;float:left"
+            src="assets/icon/dashboard/icon All Holidays@3x.png">
+        <p style="line-height: 1.27;font-size: 11px;color: #fcfcfc;font-weight: bold;margin: 20px;">CREATE WORKING HOUR
+            PROFILE
+        </p>
+    </ion-header>
+    <ion-content>
+
+        <div style="margin-top: 4%;">
+            <form [formGroup]="workingHourForm">
+                <div style="display: flex; flex-flow: row wrap;">
+                    <div style="display: inline-block;flex: 1 1 30%;">
+                        <span
+                            style="padding-bottom: 10px;font-size: 12px;color:#808495;padding-left: 18px;display: block">
+                            WORKING HOUR PROFILE NAME</span>
+                        <mat-form-field appearance="outline" style="display: block;font-size: 12px;width: 100%;color: #43425d;
+                                opacity: 0.8;padding-left: 18px;">
+                            <mat-label>Working hour profile name</mat-label>
+                            <input matInput formControlName="profileName" required>
+                            <mat-error>Working hour profile name is <strong>required</strong></mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div style="display: inline-block;flex: 1 1 30%; margin: auto 18px;">
+                        <span style=" padding-bottom: 10px;font-size: 12px;color:#808495;display: block">
+                            DESCRIPTION</span>
+                        <mat-form-field appearance="outline" style="display: block;font-size: 12px;width: 100%;color: #43425d;
+                                opacity: 0.8;">
+                            <mat-label>Working hour profile description</mat-label>
+                            <input matInput formControlName="description" required>
+                            <mat-error>Description is <strong>required</strong></mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div style="display: block; width:100%">
+                        <span style="font-size: 12px;color:#808495;padding-left: 18px;display: block">
+                            WORKING HOUR</span>
+                        <div style="display: inline-block;padding-bottom: 10px;">
+                            <mat-label
+                                style="padding-top: 5px;padding-bottom: 5px;font-size: 11px;color:#808495;padding-left: 18px;display: block">
+                                Start time</mat-label>
+                            <div style="padding-bottom: 5px;margin-left: 18px;border: 0.5px solid #80808057;
+                                    padding: 4px;border-radius: 4px;">
+                                <ngb-timepicker class="ngbTime" formControlName="startpicker"
+                                    (ngModelChange)="onChange($event, 'start')" [meridian]="meridian"
+                                    [spinners]="spinners">
+                                </ngb-timepicker>
+                            </div>
+                        </div>
+                        <div style="display: inline-block;margin-left: 10px;padding-bottom: 10px;">
+                            <mat-label
+                                style="padding-top: 5px;padding-bottom: 5px;font-size: 11px;color:#808495;display: block">
+                                End time</mat-label>
+                            <div style="padding-bottom: 5px;padding-left: 18px;border: 0.5px solid #80808057;
+                                     padding: 4px;border-radius: 4px;">
+                                <ngb-timepicker class="ngbTime" formControlName="endpicker"
+                                    (ngModelChange)="onChange($event, 'end')" [meridian]="meridian"
+                                    [spinners]="spinners">
+                                </ngb-timepicker>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex;padding-bottom: 15px;">
+                        <ion-item lines="none" style=" font-size: 12px; opacity: 0.8; color: #43425d; display: flex;">
+                            <ion-checkbox mode="ios" style="width: 16px; height: 16px;opacity: 0.8;"
+                                [checked]="defaultWHProfile" [disabled]=true>
+                            </ion-checkbox>
+                            <ion-label style="opacity: 0.8;">Set as default Working Hour
+                                Profile</ion-label>
+                        </ion-item>
+
+                    </div>
+                </div>
+
+                <div style="display: block;width: 100%;padding-bottom: 15px;">
+                    <div style="font-size: 12px;width:95%;background: #f5f6fa;padding: 10px;padding-left: 15px;margin: 18px;
+                margin-top: 0;color: #a3a6b4;font-weight: bold;">
+                        HALF DAY SETUP
+                    </div>
+                    <div style="width: 50%;display: inline-block;">
+                        <span style="font-size: 12px;color:#808495;padding-left: 18px;display: block">
+                            HALF DAY (AM)</span>
+                        <div style="display: inline-block;padding-bottom: 10px;">
+                            <mat-label
+                                style="padding-top: 5px;padding-bottom: 5px;font-size: 11px;color:#808495;padding-left: 18px;display: block">
+                                Start time</mat-label>
+                            <div style="margin-left: 18px;border: 0.5px solid #80808057;
+                        padding: 4px;border-radius: 4px;">
+                                <ngb-timepicker class="ngbTime" formControlName="starthalfdayAMpicker"
+                                    [meridian]="meridian" [spinners]="spinners"></ngb-timepicker>
+                            </div>
+                        </div>
+                        <div style="display: inline-block;padding-bottom: 10px;">
+                            <mat-label
+                                style="padding-top: 5px;padding-bottom: 5px;font-size: 11px;color:#808495;padding-left: 10px;display: block">
+                                End time</mat-label>
+                            <div style="margin-left: 10px;border: 0.5px solid #80808057;
+                            padding: 4px;border-radius: 4px;">
+                                <ngb-timepicker class="ngbTime" formControlName="endhalfdayAMpicker"
+                                    [meridian]="meridian" [spinners]="spinners"></ngb-timepicker>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="width: 50%;display: inline-block;padding-left: 15px;">
+                        <span style="font-size: 12px;color:#808495;display: block">
+                            HALF DAY (PM)</span>
+                        <div style="display: inline-block;padding-bottom: 10px;">
+                            <mat-label
+                                style="padding-top: 5px;padding-bottom: 5px;font-size: 11px;color:#808495;display: block">
+                                Start time</mat-label>
+                            <div style="padding-bottom: 5px;border: 0.5px solid #80808057;
+                                    padding: 4px;border-radius: 4px;">
+                                <ngb-timepicker class="ngbTime" formControlName="starthalfdayPMpicker"
+                                    [meridian]="meridian" [spinners]="spinners"></ngb-timepicker>
+                            </div>
+                        </div>
+                        <div style="display: inline-block;padding-bottom: 10px;">
+                            <mat-label
+                                style="padding-top: 5px;padding-bottom: 5px;font-size: 11px;color:#808495;padding-left: 10px;display: block">
+                                End time</mat-label>
+                            <div style="margin-left: 10px;border: 0.5px solid #80808057;
+                                        padding: 4px;border-radius: 4px;">
+                                <ngb-timepicker class="ngbTime" formControlName="endhalfdayPMpicker"
+                                    [meridian]="meridian" [spinners]="spinners"></ngb-timepicker>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: block;width: 100%;">
+                    <div
+                        style="font-size: 12px;width:95%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;margin: 18px;margin-top: 0;">
+                        QUARTER DAY SETUP
+                    </div>
+                    <div style="width: 50%;display: inline-block;">
+                        <span style="font-size: 12px;color:#808495;padding-left: 18px;display: block">
+                            QUARTER DAY (Q1)</span>
+                        <div style="display: inline-block;padding-bottom: 10px;">
+                            <mat-label
+                                style="padding-top: 5px;padding-bottom: 5px;font-size: 11px;color:#808495;padding-left: 18px;display: block">
+                                Start time</mat-label>
+                            <div style="margin-left: 18px;border: 0.5px solid #80808057;
+                                padding: 4px;border-radius: 4px;">
+                                <ngb-timepicker class="ngbTime" formControlName="startQ1picker" [meridian]="meridian"
+                                    [spinners]="spinners"></ngb-timepicker>
+                            </div>
+                        </div>
+                        <div style="display: inline-block;padding-bottom: 10px;">
+                            <mat-label
+                                style="padding-top: 5px;padding-bottom: 5px;font-size: 11px;color:#808495;padding-left: 10px;display: block">
+                                End time</mat-label>
+                            <div style="margin-left: 10px;border: 0.5px solid #80808057;
+                                    padding: 4px;border-radius: 4px;">
+                                <ngb-timepicker class="ngbTime" formControlName="endQ1picker" [meridian]="meridian"
+                                    [spinners]="spinners"></ngb-timepicker>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="width: 50%;display: inline-block;padding-left: 15px;">
+                        <span style="font-size: 12px;color:#808495;display: block">
+                            QUARTER DAY (Q2)</span>
+                        <div style="display: inline-block;padding-bottom: 10px;">
+                            <mat-label
+                                style="padding-top: 5px;padding-bottom: 5px;font-size: 11px;color:#808495;display: block">
+                                Start time</mat-label>
+                            <div style="padding-bottom: 5px;border: 0.5px solid #80808057;
+                                            padding: 4px;border-radius: 4px;">
+                                <ngb-timepicker class="ngbTime" formControlName="startQ2picker" [meridian]="meridian"
+                                    [spinners]="spinners"></ngb-timepicker>
+                            </div>
+                        </div>
+                        <div style="display: inline-block;padding-bottom: 10px;">
+                            <mat-label
+                                style="padding-top: 5px;padding-bottom: 5px;font-size: 11px;color:#808495;padding-left: 10px;display: block">
+                                End time</mat-label>
+                            <div style="margin-left: 10px;border: 0.5px solid #80808057;
+                                                padding: 4px;border-radius: 4px;">
+                                <ngb-timepicker class="ngbTime" formControlName="endQ2picker" [meridian]="meridian"
+                                    [spinners]="spinners"></ngb-timepicker>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: block;width: 100%;padding-top: 15px;">
+                        <div style="width: 50%;display: inline-block;">
+                            <span style="font-size: 12px;color:#808495;padding-left: 18px;display: block">
+                                QUARTER DAY (Q3)</span>
+                            <div style="display: inline-block;padding-bottom: 10px;">
+                                <mat-label
+                                    style="padding-top: 5px;padding-bottom: 5px;font-size: 11px;color:#808495;padding-left: 18px;display: block">
+                                    Start time</mat-label>
+                                <div style="margin-left: 18px;border: 0.5px solid #80808057;
+                                            padding: 4px;border-radius: 4px;">
+                                    <ngb-timepicker class="ngbTime" formControlName="startQ3picker"
+                                        [meridian]="meridian" [spinners]="spinners"></ngb-timepicker>
+                                </div>
+                            </div>
+                            <div style="display: inline-block;padding-bottom: 10px;">
+                                <mat-label
+                                    style="padding-top: 5px;padding-bottom: 5px;font-size: 11px;color:#808495;padding-left: 10px;display: block">
+                                    End time</mat-label>
+                                <div style="margin-left: 10px;border: 0.5px solid #80808057;
+                                                padding: 4px;border-radius: 4px;">
+                                    <ngb-timepicker class="ngbTime" formControlName="endQ3picker" [meridian]="meridian"
+                                        [spinners]="spinners"></ngb-timepicker>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="width: 50%;display: inline-block;padding-left: 15px;">
+                            <span style="font-size: 12px;color:#808495;display: block">
+                                QUARTER DAY (Q4)</span>
+                            <div style="display: inline-block;padding-bottom: 10px;">
+                                <mat-label
+                                    style="padding-top: 5px;padding-bottom: 5px;font-size: 11px;color:#808495;display: block">
+                                    Start time</mat-label>
+                                <div style="padding-bottom: 5px;border: 0.5px solid #80808057;
+                                                        padding: 4px;border-radius: 4px;">
+                                    <ngb-timepicker class="ngbTime" formControlName="startQ4picker"
+                                        [meridian]="meridian" [spinners]="spinners"></ngb-timepicker>
+                                </div>
+                            </div>
+                            <div style="display: inline-block;padding-bottom: 10px;">
+                                <mat-label
+                                    style="padding-top: 5px;padding-bottom: 5px;font-size: 11px;color:#808495;padding-left: 10px;display: block">
+                                    End time</mat-label>
+                                <div style="margin-left: 10px;border: 0.5px solid #80808057;
+                                                            padding: 4px;border-radius: 4px;">
+                                    <ngb-timepicker class="ngbTime" formControlName="endQ4picker" [meridian]="meridian"
+                                        [spinners]="spinners"></ngb-timepicker>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div style="margin: 30px;text-align: center;">
+                <ion-button
+                    style="--border-radius: 2px;font-size: 11px;height: 30px;width:124px;cursor: pointer;text-transform: none;"
+                    color="primary" type="submit"
+                    (click)="postWorkingHourSetup($event);workingHourForm.reset();inviteAPI.menu.close('addNewWorkingHourDetails')"
+                    [disabled]="!workingHourForm.valid">
+                    Create
+                </ion-button>
+                <div style="display: inline-block;margin-top: 10px;padding-left: 5px;vertical-align: middle;"
+                    *ngIf="showSmallSpinner">
+                    <ion-spinner name="lines-small" color="primary"></ion-spinner>
+                </div>
+            </div>
+        </div>
+        <!-- <app-working-hour [id]="id" *ngIf="displayDashboard === true" (valueChange)="ngOnInit()">
+        </app-working-hour> -->
+    </ion-content>
+</ion-menu>
+<ion-router-outlet id="addNewWorkingHour">
+</ion-router-outlet>
+
+<!-- -------------------------------------- create new role profile ---------------------------------- -->
+<ion-menu style="--width: 304px;" contentId="createNewRole" side="end" type="overlay" (ionDidClose)="menuOpen=false"
+    menuId="createNewRolePopup">
+    <ion-header style="background-color:#43425d; color: #fcfcfc;">
+        <img style="margin: 15px;width: 22px;height: 22px;float:left" src="assets/icon/leave_setup/icon_roles@3x.png">
+        <p style="line-height: 1.27;font-size: 11px;color: #fcfcfc;font-weight: bold;margin: 20px;">CREATE NEW ROLES
+        </p>
+    </ion-header>
+
+    <ion-content>
+        <form [formGroup]="newRoleForm">
+            <p
+                style="margin-bottom: 0;margin: 15px;margin-top: 20px;font-size: 12px; color: #808495;font-weight: bold;">
+                ROLE NAME</p>
+            <div style="width: 100%;">
+                <mat-form-field appearance="outline"
+                    style="margin: 15px;height: 45px;display: block;font-size: 12px;color:#43425d;margin-top: 0;">
+                    <mat-label>New role name here</mat-label>
+                    <input matInput formControlName="roleName" required>
+                </mat-form-field>
+            </div>
+            <div style="width: 100%;">
+                <mat-form-field appearance="outline"
+                    style="margin: 15px;display: block;font-size: 12px;color:#43425d;margin-bottom: 0;">
+                    <mat-label>Description</mat-label>
+                    <textarea matInput formControlName="roleDescription" required
+                        style="height: 100px;resize: none;"></textarea>
+                </mat-form-field>
+            </div>
+            <div style="display: block;padding-bottom: 15px;">
+                <ion-item lines="none" style=" font-size: 12px; opacity: 0.8; color: #43425d; display: flex;">
+                    <ion-checkbox mode="ios" style="width: 16px; height: 16px;opacity: 0.8;"
+                        [checked]="defaultRoleProfile" [disabled]=true>
+                    </ion-checkbox>
+                    <ion-label style="opacity: 0.8;">Set as default role profile</ion-label>
+                </ion-item>
+            </div>
+            <div style="font-size: 11px; opacity: 0.8; color: #43425d; background: #f5f6fa;
+                                    padding:15px; margin: 0px 15px;">
+                You need to configure role profile details based on thier access level in Role Mangement page
+            </div>
+            <div style="margin: 20px;text-align: center;">
+                <ion-button
+                    style="--border-radius: 2px;font-size: 11px;height: 30px;width:124px;cursor: pointer;text-transform: none;"
+                    color="primary"
+                    (click)="createNewRole();showSmallSpinner=true;inviteAPI.menu.close('createNewRolePopup');"
+                    [disabled]="!newRoleForm.valid">
+                    Create <ion-spinner *ngIf="showSmallSpinner" name="lines-small" style="color: white;">
+                    </ion-spinner>
+                </ion-button>
+            </div>
+        </form>
+    </ion-content>
+</ion-menu>
+<ion-router-outlet id="createNewRole">
+</ion-router-outlet>
+
+
+<!-- -------------------------------------- employee filter ----------------------------------------- -->
+
+<ion-menu contentId="filterEmployee" side="end" type="overlay" menuId="filterEmployeeDetails"
+    (ionDidClose)="menuOpen=false">
+    <ion-header style="background-color:#43425d; color: #fcfcfc;">
+        <img style="margin: 17px;margin-top: 21px;width: 18.8px;height: 11.8px;float:left"
+            src="assets/icon/add_employee/icon_employee@3x.png">
+        <p style="line-height: 1.27;font-size: 11px;color: #fcfcfc;font-weight: bold;margin: 20px;">EMPLOYEE NAME
+            FILTERS
+        </p>
+    </ion-header>
+
+    <ion-content>
+        <p style="font-size: 12px;color: #808495;margin: 17px;">Please set your filter, it will make you smile while
+            searching your employee details.</p>
+        <div style="margin-left:17px;margin-right:17px">
+            <p style="opacity: 0.8;font-size: 14px;font-weight: bold;color: #43425d;margin-bottom: 8px;">Company</p>
+            <ion-item class="divider" lines="full"></ion-item>
+            <ng-container *ngFor="let item of companyList; let i=index">
+                <ion-item *ngIf="i<3 && showall===false" lines="none" style="--min-height:36px;margin-left: -16px;">
+                    <ion-checkbox mode="md"
+                        style="--background-checked: #a5a4bf;
+                    --border-color-checked: #a5a4bf;margin:0;--border-radius: 4px;--border-color: #a5a4bf;--background: #f0f0f7"
+                        [(ngModel)]="item.checked" (click)="clickedCompanyCheckbox(i)">
+                    </ion-checkbox>
+                    <ion-label
+                        style="margin:0;padding-left: 10px;display: inline-block;color: #43425d;opacity: 0.8;font-size: 11px;">
+                        {{item.NAME}}</ion-label>
+                </ion-item>
+                <ion-item *ngIf="showall" lines="none" style="--min-height:36px;margin-left: -16px;">
+                    <ion-checkbox mode="md"
+                        style="--background-checked: #a5a4bf;
+                    --border-color-checked: #a5a4bf;margin:0;--border-radius: 4px;--border-color: #a5a4bf;--background: #f0f0f7"
+                        [(ngModel)]="item.checked" (click)="clickedCompanyCheckbox(i)">
+                    </ion-checkbox>
+                    <ion-label
+                        style="margin:0;padding-left: 10px;display: inline-block;color: #43425d;opacity: 0.8;font-size: 11px;">
+                        {{item.NAME}}</ion-label>
+                </ion-item>
+            </ng-container>
+            <div style="text-align: center;margin:30px">
+                <ion-button *ngIf="!showViewLessButton" (click)="showall = true; showViewLessButton = true"
+                    style="--border-radius: 2px;font-size: 11px;height: 30px;width:124px;cursor: pointer;text-transform: none;"
+                    color="primary">
+                    View More
+                </ion-button>
+                <ion-button *ngIf="showViewLessButton" (click)="showall = false; showViewLessButton = false"
+                    style="--border-radius: 2px;font-size: 11px;height: 30px;width:124px;cursor: pointer;text-transform: none;"
+                    color="primary">
+                    View Less
+                </ion-button>
+            </div>
+        </div>
+        <div style="margin-left:17px;margin-right:17px;margin-top: 30px;">
+            <p style="opacity: 0.8;font-size: 14px;font-weight: bold;color: #43425d;margin-bottom: 8px;">Department</p>
+            <ion-item class="divider" lines="full"></ion-item>
+            <ng-container *ngFor="let item of departmentList;let i=index">
+                <ion-item *ngIf="i<3 && showAllDepartment===false" lines="none"
+                    style="--min-height:36px;margin-left: -16px;">
+                    <ion-checkbox mode="md"
+                        style="--background-checked: #a5a4bf;
+                    --border-color-checked: #a5a4bf;margin:0;--border-radius: 4px;--border-color: #a5a4bf;--background: #f0f0f7"
+                        [(ngModel)]="item.checked" (click)="clickedDepartmentCheckbox(i)">
+                    </ion-checkbox>
+                    <ion-label
+                        style="margin:0;padding-left: 10px;display: inline-block;color: #43425d;opacity: 0.8;font-size: 11px;">
+                        {{item.DEPARTMENT}}</ion-label>
+                </ion-item>
+                <ion-item *ngIf="showAllDepartment===true" lines="none" lines="none"
+                    style="--min-height:36px;margin-left: -16px;">
+                    <ion-checkbox mode="md"
+                        style="--background-checked: #a5a4bf;
+                --border-color-checked: #a5a4bf;margin:0;--border-radius: 4px;--border-color: #a5a4bf;--background: #f0f0f7"
+                        [(ngModel)]="item.checked" (click)="clickedDepartmentCheckbox(i)">
+                    </ion-checkbox>
+                    <ion-label
+                        style="margin:0;padding-left: 10px;display: inline-block;color: #43425d;opacity: 0.8;font-size: 11px;">
+                        {{item.DEPARTMENT}}</ion-label>
+                </ion-item>
+            </ng-container>
+            <div style="text-align: center;margin:30px">
+                <ion-button *ngIf="!showLessDepartment" (click)="showAllDepartment = true; showLessDepartment = true"
+                    style="--border-radius: 2px;font-size: 11px;height: 30px;width:124px;cursor: pointer;text-transform: none;"
+                    color="primary">
+                    View More
+                </ion-button>
+                <ion-button *ngIf="showLessDepartment" (click)="showAllDepartment = false; showLessDepartment = false"
+                    style="--border-radius: 2px;font-size: 11px;height: 30px;width:124px;cursor: pointer;text-transform: none;"
+                    color="primary">
+                    View Less
+                </ion-button>
+            </div>
+        </div>
+        <div style="margin-left:17px;margin-right:17px;margin-top: 30px;">
+            <p style="opacity: 0.8;font-size: 14px;font-weight: bold;color: #43425d;margin-bottom: 8px;">Status</p>
+            <ion-item class="divider" lines="full"></ion-item>
+            <ion-item lines="none" style="--min-height:36px;margin-left: -16px;">
+                <ion-checkbox mode="md"
+                    style="--background-checked: #a5a4bf;
+                    --border-color-checked: #a5a4bf;margin:0;--border-radius: 4px;--border-color: #a5a4bf;--background: #f0f0f7"
+                    [(ngModel)]="active">
+                </ion-checkbox>
+                <ion-label
+                    style="margin:0;padding-left: 10px;display: inline-block;color: #43425d;opacity: 0.8;font-size: 11px;">
+                    Active</ion-label>
+            </ion-item>
+            <ion-item lines="none" style="--min-height:36px;margin-left: -16px;">
+                <ion-checkbox mode="md"
+                    style="--background-checked: #a5a4bf;
+                    --border-color-checked: #a5a4bf;margin:0;--border-radius: 4px;--border-color: #a5a4bf;--background: #f0f0f7"
+                    [(ngModel)]="inactive">
+                </ion-checkbox>
+                <ion-label
+                    style="margin:0;padding-left: 10px;display: inline-block;color: #43425d;opacity: 0.8;font-size: 11px;">
+                    Inactive</ion-label>
+            </ion-item>
+        </div>
+        <div style="text-align: center;margin:20px">
+            <ion-button
+                style="--border-radius:2px;font-size: 11px;height: 30px;width:124px;cursor: pointer;text-transform: none;"
+                color="primary" (click)="inviteAPI.menu.close('filterEmployeeDetails'); filterValue()">
+                Go
+            </ion-button>
+        </div>
+    </ion-content>
+</ion-menu>
+<ion-router-outlet id="filterEmployee">
+</ion-router-outlet>
+
+<!-- -------------------------------------- employee setup page ------------------------------------- -->
+<ion-card>
+    <ion-card-header style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);">
+        <div class="fullContainer">
+            <ion-item-group style="display: flex;">
+                <div class="left">
+                    <img src="assets/icon/leave_setup/icon_employee@3x.png" style="width:35px;height:30px">
+                </div>
+                <div class="right">
+                    <ion-card-subtitle style="color: #43425d;opacity: 0.8;font-weight: bold;font-size: 13px;">Employee
+                        Setup
+                    </ion-card-subtitle>
+                    <ion-card-subtitle class="subtitle" style="font-size: 12px;">
+                        Create and manage user profile details</ion-card-subtitle>
+                </div>
+            </ion-item-group>
+            <div style="margin-right: 33px; margin-left: auto; padding-left: 5px; line-height: initial;">
+                <p
+                    style="margin-top: 16px;opacity: 0.8;font-size: 12px;font-weight: bold;color: #43425d;display: inline-block;padding-right: 10px;">
+                    Edit Mode: {{mode}}</p>
+                <div style="display: inline-block;position: absolute;margin-top: 12px;">
+                    <ion-toggle class="toggleButton" mode="ios" style="--background: #a5a4bf;" color="secondary"
+                        (ionChange)="toggleMode($event)" [(ngModel)]="modeValue">
+                    </ion-toggle>
+                </div>
+            </div>
+        </div>
+    </ion-card-header>
+    <div style="width: 100%; height:100%; text-align: center; margin-top: -30px" *ngIf="showSpinner">
+        <app-spinner></app-spinner>
+    </div>
+    <div style="background: #f0f0f7;height: 100%;position: absolute;width: 100%;">
+        <div class="cardContent">
+            <ion-card-content>
+                <div class="row" style="max-width: 100%; flex-flow: row wrap;">
+                    <div class="table" style="flex: 1; min-width: 350px;">
+                        <div class="connectionsContainer">
+                            <div class="topHeader" style="display: inline-flex; flex-flow: row wrap;">
+                                <ion-button class="people" *ngIf="list" color="primary" [style.pointerEvents]="'none'">
+                                    <p style="color: white;font-size: 11px; flex: 1;">{{list.length}} Peoples</p>
+                                </ion-button>
+                                <ion-item-group
+                                    style="display: flex; flex:2; justify-content: flex-end; min-width: 170px;">
+                                    <ion-searchbar style="display: contents; height: 40px;
+                                        margin-top: 4px; " placeholder="Filter by Name or ID"
+                                        (ionChange)="changeDetails($event)">
+                                    </ion-searchbar>
+                                    <!-- <ion-button fill="clear" class="filter-search-button">
+                                        <div style="width: 17px;height: 17px;fill: #a5a4bf;opacity: 0.8;cursor: pointer;" 
+                                        [inlineSVG]="'assets/icon/option/filter.svg'" (click)="menuOpen = true;inviteAPI.menu.enable(true, 'filterEmployeeDetails');inviteAPI.menu.enable(false, 'addNewEmployeeDetails');inviteAPI.menu.open('filterEmployeeDetails')">
+                                        </div>
+                                    </ion-button> -->
+
+                                    <div style="position: absolute;width: 27px;height: 17px;fill: #a5a4bf;opacity: 0.8;cursor: pointer; margin: 10px 0px; padding-right: 10px;"
+                                        [inlineSVG]="'assets/icon/option/filter.svg'"
+                                        (click)="menuOpen = true;inviteAPI.menu.enable(true, 'filterEmployeeDetails');inviteAPI.menu.enable(false, 'addNewEmployeeDetails');inviteAPI.menu.open('filterEmployeeDetails')">
+                                    </div>
+                                </ion-item-group>
+                                <!-- <ion-searchbar mode="md" class="searchbar" placeholder="Filter by Name"
+                                    (ionChange)="changeDetails($event)">
+                                </ion-searchbar>
+                                <ion-buttons end style="align-items: self-end ;">
+                                    <div style="width: 17px;height: 17px;fill: #a5a4bf;opacity: 0.8;margin-top: 20px;cursor: pointer;position: absolute;
+                                    margin-left: -20px;bottom: 15px;" [inlineSVG]="'assets/icon/option/filter.svg'"
+                                        (click)="menuOpen = true;inviteAPI.menu.enable(true, 'filterEmployeeDetails');inviteAPI.menu.enable(false, 'addNewEmployeeDetails');inviteAPI.menu.open('filterEmployeeDetails')">
+                                    </div>
+                                </ion-buttons> -->
+                            </div>
+                            <div style="width: 100%; height:100%; text-align: center;" *ngIf="showSpinner">
+                                <app-spinner></app-spinner>
+                            </div>
+                            <div [class]="'hide-lg-down'">
+                                <ion-content class="listContent" [style.display]="showSpinner ? 'none' : 'block'"
+                                    *ngIf="list">
+                                    <ion-row class="titleRow">
+                                        <ion-col size="2">
+                                            <ion-label style="font-size: 12px;color: #a5a4bf;font-weight: bold;">ID
+                                            </ion-label>
+                                            <ion-icon class="arrow" name="arrow-dropdown" (click)="sortId(false, 1, -1)"
+                                                *ngIf="arrowDownId">
+                                            </ion-icon>
+                                            <ion-icon class="arrow" name="arrow-dropup" *ngIf="!arrowDownId"
+                                                (click)="sortId(true, -1, 1)">
+                                            </ion-icon>
+                                        </ion-col>
+                                        <ion-col>
+                                            <ion-label style="font-size: 12px;color: #a5a4bf;font-weight: bold;">
+                                                EMPLOYEE
+                                                NAME
+                                            </ion-label>
+                                            <ion-icon class="arrow" name="arrow-dropdown"
+                                                (click)="sortName(false, 1, -1)" *ngIf="arrowDownName">
+                                            </ion-icon>
+                                            <ion-icon class="arrow" name="arrow-dropup" *ngIf="!arrowDownName"
+                                                (click)="sortName(true, -1, 1)">
+                                            </ion-icon>
+                                        </ion-col>
+                                        <ion-col size="2.5">
+                                            <ion-label style="font-size: 12px;color: #a5a4bf;font-weight: bold;">STATUS
+                                            </ion-label>
+                                        </ion-col>
+                                        <ion-col size="2" align-self-center style="top: 3px;"
+                                            [style.display]="mode === 'OFF'? 'none':'' ">
+                                            <ion-icon class="addIcon" name="add-circle-outline" *ngIf="mode === 'ON'"
+                                                (click)="menuOpen = true;inviteAPI.menu.enable(true, 'addNewEmployeeDetails');inviteAPI.menu.enable(false, 'filterEmployeeDetails');inviteAPI.menu.open('addNewEmployeeDetails')">
+                                            </ion-icon>
+                                            <ion-label *ngIf="mode === 'ON'" style="font-size: 12px;color: #7069d8;font-weight: bold;position: absolute;
+                                                padding-left: 3px;">ADD
+                                            </ion-label>
+                                        </ion-col>
+                                    </ion-row>
+                                    <ion-row class="detailsRow"
+                                        *ngFor="let item of list | paginate: config; let i=index;">
+                                        <ion-col size="2">
+                                            <ion-label
+                                                style="color:#808495; font-size: 12px;font-weight: normal; white-space: pre-line;">
+                                                {{item.staffNumber}}
+                                            </ion-label>
+                                        </ion-col>
+                                        <ion-col class="colOfLeave">
+                                            <p class="textHover" (click)="getUserId(item, i, config.currentPage)"
+                                                [ngClass]="{
+                                                'textColor': clickedIndex === ((config.currentPage-1)*itemsPerPage)+i , 'oriColor': clickedIndex !== ((config.currentPage-1)*itemsPerPage)+i}"
+                                                style="font-weight: bold; font-size: 12px;cursor: pointer;white-space: pre-line;">
+                                                {{item.employeeName}}</p>
+                                            <p style="color: #808495;font-size:11px;white-space: pre-line;">
+                                                {{item.designation}}</p>
+                                        </ion-col>
+                                        <ion-col size="2.5" class="colOfLeave" style="color:#808495; font-size: 12px;">
+                                            <div [style.color]="(item.status === 'Active') ? '#5ee2a0': '#808495'">
+                                                {{item.status}}</div>
+                                        </ion-col>
+                                        <ion-col size="2" align-self-center
+                                            [style.display]="mode === 'OFF'? 'none':'' ">
+                                            <img src="assets/icon/leave_setup/icon_trash@3x.png" *ngIf="mode === 'ON'"
+                                                style="width: 11px;height:11px;display: inline-block;cursor: pointer;"
+                                                (click)="deleteEmployee(item.employeeName, item.userId)">
+                                        </ion-col>
+                                        <ion-item class="divider" lines="full"></ion-item>
+                                    </ion-row>
+                                </ion-content>
+                            </div>
+                            <div [class]="'hide-lg-up'">
+                                <ion-content class="listContent" [style.display]="showSpinner ? 'none' : 'block'"
+                                    *ngIf="list">
+                                    <ion-row class="titleRow" style="display: flex;">
+                                        <ion-col style="flex: 4;">
+                                            <ion-label style="font-size: 12px;color: #a5a4bf;font-weight: bold;">
+                                                EMPLOYEES
+                                            </ion-label>
+                                        </ion-col>
+                                        <ion-col align-self-center style="top: 3px; flex: 1;">
+                                            <ion-icon class="addIcon" name="add-circle-outline" *ngIf="mode === 'ON'"
+                                                (click)="menuOpen = true;inviteAPI.menu.enable(true, 'addNewEmployeeDetails');inviteAPI.menu.enable(false, 'filterEmployeeDetails');inviteAPI.menu.open('addNewEmployeeDetails')">
+                                            </ion-icon>
+                                        </ion-col>
+                                    </ion-row>
+                                    <ion-row class="detailsRow" style="display: flex;"
+                                        *ngFor="let item of list | paginate: config; let i=index;">
+                                        <ion-col class="colOfLeave" style="flex: 4;">
+                                            <p class="textHover" (click)="getUserId(item, i, config.currentPage)"
+                                                [ngClass]="{
+                                                'textColor': clickedIndex === ((config.currentPage-1)*itemsPerPage)+i , 'oriColor': clickedIndex !== ((config.currentPage-1)*itemsPerPage)+i}"
+                                                style="font-weight: bold; font-size: 12px;cursor: pointer;white-space: pre-line;">
+                                                {{item.employeeName}}</p>
+                                            <p style="color: #808495;font-size:11px;white-space: pre-line;">
+                                                {{item.designation}}</p>
+                                            <ion-item-group style="color: #808495; font-size: 11px;  display: flex;">
+                                                <div>ID: {{item.staffNumber}} </div>
+                                                <div style="margin: auto 10px;">|</div>
+                                                <div [style.color]="(item.status === 'Active') ? '#5ee2a0': '#808495'">
+                                                    {{item.status}}</div>
+                                            </ion-item-group>
+                                        </ion-col>
+                                        <ion-col align-self-center style="flex: 1;">
+                                            <img src="assets/icon/leave_setup/icon_trash@3x.png" *ngIf="mode === 'ON'"
+                                                style="width: 11px;height:11px;display: inline-block;cursor: pointer;"
+                                                (click)="deleteEmployee(item.employeeName, item.userId)">
+                                        </ion-col>
+                                        <ion-item class="divider" lines="full"></ion-item>
+                                    </ion-row>
+                                </ion-content>
+                            </div>
+                            <div [class]="'hide-lg-down'">
+                                <div [style.display]="showSpinner ? 'none' : 'block'">
+                                    <pagination-template #p2="paginationApi" (pageChange)="config.currentPage = $event">
+                                        <div class="custom-pagination" style="float: left;">
+                                            <!-- <div class="pagination-previous" style="display: inline-block">
+                                                <ion-button [disabled]="p2.isFirstPage()" fill="outline"
+                                                    (click)="p2.previous()"
+                                                    style="--border-radius: 2px;background: #f0f0f7;font-size: 11px;height: 30px;width: 80px;"
+                                                    color="primary">Prev
+                                                </ion-button>
+                                            </div>
+                                            <div style="padding-left: 5px;display: inline-block;"></div>
+                                            <div class="pagination-next" style="display: inline-block">
+                                                <ion-button (click)="p2.next()" [disabled]="p2.isLastPage()"
+                                                    style="--border-radius: 2px;font-size: 11px;height: 30px;width: 80px"
+                                                    color="primary">Next
+                                                </ion-button>
+                                            </div> -->
+                                            <div style="color: #808495;font-size:12px;display: inline-block;">Items per
+                                                page: </div>
+                                            <mat-form-field style="width: 50px;text-align: center;font-size: 8px;">
+                                                <mat-select [(ngModel)]="itemsPerPage" (selectionChange)="config = {
+                                                    itemsPerPage: this.itemsPerPage,
+                                                    currentPage: 1
+                                                }" style="font-size: 12px;">
+                                                    <mat-option value="10">10</mat-option>
+                                                    <mat-option value="20">20</mat-option>
+                                                    <mat-option value="30">30</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </pagination-template>
+
+                                    <div style="font-size: 9px;padding-top: 4px;text-align: right;">
+                                        <pagination-controls (pageChange)="config.currentPage = $event" maxSize="3"
+                                            directionLinks="true" previousLabel="" nextLabel="">
+                                        </pagination-controls>
+                                    </div>
+                                </div>
+                            </div>
+                            <div [class]="'hide-lg-up'">
+                                <div [style.display]="showSpinner ? 'none' : 'block'">
+                                    <pagination-template #p2="paginationApi" (pageChange)="config.currentPage = $event">
+                                        <div class="custom-pagination"
+                                            style="float: left; min-width: -webkit-fill-available;">
+                                            <!-- <div class="pagination-previous" style="display: inline-block; flex: 1;">
+                                                <ion-button [disabled]="p2.isFirstPage()" fill="outline"
+                                                    (click)="p2.previous()" style="--border-radius: 2px;background: #f0f0f7;font-size:
+                                                    11px;height: 30px;width: -webkit-fill-available;" color="primary">
+                                                    Prev1
+                                                </ion-button>
+                                            </div>
+                                            <div style="padding-left: 5px;display: inline-block;"></div>
+                                            <div class="pagination-next" style="display: inline-block; flex: 1;">
+                                                <ion-button (click)="p2.next()" [disabled]="p2.isLastPage()" style="--border-radius: 2px;font-size: 11px;height: 30px;width:
+                                                    -webkit-fill-available" color="primary">Next
+                                                </ion-button>
+                                            </div> -->
+                                            <div style="color: #808495;font-size:12px;display: inline-block;">Items per
+                                                page: </div>
+                                            <mat-form-field style="width: 50px;text-align: center;font-size: 8px;">
+                                                <mat-select [(ngModel)]="itemsPerPage" (selectionChange)="config = {
+                                                    itemsPerPage: this.itemsPerPage,
+                                                    currentPage: 1
+                                                }" style="font-size: 12px;">
+                                                    <mat-option value="10">10</mat-option>
+                                                    <mat-option value="20">20</mat-option>
+                                                    <mat-option value="30">30</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </pagination-template>
+
+                                    <div [class]="'hide-sm-down'"
+                                        style="font-size: 9px;padding-top: 4px;text-align: right;">
+                                        <pagination-controls (pageChange)="config.currentPage = $event" maxSize="3"
+                                            directionLinks="true" previousLabel="" nextLabel=""
+                                            class="small-window-pagingation">
+                                        </pagination-controls>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="details" style="flex: 5; width: -webkit-fill-available;min-width: 230px;">
+                        <ion-card-header style="padding-right: 0; display: flex; flex-wrap: wrap;">
+                            <div style="display: flex; ">
+                                <div class="left" style="display: inline-block;margin-top: 2px;"
+                                    *ngIf="personalDetails">
+                                    <!-- <ion-avatar class="avatar">
+                                        <img src="assets/icon/chris.jpg">
+                                    </ion-avatar> -->
+                                    <ng-container *ngFor="let list of url.details; let j= index">
+                                        <ng-container *ngIf="url.details[j].USER_GUID == personalDetails.userId">
+                                            <ion-avatar slot="start" class="avatar"
+                                                *ngIf="url && url.details[j].PROFILE_PICTURE !== null">
+                                                <img src="{{url.link + url.details[j].PROFILE_PICTURE}}">
+                                            </ion-avatar>
+                                            <ion-avatar slot="start" class="avatar"
+                                                *ngIf="url && url.details[j].PROFILE_PICTURE === null">
+                                                <img src="assets/icon/picture.png">
+                                            </ion-avatar>
+                                        </ng-container>
+                                    </ng-container>
+                                    <img src="assets/icon/add_employee/camera@3x.png" style="width: 26px;height:26px;position: absolute;
+                                    top: 60px;left: 55px;cursor:pointer" (click)="file.click();">
+                                    <input style="display:none" #file name="file" type="file"
+                                        (change)="submitProfilePic($event.target.files)">
+                                </div>
+                                <div style="padding-left: 20px;display: inline-block;
+                                margin-top: 8px;" *ngIf="personalDetails">
+                                    <ion-card-subtitle
+                                        style="font-size: 12px;padding-bottom:3px;color: #43425d;opacity: 0.8;font-weight: bold;">
+                                        {{personalDetails.employeeName}}
+                                    </ion-card-subtitle>
+                                    <ion-card-subtitle class="subtitle">
+                                        {{personalDetails.employeeDesignation}}</ion-card-subtitle>
+                                    <ion-card-subtitle class="subtitle">{{personalDetails.employeeDepartment}}
+                                    </ion-card-subtitle>
+                                </div>
+                            </div>
+                            <div
+                                style="margin-right: 33px; margin-left: auto; padding-left: 5px; line-height: initial;">
+                                <p style="color: #43425d;opacity:0.8;font-size: 12px;font-weight: bold;">Employee Status
+                                </p>
+                                <div *ngIf="personalDetails" style="margin-top: 5px;margin-left: 10px;">
+                                    <ion-toggle class="toggleButton" style="--background: #a5a4bf;" mode="ios"
+                                        color="secondary" [(ngModel)]="status" [checked]="status"
+                                        (click)="toggleStatus($event, personalDetails.employeeName, personalDetails.userId); status = !status">
+                                    </ion-toggle>
+                                    <p *ngIf="employeeStatus === 'Active'" style="margin-top: 3px;
+                                    opacity: 0.8;font-size: 12px;color: #43425d;padding-left: 10px;
+                                    position: absolute;display: inline-block;">
+                                        {{employeeStatus}}</p>
+                                    <p *ngIf="employeeStatus != 'Active'" style="margin-top: 3px;
+                                    opacity: 0.8;font-size: 12px;color: #43425d;padding-left: 10px;
+                                    position: absolute;display: inline-block;">
+                                        Inactive</p>
+                                </div>
+                            </div>
+                        </ion-card-header>
+                        <ion-card-content style="padding-right: 0;" class="padding-content">
+                            <div (click)="showPersonal = true;showEmploy = false;showCalendar = false;showRole = false;showOthers=false"
+                                style="cursor: pointer;margin-bottom: 10px;font-size: 12px;width:100%;background: #f5f6fa;padding: 15px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
+                                PERSONAL DETAILS</div>
+                            <div *ngIf="personalDetails && showPersonal">
+                                <ion-row class="detailsRow"
+                                    style="display: flex; flex-flow: row wrap; max-width: 100%;">
+                                    <ion-col style="flex: 1 1 30%; min-width: 150px;">
+                                        <ion-label class="label">Full Name</ion-label>
+                                        <p class="pText"
+                                            *ngIf="mode === 'OFF' && personalDetails.personalDetail != undefined">
+                                            {{personalDetails.personalDetail.fullname}}</p>
+                                        <mat-form-field
+                                            *ngIf="mode === 'ON' && personalDetails.personalDetail != undefined"
+                                            class="matFormField">
+                                            <input matInput placeholder="Full Name" (blur)="isBlur = true"
+                                                [(ngModel)]="personalDetails.personalDetail.fullname" required>
+                                        </mat-form-field>
+                                    </ion-col>
+                                    <ion-col style="flex: 1 1 30%; min-width: 150px;">
+                                        <ion-label class="label">Display Name</ion-label>
+                                        <p class="pText"
+                                            *ngIf="mode === 'OFF' && personalDetails.personalDetail != undefined">
+                                            {{personalDetails.personalDetail.nickname}}</p>
+                                        <mat-form-field
+                                            *ngIf="mode === 'ON' && personalDetails.personalDetail != undefined"
+                                            class="matFormField">
+                                            <input matInput placeholder="Nickname" (blur)="isBlur = true"
+                                                [(ngModel)]="personalDetails.personalDetail.nickname">
+                                        </mat-form-field>
+                                    </ion-col>
+                                    <ion-col style="flex: 1 1 30%; min-width: 150px;">
+                                        <ion-label class="label">Personal Phone Number</ion-label>
+                                        <p class="pText"
+                                            *ngIf="mode === 'OFF' && personalDetails.personalDetail != undefined">
+                                            {{personalDetails.personalDetail.phoneNumber}}</p>
+                                        <mat-form-field
+                                            *ngIf="mode === 'ON' && personalDetails.personalDetail != undefined"
+                                            class="matFormField">
+                                            <input matInput placeholder="Personal Phone Number" (blur)="isBlur = true"
+                                                [(ngModel)]="personalDetails.personalDetail.phoneNumber">
+                                        </mat-form-field>
+                                    </ion-col>
+                                    <!-- </ion-row>
+                                <ion-row class="detailsRow"> -->
+                                    <ion-col style="flex: 1 1 30%; min-width: 150px;">
+                                        <ion-label class="label">Personal Email Address</ion-label>
+                                        <p class="pText"
+                                            *ngIf="mode === 'OFF' && personalDetails.personalDetail != undefined">
+                                            {{personalDetails.personalDetail.emailAddress}}</p>
+                                        <mat-form-field
+                                            *ngIf="mode === 'ON' && personalDetails.personalDetail != undefined"
+                                            class="matFormField">
+                                            <input matInput placeholder="Personal Email Address" (blur)="isBlur = true"
+                                                [(ngModel)]="personalDetails.personalDetail.emailAddress" required>
+                                        </mat-form-field>
+                                    </ion-col>
+                                    <ion-col style="flex: 1 1 30%; min-width: 150px;">
+                                        <ion-label class="label">Work Phone Number</ion-label>
+                                        <p class="pText"
+                                            *ngIf="mode === 'OFF' && personalDetails.personalDetail != undefined">
+                                            {{personalDetails.personalDetail.workPhoneNumber}}</p>
+                                        <mat-form-field
+                                            *ngIf="mode === 'ON' && personalDetails.personalDetail != undefined"
+                                            class="matFormField">
+                                            <input matInput placeholder="Work Phone Number" (blur)="isBlur = true"
+                                                [(ngModel)]="personalDetails.personalDetail.workPhoneNumber">
+                                        </mat-form-field>
+                                    </ion-col>
+                                    <ion-col style="flex: 1 1 30%; min-width: 150px;">
+                                        <ion-label class="label">Work Email Address</ion-label>
+                                        <p class="pText"
+                                            *ngIf="mode === 'OFF' && personalDetails.personalDetail != undefined">
+                                            {{personalDetails.personalDetail.workEmailAddress}}
+                                        </p>
+                                        <mat-form-field
+                                            *ngIf="mode === 'ON' && personalDetails.personalDetail != undefined"
+                                            class="matFormField">
+                                            <input matInput placeholder="Work Email Address" (blur)="isBlur = true"
+                                                [(ngModel)]="personalDetails.personalDetail.workEmailAddress" required>
+                                        </mat-form-field>
+
+                                    </ion-col>
+                                    <!-- </ion-row>
+                                <ion-row class="detailsRow"> -->
+                                    <ion-col style="flex: 1 1 30%; min-width: 150px;">
+                                        <ion-label class="label">Birthdate</ion-label>
+                                        <p class="pText"
+                                            *ngIf="mode === 'OFF' && personalDetails.personalDetail != undefined">
+                                            {{personalDetails.personalDetail.dob}}
+                                        </p>
+                                        <mat-form-field
+                                            *ngIf="mode === 'ON' && personalDetails.personalDetail != undefined"
+                                            class="matFormField">
+                                            <input matInput placeholder="Birthdate" (blur)="isBlur = true"
+                                                [matDatepicker]="birthdate" [formControl]="birthOfDate">
+                                            <mat-datepicker-toggle matSuffix [for]="birthdate"></mat-datepicker-toggle>
+                                            <mat-datepicker #birthdate></mat-datepicker>
+                                        </mat-form-field>
+                                    </ion-col>
+                                    <ion-col style="flex: 1 1 30%; min-width: 150px;">
+                                        <ion-label class="label">NRIC</ion-label>
+                                        <p class="pText"
+                                            *ngIf="mode === 'OFF' && personalDetails.personalDetail != undefined">
+                                            {{personalDetails.personalDetail.nric}}
+                                        </p>
+                                        <mat-form-field
+                                            *ngIf="mode === 'ON' && personalDetails.personalDetail != undefined"
+                                            class="matFormField">
+                                            <input matInput placeholder="NRIC" (blur)="isBlur = true"
+                                                [(ngModel)]="personalDetails.personalDetail.nric" required>
+                                        </mat-form-field>
+                                    </ion-col>
+                                    <ion-col style="flex: 1 1 30%; min-width: 150px;">
+                                        <ion-label class="label">Gender</ion-label>
+                                        <p class="pText"
+                                            *ngIf="mode === 'OFF' && personalDetails.personalDetail != undefined">
+                                            {{personalDetails.personalDetail.gender}}</p>
+                                        <mat-form-field
+                                            *ngIf="mode === 'ON' && personalDetails.personalDetail != undefined"
+                                            class="matFormField">
+                                            <mat-select placeholder="Gender" (blur)="isBlur = true"
+                                                [(value)]="personalDetails.personalDetail.gender">
+                                                <mat-option value="Female">Female</mat-option>
+                                                <mat-option value="Male">Male</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </ion-col>
+                                    <!-- </ion-row>
+                                <ion-row class="detailsRow"> -->
+                                    <ion-col style="flex: 1 1 30%; min-width: 150px;">
+                                        <ion-label class="label">Religion</ion-label>
+                                        <p class="pText"
+                                            *ngIf="mode === 'OFF' && personalDetails.personalDetail != undefined">
+                                            {{personalDetails.personalDetail.religion}}</p>
+                                        <mat-form-field
+                                            *ngIf="mode === 'ON' && personalDetails.personalDetail != undefined"
+                                            class="matFormField">
+                                            <input matInput placeholder="Religion" (blur)="isBlur = true"
+                                                [(ngModel)]="personalDetails.personalDetail.religion">
+                                        </mat-form-field>
+                                    </ion-col>
+                                    <ion-col style="flex: 1 1 30%; min-width: 150px;">
+                                        <ion-label class="label">Race</ion-label>
+                                        <p class="pText"
+                                            *ngIf="mode === 'OFF' && personalDetails.personalDetail != undefined">
+                                            {{personalDetails.personalDetail.race}}
+                                        </p>
+                                        <mat-form-field
+                                            *ngIf="mode === 'ON' && personalDetails.personalDetail != undefined"
+                                            class="matFormField">
+                                            <input matInput placeholder="Race" (blur)="isBlur = true"
+                                                [(ngModel)]="personalDetails.personalDetail.race">
+                                        </mat-form-field>
+                                    </ion-col>
+                                    <ion-col style="flex: 1 1 30%; min-width: 150px;">
+                                        <ion-label class="label">Marital Status</ion-label>
+                                        <p class="pText"
+                                            *ngIf="mode === 'OFF' && personalDetails.personalDetail != undefined">
+                                            {{personalDetails.personalDetail.maritalStatus}}</p>
+                                        <mat-form-field
+                                            *ngIf="mode === 'ON' && personalDetails.personalDetail != undefined"
+                                            class="matFormField">
+                                            <mat-select placeholder="Marital Status" (blur)="isBlur = true"
+                                                [(value)]="personalDetails.personalDetail.maritalStatus">
+                                                <mat-option value="Single">Single</mat-option>
+                                                <mat-option value="Married">Married</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </ion-col>
+
+                                    <!-- </ion-row>
+                                <ion-row class="detailsRow"> -->
+                                    <ion-col style="flex: 1 1 30%; min-width: 150px;">
+                                        <ion-label class="label">Nationality</ion-label>
+                                        <p class="pText"
+                                            *ngIf="mode === 'OFF' && personalDetails.personalDetail != undefined">
+                                            {{personalDetails.personalDetail.nationality}}</p>
+                                        <mat-form-field
+                                            *ngIf="mode === 'ON' && personalDetails.personalDetail != undefined"
+                                            class="matFormField">
+                                            <input matInput placeholder="Nationality" (blur)="isBlur = true"
+                                                [(ngModel)]="personalDetails.personalDetail.nationality">
+                                        </mat-form-field>
+                                    </ion-col>
+                                    <!-- <ion-col></ion-col>
+                                    <ion-col></ion-col> -->
+                                    <!-- </ion-row>
+                                <ion-row class="detailsRow"
+                                    *ngIf="mode === 'OFF' && personalDetails.personalDetail != undefined"> -->
+                                    <ion-col style="flex: 1 1 30%; min-width: 150px;"
+                                        *ngIf="mode === 'OFF' && personalDetails.personalDetail != undefined">
+                                        <ion-label class="label" style="display: block;">Residential Address</ion-label>
+                                        <div style="white-space: pre-line;">
+                                            <p style="display: inline" class="pText"
+                                                *ngIf="personalDetails.personalDetail.address1 !== ''">
+                                                {{personalDetails.personalDetail.address1}},</p>
+                                            <p style="display: inline" class="pText"
+                                                *ngIf="personalDetails.personalDetail.address2 !== ''">
+                                                {{personalDetails.personalDetail.address2}},</p>
+                                            <p style="display: inline" class="pText"
+                                                *ngIf="personalDetails.personalDetail.postcode !== ''">
+                                                {{personalDetails.personalDetail.postcode}},
+                                            </p>
+                                            <p style="display: inline" class="pText"
+                                                *ngIf="personalDetails.personalDetail.city !== ''">
+                                                {{personalDetails.personalDetail.city}},</p>
+                                            <p style="display: inline" class="pText"
+                                                *ngIf="personalDetails.personalDetail.state !== ''">
+                                                {{personalDetails.personalDetail.state}},</p>
+                                            <p style="display: inline" class="pText"
+                                                *ngIf="personalDetails.personalDetail.country !== ''">
+                                                {{personalDetails.personalDetail.country}}.</p>
+                                        </div>
+                                    </ion-col>
+                                    <ion-col style="flex: 1 1 30%; min-width: 150px;"></ion-col>
+                                </ion-row>
+                                <ion-row style="padding-left: 15px;">
+                                    <ion-label *ngIf="mode === 'ON' && personalDetails.personalDetail != undefined"
+                                        class="label" style="display: block;">Residential Address</ion-label>
+                                </ion-row>
+                                <ion-row class="detailsRow"
+                                    *ngIf="mode === 'ON' && personalDetails.personalDetail != undefined">
+                                    <ion-col style="overflow: initial;">
+                                        <mat-form-field class="matFormField">
+                                            <input matInput placeholder="Address line 1" (blur)="isBlur = true"
+                                                [(ngModel)]="personalDetails.personalDetail.address1">
+                                        </mat-form-field>
+                                    </ion-col>
+                                    <ion-col style="overflow: initial;">
+                                        <mat-form-field class="matFormField">
+                                            <input matInput placeholder="Address line 2" (blur)="isBlur = true"
+                                                [(ngModel)]="personalDetails.personalDetail.address2">
+                                        </mat-form-field>
+                                    </ion-col>
+                                    <ion-col style="overflow: initial;">
+                                        <mat-form-field class="matFormField">
+                                            <input matInput placeholder="Postcode" (blur)="isBlur = true"
+                                                [(ngModel)]="personalDetails.personalDetail.postcode">
+                                        </mat-form-field>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row class="detailsRow"
+                                    *ngIf="mode === 'ON' && personalDetails.personalDetail != undefined">
+                                    <ion-col style="overflow: initial;">
+                                        <mat-form-field class="matFormField">
+                                            <input matInput placeholder="City" (blur)="isBlur = true"
+                                                [(ngModel)]="personalDetails.personalDetail.city">
+                                        </mat-form-field>
+                                    </ion-col>
+                                    <ion-col style="overflow: initial;">
+                                        <mat-form-field class="matFormField">
+                                            <input matInput placeholder="State" (blur)="isBlur = true"
+                                                [(ngModel)]="personalDetails.personalDetail.state">
+                                        </mat-form-field>
+                                    </ion-col>
+                                    <ion-col style="overflow: initial;">
+                                        <mat-form-field class="matFormField">
+                                            <input matInput placeholder="Country" (blur)="isBlur = true"
+                                                [(ngModel)]="personalDetails.personalDetail.country">
+                                        </mat-form-field>
+                                    </ion-col>
+                                </ion-row>
+                            </div>
+                            <div (click)="showEmploy = true;showCalendar = false;showRole = false;showPersonal = false;showOthers=false "
+                                style="cursor: pointer;margin-top: 10px;margin-bottom: 10px;font-size: 12px;width:100%;background: #f5f6fa;padding: 15px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
+                                EMPLOYMENT DETAILS</div>
+                            <div *ngIf="employmentDetails && showEmploy">
+                                <app-add-one-employee [disabledEditMode]="mode === 'OFF'"
+                                    [getDetails]="employmentDetails" (sendFormdata)="receiveData($event)">
+                                </app-add-one-employee>
+                                <ion-item class="divider" lines="full" style="padding-left: 15px;
+                                    padding-right: 15px;padding-top: 2%;padding-bottom: 2%;">
+                                </ion-item>
+                                <ion-row class="detailsRow"
+                                    style="display: flex; flex-flow: row wrap; max-width: 100%;">
+                                    <ion-col style="flex: 1 1 30%; min-width: 150px;">
+                                        <ion-label class="label">Employee ID No</ion-label>
+                                        <p class="pText"
+                                            *ngIf="mode === 'OFF' && employmentDetails.employmentDetail != undefined">
+                                            {{employmentDetails.employmentDetail.employeeId}}</p>
+                                        <mat-form-field
+                                            *ngIf="mode === 'ON' && employmentDetails.employmentDetail != undefined"
+                                            class="matFormField">
+                                            <input matInput placeholder="Staff ID" (blur)="isBlurEmployment = true"
+                                                [(ngModel)]="employmentDetails.employmentDetail.employeeId">
+                                            <mat-hint *ngIf="recentId" style="font-size: 10px;color: #7069d8;">Recent
+                                                ID:
+                                                {{recentId.recentStaffId}}</mat-hint>
+                                        </mat-form-field>
+                                    </ion-col>
+                                    <ion-col style="flex: 1 1 30%; min-width: 150px;">
+                                        <ion-label class="label">Designation</ion-label>
+                                        <p class="pText"
+                                            *ngIf="mode === 'OFF' && employmentDetails.employmentDetail != undefined">
+                                            {{employmentDetails.employmentDetail.designation}}</p>
+                                        <mat-form-field
+                                            *ngIf="mode === 'ON' && employmentDetails.employmentDetail != undefined"
+                                            class="matFormField">
+                                            <input matInput placeholder="Designation" (blur)="isBlurEmployment = true"
+                                                [(ngModel)]="employmentDetails.employmentDetail.designation">
+                                        </mat-form-field>
+                                    </ion-col>
+                                    <ion-col style="flex: 1 1 30%; min-width: 150px;">
+                                        <ion-label class="label">Reporting To</ion-label>
+                                        <p class="pText"
+                                            *ngIf="mode === 'OFF' && employmentDetails.employmentDetail != undefined">
+                                            {{employmentDetails.employmentDetail.reportingTo}}</p>
+                                        <mat-form-field
+                                            *ngIf="mode === 'ON' && employmentDetails.employmentDetail != undefined"
+                                            class="matFormField">
+                                            <input matInput placeholder="Reporting To" (blur)="isBlurEmployment = true"
+                                                [(ngModel)]="employmentDetails.employmentDetail.reportingTo">
+                                        </mat-form-field>
+                                    </ion-col>
+                                </ion-row>
+                                <!-- <ion-row class="detailsRow">
+                                    <ion-col>
+                                        <ion-label class="label">Department</ion-label>
+                                        <p class="pText"
+                                            *ngIf="mode === 'OFF' && employmentDetails.employmentDetail != undefined">
+                                            {{employmentDetails.employmentDetail.department}}</p>
+                                        <mat-form-field
+                                            *ngIf="mode === 'ON' && employmentDetails.employmentDetail != undefined"
+                                            class="matFormField">
+                                            <input matInput [(ngModel)]="employmentDetails.employmentDetail.department">
+                                        </mat-form-field>
+                                    </ion-col>
+                                    <ion-col>
+                                        <!-- <ion-label class="label">Work Location</ion-label>
+                                        <p class="pText"
+                                            *ngIf="mode === 'OFF' && employmentDetails.employmentDetail != undefined">
+                                            {{employmentDetails.employmentDetail.branch}}</p>
+                                        <mat-form-field
+                                            *ngIf="mode === 'ON' && employmentDetails.employmentDetail != undefined"
+                                            class="matFormField">
+                                            <input matInput [(ngModel)]="employmentDetails.employmentDetail.branch">
+                                        </mat-form-field> --
+                                    </ion-col>
+                                    <ion-col>
+                                    </ion-col>
+                                </ion-row> -->
+                                <ion-item class="divider" lines="full" style="padding-left: 15px;
+                                padding-right: 15px;padding-top: 2%;padding-bottom: 2%;">
+                                </ion-item>
+                                <ion-row class="detailsRow"
+                                    style="display: flex; flex-flow: row wrap; max-width: 100%;">
+                                    <ion-col style="flex: 1 1 30%; min-width: 150px;">
+                                        <ion-label class="label">Employment Type</ion-label>
+                                        <p class="pText"
+                                            *ngIf="mode === 'OFF' && employmentDetails.employmentDetail != undefined">
+                                            {{employmentDetails.employmentDetail.employmentType}}
+                                        </p>
+                                        <!-- <mat-form-field *ngIf="mode === 'ON'" class="matFormField">
+                                            <input matInput
+                                                [(ngModel)]="employmentDetails.employmentDetail.employmentType">
+                                        </mat-form-field> -->
+                                        <mat-form-field
+                                            *ngIf="mode === 'ON' && employmentDetails.employmentDetail != undefined"
+                                            class="matFormField">
+                                            <mat-select placeholder="Employment Type" (blur)="isBlurEmployment = true"
+                                                [(value)]="employmentDetails.employmentDetail.employmentType">
+                                                <mat-option value="Permanent">Permanent</mat-option>
+                                                <mat-option value="Contract">Contract</mat-option>
+                                                <mat-option value="Temporary">Temporary</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </ion-col>
+                                    <ion-col style="flex: 1 1 30%; min-width: 150px;">
+                                        <ion-label class="label">Employment Status</ion-label>
+                                        <p class="pText"
+                                            *ngIf="mode === 'OFF' && employmentDetails.employmentDetail != undefined">
+                                            {{employmentDetails.employmentDetail.employmentStatus}}</p>
+                                        <!-- <mat-form-field *ngIf="mode === 'ON'" class="matFormField">
+                                            <input matInput
+                                                [(ngModel)]="employmentDetails.employmentDetail.employmentStatus">
+                                        </mat-form-field> -->
+                                        <mat-form-field
+                                            *ngIf="mode === 'ON' && employmentDetails.employmentDetail != undefined"
+                                            class="matFormField">
+                                            <mat-select placeholder="Employment Status" (blur)="isBlurEmployment = true"
+                                                [(value)]="employmentDetails.employmentDetail.employmentStatus">
+                                                <mat-option value="Probation">Probation</mat-option>
+                                                <mat-option value="Confirmed">Confirmed</mat-option>
+                                                <mat-option value="Terminated">Terminated</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </ion-col>
+                                    <ion-col style="flex: 1 1 30%; min-width: 150px;">
+                                        <ion-label class="label">Date of Hired</ion-label>
+                                        <p class="pText"
+                                            *ngIf="mode === 'OFF' && employmentDetails.employmentDetail != undefined">
+                                            {{employmentDetails.employmentDetail.dateOfJoin}}</p>
+                                        <mat-form-field
+                                            *ngIf="mode === 'ON' && employmentDetails.employmentDetail != undefined"
+                                            class="matFormField">
+                                            <input matInput placeholder="Date of Hired" (blur)="isBlurEmployment = true"
+                                                [matDatepicker]="dateJoin" [formControl]="dateOfJoin" required>
+                                            <mat-datepicker-toggle matSuffix [for]="dateJoin"></mat-datepicker-toggle>
+                                            <mat-datepicker #dateJoin (closed)="isBlurEmployment = true">
+                                            </mat-datepicker>
+                                        </mat-form-field>
+                                    </ion-col>
+                                    <!-- </ion-row>
+                                <ion-row class="detailsRow"> -->
+                                    <ion-col style="flex: 1 1 30%; min-width: 150px;">
+                                        <ion-label class="label">Date of Confirmation</ion-label>
+                                        <p class="pText"
+                                            *ngIf="mode === 'OFF' && employmentDetails.employmentDetail != undefined">
+                                            {{employmentDetails.employmentDetail.dateOfConfirmation}}</p>
+                                        <mat-form-field
+                                            *ngIf="mode === 'ON' && employmentDetails.employmentDetail != undefined"
+                                            class="matFormField">
+                                            <input matInput placeholder="Date of Confirmation"
+                                                (blur)="isBlurEmployment = true" [matDatepicker]="dateConfirm"
+                                                [formControl]="dateOfConfirm">
+                                            <mat-datepicker-toggle matSuffix [for]="dateConfirm">
+                                            </mat-datepicker-toggle>
+                                            <mat-datepicker #dateConfirm></mat-datepicker>
+                                        </mat-form-field>
+                                    </ion-col>
+                                    <ion-col style="flex: 1 1 30%; min-width: 150px;">
+                                        <ion-label class="label">Date of Resignation</ion-label>
+                                        <p class="pText"
+                                            *ngIf="mode === 'OFF' && employmentDetails.employmentDetail != undefined">
+                                            {{employmentDetails.employmentDetail.dateOfResignation}}
+                                        </p>
+                                        <mat-form-field
+                                            *ngIf="mode === 'ON' && employmentDetails.employmentDetail != undefined"
+                                            class="matFormField">
+                                            <input matInput [matDatepicker]="dateResign"
+                                                (blur)="isBlurEmployment = true" placeholder="Date of Resignation"
+                                                [formControl]="dateOfResignation">
+                                            <mat-datepicker-toggle matSuffix [for]="dateResign">
+                                            </mat-datepicker-toggle>
+                                            <mat-datepicker #dateResign></mat-datepicker>
+                                        </mat-form-field>
+                                    </ion-col>
+                                    <ion-col style="flex: 1 1 30%; min-width: 150px;">
+                                        <ion-label class="label">Years of Service</ion-label>
+                                        <p class="pText" *ngIf="employmentDetails.employmentDetail != undefined">
+                                            {{employmentDetails.employmentDetail.yearOfService}}</p>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-item class="divider" lines="full" style="padding-top: 2%;padding-bottom: 2%;padding-left: 15px;
+                                padding-right: 15px;">
+                                </ion-item>
+                                <ion-row class="detailsRow"
+                                    style="display: flex; flex-flow: row wrap; max-width: 100%;">
+                                    <ion-col style="flex: 1 1 30%; min-width: 150px;">
+                                        <ion-label class="label">Bank Account Name</ion-label>
+                                        <p class="pText"
+                                            *ngIf="mode === 'OFF' && employmentDetails.employmentDetail != undefined">
+                                            {{employmentDetails.employmentDetail.bankAccountName}}</p>
+                                        <mat-form-field
+                                            *ngIf="mode === 'ON' && employmentDetails.employmentDetail != undefined"
+                                            class="matFormField">
+                                            <input matInput placeholder="Bank Account Name"
+                                                (blur)="isBlurEmployment = true"
+                                                [(ngModel)]="employmentDetails.employmentDetail.bankAccountName">
+                                        </mat-form-field>
+                                    </ion-col>
+                                    <ion-col style="flex: 1 1 30%; min-width: 150px;">
+                                        <ion-label class="label">Bank Account No</ion-label>
+                                        <p class="pText"
+                                            *ngIf="mode === 'OFF' && employmentDetails.employmentDetail != undefined">
+                                            {{employmentDetails.employmentDetail.bankAccountNumber}}</p>
+                                        <mat-form-field
+                                            *ngIf="mode === 'ON' && employmentDetails.employmentDetail != undefined"
+                                            class="matFormField">
+                                            <input matInput placeholder="Bank Account No"
+                                                (blur)="isBlurEmployment = true"
+                                                [(ngModel)]="employmentDetails.employmentDetail.bankAccountNumber">
+                                        </mat-form-field>
+                                    </ion-col>
+                                    <ion-col style="flex: 1 1 30%; min-width: 150px;">
+                                        <ion-label class="label">EPF No</ion-label>
+                                        <p class="pText"
+                                            *ngIf="mode === 'OFF' && employmentDetails.employmentDetail != undefined">
+                                            {{employmentDetails.employmentDetail.epfNumber}}</p>
+                                        <mat-form-field
+                                            *ngIf="mode === 'ON' && employmentDetails.employmentDetail != undefined"
+                                            class="matFormField">
+                                            <input matInput placeholder="EPF No" (blur)="isBlurEmployment = true"
+                                                [(ngModel)]="employmentDetails.employmentDetail.epfNumber">
+                                        </mat-form-field>
+                                    </ion-col>
+                                    <!-- </ion-row>
+                                <ion-row class="detailsRow"> -->
+                                    <ion-col style="flex: 1 1 30%; min-width: 150px;">
+                                        <ion-label class="label">Income Tax No</ion-label>
+                                        <p class="pText"
+                                            *ngIf="mode === 'OFF' && employmentDetails.employmentDetail != undefined">
+                                            {{employmentDetails.employmentDetail.incomeTaxNumber}}</p>
+                                        <mat-form-field
+                                            *ngIf="mode === 'ON' && employmentDetails.employmentDetail != undefined"
+                                            class="matFormField">
+                                            <input matInput placeholder="Income Tax No" (blur)="isBlurEmployment = true"
+                                                [(ngModel)]="employmentDetails.employmentDetail.incomeTaxNumber">
+                                        </mat-form-field>
+                                    </ion-col>
+                                    <ion-col style="flex: 1 1 30%; min-width: 150px;"></ion-col>
+                                    <ion-col style="flex: 1 1 30%; min-width: 150px;"></ion-col>
+                                </ion-row>
+                                <ion-item class="divider" lines="full" style="padding-top: 2%;padding-bottom: 2%;padding-left: 15px;
+                                padding-right: 15px;">
+                                </ion-item>
+                            </div>
+                            <div (click)="showCalendar = true;showRole = false; showEmploy = false;showPersonal = false; showOthers=false"
+                                style="cursor: pointer;margin-top: 10px;margin-bottom: 10px;font-size: 12px;width:100%;background: #f5f6fa;padding: 15px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
+                                CALENDAR, WORKING HOUR & LEAVE ENTITLEMENT</div>
+                            <div *ngIf="showCalendar">
+                                <div style="display: inline-block;">
+                                    <p style="padding-left: 15px;font-size: 12px;font-weight: bold;color: #808495;">
+                                        Assign Calendar Profile</p>
+                                    <mat-form-field appearance="outline"
+                                        style="font-size: 12px;width: 100%;padding-left: 15px;">
+                                        <mat-label>Select calendar profile</mat-label>
+                                        <mat-select (blur)="isBlurAssign = true" required [disabled]="mode === 'OFF'"
+                                            *ngIf="lengthCalendarList > 0" [(value)]="calendarValue">
+                                            <mat-option *ngFor="let item of calendarList; let j=index"
+                                                [value]="item.calendar_guid" class="profile-dropdown">
+                                                <div
+                                                    style="max-width: 200px; overflow: hidden; text-overflow: ellipsis;">
+                                                    {{item.code}}</div>
+                                                <div style="opacity: 0.8; color: #babdc7;margin-right: 5px;"
+                                                    *ngIf="item.isDefault">(Default)</div>
+                                                <!-- <ion-icon name="star" style="opacity: 0.8; width: 16px; height: 16px;
+                                                color: #babdc7;margin-right: 5px;" *ngIf="item.isDefault">
+                                                </ion-icon> -->
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-select (blur)="isBlurAssign = true" required [disabled]="mode === 'OFF'"
+                                            *ngIf="lengthCalendarList === 0" [(value)]="selected">
+                                            <mat-option
+                                                (click)="menuOpen = true;inviteAPI.menu.enable(true,
+                                                'addNewCalendarProfileDetails');inviteAPI.menu.open('addNewCalendarProfileDetails')">
+                                                Create New</mat-option>
+                                        </mat-select>
+                                        <!-- <mat-select required [disabled]="mode === 'OFF'" [(value)]="calendarValue">
+                                            <mat-option *ngFor="let item of calendarList; let j=index"
+                                                [value]="item.calendar_guid">
+                                                {{item.code}}</mat-option>
+                                        </mat-select> -->
+                                    </mat-form-field>
+                                </div>
+                                &nbsp;&nbsp;
+                                <div style="display: inline-block;">
+                                    <p style="padding-left: 15px;font-size: 12px;font-weight: bold;color: #808495;">
+                                        Assign Working Hour Profile</p>
+                                    <mat-form-field appearance="outline"
+                                        style="font-size: 12px;width: 100%;padding-left: 15px;">
+                                        <mat-label>Select working hour profile</mat-label>
+                                        <mat-select (blur)="isBlurAssign = true" required [disabled]="mode === 'OFF'"
+                                            *ngIf="lengthWorkingList > 0" [(value)]="workingValue">
+                                            <mat-option *ngFor="let item of workingList; let j=index"
+                                                [value]="item.working_hours_guid" class="profile-dropdown">
+                                                <div
+                                                    style="max-width: 200px; overflow: hidden; text-overflow: ellipsis;">
+                                                    {{item.code}}</div>
+                                                <div style="opacity: 0.8; color: #babdc7;margin-right: 5px;"
+                                                    *ngIf="item.isDefault">(Default)</div>
+                                                <!-- <ion-icon name="star" style="opacity: 0.8; width: 16px; height: 16px;
+                                                color: #babdc7;margin-right: 5px;" *ngIf="item.isDefault"></ion-icon> -->
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-select (blur)="isBlurAssign = true" required [disabled]="mode === 'OFF'"
+                                            *ngIf="lengthWorkingList === 0" [(value)]="workingValue">
+                                            <mat-option
+                                                (click)="menuOpen = true;inviteAPI.menu.enable(true,
+                                                'addNewWorkingHourDetails');inviteAPI.menu.open('addNewWorkingHourDetails')">
+                                                Create New</mat-option>
+                                            <!-- <mat-option *ngFor="let item of workingList; let j=index"
+                                                [value]="item.working_hours_guid">
+                                                {{item.code}}</mat-option> -->
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div style="display: block;">
+                                    <p style="padding-left: 15px;font-size: 12px;font-weight: bold;color: #808495;">
+                                        Assign Leave Entitlement</p>
+                                    <p style="padding-left: 15px;font-size: 11px;color: #808495;margin-bottom: 10px;">
+                                        Select & add respective leave entitlement for this employee here</p>
+                                    <div *ngFor="let entitlement of addEntitlement; let i = index"
+                                        style="display: flex; flex-flow: row wrap; padding-left: 15px;">
+                                        <mat-form-field appearance="outline" class="selectForm"
+                                            style="font-size: 12px;flex: 2 1 40%; min-width: 150px;">
+                                            <mat-label>Select leave entitlement</mat-label>
+                                            <mat-select (blur)="isBlurAssign = true" required
+                                                [disabled]="mode === 'OFF'" [(value)]="addEntitlement[i].leavetype"
+                                                (selectionChange)="changeLeaveEntitlement(addEntitlement, entitlement.userLeaveEntitlement)">
+                                                <mat-option *ngFor="let item of entitlementList; let j=index"
+                                                    [value]="item.leaveTypeId"
+                                                    (click)="getLeaveTypeEntitlementId(item.leaveTypeId, item.leaveEntitlementId, i)">
+                                                    {{item.leaveType}} - {{item.leaveEntitlementCode}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        &nbsp;&nbsp;
+                                        <mat-form-field appearance="outline" style="font-size: 12px;font-weight: bold; font-size: 12px; font-weight: bold; flex: 1 1 20%;
+                                            min-width: 150px;">
+                                            <mat-label>Days Available</mat-label>
+                                            <input matInput [(ngModel)]="addEntitlement[i].balance" disabled>
+                                        </mat-form-field>
+                                        <div style="flex:1;"></div>
+                                        &nbsp;&nbsp; &nbsp;&nbsp;
+                                        <div style="padding-top:15px;">
+                                            <img *ngIf="mode === 'ON' && i !== 0"
+                                                style="cursor: pointer;width: 11px;height: 11px;display: inline-block;"
+                                                src="assets/icon/leave_setup/icon_trash@3x.png"
+                                                (click)="deleteEntitlement(i)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="mode === 'ON'" style="padding-left: 15px;padding-bottom: 15px;
+                                margin-top: -15px;"><img
+                                        style="cursor: pointer;margin-right: 6px;width: 14px;height: 14px;display: inline-block;"
+                                        src="assets/icon/leave_setup/icon_request@3x.png" (click)="addNewEntitlement()">
+                                    <p style="cursor: pointer;color: #808495;font-size: 11px;font-weight: bold;display: inline-block;"
+                                        (click)="addNewEntitlement()">
+                                        Add New Leave Entitlement</p>
+                                </div>
+                            </div>
+                            <div (click)="showRole = true; showCalendar = false; showEmploy = false;showPersonal = false;showOthers= false"
+                                style="cursor: pointer;margin-bottom: 10px;font-size: 12px;width:100%;background: #f5f6fa;padding: 15px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
+                                EMPLOYEE ROLE</div>
+                            <div *ngIf="showRole">
+                                <p style="padding-left: 15px;font-size: 12px;font-weight: bold;color: #808495;">Assign
+                                    Role To This Employee
+                                </p>
+                                <p style="padding-left: 15px;font-size: 11px;color: #808495;">Select role for this user.
+                                    Please note that he/she will be able to make changes based on role type assigned.
+                                </p>
+                                <mat-form-field appearance="outline" *ngIf="roleListLength > 0"
+                                    style="width: 40%;padding-left: 15px;font-size: 12px;">
+                                    <mat-label> Types of role</mat-label>
+                                    <mat-select (blur)="isBlurRole = true" required [disabled]="mode === 'OFF'"
+                                        [(value)]="roleValue">
+                                        <mat-option *ngFor="let item of roleList; let j=index" [value]="item.role_guid"
+                                            class="profile-dropdown">
+                                            <div style="max-width: 200px; overflow: hidden; text-overflow: ellipsis;">
+                                                {{item.code}}</div>
+                                            <div style="opacity: 0.8; color: #babdc7;
+                                            margin-right: 5px;" *ngIf="item.isDefault">(Default)</div>
+                                            <!-- <ion-icon name="star" style="opacity: 0.8; width: 16px; height: 16px;
+                                                color: #babdc7;margin-right: 5px;" *ngIf="item.isDefault">
+                                            </ion-icon> -->
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" *ngIf="roleListLength === 0"
+                                    style="width: 40%;padding-left: 15px;font-size: 12px;">
+                                    <mat-label *ngIf="roleListLength === 0">Not Available</mat-label>
+                                    <mat-select (blur)="isBlurRole = true" required [disabled]="mode === 'OFF'"
+                                        *ngIf="roleListLength === 0">
+                                        <mat-option (click)="menuOpen = true;inviteAPI.menu.enable(true,
+                                                'createNewRolePopup');inviteAPI.menu.open('createNewRolePopup')">
+                                            Create New</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div (click)="showPersonal = false;showEmploy = false;showCalendar = false;showRole = false;showOthers=true"
+                                style="cursor: pointer;margin-bottom: 10px;font-size: 12px;width:100%;background: #f5f6fa;padding: 15px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
+                                EMERGENCY CONTACT, FAMILY INFORMATION, EDUCATION & CERTIFICATION</div>
+                            <div *ngIf="showOthers">
+                                <app-othes-information-tab (personal)="value($event)" [details]="personalDetails"
+                                    [mode]="mode">
+                                </app-othes-information-tab>
+                            </div>
+                        </ion-card-content>
+                    </div>
+                </div>
+            </ion-card-content>
+        </div>
+    </div>
+</ion-card>
+
+<!-- -----------------------------------------LIST VIEW---------------------------------------- -->
+
+<!-- <div class="connectionsContainer" *ngIf="listView">
+    <div class="topHeader">
+        <span class="numOfPeople" *ngIf="list">{{list.length}} people</span>
+        <ion-searchbar mode="ios" class="searchbar" placeholder="Search by name" (ionClear)="endPoint();
+        disableNextButton = false;disablePrevButton = true;listView=true;" (ionChange)="changeDetails($event)">
+        </ion-searchbar>
+        <div style="white-space: nowrap;margin-right: 7px;float: right;">
+            <div style="padding-top: 18px;display: inline-block;padding-left: 75px;padding-right: 15px;">
+                <i class="fas fa-bars" (click)="viewType(true, 6, 5)"
+                    [style.color]="listView ? '#7a8589' : '#bebebe'"></i>
+                <i class="fas fa-th" (click)="viewType(false, 8, 7)"
+                    [style.color]="gridView ? '#7a8589' : '#bebebe'"></i>
+            </div>
+            <div style="color: #7a8589;font-size: 12px;display: inline;padding-left: 3%;">
+                <span style="padding-right: 10px;">Page</span>
+                <span style="border-radius: 1.5px;border: solid 0.5px #dfe3e6;padding-left: 7px;
+                    padding-right: 7px;">{{pageIndex}}</span>
+                <span style="padding-right: 10px;padding-right: 5px;padding-left: 5px;">of</span>{{totalPageIndex}}
+                <i class="fas fa-angle-left" title="Previous page"
+                    style="padding-left: 10px;padding-right: 10px;font-size: 15px;cursor: pointer;"
+                    (click)="clickToPrevPage(pageIndex-1)"></i>
+                <i class="fas fa-angle-right" title="Next page"
+                    style="cursor:pointer; font-size: 15px;padding-left: 10px"
+                    (click)="clickToNextPage(pageIndex+1)"></i>
+            </div>
+        </div>
+    </div>
+    <div style="width: 100%; height:100%; text-align: center;margin-top: -30px" *ngIf="showSpinner">
+        <app-spinner></app-spinner>
+    </div>
+    <ion-content *ngIf="showContent" style="padding: 20px;height: calc( 100% - 118px);">
+        <ion-row class="titleRow">
+            <ion-col size="0.7">
+                <ion-checkbox mode="ios" style="width: 20px; height: 20px;margin-top: 6px;" [(ngModel)]="mainCheck"
+                    [indeterminate]="indeterminateCheck" (click)="checkboxEvent()">
+                </ion-checkbox>
+            </ion-col>
+            <ion-col size="1">
+                <ion-label style="font-size: 12px;">ID</ion-label>
+                <ion-icon class="arrow" name="arrow-dropdown" (click)="sortId(false, 1, -1)" *ngIf="arrowDownId">
+                </ion-icon>
+                <ion-icon class="arrow" name="arrow-dropup" *ngIf="!arrowDownId" (click)="sortId(true, -1, 1)">
+                </ion-icon>
+            </ion-col>
+            <ion-col size="3.5">
+                <ion-label style="font-size: 12px;">EMPLOYEE NAME</ion-label>
+                <ion-icon class="arrow" name="arrow-dropdown" (click)="sortName(false, 1, -1)" *ngIf="arrowDownName">
+                </ion-icon>
+                <ion-icon class="arrow" name="arrow-dropup" *ngIf="!arrowDownName" (click)="sortName(true, -1, 1)">
+                </ion-icon>
+            </ion-col>
+            <ion-col size="3.5">
+                <ion-label style="font-size: 12px;">DESIGNATION</ion-label>
+            </ion-col>
+            <ion-col size="1.2">
+                <ion-label style="font-size: 12px;">STATUS</ion-label>
+            </ion-col>
+            <ion-col>
+            </ion-col>
+        </ion-row>
+        <ion-row class="detailsRow" *ngFor="let item of currentPageItems; let i=index">
+            <ion-col size="0.7">
+                <ion-avatar class="avatar" (mouseover)="mouseHoverEvent(i, true, item.isChecked)"
+                    (mouseout)="mouseHoverEvent(i, false, item.isChecked)">
+                    <img src="assets/icon/evans.jpg" style="margin-left: -4px;"
+                        [style.display]="hideAvatar[i] ? 'none' : 'block'">
+                    <div class="checkboxOnAvatar" [style.display]="hideAvatar[i] ? 'block' : 'none'">
+                        <ion-checkbox mode="ios" style="width: 20px; height: 20px;position: absolute;margin-top: 7px;"
+                            [(ngModel)]="item.isChecked" (ionChange)="listEvent()">
+                        </ion-checkbox>
+                    </div>
+                </ion-avatar>
+            </ion-col>
+            <ion-col size="1">
+                <ion-label style="color:#7a8589; font-size: 13px;">{{item.staffNumber}}</ion-label>
+            </ion-col>
+            <ion-col class="colOfLeave" size="3.5" style="color: #057dcd; font-size: 13px;cursor: pointer;"
+                (click)="router.navigate(['/main/employee-profile'], { queryParams: { GUID: item.userId, name: item.employeeName } });">
+                {{item.employeeName}}
+            </ion-col>
+            <ion-col class="colOfLeave" size="3.5" style="color:#7a8589; font-size: 13px;">{{item.designation}}
+            </ion-col>
+            <ion-col class="colOfLeave" size="1.2" style="color:#7a8589; font-size: 13px;">{{item.status}}
+            </ion-col>
+            <ion-col>
+                <!-- <div class="trash-icon" [inlineSVG]="'assets/icon/option/trash.svg'" [matMenuTriggerFor]="menu">
+                </div> --
+                <ion-icon class="more" name="more" [matMenuTriggerFor]="menu"></ion-icon>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item style="color: #7a8589">Enable</button>
+                    <button mat-menu-item style="color: #7a8589"
+                        (click)="setUserStatus(item.employeeName, item.userId, 'disable')">Disable</button>
+                    <button mat-menu-item style="color: #7a8589"
+                        (click)="setUserStatus(item.employeeName, item.userId, 'delete')">
+                        Delete
+                    </button>
+                </mat-menu>
+            </ion-col>
+            <ion-item class="divider" lines="full"></ion-item>
+        </ion-row>
+    </ion-content>
+    <div style="padding-right: 20px;display: inline-flex;width: 97%;min-width: 330px;">
+        <ion-button [disabled]="disablePrevButton" fill="outline" (click)="clickToPrevPage(pageIndex-1)"
+            style="text-transform: capitalize;font-size: 12px;height: 30px;width: 90px;" color="primary">
+            <div style="width: 12px;height: 12px;fill: #057dcd;float: left;cursor: pointer;"
+                [inlineSVG]="'assets/icon/option/arrow-pointing-to-left.svg'">
+            </div><span style="padding-left: 5px; padding-right: 5px">Prev</span>
+        </ion-button>
+        <div style="padding-left: 10px"></div>
+        <ion-button [disabled]="disableNextButton"
+            style="text-transform: capitalize;font-size: 12px;height: 30px;width: 90px;" color="primary"
+            (click)="clickToNextPage(pageIndex+1)"><span style="padding-right: 10px;padding-left: 5px">Next</span>
+            <!-- <ion-icon name="arrow-forward"></ion-icon> --
+            <div style="width: 12px;height: 12px;fill: white;float: left;cursor: pointer;"
+                [inlineSVG]="'assets/icon/option/arrow-pointing-to-right.svg'">
+            </div>
+        </ion-button>
+        <div class="paginator">
+            <span style="padding-right: 10px;">Page</span>
+            <span style="border-radius: 1.5px;border: solid 0.5px #dfe3e6;padding-left: 7px;
+                padding-right: 7px;">{{pageIndex}}</span>
+            <span style="padding-right: 10px;padding-right: 5px;padding-left: 5px;">of</span>{{totalPageIndex}}
+            <i class="fas fa-angle-left" title="Previous page"
+                style="padding-left: 10px;padding-right: 10px;font-size: 15px;cursor: pointer;"
+                (click)="clickToPrevPage(pageIndex-1)"></i>
+            <i class="fas fa-angle-right" title="Next page" style="cursor:pointer; font-size: 15px;padding-left: 10px"
+                (click)="clickToNextPage(pageIndex+1)"></i>
+        </div>
+    </div>
+</div> -->
+
+<!-- -----------------------------------------GRID VIEW---------------------------------------- -->
+
+<!-- <div class="connectionsContainer" *ngIf="gridView">
+    <div class="topHeader">
+        <span class="numOfPeople" *ngIf="list">{{list.length}} people</span>
+        <ion-searchbar mode="ios" class="searchbar" placeholder="Search by name" (ionClear)="endPoint();
+        disableNextButton = false;disablePrevButton = true;gridView=true;" (ionChange)="changeDetails($event)">
+        </ion-searchbar>
+        <div style="white-space: nowrap;margin-right: 7px;float: right;">
+            <div style="padding-top: 18px;display: inline-block;padding-left: 75px;padding-right: 15px;">
+                <i class="fas fa-bars" (click)="viewType(true, 6, 5)"
+                    [style.color]="listView ? '#7a8589' : '#bebebe'"></i>
+                <i class="fas fa-th" (click)="viewType(false, 8, 7)"
+                    [style.color]="gridView ? '#7a8589' : '#bebebe'"></i>
+            </div>
+            <div style="color: #7a8589;font-size: 12px;display: inline;padding-left: 3%;">
+                <span style="padding-right: 10px;">Page</span>
+                <span style="border-radius: 1.5px;border: solid 0.5px #dfe3e6;padding-left: 7px;
+                            padding-right: 7px;">{{pageIndex}}</span>
+                <span style="padding-right: 10px;padding-right: 5px;padding-left: 5px;">of</span>{{totalPageIndex}}
+                <i class="fas fa-angle-left" title="Previous page"
+                    style="padding-left: 10px;padding-right: 10px;font-size: 15px;cursor: pointer;"
+                    (click)="clickToPrevPage(pageIndex-1)"></i>
+                <i class="fas fa-angle-right" title="Next page"
+                    style="cursor:pointer; font-size: 15px;padding-left: 10px"
+                    (click)="clickToNextPage(pageIndex+1)"></i>
+            </div>
+        </div>
+    </div>
+    <div style="width: 100%; height:100%; text-align: center;margin-top: -30px" *ngIf="showSpinner">
+        <app-spinner></app-spinner>
+    </div>
+
+
+    <ion-content *ngIf="showContent" style="padding: 20px;height: calc( 100% - 118px);">
+        <mat-grid-list cols="4" rowHeight="230px" style="height: 111%">
+            <mat-grid-tile *ngFor="let item of currentPageItems; let i=index">
+                <mat-card class="example-card" style="width: 90%;height: 90%;border-radius: 4px;
+                    border: solid 0.5px #dfe3e6;">
+                    <!-- <i class="fas fa-star" (click)="saveAsFavourite(i,item)"
+                        [style.color]="checkUserID(item.id) ? '#ffbb00' : '#dfe3e6'"></i> --
+                    <ion-icon class="moreIcon" name="more" [matMenuTriggerFor]="menu"></ion-icon>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item style="color: #7a8589">Enable</button>
+                        <button mat-menu-item style="color: #7a8589"
+                            (click)="setUserStatus(item.employeeName, item.userId, 'disable')">Disable</button>
+                        <button mat-menu-item style="color: #7a8589"
+                            (click)="setUserStatus(item.employeeName, item.userId)">
+                            Delete
+                        </button>
+                    </mat-menu>
+                    <ion-avatar style="margin: 0 auto;">
+                        <img src="assets/icon/evans.jpg">
+                    </ion-avatar>
+                    <mat-card-header>
+                        <mat-card-subtitle style="color: #057dcd;white-space: nowrap; cursor: pointer;"
+                            (click)="router.navigate(['/main/employee-profile'], { queryParams: { GUID: item.userId, name: item.employeeName } });">
+                            {{item.employeeName}}
+                        </mat-card-subtitle>
+                        <mat-card-subtitle> <i class="far fa-id-card"></i>
+                            {{item.staffNumber}}</mat-card-subtitle>
+                        <mat-card-subtitle style="white-space: nowrap">{{item.designation}}
+                        </mat-card-subtitle>
+                        <mat-card-subtitle style="white-space: nowrap">{{item.email}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <!-- <mat-card-footer>
+                        <button mat-button class="footerButton">
+                            <i class="far fa-comment"></i>Send a message
+                        </button>
+                    </mat-card-footer> --
+                </mat-card>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </ion-content>
+
+    <div style="padding-right: 20px;display: inline-flex;width: 97%;min-width: 330px;">
+        <ion-button [disabled]="disablePrevButton" fill="outline" (click)="clickToPrevPage(pageIndex-1)"
+            style="font-size: 12px;height: 30px;width: 90px;text-transform: capitalize;" color="primary">
+            <!-- <ion-icon name="arrow-back"></ion-icon> --
+            <div style="width: 12px;height: 12px;fill: #057dcd;float: left;cursor: pointer;"
+                [inlineSVG]="'assets/icon/option/arrow-pointing-to-left.svg'">
+            </div>
+            <span style="padding-left: 10px;padding-right: 5px">Prev</span>
+        </ion-button>
+        <div style="padding-left: 10px"></div>
+        <ion-button [disabled]="disableNextButton" style="text-transform: capitalize;font-size: 12px;height: 30px;width: 90px;" color="primary"
+            (click)="clickToNextPage(pageIndex+1)"><span style="padding-right: 10px;padding-left: 5px">Next</span>
+            <!-- <ion-icon name="arrow-forward"> </ion-icon>--
+            <div style="width: 12px;height: 12px;fill: white;float: left;cursor: pointer;"
+                [inlineSVG]="'assets/icon/option/arrow-pointing-to-right.svg'">
+            </div>
+        </ion-button>
+        <div class="paginator">
+            <span style="padding-right: 10px;">Page</span>
+            <span style="border-radius: 1.5px;border: solid 0.5px #dfe3e6;padding-left: 7px;
+                    padding-right: 7px;">{{pageIndex}}</span>
+            <span style="padding-right: 10px;padding-right: 5px;padding-left: 5px;">of</span>{{totalPageIndex}}
+            <i class="fas fa-angle-left" title="Previous page"
+                style="padding-left: 10px;padding-right: 10px;font-size: 15px;cursor: pointer;"
+                (click)="clickToPrevPage(pageIndex-1)"></i>
+            <i class="fas fa-angle-right" title="Next page" style="cursor:pointer; font-size: 15px;padding-left: 10px"
+                (click)="clickToNextPage(pageIndex+1)"></i>
+        </div>
+    </div>
+</div> -->

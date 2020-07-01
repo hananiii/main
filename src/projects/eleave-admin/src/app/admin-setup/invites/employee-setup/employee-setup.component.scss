@@ -1,0 +1,531 @@
+:host(.menuOverlay) {
+  z-index: 101 !important;
+}
+:host {
+  margin: auto;
+  width: 100%;
+  z-index: 0 !important;
+  // top: 48px;
+  // min-height: calc(100% - 58px);
+
+  ion-col {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    align-self: center;
+  }
+  .arrow {
+    font-size: 18px;
+    padding-top: 2px;
+    color: #a5a4bf;
+    cursor: pointer;
+    position: absolute;
+  }
+  .detailsRow {
+    // height: 55px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .padding-content {
+    @media screen and (max-width: 768px) {
+      padding-left: 0px;
+    }
+  }
+  .divider {
+    --min-height: none;
+    // padding-top: 1%;
+    // padding-bottom: 1%;
+    width: 100%;
+  }
+  .avatar {
+    width: 65px;
+    height: 65px;
+    // margin-top: -7px;
+  }
+  .button-outline {
+    --border-width: 1px;
+  }
+  .titleRow {
+    background: #f5f6fa;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  .topHeader {
+    width: 100%;
+    display: inline-block;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    // margin-left: 2%;
+    white-space: nowrap;
+  }
+  .searchbar {
+    width: 260px;
+    height: 40px;
+    color: #43425d;
+    font-size: 12px;
+    float: left;
+    margin-top: 4px;
+  }
+  .fa-bars {
+    cursor: pointer;
+  }
+  .fa-th {
+    padding-left: 10px;
+    cursor: pointer;
+  }
+  .trash-icon {
+    width: 12px;
+    height: 12px;
+    fill: #bebebe;
+    cursor: pointer;
+    margin-left: 30px;
+  }
+  // .trash-icon:hover {
+  //   width: 12px;
+  //   height: 12px;
+  //   fill: #f04141;
+  //   cursor: pointer;
+  //   margin-left: 30px;
+  // }
+  .more {
+    width: 12px;
+    height: 12px;
+    color: #bebebe;
+    cursor: pointer;
+    margin-left: 30px;
+  }
+  .more:hover {
+    width: 12px;
+    height: 12px;
+    color: #7a8589;
+    cursor: pointer;
+    margin-left: 30px;
+  }
+  .formField {
+    width: 70%;
+    font-size: 12px;
+  }
+  .numOfPeople {
+    color: #20291f;
+    // left: 5%;
+    float: left;
+    width: 130px;
+  }
+  .people {
+    float: left;
+    height: 40px;
+    width: 112px;
+    text-transform: none;
+    --border-radius: 2px;
+    flex: 1;
+    margin: 0;
+    margin-right: 2px;
+  }
+  mat-card-subtitle {
+    margin-bottom: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .mat-card-header {
+    justify-content: center;
+    text-align: center;
+    padding-top: 10px;
+  }
+  .mat-card-footer {
+    text-align: center;
+    background: #f9fafc;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+    border: solid 0.5px #dfe3e6;
+    border-radius: 4px;
+  }
+  .fa-star {
+    position: absolute;
+    cursor: pointer;
+  }
+  .fa-comment {
+    padding-right: 10px;
+  }
+  .moreIcon {
+    color: #dfe3e6;
+    float: right;
+    cursor: pointer;
+  }
+  .moreIcon:hover {
+    color: #7a8589;
+    float: right;
+    cursor: pointer;
+  }
+  .footerButton {
+    color: #057dcd;
+    background: transparent;
+  }
+  .filerContainer {
+    width: 300px;
+    height: calc(100% - 84px);
+    position: absolute;
+    top: 84px;
+    right: 0;
+    border: solid 0.5px #dfe3e6;
+    background-color: #ffffff;
+  }
+  .locationSelect {
+    width: 80%;
+    border-radius: 2.5px;
+    border: solid 0.5px #dfe3e6;
+    position: absolute;
+    left: 15px;
+    padding: 10px;
+    padding-left: 17px;
+    font-size: 14px;
+  }
+  .divisionSelect {
+    width: 80%;
+    border-radius: 2.5px;
+    border: solid 0.5px #dfe3e6;
+    position: absolute;
+    left: 15px;
+    padding: 10px;
+    top: 222px;
+    padding-left: 17px;
+    font-size: 14px;
+  }
+  .departmentSelect {
+    width: 80%;
+    border-radius: 2.5px;
+    border: solid 0.5px #dfe3e6;
+    position: absolute;
+    left: 15px;
+    padding: 10px;
+    top: 311px;
+    padding-left: 17px;
+    font-size: 14px;
+  }
+  ::ng-deep .mat-select-value-text {
+    color: #7a8589;
+  }
+  ::ng-deep .mat-select-arrow {
+    color: #7a8589;
+  }
+  // new
+  ion-card {
+    height: calc(100% - 48px);
+    margin: 0;
+    top: 48px;
+    box-shadow: none;
+  }
+  .fullContainer {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 17px;
+  }
+  .right {
+    padding-left: 20px;
+    // padding-top: 4px;
+  }
+  .cardContent {
+    line-height: 1.25;
+    background: white;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: calc(100% - 154px);
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  .toggleButton {
+    zoom: 0.7;
+    transform: scale(0.8);
+  }
+
+  ::-webkit-scrollbar,
+  *::-webkit-scrollbar {
+    display: none;
+    overflow: hidden;
+  }
+
+  .subtitle {
+    display: block;
+    // padding-left: 2px;
+    color: #43425d;
+    opacity: 0.8;
+    font-size: 12px;
+    // padding-top: 3px;
+  }
+  .listContent {
+    padding: 20px;
+    height: 445px;
+  }
+  .row {
+    display: flex;
+    flex-wrap: nowrap;
+    margin: 0;
+    // padding: 0 10px;
+  }
+  .details {
+    // flex: 65%;
+    // max-width: 65%;
+    margin-left: 10px;
+  }
+  // paginator
+  ::ng-deep .ngx-pagination .current {
+    background: #7069d8;
+    border: 1px solid #7069d8;
+    line-height: 22px;
+  }
+  ::ng-deep .ngx-pagination a {
+    color: #4d4f5c;
+    width: 25.3px;
+    height: 29.3px;
+    border-radius: 2px;
+    line-height: 22px;
+  }
+  ::ng-deep .ngx-pagination li {
+    width: 25.3px;
+    height: 31.3px;
+    text-align: center;
+    vertical-align: middle;
+    border: solid 1px #e8e9ec;
+    border-radius: 2px;
+    margin-right: 8px;
+    line-height: 22px;
+  }
+  ::ng-deep .pagination-next {
+    margin-right: 0 !important;
+  }
+  ::ng-deep .ngx-pagination .pagination-next.disabled::after {
+    margin-left: 0;
+  }
+  ::ng-deep .ngx-pagination .pagination-next a::after {
+    margin-left: 0;
+  }
+  .small-window-pagingation {
+    ::ng-deep .ngx-pagination {
+      padding: unset;
+      width: auto;
+    }
+  }
+  .label {
+    color: #43425d;
+    opacity: 0.8;
+    font-weight: bold;
+    font-size: 12px;
+  }
+  .addIcon {
+    color: #7069d8;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .textHover:hover {
+    color: #3b86ff;
+  }
+  .textColor {
+    color: #3b86ff;
+    opacity: 0.8;
+  }
+  .oriColor {
+    color: #4d4f5c;
+    opacity: 0.8;
+  }
+  ::ng-deep .mat-select-value-text {
+    opacity: 0.8;
+    font-size: 12px;
+    color: #43425d;
+  }
+  ::ng-deep .mat-select-arrow {
+    color: #43425d;
+    opacity: 0.8;
+  }
+  ::ng-deep .mat-option-text {
+    color: #43425d;
+    opacity: 0.8;
+    font-size: 12px;
+  }
+  // ::ng-deep .matFormField > .mat-form-field-wrapper > .mat-form-field-flex > .mat-form-field-infix {
+  //   border-top: 0;
+  // }
+  .matFormField {
+    display: block;
+    width: 80%;
+    font-size: 11px;
+    color: #4d4f5c;
+  }
+  ::ng-deep .selectForm > .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+  ::ng-deep .mat-input-element:disabled {
+    color: #43425d;
+    // opacity: 0.8;
+  }
+  .labelTitle {
+    padding-bottom: 5px;
+    color: #43425d;
+    font-weight: bold;
+    opacity: 0.8;
+    font-size: 12px;
+    display: block;
+  }
+  .contentText {
+    display: inline;
+    font-size: 11px;
+    color: #4d4f5c;
+  }
+  .delete-icon {
+    width: 13px;
+    height: 13px;
+    fill: #dfe3e6;
+    cursor: pointer;
+    margin-left: 1%;
+    float: right;
+    margin-right: 8%;
+  }
+  .education-delete-icon {
+    width: 13px;
+    height: 13px;
+    fill: #dfe3e6;
+    cursor: pointer;
+    float: right;
+    margin-right: 28%;
+  }
+  .pText {
+    color: #4d4f5c;
+    font-size: 11px;
+  }
+  // menu
+  .individualClicked {
+    --background: #7069d8;
+  }
+  .individualUnclicked {
+    --background: #43425d;
+  }
+  .bulkUnclicked {
+    --background: #43425d;
+  }
+  .bulkClicked {
+    --background: #7069d8;
+  }
+
+  ::ng-deep .searchbar-input {
+    font-size: 12px;
+    color: #43425d;
+  }
+  ::ng-deep .searchbar-clear-button {
+    margin-right: 18px;
+    fill: #a5a4bf;
+    color: #a5a4bf;
+    opacity: 0.8;
+    padding-bottom: 5px;
+    padding-top: 5px;
+  }
+  ::ng-deep .searchbar-search-icon {
+    fill: #a5a4bf;
+    color: #a5a4bf;
+    opacity: 0.8;
+  }
+  .filter-search-button {
+    position: absolute;
+    // width: 30px;
+    // padding-right: 10px;
+    // .button-native {
+    //   padding: 0px;
+    // }
+  }
+  ::ng-deep ngx-material-timepicker-toggle {
+    width: 30px;
+    height: 0px;
+    margin-top: -22px;
+    float: right;
+  }
+
+  ::ng-deep ngx-material-timepicker-toggle > button > svg {
+    fill: #7a8589;
+  }
+
+  ::ng-deep .timepicker {
+    .timepicker__header {
+      background-color: #057dcd !important;
+    }
+
+    .clock-face__clock-hand {
+      background-color: #057dcd !important;
+      // &::after {
+      //   background-color: #cd0526 !important;
+      // }
+
+      // &::before {
+      //   border-color: #afcd05 !important;
+      // }
+    }
+
+    .clock-face__number {
+      > span.active {
+        background-color: #057dcd !important;
+      }
+    }
+
+    .timepicker-button {
+      color: #057dcd !important;
+    }
+  }
+
+  // ngb-timepicker
+  .ngbTime {
+    font-size: 10px;
+  }
+
+  ::ng-deep {
+    .ngb-tp-input-container.ngb-tp-hour > .ngb-tp-input,
+    .ngb-tp-input-container.ngb-tp-minute > .ngb-tp-input,
+    .ngb-tp-meridian > button {
+      font-size: 12px;
+    }
+
+    .ngb-tp-input:focus {
+      box-shadow: 0 0 0 0.1rem rgba(112, 105, 216, 0.5) !important;
+      border-color: #7069d8;
+    }
+
+    .ngb-tp-input:active {
+      box-shadow: 0 0 0 0.1rem rgba(112, 105, 216, 0.5) !important;
+    }
+
+    .btn-outline-primary {
+      color: #7069d8;
+      border-color: #7069d8;
+    }
+
+    .btn-outline-primary:hover {
+      background-color: #7069d8;
+      border-color: #7069d8;
+      color: white;
+    }
+
+    .btn-outline-primary:focus {
+      box-shadow: 0 0 0 0.1rem rgba(112, 105, 216, 0.5) !important;
+    }
+
+    .btn-outline-primary:active:focus {
+      background-color: #7069d8;
+      border-color: #7069d8;
+      color: white;
+      box-shadow: 0 0 0 0.1rem rgba(112, 105, 216, 0.5) !important;
+    }
+
+    .ngb-tp-spacer {
+      width: 0.7em;
+    }
+  }
+}
+
+::ng-deep .profile-dropdown .mat-option-text {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+}

@@ -1,0 +1,68 @@
+:host {
+  .box {
+    margin: auto;
+    padding: 1%;
+    // padding-bottom: 3%;
+    padding-top: 3%;
+    background: white;
+  }
+  .back-icon {
+    fill: #bebebe;
+    cursor: pointer;
+  }
+  .calendar-icon {
+    fill: #a5a4bf;
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    right: 0;
+    top: 4px;
+  }
+  .divider {
+    --min-height: none;
+    padding-top: 4%;
+    padding-bottom: 5%;
+    width: 100%;
+  }
+  .button-outline {
+    --border-width: 1px;
+  }
+  ::ng-deep .mat-select-value-text {
+    color: #43425d;
+    font-size: 12px;
+    opacity: 0.8;
+  }
+  ::ng-deep .mat-select-arrow {
+    color: #43425d;
+    opacity: 0.8;
+  }
+  ::ng-deep .mat-select-panel .mat-option {
+    font-size: 14px !important;
+    color: #43425d;
+    opacity: 0.8;
+  }
+  input {
+    font-size: 12px;
+    color: #43425d;
+  }
+  ::ng-deep .mat-form-field-label-wrapper {
+    font-size: 12px;
+  }
+
+  // employement-details
+  .detailsRow {
+    // height: 55px;
+    padding-left: 10px;
+  }
+  .divider {
+    --min-height: none;
+    // padding-top: 1%;
+    // padding-bottom: 1%;
+    width: 100%;
+  }
+  ::ng-deep .mat-input-element:disabled {
+    color: #43425d;
+    // opacity: 0.8;
+  }
+}
