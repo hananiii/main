@@ -1,0 +1,114 @@
+<!-- <ion-header style="width: 100%;position: absolute;">
+    <ion-toolbar class="toolbar2">
+        <div class="back-icon" [inlineSVG]="'assets/icon/option/arrow-pointing-to-left.svg'" (click)="backToProfile()">
+        </div>
+        <ion-title style="display: inline-block;color: #20291f;font-size: 16px;" *ngIf="personalList">
+            {{personalList.employeeName}}'s Profile
+        </ion-title>
+        <!-- <div style="float: right; padding-right: 20px;">
+            <i class="fab fa-facebook-f"></i>
+            <i class="fab fa-linkedin-in"></i>
+            <i class="fab fa-instagram"></i>
+        </div> --
+    </ion-toolbar>
+</ion-header> -->
+
+<ion-card class="leftCard" *ngIf="!showSpinner">
+    <ion-card-header style="padding: inherit;border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);">
+        <div class="fullContainer">
+            <div class="left">
+                <ion-avatar class="avatar" *ngIf="url && url.details[0].PROFILE_PICTURE !== null">
+                    <img src="{{url.link + url.details[0].PROFILE_PICTURE}}">
+                </ion-avatar>
+                <ion-avatar class="avatar" *ngIf="url && url.details[0].PROFILE_PICTURE === null">
+                    <img src="assets/icon/chris.jpg">
+                </ion-avatar>
+            </div>
+            <div class="right" *ngIf="list" style="margin-right: auto;margin-left: 10px;">
+                <ion-card-subtitle style="color: #43425d;opacity: 0.8;font-weight: bold;">{{list.employeeName}}
+                </ion-card-subtitle>
+                <!-- <div style="display:block; padding-top: 5px;"> -->
+                <ion-card-subtitle class="subtitle">
+                    {{list.employeeDesignation}}</ion-card-subtitle>
+                <!-- <i class="fas fa-circle"></i> -->
+                <ion-card-subtitle class="subtitle">{{list.employeeDepartment}}
+                </ion-card-subtitle>
+                <!-- </div> -->
+                <!-- <div style="padding-top: 5px;"> -->
+                <!-- <div class="marker-icon" [inlineSVG]="'assets/icon/user_profile/pin.svg'"></div> -->
+                <ion-card-subtitle class="subtitle" *ngIf="employment">
+                    {{employment.employmentDetail.branch}}
+                </ion-card-subtitle>
+                <!-- </div> -->
+            </div>
+            <!-- <div *ngIf="list" style="max-width: 400px;width: 400px;">
+                <ng-container *ngFor="let leaveDetail of entitlementDetails">
+                    <div style="display: inline-block;padding: 10px;padding-right: 50px;min-width: 205px;"
+                        *ngIf="leaveDetail.LEAVE_CODE == 'Annual Leave'">
+                        <img style="width: 33px;height: 30px;float: left;"
+                            src="assets/icon/user_profile/icon_annual_leave@3x.png">
+                        <div style="padding-left: 10px;display: block;float: right;">
+                            <p class="textBalance" style="font-weight: bold;padding-bottom: 3px;">Annual Leave</p>
+                            <p class="textBalance">{{leaveDetail.BALANCE_DAYS}} Days available</p>
+                        </div>
+                    </div>
+                    <div style="display: inline-block;padding: 10px;"
+                        *ngIf="leaveDetail.LEAVE_CODE == 'Hospitalization Leave'">
+                        <img style=" width: 35px;height: 28px;float: left;" class="svg-icon"
+                            src="assets/icon/user_profile/icon_hospitalization@3x.png">
+                        <div style="padding-left: 10px;display: block;float: right;">
+                            <p class="textBalance" style="font-weight: bold;padding-bottom: 3px;">Hospitalization Leave
+                            </p>
+                            <p class="textBalance">{{leaveDetail.BALANCE_DAYS}} Days available</p>
+                        </div>
+                    </div>
+
+                    <div style="float: left;padding: 10px; margin-right: 40px;  min-width: 170px;" *ngIf="leaveDetail.LEAVE_CODE == 'Replacement Leave'">
+                        <img style=" width: 33px;height: 30px;float: left;"
+                            src="assets/icon/user_profile/icon_replacement_leave@3x.png">
+                        <div style="padding-left: 10px;display: block; float: right;">
+                            <p class="textBalance" style="font-weight: bold;padding-bottom: 3px;">Replacement Leave</p>
+                            <p class="textBalance">{{leaveDetail.BALANCE_DAYS}} Days available</p>
+                        </div>
+                    </div>
+                    <div style="display: inline-block; padding: 10px; width: 190px;"
+                        *ngIf="leaveDetail.LEAVE_CODE == 'Medical Leave'">
+                        <img style=" width: 30px;height: 30px;" src="assets/icon/user_profile/icon_medical@3x.png">
+                        <div style="padding-left: 10px;position: absolute;margin-top: -26px;margin-left: 32px;">
+                            <p class="textBalance" style="font-weight: bold;padding-bottom: 3px;">Medical Leave</p>
+                            <p class="textBalance">{{leaveDetail.BALANCE_DAYS}} Days available</p>
+                        </div>
+                    </div>
+                </ng-container>
+            </div> -->
+        </div>
+    </ion-card-header>
+    <ion-card-content [class]="'hide-sm-down'" style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);
+    background-color: #ffffff;margin: 20px;padding-top: 13px;">
+        <mat-tab-group selectedIndex="0">
+            <!-- <mat-tab-header style="width: fit-content; border-radius: 4px;"> -->
+            <mat-tab label="Apply Leave">
+                <app-apply-leave></app-apply-leave>
+            </mat-tab>
+            <mat-tab label="View Calendar">
+                <app-calendar-view></app-calendar-view>
+            </mat-tab>
+
+            <!-- </mat-tab-header> -->
+        </mat-tab-group>
+    </ion-card-content>
+    <ion-card-content [class]="'hide-sm-up'" style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);
+    background-color: #ffffff;margin: 20px;padding-top: 13px;">
+        <mat-tab-group selectedIndex="0" class="mobileView-tab">
+            <mat-tab label="Apply Leave">
+                <app-apply-leave></app-apply-leave>
+            </mat-tab>
+            <mat-tab label="View Calendar">
+                <app-calendar-view></app-calendar-view>
+            </mat-tab>
+        </mat-tab-group>
+    </ion-card-content>
+</ion-card>
+<div style="width: 100%; height:100%; text-align: center" *ngIf="showSpinner">
+    <app-spinner></app-spinner>
+</div>

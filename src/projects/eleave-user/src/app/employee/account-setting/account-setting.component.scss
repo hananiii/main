@@ -1,0 +1,42 @@
+:host {
+  .container {
+    width: 100%;
+    height: 100%;
+    padding: 2%;
+    overflow: auto;
+    background: #f0f0f7;
+  }
+  .detailsRow {
+    height: 55px;
+  }
+  .divider {
+    --min-height: none;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    width: 100%;
+  }
+  .avatar {
+    width: 70px;
+    height: 70px;
+  }
+  .button-outline {
+    --border-width: 0.5px;
+    --border-color: #7a8589;
+  }
+  .text {
+    color: #707070;
+    padding-left: 2%;
+    font-size: 11px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    opacity: 0.8;
+  }
+  ion-toggle {
+    zoom: 0.55;
+  }
+  .item {
+    --padding-start: 0;
+    height: 32px;
+    // --background: #f9fafc;
+  }
+}

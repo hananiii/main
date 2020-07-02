@@ -1,0 +1,54 @@
+<!-- <ion-header>
+    <ion-toolbar class="toolbar2">
+        <!-- <ion-title style="display: inline-block;color: #20291f;font-size: 16px;">
+            My Profile
+        </ion-title> --
+        <!-- <div style="float: right; padding-right: 20px;">
+            <i class="fab fa-facebook-f"></i>
+            <i class="fab fa-instagram"></i>
+        </div> --
+    </ion-toolbar>
+</ion-header> -->
+<ion-content [class]="'hide-md-down'" contentId="content" style="width: 230px; --background: #8b89b4;" >
+    <ion-list lines="none" style="background: #8b89b4;">
+        <ion-title style="font-weight: bold;display: inline-block;color: #f0f0f7;font-size: 15px;padding-bottom: 20px;
+        padding-top: 10px;">
+            My Profile
+        </ion-title>
+        <ion-menu-toggle auto-hide="false" *ngFor="let p of employeeSetupPage; let i=index">
+            <ion-item class="items" lines="none" (click)="getIndexToShowArrow(i)" [ngClass]="{
+                    'mainColor': numOfArray === i,'highlightColor': numOfArray !== i}">
+                <!-- <div class="my-icon" [inlineSVG]="'assets/icon/user_sidebar/' + p.icon"></div> -->
+                <img class="my-icon" src="assets/icon/user_sidebar/{{p.icon}} ">
+                <ion-label style="padding-left: 15px;">
+                    {{p.title}}
+                </ion-label>
+                <!-- <div *ngIf="numOfArray === i">
+                    <ion-icon slot="end" color="primary" name="arrow-dropright"></ion-icon>
+                </div> -->
+            </ion-item>
+        </ion-menu-toggle>
+    </ion-list>
+</ion-content>
+
+<div [class]="'hide-md-up'" contentId="content" style="width: -webkit-fill-available;">
+    <ion-list lines="none" style="background: #f5f6fa; display: flex; align-items: center;">
+        <ion-title style="font-weight: bold;display: inline-block;color: #a3a6b4;font-size: 15px;padding-right:0px; cursor: default;">
+            My Profile
+        </ion-title>
+        <ion-title style="font-weight: bold;display: inline-block;color: #a3a6b4;cursor: default;">/</ion-title>
+        <mat-select placeholder="My Profile" [(value)]="numOfArray" class="dropdownList">
+            <mat-option *ngFor="let p of employeeSetupPage; let i=index" [value]="i" (click)="getIndexToShowArrow(i)">
+            <!-- <mat-option *ngFor="let p of employeeSetupPage; let i=index" [(value)]="numOfArray" (click)="getIndexToShowArrow(i)"> -->
+                <!-- <img class="my-icon" style="width: 20px;" src="assets/icon/user_sidebar/{{p.icon}} "> -->
+                <ion-label style="padding-left: 15px;">
+                    {{p.title}}
+                </ion-label>
+            </mat-option>
+        </mat-select>
+    </ion-list>
+</div>
+
+<ion-content [class]="'myprofile-sidemenu'">
+    <ion-router-outlet></ion-router-outlet>
+</ion-content>

@@ -1,0 +1,148 @@
+:host {
+  .app-calendar {
+    // max-width: 900px;
+    width: 50%;
+    margin-top: 20px;
+    margin-bottom: 1%;
+    display: inline-block;
+  }
+  ::ng-deep.fc-content-skeleton {
+    min-height: 20px;
+  }
+  .holidayView {
+    // padding-left: 3%;
+    margin-top: 20px;
+    float: right;
+    width: 50%;
+    // overflow: auto;
+    // max-height: 380px;
+  }
+  .titleRow {
+    width: 100%;
+    padding-top: 5px;
+    background: #f5f6fa;
+    margin-left: 10px;
+    height: 42px;
+    padding-left: 15px;
+  }
+  .divider {
+    --min-height: none;
+    padding-top: 1%;
+    padding-bottom: 2%;
+    width: 100%;
+  }
+  mat-chip {
+    max-width: 83px;
+    min-height: 26px;
+    min-width: 83px;
+  }
+  ::ng-deep .mat-chip-list-wrapper {
+    display: inline-flex;
+  }
+  ::ng-deep .mat-chip-list-wrapper .mat-standard-chip {
+    margin-top: 8px;
+  }
+  .apply-leave-header {
+    font-size: 13px;
+    font-weight: bold;
+    color: #a5a4bf;
+    height: 42px;
+    background-color: #f5f6fa;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    margin-bottom: 15px;
+  }
+
+  //full calendar
+  ::ng-deep .fc-toolbar > * > :not(:first-child) {
+    text-transform: capitalize;
+    font-size: 10px;
+    background: #7069d8;
+    border-color: transparent;
+  }
+  ::ng-deep .fc-button-group {
+    font-size: 10px;
+  }
+  ::ng-deep .fc-button-group > .fc-button:not(:last-child) {
+    text-transform: capitalize;
+  }
+  ::ng-deep .fc-button-group > .fc-button:not(:first-child) {
+    text-transform: capitalize;
+  }
+  ::ng-deep .fc-button-group > .fc-button:not(:last-child) {
+    text-transform: capitalize;
+  }
+  ::ng-deep .fc-event-container {
+    cursor: pointer;
+  }
+  ::ng-deep .fc-toolbar h2 {
+    font-size: 15px;
+    font-weight: bold;
+  }
+  ::ng-deep .fc-button:not(:disabled) {
+    // box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.05);
+    // border: solid 1px #43425d;
+    // background-color: #43425d;
+    // color: #f0f0f7;
+    color: #a4afb7;
+    border-radius: 2px;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.05);
+    border: solid 1px #e8e9ec;
+    background-color: #ffffff;
+  }
+  ::ng-deep .fc-today-button .fc-button .fc-button-primary {
+    color: white;
+    background: #7069d8;
+    border-color: transparent;
+  }
+  ::ng-deep .fc-left > button.fc-today-button {
+    color: white !important;
+    background: #7069d8 !important;
+    border-color: transparent !important;
+  }
+  ::ng-deep div.fc-view-container > div.fc-view fc-dayGridMonth-view fc-dayGrid-view > table > thead {
+    line-height: 3.2;
+    background-color: #e9e9f0;
+    color: #a3a6b4;
+  }
+  ::ng-deep .fc-more {
+    color: #43425d;
+  }
+  // ::ng-deep .fc-event {
+  //   background-color: #46cdcf;
+  //   border: 1px solid #46cdcf;
+  // }
+  ::ng-deep table th {
+    background: #f5f6fa;
+    color: #a3a6b4;
+    height: 43px;
+    vertical-align: middle;
+    border-color: #f5f6fa;
+    font-size: 13px;
+  }
+  ::ng-deep table td {
+    font-size: 11px;
+    color: #43425d;
+    cursor: pointer;
+  }
+  ::ng-deep table,
+  table td,
+  table th {
+    border-color: #e8e9ec;
+  }
+
+  // chips color
+  .approvedColor {
+    background-color: #46cdcf;
+  }
+  .rejectColor {
+    background-color: #ff6768;
+  }
+  .cancelColor {
+    background-color: #3b86ff;
+  }
+  .pendingColor {
+    background-color: #ffb961;
+  }
+}

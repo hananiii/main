@@ -1,0 +1,109 @@
+<ion-card>
+    <div style="width: 100%; height:100%; text-align: center;margin-top: -30px" *ngIf="showSpinner">
+        <app-spinner></app-spinner>
+    </div>
+    <ion-card-header *ngIf="showContent" [class]="'hide-sm-down'"
+        style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);">
+        <div class="fullContainer">
+            <div class="left">
+                <ion-avatar class="avatar" *ngIf="url && url.details[0].PROFILE_PICTURE !== null">
+                    <img src="{{url.link + url.details[0].PROFILE_PICTURE}}">
+                </ion-avatar>
+                <ion-avatar class="avatar" *ngIf="url && url.details[0].PROFILE_PICTURE === null">
+                    <img src="assets/icon/picture.png">
+                </ion-avatar>
+            </div>
+            <div class="right" *ngIf="personalList">
+                <ion-card-subtitle style="color: #43425d;opacity: 0.8;font-weight: bold;">
+                    {{personalList.employeeName}}
+                </ion-card-subtitle>
+                <ion-card-subtitle class="subtitle">
+                    {{personalList.employeeDesignation}}</ion-card-subtitle>
+                <ion-card-subtitle class="subtitle">{{personalList.employeeDepartment}}
+                </ion-card-subtitle>
+                <ion-card-subtitle class="subtitle">
+                    {{employeeDetails.employmentDetail.branch}}
+                </ion-card-subtitle>
+            </div>
+        </div>
+    </ion-card-header>
+    <ion-card-header *ngIf="showContent" [class]="'hide-sm-up'"
+        style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);">
+        <div class="fullContainer" style="flex-flow: inherit;">
+            <div class="left">
+                <ion-avatar class="avatar" *ngIf="url && url.details[0].PROFILE_PICTURE !== null">
+                    <img src="{{url.link + url.details[0].PROFILE_PICTURE}}">
+                </ion-avatar>
+                <ion-avatar class="avatar" *ngIf="url && url.details[0].PROFILE_PICTURE === null">
+                    <img src="assets/icon/picture.png">
+                </ion-avatar>
+            </div>
+            <div class="right" *ngIf="personalList">
+                <ion-card-subtitle style="color: #43425d;opacity: 0.8;font-weight: bold;">
+                    {{personalList.employeeName}}
+                </ion-card-subtitle>
+                <ion-card-subtitle class="subtitle">
+                    {{personalList.employeeDesignation}}</ion-card-subtitle>
+                <ion-card-subtitle class="subtitle">{{personalList.employeeDepartment}}
+                </ion-card-subtitle>
+                <ion-card-subtitle class="subtitle">
+                    {{employeeDetails.employmentDetail.branch}}
+                </ion-card-subtitle>
+            </div>
+        </div>
+    </ion-card-header>
+    <div class="cardContent" *ngIf="showContent">
+        <ion-card-content>
+            <!-- <div class="leaveHistoryContainer">View leave history</div> -->
+            <div>
+                <div class="row">
+                    <ng-container *ngFor="let leaveDetail of entitlement">
+                        <div class="column1">
+                            <div style="display: flex; flex-wrap: nowrap; justify-content: space-between;">
+                                <ion-label style="float: left;font-size: 18px;color: #43425d;font-weight: bold;width: 130px;line-height: 1; height: 40px; padding-right: 5px;
+                                    overflow-wrap: normal;">
+                                    {{leaveDetail.LEAVE_CODE}}</ion-label>
+                                <img class="svg-icon" src="assets/icon/user_profile/icon_annual_leave@3x.png">
+                            </div>
+                            <ion-progress-bar [value]="(leaveDetail.TOTAL_APPROVED/leaveDetail.ENTITLED_DAYS)"
+                                color="primary"
+                                style="display:inline-block; width:100%;border-radius: 5px;height: 10px;margin-top: 20px; ">
+                            </ion-progress-bar>
+                            <div>
+                                <ion-row style="min-width: max-content;">
+                                    <ion-col class="colOfLeave" style="font-size: 13px">
+                                        {{leaveDetail.ENTITLED_DAYS}}
+                                    </ion-col>
+                                    <ion-col class="colTitle">Entitled Days</ion-col>
+                                </ion-row>
+                                <ion-row style="min-width: max-content;">
+                                    <ion-col class="colOfLeave" style="font-size: 13px">
+                                        {{leaveDetail.TOTAL_APPROVED}}
+                                    </ion-col>
+                                    <ion-col class="colTitle">Day(s) Taken</ion-col>
+                                </ion-row>
+                                <ion-row style="min-width: max-content;">
+                                    <ion-col class="colOfLeave" style="font-size: 13px">{{leaveDetail.TOTAL_PENDING}}
+                                    </ion-col>
+                                    <ion-col class="colTitle">Day(s) Pending</ion-col>
+                                </ion-row>
+                                <ion-row style="min-width: max-content;">
+                                    <ion-col class="colOfLeave" style="font-size: 13px">{{leaveDetail.BALANCE_DAYS}}
+                                    </ion-col>
+                                    <ion-col class="colTitle">Day(s) Balance</ion-col>
+                                </ion-row>
+                            </div>
+                            <div style="text-align: center">
+                                <ion-button
+                                    (click)="toPlanLeave(leaveDetail.LEAVE_CODE, leaveDetail.BALANCE_DAYS, leaveDetail.LEAVE_TYPE_GUID)"
+                                    style="font-size: 11px;margin-top: 20px;height: 30px;width: 124px;display: inline-block; text-transform: capitalize; border-radius: 2px;
+                                    background: #43425d;" color="applybutton">Apply
+                                </ion-button>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </ion-card-content>
+    </div>
+</ion-card>

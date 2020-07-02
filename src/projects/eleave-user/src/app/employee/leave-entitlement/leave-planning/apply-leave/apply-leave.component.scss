@@ -1,0 +1,179 @@
+:host {
+  /////////////////// calendar ////////////////////////
+
+  .app-calendar {
+    // margin: 0 auto;
+    max-width: 900px;
+    width: 55%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    display: inline-block;
+  }
+  ::ng-deep.fc-content-skeleton {
+    min-height: 20px;
+  }
+  .selection {
+    margin-top: 15px;
+  }
+  .calendar-icon {
+    fill: #a5a4bf;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    right: 0;
+    top: 8px;
+  }
+  // ::ng-deep .mat-select-value-text {
+  //   color: #7a8589;
+  // }
+  ::ng-deep .mat-select-arrow {
+    color: #43425d;
+    opacity: 0.8;
+  }
+  .dateForm {
+    display: inline;
+  }
+  .date {
+    width: 35%;
+  }
+  .button-outline {
+    --border-width: 1px;
+  }
+  .item {
+    --padding-start: 0;
+    --padding-end: 0;
+    display: inline-block;
+    --min-height: 30px;
+    width: 24%;
+  }
+  .ionCheckbox {
+    width: 20px;
+    height: 20px;
+    --border-color: rgba(122, 102, 102, 0.12);
+    margin: 0;
+  }
+  .apply-leave-header {
+    font-size: 13px;
+    font-weight: bold;
+    color: #a5a4bf;
+    height: 42px;
+    background-color: #f5f6fa;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    margin-bottom: 15px;
+  }
+  .apply-leave-form {
+    padding-left: 5px;
+  }
+  mat-radio-button {
+    top: -5.5px;
+    position: relative;
+  }
+  ::ng-deep .mat-radio-container {
+    height: 20px;
+    width: 20px;
+  }
+  ::ng-deep .mat-radio-outer-circle {
+    border-width: 2px;
+    height: 20px;
+    width: 20px;
+    border-color: #7069d8;
+  }
+  ::ng-deep .mat-radio-inner-circle {
+    height: 20px;
+    width: 20px;
+  }
+  ::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    border-color: #7069d8;
+  }
+  ::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+    background-color: #7069d8;
+  }
+  ::ng-deep .mat-radio-button.mat-radio-disabled .mat-radio-outer-circle {
+    border-color: rgba(0, 0, 0, 0.2);
+  }
+  ::ng-deep .mat-radio-button .mat-radio-ripple {
+    display: none;
+  }
+  ::ng-deep .mat-radio-label-content {
+    padding-left: 5px;
+  }
+  .divider {
+    --min-height: none;
+    padding-bottom: 3%;
+    width: 100%;
+  }
+  ::ng-deep .mat-form-field > .mat-form-field-wrapper {
+    padding-bottom: 10px;
+  }
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+    font-size: 12px;
+    color: #43425d;
+    opacity: 0.8;
+  }
+  ::ng-deep .reasonBox > div.mat-form-field-wrapper > div.mat-form-field-flex {
+    height: 93px;
+  }
+  .delete-icon {
+    width: 13px;
+    height: 13px;
+    fill: #43425d;
+    opacity: 0.8;
+    cursor: pointer;
+    float: right;
+    margin-top: -44px;
+  }
+  .addIcon {
+    // display: block;
+    color: #3b86ff;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .leave-card-list {
+    background: #7069d8;
+    color: #fff;
+    border-radius: 2px;
+  }
+  .mat-input-element:disabled {
+    color: #43425d;
+    opacity: 0.8;
+  }
+  //full calendar
+  ::ng-deep .fc-toolbar > * > :not(:first-child) {
+    text-transform: capitalize;
+  }
+  ::ng-deep .fc-button-group > .fc-button:not(:last-child) {
+    text-transform: capitalize;
+  }
+  ::ng-deep .fc-button-group > .fc-button:not(:first-child) {
+    text-transform: capitalize;
+  }
+  ::ng-deep .fc-button-group > .fc-button:not(:last-child) {
+    text-transform: capitalize;
+  }
+  ::ng-deep .fc-event-container {
+    cursor: pointer;
+  }
+  ::ng-deep .fc-toolbar h2 {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  ::ng-deep table th {
+    background: #e9e9f0;
+    color: #a3a6b4;
+    height: 48px;
+    vertical-align: middle;
+    border-color: #e8e9ec;
+  }
+  ::ng-deep table td {
+    font-size: 15px;
+    color: #43425d;
+  }
+  ::ng-deep table,
+  table td,
+  table th {
+    border-color: #e8e9ec;
+  }
+}

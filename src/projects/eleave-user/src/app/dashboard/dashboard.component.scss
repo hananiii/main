@@ -1,0 +1,191 @@
+:host(.menuOverlay) {
+  z-index: 101 !important;
+}
+
+:host {
+  z-index: 0 !important;
+
+  .main {
+    top: 48px;
+    background: #f0f0f7;
+    overflow: auto;
+    position: absolute;
+    width: 100%;
+    max-height: calc(100% - 48px);
+    height: 100%;
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 10px;
+    margin: 0;
+  }
+  .annual,
+  .replacement,
+  .medical,
+  .birthday {
+    // flex: 23%;
+    // max-width: 23%;
+    flex: 1;
+    min-width: 202px;
+    padding: 0 15px;
+    background: #ffffff;
+    margin: 1%;
+    border-radius: 2px;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);
+  }
+  .annoucement,
+  .holiday {
+    // flex: 48%;
+    // max-width: 48%;
+    background: #ffffff;
+    margin: 1%;
+    border-radius: 2px;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);
+    flex: 1;
+    min-width: 300px;
+  }
+  .status,
+  .tasks,
+  .longleave {
+    flex: 30%;
+    // max-width: 30%;
+    max-width: -webkit-fill-available;
+    background: #ffffff;
+    margin: 1%;
+    border-radius: 2px;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);
+    // margin-bottom: 30px;
+  }
+  ::ng-deep .item-inner {
+    border-color: rgb(0, 0, 0);
+  }
+  .reminder {
+    min-width: 280px;
+    max-width: -webkit-fill-available;
+    flex: 24%;
+    // max-width: 24%;
+    background: #ffffff;
+    margin: 1%;
+    border-radius: 2px;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);
+    // margin-bottom: 30px;
+    // height: 290px;
+    background: #7069d8;
+    text-align: center;
+  }
+  .divider {
+    --min-height: none;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    width: 99%;
+    padding-left: 1%;
+    opacity: 0.5;
+  }
+  mat-chip {
+    max-width: 83px;
+    min-height: 26px;
+    min-width: 83px;
+  }
+  .mat-chip.mainChip.mat-standard-chip {
+    background-color: #46cdcf;
+  }
+  // for application status & task
+  ::ng-deep .mat-chip-list-wrapper {
+    display: inline-flex;
+  }
+  // chips color
+  .approvedColor {
+    background-color: #46cdcf;
+  }
+  .rejectColor {
+    background-color: #ff6768;
+  }
+  .cancelColor {
+    background-color: #3b86ff;
+  }
+  .pendingColor {
+    background-color: #ffb961;
+  }
+  .annual-icon {
+    width: 46px;
+    height: 44px;
+    float: right;
+  }
+  .replace-icon {
+    width: 55px;
+    height: 45px;
+    float: right;
+  }
+  .medical-icon {
+    width: 44px;
+    height: 43px;
+    float: right;
+  }
+
+  // mat grid list
+  .button-outline {
+    --border-width: 1px;
+  }
+  .mat-list-item {
+    font-size: 12px;
+    height: 30px !important;
+  }
+  ::ng-deep .mat-list-text {
+    padding-left: 0px !important;
+    color: #7a8589;
+  }
+  .mat-list {
+    overflow: hidden;
+    max-height: 160px;
+  }
+  // .list {
+  //   padding: 0;
+  // }
+  .avatar {
+    margin-right: 15px;
+    width: 34px;
+    height: 34px;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .labelText {
+    margin: 0;
+  }
+  p.innerText {
+    white-space: normal;
+    font-size: 10px;
+  }
+  p.innerText::ng-deep p {
+    white-space: normal;
+    font-size: 10px;
+    color: #4d4f5c;
+    line-height: 1.4;
+    text-align: justify;
+  }
+  p.innerText::ng-deep img {
+    height: 150px;
+  }
+  p.listInnerText::ng-deep p {
+    white-space: normal;
+    font-size: 10px;
+    color: #4d4f5c;
+    line-height: 1.4;
+    text-align: justify;
+  }
+  p.listInnerText::ng-deep img {
+    height: 150px;
+  }
+  p.mainInnerText {
+    margin: 0;
+  }
+  p.mainInnerText::ng-deep p {
+    margin: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  p.mainInnerText::ng-deep img {
+    height: 50px;
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "appId": "io.ionic.eleave",
+  "appName": "eleave-user",
+  "bundledWebRuntime": false,
+  "webDir": "www",
+  "npmClient": "npm"
+}

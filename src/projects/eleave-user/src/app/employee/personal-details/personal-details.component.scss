@@ -1,0 +1,165 @@
+:host {
+  .fullContainer {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .card-content-md p {
+    font-size: 13px;
+    color: #4d4f5c;
+  }
+  .subtitle {
+    display: block;
+    // padding-left: 2px;
+    color: #43425d;
+    opacity: 0.8;
+    padding-top: 5px;
+  }
+  .fa-circle {
+    font-size: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    vertical-align: middle;
+  }
+  .fa-map-marker-alt {
+    padding-right: 10px;
+  }
+  .mainDivider {
+    --min-height: none;
+  }
+  .divider {
+    --min-height: none;
+    padding-top: 2%;
+    padding-bottom: 2%;
+  }
+  ion-card {
+    height: 100%;
+    margin: 0;
+  }
+  .cardContent {
+    line-height: 1.25;
+    background: #f0f0f7;
+    overflow: auto;
+    height: calc(100% - 133px);
+  }
+  .detailsRow {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 15px;
+  }
+  ion-label {
+    color: #43425d;
+    opacity: 0.8;
+    font-weight: bold;
+    display: block;
+    font-size: 13px;
+  }
+  ion-badge {
+    position: absolute;
+    top: 26px;
+    left: 115px;
+    border-radius: 50%;
+  }
+  .mat-form-field{
+    color: #4d4f5c;
+  }
+  .crossIcon {
+    cursor: pointer;
+    float: right;
+  }
+  .edit-profile-icon {
+    width: 15px;
+    height: 15px;
+    fill: #057dcd;
+    cursor: pointer;
+    float: left;
+  }
+  .marker-icon {
+    width: 17px;
+    height: 16px;
+    fill: #7a8589;
+    float: left;
+  }
+  .pic-icon {
+    width: 11px;
+    height: 12px;
+    fill: #bebebe;
+    float: left;
+    cursor: pointer;
+  }
+  .education-edit-pencil-icon {
+    width: 13px;
+    height: 13px;
+    fill: #dfe3e6;
+    float: right;
+    cursor: pointer;
+  }
+  .education-delete-icon {
+    width: 13px;
+    height: 13px;
+    fill: #dfe3e6;
+    cursor: pointer;
+    margin-left: 12%;
+    float: right;
+    margin-right: 1%;
+  }
+  .edit-pencil-icon {
+    width: 13px;
+    height: 13px;
+    fill: #dfe3e6;
+    float: right;
+    cursor: pointer;
+  }
+  .delete-icon {
+    width: 13px;
+    height: 13px;
+    fill: #dfe3e6;
+    cursor: pointer;
+    margin-left: 1%;
+    float: right;
+    margin-right: 8%;
+  }
+  .header {
+    padding: 10px;
+    background-color: #057dcd;
+    color: white;
+    padding-left: 50px;
+    display: inline-block;
+    width: 100%;
+    font-size: 13px;
+  }
+  .right {
+    padding-top: 1%;
+  }
+  .avatar {
+    width: 100px;
+    height: 100px;
+    margin-left: 20px;
+    margin-right: 30px;
+  }
+  .edit-icon {
+    float: right;
+    fill: #057dcd;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+  .family-icon {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    fill: rgba(0, 0, 0, 0.3);
+  }
+  .education-icon {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    fill: rgba(0, 0, 0, 0.3);
+  }
+  .button-outline {
+    --border-width: 1px;
+  }
+}

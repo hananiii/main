@@ -1,0 +1,425 @@
+<!-- <div class="header" *ngIf="showHeader">
+    Your profile completeness is {{progressPercentage}}%
+    <ion-progress-bar [value]="progressPercentage/100" color="success"
+        style="display:inline-block; width:10%; margin-left: 3%"></ion-progress-bar>
+    <ion-icon class="crossIcon" name="close" (click)="clickToHideHeader()"></ion-icon>
+</div> -->
+<ion-card>
+    <div style="width: 100%; height:100%; text-align: center; margin-top: -30px" *ngIf="showSpinner">
+        <app-spinner></app-spinner>
+    </div>
+    <ion-card-header *ngIf="showContent" [class]="'hide-sm-down'"
+        style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);">
+        <!-- <div *ngIf="!showEditProfile" style="right: 25px; position: absolute;" (click)="showEditProfile = true;">
+            <ion-button
+                style="font-size: 12px;margin-top: 12px;height: 30px;width: 124px;display: inline-block; text-transform: capitalize"
+                color="primary" [ngx-scroll-to]="'destination'">Edit
+                Profile
+            </ion-button>
+        </div>
+        <div style="right: 25px;top: 25px;position: absolute;" *ngIf="showEditProfile">
+            <ion-button fill="outline" (click)="showEditProfile = false"
+                style="background: #f0f0f7;font-size: 12px;height: 30px;width:124px;cursor: pointer;text-transform: none;"
+                color="primary">
+                Cancel
+            </ion-button>
+            <div style="display: inline-block"></div>
+            <ion-button (click)="patchEmployment()"
+                style="font-size: 12px;height: 30px;width:124px;cursor: pointer;text-transform: none;" color="primary">
+                Save
+            </ion-button>
+        </div> -->
+        <div style="right: 75px;top: 25px;position: absolute;">
+            <p
+                style="margin-top: 16px;opacity: 0.8;font-size: 12px;font-weight: bold;color: #43425d;display: inline-block;padding-right: 10px;">
+                Edit
+                Mode: {{modeValue}}</p>
+            <div style="display: inline-block;position: absolute;margin-top: 12px;">
+                <ion-toggle style="zoom:0.70;--background: #a5a4bf;" mode="ios" color="secondary"
+                    (ionChange)="mainToggle($event)">
+                </ion-toggle>
+            </div>
+        </div>
+        <div class="fullContainer">
+            <div class="left">
+                <ion-avatar class="avatar" *ngIf="url && url.details[0].PROFILE_PICTURE !== null">
+                    <img src="{{url.link + url.details[0].PROFILE_PICTURE}}">
+                </ion-avatar>
+                <ion-avatar class="avatar" *ngIf="url && url.details[0].PROFILE_PICTURE === null">
+                    <img src="assets/icon/picture.png">
+                </ion-avatar>
+            </div>
+            <div class="right" *ngIf="personalList && personalDetail">
+                <ion-card-subtitle style="color: #43425d;opacity: 0.8;font-weight: bold;">
+                    {{personalList.employeeName}}
+                </ion-card-subtitle>
+                <ion-card-subtitle class="subtitle">
+                    {{personalDetail.employeeDesignation}}</ion-card-subtitle>
+                <ion-card-subtitle class="subtitle">{{personalDetail.employeeDepartment}}
+                </ion-card-subtitle>
+                <ion-card-subtitle class="subtitle">
+                    {{personalList.employmentDetail.branch}}
+                </ion-card-subtitle>
+            </div>
+            <!-- <div class="left">
+                <ion-avatar class="avatar">
+                    <img src="assets/icon/chris.jpg">
+                </ion-avatar>
+                <!-- <ion-badge style="background-color: white;border: 1px solid#bebebe;">
+                    <!-- <i style="color: #bebebe; padding-top: 1px;" class="far fa-image"></i> --
+                    <div class="pic-icon" [inlineSVG]="'assets/icon/option/picture.svg'"></div>
+                </ion-badge> --
+            </div>
+            <div class="right" *ngIf="personalList">
+                <ion-card-title>{{personalList.employeeName}}</ion-card-title>
+                <div style="display:inline-block; padding-top: 10px;">
+                    <ion-card-subtitle class="subtitle">
+                        {{personalList.employeeDesignation}}</ion-card-subtitle>
+                    <i class="fas fa-circle"></i>
+                    <ion-card-subtitle class="subtitle">{{personalList.employmentDetail.department}}
+                    </ion-card-subtitle>
+                </div>
+                <div style="padding-top: 10px;">
+                    <!-- <i class="fas fa-map-marker-alt"></i> --
+                    <div class="marker-icon" [inlineSVG]="'assets/icon/user_profile/pin.svg'"></div>
+                    <ion-card-subtitle class="subtitle" style="padding-left:8px">
+                        {{personalList.employmentDetail.workLocation}}
+                    </ion-card-subtitle>
+                </div>
+            </div> -->
+        </div>
+    </ion-card-header>
+    <ion-card-header *ngIf="showContent" [class]="'hide-sm-up'"
+        style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04); flex-flow: column-reverse;">
+        <div class="fullContainer" style="flex-flow: inherit;">
+            <div class="left">
+                <ion-avatar class="avatar" *ngIf="url && url.details[0].PROFILE_PICTURE !== null">
+                    <img src="{{url.link + url.details[0].PROFILE_PICTURE}}">
+                </ion-avatar>
+                <ion-avatar class="avatar" *ngIf="url && url.details[0].PROFILE_PICTURE === null">
+                    <img src="assets/icon/picture.png">
+                </ion-avatar>
+            </div>
+            <div class="right" *ngIf="personalList && personalDetail">
+                <ion-card-subtitle style="color: #43425d;opacity: 0.8;font-weight: bold;">
+                    {{personalList.employeeName}}
+                </ion-card-subtitle>
+                <ion-card-subtitle class="subtitle">
+                    {{personalDetail.employeeDesignation}}</ion-card-subtitle>
+                <ion-card-subtitle class="subtitle">{{personalDetail.employeeDepartment}}
+                </ion-card-subtitle>
+                <ion-card-subtitle class="subtitle">
+                    {{personalList.employmentDetail.branch}}
+                </ion-card-subtitle>
+            </div>
+        </div>
+        <div style="margin-left: 150px;margin-right: 33px;">
+            <p
+                style="margin-top: 16px;opacity: 0.8;font-size: 12px;font-weight: bold;color: #43425d;display: inline-block;padding-right: 10px;">
+                Edit
+                Mode: {{modeValue}}</p>
+            <div style="display: inline-block;position: absolute;margin-top: 12px;">
+                <ion-toggle style="zoom:0.70;--background: #a5a4bf;" mode="ios" color="secondary"
+                    (ionChange)="mainToggle($event)">
+                </ion-toggle>
+            </div>
+        </div>
+        <!-- <div *ngIf="!showEditProfile" style="right: 25px;  position: static; display: flex; justify-content: flex-end;" (click)="showEditProfile = true;">
+            <ion-button
+                style="font-size: 12px;margin-top: 12px;height: 30px;width: 124px;display: inline-block; text-transform: capitalize; position: static; align-self: flex-end;"
+                color="primary" [ngx-scroll-to]="'destination'">Edit
+                Profile
+            </ion-button>
+        </div>
+        <div style="right: 25px;top: 25px;position: static; align-self: flex-end; margin-top: 7px;display: flex; justify-content: flex-end;" *ngIf="showEditProfile">
+            <ion-button fill="outline" (click)="showEditProfile = false"
+                style="background: #f0f0f7;font-size: 12px;height: 30px;width:124px;cursor: pointer;text-transform: none;"
+                color="primary">
+                Cancel
+            </ion-button>
+            <div style="display: inline-block"></div>
+            <ion-button (click)="patchEmployment()"
+                style="font-size: 12px;height: 30px;width:124px;cursor: pointer;text-transform: none;" color="primary">
+                Save
+            </ion-button>
+        </div> -->
+    </ion-card-header>
+    <div class="cardContent" *ngIf="personalList && showContent">
+        <ion-card-content>
+            <div
+                style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);background-color: #ffffff;padding: 10px;padding-bottom: 20px;margin-bottom: 20px;">
+                <div
+                    style="font-size: 13px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
+                    GENERAL</div>
+                <ion-grid [class]="'hide-md-down'">
+                    <ion-row class="detailsRow">
+                        <ion-col>
+                            <ion-label>Employee Number</ion-label>
+                            <p>{{personalList.employmentDetail.employeeId}}</p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Designation</ion-label>
+                            <p>{{personalList.employmentDetail.designation}}</p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label style="display: block;">Reporting To</ion-label>
+                            <ng-container *ngIf="reportingUrl">
+                                <ng-container *ngFor="let list of reportingUrl.details; let j= index">
+                                    <ng-container *ngIf="list.FULLNAME == personalList.employmentDetail.reportingTo">
+                                        <ion-avatar
+                                            style="width: 24px; height: 24px; display: inline-block; margin-top: 3px"
+                                            *ngIf="list.PROFILE_PICTURE !== null">
+                                            <img src="{{reportingUrl.link + list.PROFILE_PICTURE}}">
+                                        </ion-avatar>
+                                        <ion-avatar
+                                            style="width: 24px; height: 24px; display: inline-block; margin-top: 3px"
+                                            *ngIf="list.PROFILE_PICTURE === null">
+                                            <img src="assets/icon/picture.png">
+                                        </ion-avatar>
+                                    </ng-container>
+                                </ng-container>
+                            </ng-container>
+                            <p [style.position]="svNotFound? 'initial':'absolute'"
+                                style="display: inline;top: 31px;left: 37px;">
+                                {{personalList.employmentDetail.reportingTo}}
+                            </p>
+                        </ion-col>
+                        <ion-col></ion-col>
+                    </ion-row>
+                    <ion-row class="detailsRow">
+                        <ion-col>
+                            <ion-label>Department</ion-label>
+                            <p>{{personalList.employmentDetail.department}}</p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Branch</ion-label>
+                            <p>{{personalList.employmentDetail.branch}}</p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Date Of Join</ion-label>
+                            <p style="white-space: nowrap;">
+                                {{personalList.employmentDetail.dateOfJoin | date: 'dd-MM-yyyy'}}</p>
+                        </ion-col>
+                        <ion-col></ion-col>
+                    </ion-row>
+                    <ion-row class="detailsRow">
+                        <ion-col>
+                            <ion-label>Confirmation Date</ion-label>
+                            <p>{{personalList.employmentDetail.dateOfConfirmation | date: 'dd-MM-yyyy'}}</p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Resignation Date</ion-label>
+                            <p>{{personalList.employmentDetail.dateOfResignation | date: 'dd-MM-yyyy'}}</p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Year Of Service</ion-label>
+                            <p>{{personalList.employmentDetail.yearOfService}}</p>
+                        </ion-col>
+                        <ion-col></ion-col>
+                    </ion-row>
+                </ion-grid>
+                <ion-grid [class]="'hide-md-up'">
+                    <ion-row>
+                        <ion-col>
+                            <ion-label>Employee Number</ion-label>
+                            <p>{{personalList.employmentDetail.employeeId }}</p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Designation</ion-label>
+                            <p>{{personalList.employmentDetail.designation}}</p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <ion-label style="display: block;">Reporting To</ion-label>
+                            <ng-container *ngIf="reportingUrl">
+                                <ng-container *ngFor="let list of reportingUrl.details; let j= index">
+                                    <ng-container *ngIf="list.FULLNAME == personalList.employmentDetail.reportingTo">
+                                        <ion-avatar
+                                            style="width: 24px; height: 24px; display: inline-block; margin-top: 3px"
+                                            *ngIf="list.PROFILE_PICTURE !== null">
+                                            <img src="{{reportingUrl.link + list.PROFILE_PICTURE}}">
+                                        </ion-avatar>
+                                        <ion-avatar
+                                            style="width: 24px; height: 24px; display: inline-block; margin-top: 3px"
+                                            *ngIf="list.PROFILE_PICTURE === null">
+                                            <img src="assets/icon/picture.png">
+                                        </ion-avatar>
+                                    </ng-container>
+                                </ng-container>
+                            </ng-container>
+                            <p style="display: inline;position: absolute;top: 31px;left: 37px;">
+                                {{personalList.employmentDetail.reportingTo}}
+                            </p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Department</ion-label>
+                            <p>{{personalList.employmentDetail.department}}</p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <ion-label>Branch</ion-label>
+                            <p>{{personalList.employmentDetail.branch}}</p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Date Of Join</ion-label>
+                            <p style="white-space: nowrap;">
+                                {{personalList.employmentDetail.dateOfJoin | date: 'dd-MM-yyyy'}}</p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <ion-label>Confirmation Date</ion-label>
+                            <p>{{personalList.employmentDetail.dateOfConfirmation | date: 'dd-MM-yyyy'}}</p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Resignation Date</ion-label>
+                            <p>{{personalList.employmentDetail.dateOfResignation | date: 'dd-MM-yyyy'}}</p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <ion-label>Year Of Service</ion-label>
+                            <p>{{personalList.employmentDetail.yearOfService}}</p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+
+                    </ion-row>
+                </ion-grid>
+            </div>
+
+            <!-- <ion-item class="divider"></ion-item> -->
+            <div
+                style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);background-color: #ffffff;padding: 10px;padding-bottom: 20px;margin-bottom: 20px;">
+                <div
+                    style="font-size: 13px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
+                    EMPLOYMENT TYPE</div>
+                <ion-grid [class]="'hide-md-down'">
+                    <ion-row class="detailsRow">
+                        <ion-col>
+                            <ion-label>Employment Type</ion-label>
+                            <p>{{personalList.employmentDetail.employmentType}}</p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Status</ion-label>
+                            <!-- <p>{{status}}</p> -->
+                            <p>{{personalList.employmentDetail.employmentStatus}}</p>
+                        </ion-col>
+                        <ion-col>
+                            <!-- <ion-label>User Role</ion-label>
+                            <p>{{personalList.employmentDetail.userRole}}</p> -->
+                        </ion-col>
+                        <ion-col></ion-col>
+                    </ion-row>
+                </ion-grid>
+                <ion-grid [class]="'hide-md-up'">
+                    <ion-row>
+                        <ion-col>
+                            <ion-label>Employment Type</ion-label>
+                            <p>{{personalList.employmentDetail.employmentType}}</p>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Status</ion-label>
+                            <p>{{personalList.employmentDetail.employmentStatus}}</p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <!-- <ion-label>User Role</ion-label>
+                            <p>{{personalList.employmentDetail.userRole}}</p> -->
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
+
+            <!-- <ion-item class="divider"></ion-item> -->
+            <div
+                style="border-radius: 2px;box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);background-color: #ffffff;padding: 10px;padding-bottom: 20px;margin-bottom: 20px;">
+                <div id="destination"
+                    style="font-size: 13px;width:100%;background: #f5f6fa;padding: 10px;padding-left: 15px;color: #a3a6b4;font-weight: bold;">
+                    BANK & EPF DETAILS</div>
+                <ion-grid [class]="'hide-md-down'">
+                    <ion-row class="detailsRow">
+                        <ion-col>
+                            <ion-label>Bank Account Name</ion-label>
+                            <p *ngIf="modeValue === 'OFF'">{{personalList.employmentDetail.bankAccountName}}</p>
+                            <mat-form-field *ngIf="modeValue === 'ON'">
+                                <mat-label>Bank Account Name</mat-label>
+                                <input matInput [(ngModel)]="list.employmentDetail.bankAccountName">
+                            </mat-form-field>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Bank Account No</ion-label>
+                            <p *ngIf="modeValue === 'OFF'">{{personalList.employmentDetail.bankAccountNumber}}</p>
+                            <mat-form-field *ngIf="modeValue === 'ON'">
+                                <mat-label>Bank Account No</mat-label>
+                                <input matInput [(ngModel)]="list.employmentDetail.bankAccountNumber">
+                            </mat-form-field>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>EPF No</ion-label>
+                            <p *ngIf="modeValue === 'OFF'">{{personalList.employmentDetail.epfNumber}}</p>
+                            <mat-form-field *ngIf="modeValue === 'ON'">
+                                <mat-label>EPF No</mat-label>
+                                <input matInput [(ngModel)]="list.employmentDetail.epfNumber">
+                            </mat-form-field>
+                        </ion-col>
+                        <ion-col></ion-col>
+                    </ion-row>
+                    <ion-row class="detailsRow">
+                        <ion-col>
+                            <ion-label>Income Tax No</ion-label>
+                            <p *ngIf="modeValue === 'OFF'">{{personalList.employmentDetail.incomeTaxNumber}}</p>
+                            <mat-form-field *ngIf="modeValue === 'ON'">
+                                <mat-label>Income Tax No</mat-label>
+                                <input matInput [(ngModel)]="list.employmentDetail.incomeTaxNumber">
+                            </mat-form-field>
+                        </ion-col>
+                        <ion-col>
+                        </ion-col>
+                        <ion-col>
+                        </ion-col>
+                        <ion-col></ion-col>
+                    </ion-row>
+                </ion-grid>
+                <ion-grid [class]="'hide-md-up'">
+                    <ion-row>
+                        <ion-col>
+                            <ion-label>Bank Account Name</ion-label>
+                            <p *ngIf="modeValue === 'OFF'">{{personalList.employmentDetail.bankAccountName}}</p>
+                            <mat-form-field *ngIf="modeValue === 'ON'">
+                                <input matInput [(ngModel)]="list.employmentDetail.bankAccountName">
+                            </mat-form-field>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Bank Account No</ion-label>
+                            <p *ngIf="modeValue === 'OFF'">{{personalList.employmentDetail.bankAccountNumber}}</p>
+                            <mat-form-field *ngIf="modeValue === 'ON'">
+                                <input matInput [(ngModel)]="list.employmentDetail.bankAccountNumber">
+                            </mat-form-field>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <ion-label>EPF No</ion-label>
+                            <p *ngIf="modeValue === 'OFF'">{{personalList.employmentDetail.epfNumber}}</p>
+                            <mat-form-field *ngIf="modeValue === 'ON'">
+                                <input matInput [(ngModel)]="list.employmentDetail.epfNumber">
+                            </mat-form-field>
+                        </ion-col>
+                        <ion-col>
+                            <ion-label>Income Tax No</ion-label>
+                            <p *ngIf="modeValue === 'OFF'">{{personalList.employmentDetail.incomeTaxNumber}}</p>
+                            <mat-form-field *ngIf="modeValue === 'ON'">
+                                <input matInput [(ngModel)]="list.employmentDetail.incomeTaxNumber">
+                            </mat-form-field>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
+        </ion-card-content>
+    </div>
+
+</ion-card>
