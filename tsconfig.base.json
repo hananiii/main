@@ -22,6 +22,9 @@
     "paths": {
       "$admin-root/*": [
         "./src/projects/eleave-admin/*"
+      ],
+      "$user-root/*": [
+        "./src/projects/eleave-user/*"
       ]
     },
   },
