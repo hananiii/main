@@ -20,7 +20,9 @@
       "node_modules/@types"
     ],
     "paths": {
-      "$admin-user/*": ["./node_modules/@hanani/eleave-user/*"]
+      "$admin-root/*": [
+        "./src/projects/eleave-admin/*"
+      ]
     },
   },
   "angularCompilerOptions": {
@@ -34,6 +36,7 @@
   ],
   "exclude": [
     "src/test.ts",
-    "**/*.spec.ts"
+    "**/*.spec.ts",
+    "src/projects/eleave-admin/typings/*"
   ]
 }
